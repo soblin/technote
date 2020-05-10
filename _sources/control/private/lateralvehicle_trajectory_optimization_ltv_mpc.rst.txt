@@ -1,0 +1,11 @@
+=================================================================================
+Lateral Vehicle Trajectory Optimization Using Constrained Linear Time-Varing MPC
+=================================================================================
+
+本論文では車両の軌道追従において速度を時変パラメータとして, 線形化したkinematicsを用いてMPCを適用している.
+
+Date: 3/30
+
+.. include:: /_include/ref/lateralvehicle_trajectory_optimization_ltv_mpc.txt
+
+This file is private.

@@ -1,0 +1,23 @@
+.. meta::
+   :description: C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードはhttps://github.com/soblin/modern_c
+   :keywords: C言語，デザインパターン，ステートパターン，テンプレートパターン，ビジターパターン，オブザーバーパターン，chain of responsibility
+
+
+
+======================================================================
+モダンC言語プログラミング
+======================================================================
+
+.. include:: /_include/ref/modern_c_programming.txt
+
+C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードは `こちら <https://github.com/soblin/modern_c>`_
+
+.. toctree::
+   :maxdepth: 1
+
+   chapter3.rst
+   state_pattern.rst
+   template_pattern.rst
+   visitor_pattern.rst
+   observer_pattern.rst
+   chain_of_responsibility.rst

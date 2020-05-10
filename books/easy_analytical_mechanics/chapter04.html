@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="作用反作用の作用と，最初作用の作用は異なる．" name="description" />
+<meta content="最小作用の原理" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="作用反作用の作用と，最初作用の作用は異なる． ラグランジュ形式の解析力学(導入編) 4.1 作用とは何か まず初めに理解しなければならないのは，解析力学における「作用」はニュートン力学における「作用反作用の法則」の「作用」とはなんの関係もない．
+ここでいう作用とは「動力学に対するポテンシャル」，つまり軌道の汎関数である．それと同様に作用とは 経路  を定めると作用  が決まる．作用の変分が0...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="ラグランジュ形式の解析力学(発展編)" href="chapter05.html"/>
+        <link rel="prev" title="静力学" href="chapter03.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ラグランジュ形式の解析力学(導入編)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.1 作用とは何か</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>ラグランジュ形式の解析力学(導入編)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id7">ラグランジュ形式の解析力学(導入編)</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>作用反作用の作用と，最初作用の作用は異なる．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id7">ラグランジュ形式の解析力学(導入編)</a><ul>
+<li><a class="reference internal" href="#id3" id="id8">4.1 作用とは何か</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">4.1 作用とは何か</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず初めに理解しなければならないのは，解析力学における「作用」はニュートン力学における「作用反作用の法則」の「作用」とはなんの関係もない．
+ここでいう作用とは「動力学に対するポテンシャル」，つまり軌道の汎関数である．それと同様に作用とは</p>
+<blockquote>
+<div>経路 <span class="math">\(x(t)\)</span> を定めると作用 <span class="math">\(S[x(t)]\)</span> が決まる．作用の変分が0になる経路が，実現される経路である．</div></blockquote>
+<p>具体的にはラグランジアンを積分したものが作用と呼ばれるべき汎関数である．</p>
+<div class="section" id="id4">
+<h3>で，結局作用って何ですか?<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>作用とは「その量を変分して0という条件を求めたら運動方程式が出てくるもの」を探して見つかったもの．</p>
+</div>
+<div class="section" id="id5">
+<h3>「変分が0と要求すると運動方程式になる」のが作用の定義なら，作用をわざわざ作る意味は何ですか?<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>運動方程式が導出されるように作用を定義してきた．しかし「それならば初めから運動方程式を使えばいいじゃないか．わざわざ作用を経由するなんてめんどうではないか」と思う人がいるかもしれない．主な理由としては</p>
+<ul class="simple">
+<li>座標変換に強いこと</li>
+<li>複合系の式を拘束力を無視して立てることができる</li>
+<li>系の不変性や保存量などの情報を取り出しやすい</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>運動方程式としてのオイラーラグランジュ方程式<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ラグランジアンの不定性についてここでは説明されている．たまに気になるのだが，ラグランジアンの不定性はゲージ変換と関係はあるのだろうか?</p>
+<p>実はラグランジアンに <span class="math">\(dG(x, t) / dt\)</span> なる関数を付け加えてもオイラーラグランジュ方程式の形は変わらない．なぜならば，この項は時間積分しても定数になるからである．</p>
+<div class="math">
+\begin{align*}
+\int_{t_0}^{t_1} \dfrac{dG}{dt} = G(t_1) - G(t_0)
+\end{align*}</div><p>あるいは以下のようにも計算できる．</p>
+<div class="math">
+\begin{align*}
+\dfrac{dG}{dt} = \sum_{i}\dfrac{\partial G}{\partial x_i}\dot{x_i} + \dfrac{\partial G}{\partial t}
+\end{align*}</div><p>より</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial}{\partial \dot{x_j}}\dfrac{dG}{dt} = \dfrac{\partial G}{\partial x_j}
+\end{align*}</div></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter05.html" class="btn btn-neutral float-right" title="ラグランジュ形式の解析力学(発展編)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter03.html" class="btn btn-neutral" title="静力学" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

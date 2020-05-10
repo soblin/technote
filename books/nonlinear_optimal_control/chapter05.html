@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では3章では離散時間だった最適制御を連続時間で行う．離散時間と同様に状態方程式に対する制約として随伴変数を導入し，ラグランジアン(作用積分)の変分を停留させる条件を求めることでハミルトニアンに対する正準方程式を導く．また最適解の摂動を評価しているが，これは後の章でシューティング法やモデル予測制御(MPC)の基本となる．" name="description" />
+<meta content="連続時間最適制御，ハミルトニアン，随伴変数" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では3章では離散時間だった最適制御を連続時間で行う．離散時間と同様に状態方程式に対する制約として随伴変数を導入し，ラグランジアン(作用積分)の変分をとることでハミルトニアンに対する正準方程式を導く．また最適解の摂動を評価しているが，これは後の章でシューティング法やモデル予測制御(MPC)の基本となる． 5章 連続時間システムの最適制御 5.1 基本的な問題設定と停留条件 5.3 最適解...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="非線形最適制御入門" href="index.html"/>
+        <link rel="next" title="6章 動的計画法と最小原理" href="chapter06.html"/>
+        <link rel="prev" title="第4章 変分法" href="chapter04.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">非線形最適制御入門</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">第3章 離散時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">第4章 変分法</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5章 連続時間システムの最適制御</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">5.1 基本的な問題設定と停留条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">5.3 最適解の摂動</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter06.html">6章 動的計画法と最小原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter07.html">7章 最適制御問題の解法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">非線形最適制御入門</a> &raquo;</li>
+        
+      <li>5章 連続時間システムの最適制御</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">5章 連続時間システムの最適制御</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では3章では離散時間だった最適制御を連続時間で行う．離散時間と同様に状態方程式に対する制約として随伴変数を導入し，ラグランジアン(作用積分)の変分をとることでハミルトニアンに対する正準方程式を導く．また最適解の摂動を評価しているが，これは後の章でシューティング法やモデル予測制御(MPC)の基本となる．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">5章 連続時間システムの最適制御</a><ul>
+<li><a class="reference internal" href="#id3" id="id6">5.1 基本的な問題設定と停留条件</a></li>
+<li><a class="reference internal" href="#id4" id="id7">5.3 最適解の摂動</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">5.1 基本的な問題設定と停留条件</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>制御対象である連続時間システムが状態方程式</p>
+<div class="math">
+\begin{align*}
+\dot{x}(t) = f(x(t, u(t), t)
+\end{align*}</div><p>で表されるとする．ここで <span class="math">\(x(t) \in \mathbb{R}^{n}\)</span> ，  <span class="math">\(u(t) \in \mathbb{R}^{m}\)</span> とする．初期状態は <span class="math">\(x(t_0) = x_0\)</span> ， 終端状態は <span class="math">\(x(t_f) = x_f\)</span> として与えられることもあれば制約なしの場合もある．評価関数は</p>
+<div class="math">
+\begin{align*}
+J = \phi(x(t_f)) + \int_{t_0}^{t_f}L(x(t), u(t), t) dt
+\end{align*}</div><p>である．状態方程式を制約とみなすことで，ラグランジュ乗数としての随伴変数 <span class="math">\(\lambda(t)\)</span> を導入するとラグランジアンは</p>
+<div class="math">
+\begin{align*}
+\bar{J} = \phi(x(t_f)) + \int_{t_0}^{t_f}L(x(t), u(t), t) + \lambda^{\text{T}}(f - \dot{x}) dt
+\end{align*}</div><p>ここでスカラー関数Hを</p>
+<div class="math">
+\begin{align*}
+H(x, u, \lambda, t) = L(x, u, t) + \lambda^{\text{T}}f(x, u, t)
+\end{align*}</div><p>として <span class="math">\(\bar{J}\)</span> の変分をとると以下のオイラーラグランジュ方程式を得る．</p>
+<div class="math">
+\begin{align*}
+&amp; \dot{x}(t) = \left( \dfrac{\partial H}{\partial \lambda}\right)^{\text{T}}(x, u, \lambda, t) = f(x(t), u(t), t) &amp; x(t_0) = x_0 \\
+&amp; \dot{\lambda}(t) = -\left( \dfrac{\partial H}{\partial x}\right)^{\text{T}}(x, u, \lambda, t) &amp; \lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x}\right)^{\text{T}}(x(t_f)) \\
+&amp; \dfrac{\partial H}{\partial u}(x, u, \lambda, t) = 0
+\end{align*}</div><p>ここで上の2つの式は解析力学におけるハミルトンの正準方程式と同じ形をしている．</p>
+<div class="math">
+\begin{align*}
+\dot{q} &amp;= \dfrac{\partial H}{\partial p} \\ \dot{p} &amp;= -\dfrac{\partial H}{\partial q}
+\end{align*}</div><p><span class="math">\((x, \lambda)\)</span> が一般化座標と一般化運動量 <span class="math">\((q, p)\)</span> に対応している．これを解く際は，3つ目の式をuについて解いて状態フィードバックを得る．</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">5.3 最適解の摂動</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>最適制御問題の設定がわずかに変わった時に最適解がどれくらい変化するかを調べる．例えば初期状態 <span class="math">\(x(t_0)\)</span> の微小変化によって最適制御入力がどれくらい変化するのかを評価するといった具合に．いま，初期状態 <span class="math">\(x(t_0)\)</span> に対して最適制御と最適軌道，対応する随伴変数 <span class="math">\(u(t), x(t), \lambda(t)\)</span> が得られているとする．そして初期状態が <span class="math">\(x(t_0)\)</span> だけ変化したとして，それぞれの変関数 <span class="math">\(\delta u(t), \delta x(t), \delta \lambda(t)(t_0 \leq t \leq t_f)\)</span> を求める．それらも同様にオイラーラグランジュ方程式を満たすはずであるから．</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{d}{dt}(x + \delta x) = f(x + \delta x, u + \delta u, t) \\
+&amp; \delta x(t_0) = \delta x_0 \\
+&amp; \dfrac{d}{dt}(\lambda + \delta \lambda) = -\left( \dfrac{\partial H}{\partial x}\right)(x + \delta x, u + \delta u, \lambda + \delta \lambda, t) \\
+&amp; \lambda(t_f) + \delta \lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x}\right)(x(t_f) + \delta x(t_f)) \\
+&amp; \dfrac{\partial H}{\partial u}(x + \delta x, u + \delta u, \lambda + \delta \lambda, t ) = 0
+\end{align*}</div><p>一次の項に関して以下が得られる．</p>
+<div class="math">
+\begin{align*}
+&amp; \delta \dot{x} = \dfrac{\partial f}{\partial x}\delta x + \dfrac{\partial f}{\partial u}\delta u \\
+&amp; \delta x(t_0) = \delta x_0 \\
+&amp; \delta \dot{\lambda} = -\dfrac{\partial^{2} H}{\partial x^{2}}\delta x - \dfrac{\partial^{2} H}{\partial x \partial u}\delta u - \dfrac{\partial^{2} H}{\partial x \partial \lambda}\delta \lambda \\
+&amp; \delta \lambda(t_f) = \left( \dfrac{\partial^{2} \phi}{\partial x^{2}}\right)(x(t_f))\delta x(t_f) \\
+&amp; \dfrac{\partial^{2} H}{\partial u \partial x}\delta x + \dfrac{\partial^{2} H}{\partial u^{2}}\delta u + \dfrac{\partial^{2} H}{\partial u \partial \lambda}\delta \lambda = 0
+\end{align*}</div><p>ここで <span class="math">\(\delta u\)</span> を消去すると</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix} = \begin{bmatrix} A(t) &amp; -B(T) \\ -C(t) &amp; -A^{\text{T}}(t) \end{bmatrix} \begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix}
+\end{align*}</div><p>ここで</p>
+<div class="math">
+\begin{align*}
+&amp; A(t) = \dfrac{\partial f}{\partial x} - \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x} \\
+&amp; B(t) = \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\left(\dfrac{\partial f}{\partial u} \right)^{\text{T}} \\
+&amp; C(t) = \dfrac{\partial^{2} H}{\partial x^{2}} - \dfrac{\partial^{2} H}{\partial x \partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x}
+\end{align*}</div><p>であり，予め求まっていた軌道 <span class="math">\(u(t), x(t), \lambda(t)\)</span> で計算される．ここで</p>
+<div class="math">
+\begin{align*}
+&amp; \delta \lambda(t) = S(t)\delta x(t) \\
+&amp; S(t_f) = \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))
+\end{align*}</div><p>という形を仮定して(どこかでやったような)みると</p>
+<div class="math">
+\begin{align*}
+\dot{S} + A^{\text{T}}s + SA - SBS + C = 0
+\end{align*}</div><p>なるRiccati方程式になる．よって <span class="math">\(S(t)\)</span> を後ろ向きに求めたあと，初期状態の摂動 <span class="math">\(\delta x_0\)</span> から変関数の時間発展を</p>
+<div class="math">
+\begin{align*}
+\delta \dot{x}(t) = (A(t) - B(t)S(t))\delta x(t)
+\end{align*}</div><p>から求めることができる．そして元々求まっていた最適軌道からのずれを</p>
+<div class="math">
+\begin{align*}
+\delta u(t) = -\left(\dfrac{\partial^{2} H}{\partial u}{\partial x} \right)^{-1} \left\{\dfrac{\partial^{2} H}{\partial u}{\partial x} + \left( \dfrac{\partial f}{\partial u}\right)^{\text{T}}S(t) \right\}\delta x(t)
+\end{align*}</div><p>として求められる．</p>
+<p>これを用いて，実際の制御対象の状態 <span class="math">\(x(t)\)</span> が基準となる最適軌道 <span class="math">\(\bar{x}(t)\)</span> からずれたときに「回復する」ように最適制御を修正することができる．つまり <span class="math">\(\bar{x}(t), \bar{u}(t), S(t)\)</span> と</p>
+<div class="math">
+\begin{align*}
+K(t) = -\left(\dfrac{\partial^{2} H}{\partial u \partial x} \right)^{-1} \left\{\dfrac{\partial^{2} H}{\partial u \partial x} + \left( \dfrac{\partial f}{\partial u}\right)^{\text{T}}S(t) \right\}
+\end{align*}</div><p>を求めておけば，</p>
+<div class="math">
+\begin{align*}
+u(t) = \bar{u}(t) + K(t)(x(t) - \bar{x}(t))
+\end{align*}</div><p>としてノミナルな軌道へと修正を行える．よって</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter06.html" class="btn btn-neutral float-right" title="6章 動的計画法と最小原理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter04.html" class="btn btn-neutral" title="第4章 変分法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

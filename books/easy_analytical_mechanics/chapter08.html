@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="循環座標がなくても保存量は存在することがある．系の対称性というのは循環座標の有無に限った話ではない．ネーターの定理が，それを統一的に表現する．" name="description" />
+<meta content="循環座標, 対称性, ハミルトンの主関数, ネーターの定理" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="循環座標がなくても保存量は存在することがある．系の対称性というのは循環座標の有無に限った話ではない．ネーターの定理が，それを統一的に表現する． 保存則と対称性 主関数の端点微分としての運動量 時間並進不変性とエネルギー保存則 ネーターの定理の導出 一般に与えられた経路の作用は で与えられる．始点  と終着点  を固定して経路を変分させたものの中で作用の停留値を与える経路は，オイラーラグランジ...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="ハミルトン形式の解析力学" href="chapter09.html"/>
+        <link rel="prev" title="ラグランジュ形式の解析力学(発展編)" href="chapter05.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">保存則と対称性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">主関数の端点微分としての運動量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">時間並進不変性とエネルギー保存則</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">ネーターの定理の導出</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>保存則と対称性</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id8">保存則と対称性</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>循環座標がなくても保存量は存在することがある．系の対称性というのは循環座標の有無に限った話ではない．ネーターの定理が，それを統一的に表現する．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id8">保存則と対称性</a><ul>
+<li><a class="reference internal" href="#id3" id="id9">主関数の端点微分としての運動量</a></li>
+<li><a class="reference internal" href="#id5" id="id10">時間並進不変性とエネルギー保存則</a></li>
+<li><a class="reference internal" href="#id7" id="id11">ネーターの定理の導出</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>一般に与えられた経路の作用は</p>
+<div class="math">
+\begin{align*}
+S[x(t)] = \int_{t_0}^{t_f}dt\left( \dfrac{m}{2}|\dot{x}(t)|^{2} - V(x(t)) \right)
+\end{align*}</div><p>で与えられる．始点 <span class="math">\(x_{i}\)</span> と終着点 <span class="math">\(x_{f}\)</span> を固定して経路を変分させたものの中で作用の停留値を与える経路は，オイラーラグランジュ方程式を解くことで得られる．この運動方程式を満たす経路について求めた作用(最小値)は出発点 <span class="math">\(x_{i}\)</span> と終着点 <span class="math">\(x_{f}\)</span> の関数になる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">最適制御理論におけるcost-to-go <span class="math">\(V(x, t)\)</span> と同様．最適軌道に対する最小値は初期状態の関数になっている．</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">汎関数の最小値を求めたものだから，もはや関数になっている</p>
+</div>
+<p>このようにして初期状態と終端状態の関数になった <strong>関数</strong> のことを <span class="math">\(\bar{S}(x_i, x_f)\)</span> と書きハミルトンの主関数と呼ぶ．</p>
+<p>この章の目的は， <strong>循環座標に頼らずに保存量を見つける</strong> ことである．今まではラグランジアンの循環座標( <span class="math">\(q\)</span> に関して <span class="math">\(\dot{q}\)</span> の項しか含まれていない)に対応する運動量を保存量としてきた．しかしこれは <strong>十分条件</strong> に過ぎない．この章では， <span class="math">\(q\)</span> がラグランジアンにおいて循環座標になっているか否かは仮定せず，ハミルトンの主関数を用いて保存量を特定する．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">実際，対応する循環座標を持たない保存量も存在する．</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">主関数の端点微分としての運動量</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず始めに到着点を変化させると主関数がどのように変化するかを求める．そしてそこからさらに運動量の保存則を(ラグランジアンにおける循環座標を利用することなく)発見する．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/variation_action.png"><img alt="variation_action.png" src="../../_images/variation_action.png" style="width: 50%;" /></a>
+</div>
+<p>到着点を <span class="math">\(x_{f} \to x_{f} + \epsilon\)</span> とすると，それに応じて経路自体も移動する．変化した経路 <span class="math">\(x(t) + \delta x(t)\)</span> 自体もEL方程式を満たす．それによる作用の変化 <span class="math">\(\delta \bar{S}\)</span> は</p>
+<div class="math">
+\begin{align*}
+\int_{t_i}^{t_f}dt L(x_t, \dot{x_t}) \to \int_{t_i}^{t_f}dt L(x_t + \delta x_t, \dot{x_t} + \delta \dot{x_t})
+\end{align*}</div><p>2つ目の式を展開すると</p>
+<div class="math">
+\begin{align*}
+&amp; \int_{t_i}^{t_f}dt L(x_t + \delta x_t, \dot{x_t} + \delta \dot{x_t}) \\ &amp;= \int_{t_i}^{t_f}dt \left( L(x_t, \dot{x_t}) + \delta x_t \cdot \dfrac{\partial L}{\partial x_t} + \delta \dot{x_t} \cdot \dfrac{\partial L}{\partial x_t} \right)
+\end{align*}</div><p>となるから変化量は</p>
+<div class="math">
+\begin{align*}
+\delta \bar{S}(x_f, x_i) = \int_{t_i}^{t_f}dt\left( \delta x_t \cdot \dfrac{\partial L}{\partial x_t} + \delta \dot{x_t} \cdot \dfrac{\partial L}{\partial \dot{x_t}} \right)
+\end{align*}</div><p>部分積分を行い，またEL方程式を使って項を消すと</p>
+<div class="math">
+\begin{align*}
+\delta \bar{S} = \left. \delta x_t \cdot \dfrac{\partial L}{\partial \dot{x_t}} \right|_{t_f} - \left. \delta x_t \cdot \dfrac{\partial L}{\partial \dot{x_t}} \right|_{t_i}
+\end{align*}</div><p><span class="math">\(\delta x_t\)</span> は出発点では0，到着点で <span class="math">\(\epsilon\)</span> としていたので</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial \bar{S}}{\partial x_f} = \dfrac{\partial L}{\partial \dot{x_t}} = \left. m\dot{x} \right|_{t_f}
+\end{align*}</div><p>となる．</p>
+<div class="section" id="id4">
+<h3>運動量保存則の導出<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>上の計算では変分は出発点では0であったが，出発点でも到着点でも等しい，つまり一様に座標をシフトさせたとする．ここで，作用に <span class="math">\(x \to x + \epsilon\)</span> なる変換に不変性があるとする．すると主関数の値は変化しないので</p>
+<div class="math">
+\begin{align*}
+m \left. \dot{x} \right|_{t_f} - m \left. \dot{x} \right|_{t_i} = 0
+\end{align*}</div><p>となり運動量保存則が導かれる．</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">時間並進不変性とエネルギー保存則</a><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>空間座標 <span class="math">\(x\)</span> を <span class="math">\(x + \epsilon\)</span> とずらした時の不変性から運動量保存則が出るのであれば，時間座標を <span class="math">\(t\)</span> から <span class="math">\(t + \epsilon\)</span> とずらした時に作用が不変だとしたら，何が導かれるのだろうか?すなわち,</p>
+<div class="math">
+\begin{align*}
+\int_{t_i}^{t_f}dt L(x_t, \dot{x_t}) \rightarrow \int_{t_i}^{t_f + \epsilon} dt L(x_t + \delta x_t, \dot{x} + \delta \dot{x_t})
+\end{align*}</div><p>と到着時間を少しずらしても作用が不変だった場合である．</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">到着点は固定している．そのため少し遅れてやってくる．</p>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/variation_action_time.png"><img alt="variation_action_time.png" src="../../_images/variation_action_time.png" style="width: 50%;" /></a>
+</div>
+<p>この場合も到着時間が変化することにより経路自体も変化する．図のようにEL方程式を満たすon-shellの2つの経路があるとして，その際のハミルトンの主関数の値を</p>
+<div class="math">
+\begin{align*}
+\int_{t_f}^{t_f + \epsilon}dt L(x_t + \delta x_t, \dot{x} + \delta \dot{x_t}) + \int_{t_i}^{t_f} dt L(x_t + \delta x_t, \dot{x} + \delta \dot{x_t})
+\end{align*}</div><p>のようにして2つに分ける．第一項は積分領域が微小であるから， <span class="math">\(\epsilon L(x(t_f), \dot{x}(t_f))\)</span> という値になる．第二項については</p>
+<div class="math">
+\begin{align*}
+\delta x \cdot \left. \dfrac{\partial L}{\partial \dot{x}} \right|_{t_f} - \delta x \cdot \left. \dfrac{\partial L}{\partial \dot{x}} \right|_{t_i}
+\end{align*}</div><p>となる．しかし今回は <span class="math">\(\delta x(t_i) = 0\)</span> ではあるが <span class="math">\(\delta x(t_f) = \epsilon\)</span> <strong>ではない</strong>．</p>
+<p>この場合図から， <span class="math">\((x \delta x)(t_f)\)</span> はあと <span class="math">\(\epsilon\)</span> だけ時間経過したらもともとの到着点である <span class="math">\(x(t_f)\)</span> に到着する予定である地点である．そのため,</p>
+<div class="math">
+\begin{align*}
+x(t_f) = x(t_f + \epsilon) + \delta x(t_f + \epsilon)
+\end{align*}</div><p>が成立する．これをTaylor展開して</p>
+<div class="math">
+\begin{align*}
+x(t_f) = x(t_f) + \epsilon \dot{x}(t_f) + \delta x(t_f) + \epsilon \delta \dot{x}(t_f)
+\end{align*}</div><p>となり，その最終項は2次の微小量である．ここから</p>
+<div class="math">
+\begin{align*}
+\delta x(t_f) = \epsilon \dot{x}(t_f)
+\end{align*}</div><p>が得られる．よってまとめると</p>
+<div class="math">
+\begin{align*}
+\delta \bar{S} = \epsilon \left. L \right|_{t_f} - \epsilon \dot{x} \cdot \left. \dfrac{\partial L}{\partial \dot{x}} \right|_{t_f} = -\epsilon \left. \left( \dot{x} \cdot \dfrac{\partial L}{\partial \dot{x}} - L \right)\right|_{t_f}
+\end{align*}</div><p>ラグランジアンが <span class="math">\(L = \dfrac{m}{2}|\dot{x}|^{2} - V(x)\)</span> であるとするとこの括弧の中の量はハミルトニアン <span class="math">\(H = \dfrac{m}{2}|\dot{x}|^{2} + V(x)\)</span> である．というより，そもそもハミルトニアンの定義になっている．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">「この座標の並進に関して作用が不変であるからこの量が保存する」ということを言うためには，その座標を <span class="math">\(\epsilon\)</span> だけずらした際の作用のズレ <span class="math">\(\delta \bar{S}\)</span> を計算して，そのズレにおける <span class="math">\(\epsilon\)</span> に関する一次の項の係数をゼロとすればよい，すなわち保存量とすればよい．</p>
+</div>
+<div class="section" id="id6">
+<h3>例題<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>以下のラグランジアンに対応する保存量をネーターの定理から見つけよ．</p>
+<div class="math">
+\begin{align*}
+L = \dfrac{\dot{x}}{\dot{y}} - k\dfrac{x}{y}
+\end{align*}</div><p>このラグラジアンはxとyの同次式になっている．そのため <span class="math">\(x \rightarrow \epsilon x\)</span> ， <span class="math">\(y \rightarrow \epsilon y\)</span> なる変換に対して不変であると考えられる．これに対するラグランジアンの変化を計算してみよう．</p>
+<div class="math">
+\begin{align*}
+\delta L &amp;= \dfrac{\dot{x} + \delta \dot{x}}{\dot{y} + \delta \dot{y}} - k\dfrac{x + \delta x}{y + \delta y} - \dfrac{\dot{x}}{\dot{y}} + k\dfrac{x}{y} \\
+ &amp;= (\dot{x} + \delta \dot{x})\dfrac{1}{\dot{y}}\left( 1 - \dfrac{\delta \dot{y}}{\dot{y}} \right) - k(x + \delta x)\dfrac{1}{y}\left( 1 - \dfrac{\delta y}{y} \right) - \dfrac{\dot{x}}{\dot{y}} + k\dfrac{x}{y} \\
+ &amp;= \dfrac{\dot{y}\delta \dot{x} - \dot{x}\delta \dot{y}}{\dot{y}^{2}} + \dfrac{x \delta y - y \delta x}{y^2}k \\
+\end{align*}</div><p>ここで <span class="math">\(\delta x = \epsilon x\)</span> ， <span class="math">\(\delta y = \epsilon y\)</span> を代入すると</p>
+<div class="math">
+\begin{align*}
+\delta L = 0
+\end{align*}</div><p>となる．よってネーターの定理において <span class="math">\(J = 0\)</span> である．したがって以下の</p>
+<div class="math">
+\begin{align*}
+\dfrac{L}{\partial \dot{x}}\epsilon x + \dfrac{L}{\partial \dot{y}}\epsilon y - J(=0)
+\end{align*}</div><p>の <span class="math">\(\epsilon\)</span> の一次の項</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial L}{\partial \dot{x}} x + \dfrac{\partial L}{\partial \dot{y}} y = \dfrac{x}{\dot{y}} - \dfrac{\dot{x}y}{\dot{y}^{2}}
+\end{align*}</div><p>が保存量である．</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id11">ネーターの定理の導出</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter09.html" class="btn btn-neutral float-right" title="ハミルトン形式の解析力学" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter05.html" class="btn btn-neutral" title="ラグランジュ形式の解析力学(発展編)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

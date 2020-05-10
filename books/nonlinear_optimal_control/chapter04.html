@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では変分法について数学的に導入を行っている．" name="description" />
+<meta content="変分法，オイラーラグランジュ方程式，横断性条件" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では変分法について数学的に導入を行っている． 第4章 変分法 4.1 汎関数の停留条件 4.3 第2変分 一般に「軌道」と呼ばれるような時間tや弧長変数sでparameterizeされたもの(=関数)を定量化して実数の評価値を返すものを汎関数と呼ぶ．つまり，曲線や曲面，図形のようなドメインからドメインへと返すものを評価して面積や体積を返すもの．従来の微分法では変数はスカラーやベクトル変...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="非線形最適制御入門" href="index.html"/>
+        <link rel="next" title="5章 連続時間システムの最適制御" href="chapter05.html"/>
+        <link rel="prev" title="第3章 離散時間システムの最適制御" href="chapter03.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">非線形最適制御入門</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">第3章 離散時間システムの最適制御</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">第4章 変分法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.1 汎関数の停留条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4.3 第2変分</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">5章 連続時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter06.html">6章 動的計画法と最小原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter07.html">7章 最適制御問題の解法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">非線形最適制御入門</a> &raquo;</li>
+        
+      <li>第4章 変分法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <blockquote>
+<div></div></blockquote>
+<div class="section" id="id1">
+<h1><a class="toc-backref" href="#id7">第4章 変分法</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では変分法について数学的に導入を行っている．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id7">第4章 変分法</a><ul>
+<li><a class="reference internal" href="#id3" id="id8">4.1 汎関数の停留条件</a></li>
+<li><a class="reference internal" href="#id6" id="id9">4.3 第2変分</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">4.1 汎関数の停留条件</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>一般に「軌道」と呼ばれるような時間tや弧長変数sでparameterizeされたもの(=関数)を定量化して実数の評価値を返すものを汎関数と呼ぶ．つまり，曲線や曲面，図形のようなドメインからドメインへと返すものを評価して面積や体積を返すもの．従来の微分法では変数はスカラーやベクトル変数のように有限次元であったが，汎関数の引数となる関数は非可算の無限次元の配列である．そのため微分と同じようなことを考える際には関数を微小変化させた「変関数」を考える．一般にx(ｔ)の変関数のことを <span class="math">\(\delta x(t)\)</span> とかく．この <span class="math">\(\delta x(t)\)</span> も関数と同じように時刻や弧長の関数となっている．自分は今までxに <span class="math">\(\delta\)</span> が「左から作用する」と思っていたのだが，そうではなく <span class="math">\(\delta x\)</span> で「1つの関数」である．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/variation_function.png"><img alt="/_images/variation_function" src="../../_images/variation_function.png" style="width: 50%;" /></a>
+</div>
+<p>一般に汎関数は以下のように積分で表される．</p>
+<div class="math">
+\begin{align*}
+J[x(t)] = \int_{t_0}^{t_f}L(x(t), \dot{x}(t), t) dt
+\end{align*}</div><p>変分に関してもテイラー展開を考えることができる．
+ある許容曲線 <span class="math">\(x^{*}(t)\)</span> が汎関数 <span class="math">\(J[(t)]\)</span> を停留させているとする．そこから変関数 <span class="math">\(\delta x(t)\)</span> だけ変化したとすると</p>
+<div class="math">
+\begin{align*}
+&amp; L(x^{*}(t) + \delta x(t), \dot{x}^{*}(t) + \delta \dot{x}(t), t) \\
+&amp; = L + \begin{bmatrix} \dfrac{\partial L}{\partial x} &amp; \dfrac{\partial L}{\partial \dot{x}}\end{bmatrix} \begin{bmatrix} \delta x \\ \delta \dot{x} \end{bmatrix} + \dfrac{1}{2}\begin{bmatrix} \delta x^{\text{T}} &amp; \delta \dot{x}^{\text{T}} \end{bmatrix} \begin{bmatrix} \dfrac{\partial^{2} L}{\partial x^{2}} &amp; \dfrac{\partial^{2} L}{\partial x \partial \dot{x}} \\ \dfrac{\partial^{2} L}{\partial \dot{x} \partial x} &amp; \dfrac{\partial^{2} L}{\partial \dot{x}^{2}} \end{bmatrix} \begin{bmatrix} \delta x \\ \delta \dot{x} \end{bmatrix}
+\end{align*}</div><p>よって汎関数も</p>
+<div class="math">
+\begin{align*}
+J[x^{*} + \delta x] = J[x^{*}] + \delta J[x^{*}, \delta x] + \delta^{2}J[x^{*}, \delta x]
+\end{align*}</div><p>だけ変化する．それぞれの項を1次の変分，２次の変分と呼ぶ．</p>
+<div class="section" id="id4">
+<h3>有限次元との違い<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>有限次元の場合は2次系式の部分の行列，ヘッセ行列が正定値であれば孤立局所解であることが言えた．しかし変分問題は無限次元であるため，必ずしも正定値であるだけでは不十分であることがある．より詳しく見てみよう．
+許容変分が正の定数 <span class="math">\(\alpha\)</span> を用いて <span class="math">\(\delta x = \alpha y\)</span> のようにして表されるとする．すると</p>
+<div class="math">
+\begin{align*}
+J[x^{*} + \alpha y] = J[x^{*}] + \alpha \delta J[x^{*}, y] + \alpha^{2} \delta^{2}J[x^{*}, y]
+\end{align*}</div><p><span class="math">\(x^{*}\)</span> で孤立局所解をとるとすると <span class="math">\(\delta J[x^{*}, y] = 0\)</span> であることが必要である．さらに <span class="math">\(\delta J[x^{*}, y] = 0\)</span> であるならば <span class="math">\(\alpha\)</span> を十分小さくすることで <span class="math">\(J[x^{*} + \alpha y] - J[x^{*}]\)</span> の符号は <span class="math">\(\alpha^{2} \delta^{2} J[x^{*}, y]\)</span> と等しくなるから  <span class="math">\(\delta^{2} J[x^{*}, y]  \leq 0\)</span> でなければならない．この項はヘッセ行列の2次形式を無限次元に拡張したものとしてみなせるため，固有値も無限個存在している(固有関数)．そのため <span class="math">\(\delta^{2} J[x^{*}, y]\)</span> が正定だとしてもいくらでも0にちかい固有値が存在している可能性がある．そのため2次の十分条件ではある正の定数 <span class="math">\(\gamma\)</span> を用いて <span class="math">\(\delta^{2} J[x^{*}, y] &gt; \gamma\)</span> である必要があり，有限次元における正定値性よりも強い条件が要求される．</p>
+</div>
+<div class="section" id="id5">
+<h3>オイラーの方程式<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\left( \dfrac{\partial L}{\partial \dot{x}} \right) - \dfrac{\partial L}{\partial x} = 0
+\end{align*}</div><p>終端値 <span class="math">\(x(t_f)\)</span> が自由であるならば</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial L}{\partial \dot{x}}(x(t_f), \dot{x}(t_f), t_f) = 0
+\end{align*}</div><p>も課される．これをtransversality condition(横断性条件)という．</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id9">4.3 第2変分</a><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter05.html" class="btn btn-neutral float-right" title="5章 連続時間システムの最適制御" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter03.html" class="btn btn-neutral" title="第3章 離散時間システムの最適制御" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

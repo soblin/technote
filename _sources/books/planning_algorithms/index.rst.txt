@@ -1,0 +1,18 @@
+.. meta::
+   :description: ロボットの動作計画について包括的に述べられている, S.M.Lavalle のPlanning Algorithmsの読書ノート.
+   :keywords: 動作計画, 経路計画, 最適制御, モーションプランニング
+
+
+=====================================================================
+Planning Algorithms
+=====================================================================
+
+ロボットの動作計画について包括的に述べられている, S.M.Lavalle のPlanning Algorithmsの読書ノート.
+
+.. include:: /_include/ref/planning_algorithms.txt
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   chapter04/index.rst

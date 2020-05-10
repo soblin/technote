@@ -1,0 +1,151 @@
+.. meta::
+   :description: この章では残余コスト(cost-to-go)からハミルトンヤコビベルマン方程式(HJB方程式)を導入する．また最適軌道からの「ずれ」に対する勾配がゼロになるという条件からポントリャーギンの最小原理が導かれ，随伴変数と制御入力の幾何学的な理解が得られる．
+   :keywords: 残余コスト，cost-to-go，最小原理，ハミルトンヤコビベルマン方程式，HJB方程式
+
+======================================================================
+6章 動的計画法と最小原理
+======================================================================
+この章では残余コスト(cost-to-go)からハミルトンヤコビベルマン方程式を導入する．また最適軌道からの「ずれ」に対する勾配がゼロになるという条件からポントリャーギンの最小原理が導かれ，随伴変数と制御入力の幾何学的な理解が得られる．本書の中で最も深遠な章であるといえるかもしれない．
+
+
+.. contents:: 目次
+   :depth: 2
+
+
+6.1 ハミルトン-ヤコビ-ベルマン方程式
+======================================================================
+
+例によって終端時刻 :math:`t_f` を固定した時に任意の :math:`t \in [t_0, t_f]` について :math:`x(t)` から始めた時のcost-to-goを :math:`V(x, t)` とする．つまり，
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	V(x, t) = \min_{u[t, t_f]}\left( \phi(x(t_f)) + \int_{t_0}^{t_f} L(x(\tau), u(\tau), \tau) d\tau \right)
+	\end{align*}
+
+すると時刻 :math:`t` から :math:`dt` だけ進んだ時刻において評価区間 :math:`t \in [t+dt, t_f]` における最適制御のcost-to-goは :math:`V(x + f(x, u, t)dt, t+dt)` で表されるから
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   V(x, t) &= \min_{u[t, t+dt]}\left( \int_{t}^{t_f}L(x(\tau), u(\tau), \tau) d\tau + V(x + f(x, u, t) dt, t + dt)\right) \\
+   &= \min_{u}(L(x, u, t) dt + V(x + f(x, u , t)dt, t + dt))
+   \end{align*}
+
+ここで :math:`V(X + fdt, t + dt)` をテイラー展開すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	V(x + f(x, u ,t)dt, t + dt) \sim V(x, t ) + \dfrac{\partial V}{\partial x}(x, t)f(x, u, t)dt + \dfrac{\partial V}{\partial t}(x, t)dt
+	\end{align*}
+
+となり，代入すると
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\min_{u}\left( L(x, u, t) + \dfrac{\partial V}{\partial x}(x, t)f(x, u, t) + \dfrac{\partial V}{\partial t}(x, t) \right)= 0
+	\end{align*}
+
+ここでハミルトン関数 :math:`H = L + \lambda^{\text{T}}f` を用いると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	L(x, u ,t) + \dfrac{\partial V}{\partial x}(x, t)f(x, u, t) = H\left(x, u, \left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}(x, t), t \right)
+	\end{align*}
+
+のように :math:`\lambda` に値関数の偏微分を代入した形として表すことができる．従って以下のようなハミルトン-ヤコビ-ベルマン方程式が得られる．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   -\dfrac{\partial V}{\partial t}(x, t) = \min_{u}H \left( x, u, \left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}(x, t), t \right)
+   \end{align*}
+
+
+6.2. 最小原理
+======================================================================
+変分法により導かれたオイラーラグランジュ方程式が常微分方程式の2点境界値問題であるのに対し,動的計画法から導かれるHBJ方程式は偏微分方程式である．両者の関係は一見すると分からないが，両者とも同じ最適制御問題から導かれている．ここでは動的計画法から最小原理と呼ばれるものを経由してオイラーラグランジュ方程式が導かれることをみる．ハミルトン関数における随伴変数 :math:`\lambda` が値関数の偏微分に置き換わっていることは大きなヒントである．
+
+例によって最適軌道と最適入力 :math:`\bar{x}(t), \bar{u}(t)` の存在を仮定する．すると入力 :math:`\bar{u}(t)` は :math:`\bar{x}(t)` 以外の一般の状態に対しては最適とは限らないから，ベルマン方程式の「ずれ」の関数は以下を満たす．
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\eta(x, t) := \dfrac{\partial V}{\partial t} + H \left( x, \bar{u}, \left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}, t \right) \geq 0
+	\end{align*}
+
+
+そしてこの左辺は :math:`x(t) = \bar{x}(t)` のとき最小値0を取るはずである．そのため，
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial \eta}{\partial x}(\bar{x}(t), t) = 0
+	\end{align*}
+
+が成立する．計算すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial^{2} H}{\partial t \partial x} + \dfrac{\partial H}{\partial x} + \dfrac{\partial H}{\partial \lambda}\dfrac{\partial^{2} V}{\partial x^{2}} = \dfrac{\partial^{2} H}{\partial t \partial x} + \dfrac{\partial H}{\partial x} + f^{\text{T}}\dfrac{\partial^{2} V}{\partial x^{2}} = 0
+	\end{align*}
+
+となる．ところで
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{d}{dt}\left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}= \dfrac{\partial^{2} V}{\partial x^{2}}f + \dfrac{\partial}{\partial t}\left(\dfrac{\partial V}{\partial x} \right)^{\text{T}} = \left( f^{\text{T}}\dfrac{\partial^{2} V}{\partial x^{2}} + \dfrac{\partial^{2} V}{\partial t \partial x}\right)^{\text{T}}
+	\end{align*}
+
+であるから，先ほどの式は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{d}{dt}\left( \dfrac{\partial V}{\partial x}\right)(\bar{x}(t), t) = -\left(\dfrac{\partial H}{\partial x} \right)\left(\bar{x}, \bar{u}, \dfrac{\partial V}{\partial x}, t \right)
+	\end{align*}
+
+となり，終端条件として
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial V}{\partial x} (\bar{x}(t_f), t_f) = \dfrac{\partial \phi}{\partial x}(\bar{x}(t_f))
+	\end{align*}
+
+を満たすから，これはオイラーラグランジュ方程式における随伴変数に他ならない．また
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	H(\bar{x}, \bar{u}, \lambda, t) = \min_{u}H(\bar{x}, u, \lambda, t)
+	\end{align*}
+
+より最適軌道沿いのハミルトン関数のuによる偏微分は0になる．
+
+
+
+
+
+    

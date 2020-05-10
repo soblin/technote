@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="先に数学的な基礎から述べておく．個人的に「なるほどな」と思ったのはルジャンドル変換の項である．" name="description" />
+<meta content="ルジャンドル変換，曲線座標" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="先に数学的な基礎から述べておく．個人的に「なるほどな」と思ったのはルジャンドル変換の項である． 付録 ルジャンドル変換 座標系に関して ルジャンドル変換は，関数の引数を  から  に変更する際に，関数から得られる「情報」を保存するために，関数  を変換する方法．この「情報」とは「その関数の切片に関する情報」である．">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="簡単な変分問題" href="chapter02.html"/>
+        <link rel="prev" title="よく分かる解析力学" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">付録</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">ルジャンドル変換</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">座標系に関して</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>付録</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id8">付録</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>先に数学的な基礎から述べておく．個人的に「なるほどな」と思ったのはルジャンドル変換の項である．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id8">付録</a><ul>
+<li><a class="reference internal" href="#id3" id="id9">ルジャンドル変換</a></li>
+<li><a class="reference internal" href="#id6" id="id10">座標系に関して</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">ルジャンドル変換</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ルジャンドル変換は，関数の引数を <span class="math">\(x\)</span> から <span class="math">\(d/dx\)</span> に変更する際に，関数から得られる「情報」を保存するために，関数 <span class="math">\(f(x)\)</span> を変換する方法．この「情報」とは「その関数の切片に関する情報」である．</p>
+<div class="section" id="id4">
+<h3>もしルジャンドル変換をしなかったら?<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>aを定数として以下のような関数</p>
+<div class="math">
+\begin{align*}
+f(x) = (x - a)^{2}
+\end{align*}</div><p>を考えよう．そこでxによる微分</p>
+<div class="math">
+\begin{align*}
+p_x = \dfrac{\partial f}{\partial x} = 2(x - a)
+\end{align*}</div><p>を独立変数に新たにとろう．そしてfを以下のように書き換える．</p>
+<div class="math">
+\begin{align*}
+\tilde{f} = \dfrac{p_{x}^{2}}{4}
+\end{align*}</div><p>ここで，関数fは量としては変わっていないものの関数の形(写像としては)が変わっているので，本来は <span class="math">\(\tilde{f}\)</span> と書くべきではある．</p>
+<p>しかし，変換後の <span class="math">\(\tilde{f}\)</span> にはaに関する情報が入っていない．そのため， <span class="math">\(f(x) = (x - a)^{2}\)</span> でも <span class="math">\(f(x) = (x - b)^{2}\)</span> でも写像として <span class="math">\(\tilde{f}\)</span> はそれに応じて変化しない(から問題である)．</p>
+</div>
+<div class="section" id="id5">
+<h3>ルジャンドル変換<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もし関数の引数を元々の引数の微分に置き換えてもこのような「情報」を保存するためには以下のように変換すれば良い．</p>
+<div class="math">
+\begin{align*}
+\tilde{f}(p_x) = f(x) - xp_x
+\end{align*}</div><p>ただし，xを <span class="math">\(p_x\)</span> について解いて代入する．
+つまり，元々の関数から，(微分に用いる変数) x (fをそれで微分したもの)を引くわけである．</p>
+<p>また逆変換は上の式を <span class="math">\(p_x\)</span> で偏微分して</p>
+<div class="math">
+\begin{align*}
+x = -\dfrac{\partial \tilde{f}}{\partial p_x}
+\end{align*}</div><p>とした式である．</p>
+<p>上の例で計算すると．</p>
+<div class="math">
+\begin{align*}
+\tilde{f}(p_x) = (x - a)^{2} - xp_x = \dfrac{p_{x}^{2}}{4} - \left( \dfrac{p_x}{2} + a \right)p_x = -\dfrac{p_{x}^{2}}{4} - ap_x
+\end{align*}</div><p>一方ここから逆変換すると</p>
+<div class="math">
+\begin{align*}
+x = -\dfrac{\partial \tilde{f}}{\partial p_x} = \dfrac{p_x}{2} + a
+\end{align*}</div><p>より</p>
+<div class="math">
+\begin{align*}
+f(x) = -(x - a)^{2} - 2a(x - a) + 2x(x - a) =  (x - a)^{2}
+\end{align*}</div><p>より元に戻る．</p>
+<p>ルジャンドル変換で独立変数の関係をうまく行える理由を全微分を求めて示しておこう．<span class="math">\(f(x, y)\)</span> としてみなすと</p>
+<div class="math">
+\begin{align*}
+df = \dfrac{\partial f}{\partial x}dx + \dfrac{\partial f}{\partial y}dy
+\end{align*}</div><p>ただしそれぞれの偏微分ではｙとxが一定になっている．一方 <span class="math">\(\tilde{f} = f - xp_x\)</span> については</p>
+<div class="math">
+\begin{align*}
+d\tilde{f} = \dfrac{\partial f}{\partial x}dx + \dfrac{\partial f}{\partial y}dy - (p_x dx + x dp_x) = \dfrac{\partial f}{\partial y}dy - x dp_x
+\end{align*}</div><p>となる．よって関数の変換の前後においてxを一定としたときのfのy微分と， <span class="math">\(p_x\)</span> を一定として <span class="math">\(\tilde{f}\)</span> をy微分した時の値が等しくなる．</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial f}{\partial y}\right|_x = \left. \dfrac{\partial \tilde{f}}{\partial y} \right|_{p_x}
+\end{align*}</div><p>ある意味，変換の前後で <span class="math">\(x\)</span> と <span class="math">\(p_x\)</span> の立場が対等になっていると言える．</p>
+<p>解析力学ではラグランジアン <span class="math">\(L\)</span> を <span class="math">\(\dot{q}\)</span> で偏微分した値として定義される一般化運動量</p>
+<div class="math">
+\begin{align*}
+p = \dfrac{\partial L}{\partial \dot{q}}
+\end{align*}</div><p>をラグランジアンの引数 <span class="math">\(\dot{q}\)</span> と変換するために，次のようにルジャンドル変換を行う．</p>
+<div class="math">
+\begin{align*}
+H(q, p, t) = \dot{q}p - L(q, \dot{q}, t)
+\end{align*}</div></div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id10">座標系に関して</a><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まだ曲線座標で表される点がユークリッド空間に存在していることを仮定しているが，微分幾何学っぽくなってきた．曲線座標上の座標値はユークリッド空間での <span class="math">\((x_1, x_2, \cdots x_D)\)</span> には対応していない．ただし，原点は共有しているものとする．</p>
+<div class="section" id="id7">
+<h3>曲線座標とベクトル<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>曲線座標を用いてD次元ユークリッド座標における点が <span class="math">\((X^1, X^2, \cdots, X^D)\)</span> 表されているとする．誤解を招かないよう一応書いておくと，これはx, y, z ,,,座標の値を順番に表示したものではない．実際は</p>
+<div class="math">
+\begin{align*}
+x &amp;= r \cos \theta \\
+y &amp;= r \sin \theta
+   \end{align*}</div><p>のように曲線座標からユークリッド空間へとマッピングされている．曲線座標における基底ベクトルを次のように定義する．</p>
+<p><span class="math">\((X^1, X^2, \cdots, X^D)\)</span> のうち <span class="math">\(X^i\)</span> だけを <span class="math">\(dX^i\)</span> だけ変化させることによる <strong>ユークリッド空間上での移動ベクトル</strong> を <span class="math">\(\vec{E}_i\)</span> と定義する．</p>
+<p>例えば2次元の極座標では，下の図のようになる．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/2dpolar.png"><img alt="2dpolar.png" src="../../_images/2dpolar.png" style="width: 50%;" /></a>
+</div>
+<p>変位ベクトル <span class="math">\(d\vec{x}\)</span> は以下のように書ける．</p>
+<div class="math">
+\begin{align*}
+d\vec{x} = \begin{cases} dx\vec{e_x} + dy\vec{e_y} \\ dr\vec{e_r} + rd\theta \vec{e_{\theta}} \end{cases}
+\end{align*}</div><p>よって微小変位を取り出したものが</p>
+<div class="math">
+\begin{align*}
+\vec{E_r} &amp;= \vec{e_r} \\
+\vec{E_{\theta}} &amp;= r \vec{e_{\theta}}
+\end{align*}</div><p>となる．微小変位は座標系によらない量であるため，これによりそれを以下のように表現できる．</p>
+<div class="math">
+\begin{align*}
+d\vec{x} = dx\vec{E_x} + dy\vec{E_y} = dr\vec{E_r} + d\theta\vec{E_{\theta}}
+\end{align*}</div><p>つまり，座標系による違いは各 <span class="math">\(\vec{E}\)</span> に吸収されている．</p>
+<p>もし座標変換により</p>
+<div class="math">
+\begin{align*}
+dX^i = \sum_{j}\dfrac{\partial X^i}{\partial Y^j}dY^j
+\end{align*}</div><p>と変換されたとき，基底の方はその逆行列で</p>
+<div class="math">
+\begin{align*}
+\vec{E_{X^i}} = \sum_{k}\dfrac{\partial Y^k}{\partial X^i}\vec{E_{Y^k}}
+\end{align*}</div><p>と変換される．上付きと下付きのイメージ図を下に示す．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/upper_lower.png"><img alt="upper_lower.png" src="../../_images/upper_lower.png" style="width: 50%;" /></a>
+</div>
+<p>ここで <span class="math">\(\vec{E_{X^i}}\)</span> に双対なベクトルとして <span class="math">\(\vec{E^{X^i}}\)</span> を</p>
+<div class="math">
+\begin{align*}
+\vec{E_{X^i}} \cdot \vec{E_{X^i}} = \delta_{ij}
+\end{align*}</div><p>を満たすものとして定義する．</p>
+<p>すると</p>
+<div class="math">
+\begin{align*}
+\nabla =  \vec{E^{X^i}} \dfrac{\partial}{\partial X^i}
+\end{align*}</div><p>として表される．たとえ以下のように3次元であっても．</p>
+<div class="math">
+\begin{align*}
+\nabla = \begin{cases} \vec{E^{x}} \dfrac{\partial}{\partial x} + \vec{E^{y}} \dfrac{\partial}{\partial y} + \vec{E^{z}} \dfrac{\partial}{\partial z} \\ \vec{E^{r}} \dfrac{\partial}{\partial r} + \vec{E^{\theta}} \dfrac{\partial}{\partial \theta} + \vec{E^{\phi}} \dfrac{\partial}{\partial \phi}\end{cases}
+\end{align*}</div></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter02.html" class="btn btn-neutral float-right" title="簡単な変分問題" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="よく分かる解析力学" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

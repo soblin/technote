@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="正準変換について．" name="description" />
+<meta content="正準変換, 母関数" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="正準変換 正準方程式の変換 位相空間の面積を変えない変換の例 ポアソン括弧の変換 ポアソン括弧を使って無限小変換を記述する 変分原理と正準変換 正準変換による作用の変化と母関数 母関数の例 正準変換の変数のとり方 まとめ 母関数による正準変換の例 時間に依存する変換 作用の変化 多変数の正準変換 多変数の場合の母関数 正準変換は，変換後も正準方程式が成立するようなものである．オイラーラグラン...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="ハミルトンヤコビ方程式" href="chapter11.html"/>
+        <link rel="prev" title="ハミルトン形式の解析力学" href="chapter09.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">正準変換</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">正準方程式の変換</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">変分原理と正準変換</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">時間に依存する変換</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">多変数の正準変換</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>正準変換</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id22">正準変換</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id22">正準変換</a><ul>
+<li><a class="reference internal" href="#id3" id="id23">正準方程式の変換</a><ul>
+<li><a class="reference internal" href="#id4" id="id24">位相空間の面積を変えない変換の例</a></li>
+<li><a class="reference internal" href="#id5" id="id25">ポアソン括弧の変換</a></li>
+<li><a class="reference internal" href="#labelinfinitestimal" id="id26">ポアソン括弧を使って無限小変換を記述する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id27">変分原理と正準変換</a><ul>
+<li><a class="reference internal" href="#id8" id="id28">正準変換による作用の変化と母関数</a></li>
+<li><a class="reference internal" href="#id9" id="id29">母関数の例</a></li>
+<li><a class="reference internal" href="#id10" id="id30">正準変換の変数のとり方</a></li>
+<li><a class="reference internal" href="#id15" id="id31">まとめ</a></li>
+<li><a class="reference internal" href="#id16" id="id32">母関数による正準変換の例</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17" id="id33">時間に依存する変換</a><ul>
+<li><a class="reference internal" href="#id18" id="id34">作用の変化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id19" id="id35">多変数の正準変換</a><ul>
+<li><a class="reference internal" href="#id20" id="id36">多変数の場合の母関数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id23">正準方程式の変換</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>正準変換は，変換後も正準方程式が成立するようなものである．オイラーラグランジュ方程式は任意の点変換 <span class="math">\(Q(q)\)</span> で方程式は共変的であったが，ハミルトン形式の点変換 <span class="math">\(Q(q, p), P(q, p)\)</span> は一般には共変的ではない．</p>
+<p>詳しい計算はここでは省く．結論から書くと2次元の場合</p>
+<div class="math">
+\begin{align*}
+\{ Q, P \} = \dfrac{\partial Q}{\partial q}\dfrac{\partial P}{\partial p} - \dfrac{\partial Q}{\partial p}\dfrac{\partial P}{\partial q} = 1
+\end{align*}</div><p>のように変数変換のヤコビアンが1になるならば正準変換である．多変数の場合は後で述べる．これは位相空間の積分要素が以下のように保存されるということである．</p>
+<div class="math">
+\begin{align*}
+dpdq = dPdQ
+\end{align*}</div><div class="section" id="id4">
+<h3><a class="toc-backref" href="#id24">位相空間の面積を変えない変換の例</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここも2次元の場合について述べる．</p>
+<ol class="arabic simple">
+<li><span class="math">\(q\)</span> を <span class="math">\(\alpha\)</span> 倍したときに <span class="math">\(p\)</span> は <span class="math">\(1 / \alpha\)</span> 倍される．<span class="math">\(Q = \alpha q, P = p / \alpha\)</span></li>
+<li><span class="math">\(p\)</span> を <span class="math">\(p + bq\)</span> のように平行四辺形の高さを変えないように変をずらす． <span class="math">\(Q = q, P = p + bq\)</span></li>
+<li><span class="math">\(q, p\)</span> を <span class="math">\(\theta\)</span> だけ回転させる．</li>
+</ol>
+<p>一つ一つについて計算してみる．</p>
+<ul class="simple">
+<li>1つ目</li>
+</ul>
+<div class="math">
+\begin{align*}
+\dfrac{\partial Q}{\partial q}\dfrac{\partial P}{\partial p} - \dfrac{\partial Q}{\partial p}\dfrac{\partial P}{\partial q} = \alpha \cdot \dfrac{1}{\alpha} - 0 \cdot 0 = 1
+\end{align*}</div><ul class="simple">
+<li>2つ目</li>
+</ul>
+<div class="math">
+\begin{align*}
+\dfrac{\partial Q}{\partial q}\dfrac{\partial P}{\partial p} - \dfrac{\partial Q}{\partial p}\dfrac{\partial P}{\partial q} = 1 \cdot 1 - 0 \cdot b = 1
+\end{align*}</div><ul class="simple">
+<li>3つ目</li>
+</ul>
+<div class="math">
+\begin{align*}
+\dfrac{\partial Q}{\partial q}\dfrac{\partial P}{\partial p} - \dfrac{\partial Q}{\partial p}\dfrac{\partial P}{\partial q} = \cos \theta \cdot \cos \theta - \sin \theta \cdot (-\sin \theta) = 1
+\end{align*}</div></div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id25">ポアソン括弧の変換</a><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>新しい正準座標でのポアソン括弧は古い正準座標とどのような関係があるのだろうか．</p>
+<div class="math">
+\begin{align*}
+\{ A, B \}_{Q, P} = \dfrac{\partial A}{\partial Q}\dfrac{\partial B}{\partial P} - \dfrac{\partial B}{\partial Q}\dfrac{\partial A}{\partial P}
+\end{align*}</div><div class="math">
+\begin{align*}
+\{ A, B \}_{q, p} = \dfrac{\partial A}{\partial q}\dfrac{\partial B}{\partial p} - \dfrac{\partial B}{\partial q}\dfrac{\partial A}{\partial p}
+\end{align*}</div><p>実はこれらは</p>
+<div class="math">
+\begin{align*}
+\{ A, B \}_{Q, P} \{ Q, P \}_{q, p} = \{ A, B \}_{q, p}
+\end{align*}</div><p>を満たす．するとこれを用いて新しい正準方程式が形を変えないことを簡単に示せる．</p>
+<p>一般の <span class="math">\((q, p)\)</span> の関数 <span class="math">\(A(q, p)\)</span> について</p>
+<div class="math">
+\begin{align*}
+\dfrac{d A(q, p)}{dt} = \{ A(q, p), H \}_{(q, p)}
+\end{align*}</div><p>が成立することは分かっている．そして <span class="math">\(J = 1\)</span> であれば <span class="math">\(\{ A, H \}_{(q, p)} = \{ A, H \}_{(Q, P)}\)</span> が成立するから</p>
+<div class="math">
+\begin{align*}
+\dfrac{d A(q(Q, P), p(Q, P))}{dt} = \{ A(q(Q, P), p(Q, P)), H \}_{(Q, P)}
+\end{align*}</div><p>よって関数として <span class="math">\(Q, P\)</span> を代入すれば</p>
+<div class="math">
+\begin{align*}
+\dfrac{dP}{dt} = \{ P, H \}_{Q, P}, \quad \dfrac{dQ}{dt} = \{ Q, H \}_{Q, P}
+\end{align*}</div><p>が得られる．今考えている1次元問題では，基本ポアソン括弧で意味があるのは <span class="math">\(\{ Q, Q \}\)</span> ， <span class="math">\(\{ Q, P \}\)</span> ， <span class="math">\(\{ P, P \}\)</span> のうち <span class="math">\(\{ Q, P \}\)</span> だけである．他の2つはポアソン括弧の性質から自明である．</p>
+</div>
+<div class="section" id="labelinfinitestimal">
+<span id="id6"></span><h3><a class="toc-backref" href="#id26">ポアソン括弧を使って無限小変換を記述する</a><a class="headerlink" href="#labelinfinitestimal" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>正準変換は位相空間での面積を変えない座標変換であった．一方，リウヴィルの定理が主張しているのも，位相空間のハミルトニアンフローに沿った時間発展も面積要素を保存するということだった．そこで少し思考の飛躍をして，「正準変換も位相空間における微分と似たものであるポアソン括弧を使って表現できないだろうか?」と考える．つまり，</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">微小時間による時間発展:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="math">
+\begin{align*}
+p(t + \delta t) &amp;= p(t) + \delta t \cdot \{p, H\} \\
+q(t + \delta t) &amp;= q(t) + \delta t \cdot \{q, H\}
+\end{align*}</div><p>の真似をして， <span class="math">\(\epsilon\)</span> を微小なパラメータとして</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">微小パラメータによる位相空間座標の変換:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="math">
+\begin{align*}
+P = p + \epsilon\{p, G\}, \quad Q = q + \epsilon \{q, G\}
+\end{align*}</div><p>とすればこれは自動的に面積を変化させない変換になっている(リウヴィルの定理でハミルトニアンだったところをGにするだけ)．この関数 <span class="math">\(G\)</span> のことを生成子と呼ぶ．実際この変換のポアソン括弧を計算してみると</p>
+<div class="math">
+\begin{align*}
+\{Q, P\} &amp;= \{q + \epsilon\{q, G\}, p + \epsilon\{p, G\} \} \\ &amp;= \{q, p \} + \epsilon \{q, \{p, G\} \} + \epsilon\{\{q, G\}, p\} + O(\epsilon^2)
+\end{align*}</div><p>となるが，ヤコビ恒等式より</p>
+<div class="math">
+\begin{align*}
+ \{q, \{p, G\} \} + \{\{q, G\}, p\} = -\{G, \{q, p\}\} = -\{G, 1\} = 0
+\end{align*}</div><p>が得られるから(定数とのポアソン括弧は0)，確かに</p>
+<div class="math">
+\begin{align*}
+\{Q, P\} = \{q, p\} - \epsilon\{G, \{q, p\}\} = 1
+\end{align*}</div><p>が得られて正準変換になっている．</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id27">変分原理と正準変換</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここでも原点に立ち返って変分原理から正準変換を導出してみよう．ここでは <strong>ラグランジアンの不定性が母関数として</strong> 活躍する．</p>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id28">正準変換による作用の変化と母関数</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<blockquote>
+<div><span class="math">\((q, p) \rightarrow (Q, P)\)</span> という正準変換を行った時，作用も</div></blockquote>
+<div class="math">
+\begin{align*}
+\int \left( p \dot{q} - H(q, p) \right) dt \rightarrow \int \left( P\dot{Q} - H(q(Q, P), p(Q, P))\right) d t
+\end{align*}</div><p>へと変化する．それでも正準方程式が変化しないためにはどんな条件が必要だろうか? 変数は <span class="math">\(p\dot{q}\)</span> から <span class="math">\(P \dot{Q}\)</span> へと変化が起こっていて，しかも <span class="math">\(Q\)</span> は <span class="math">\(Q(q, p)\)</span> として書けるから <span class="math">\(P\dot{Q}\)</span> の中には <span class="math">\(\dot{p}\)</span> が入ってくる(note)．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last"><span class="math">\(Q\)</span> が <span class="math">\(p\)</span> を含まない場合はラグランジュ形式における点変換である．よってラグランジュ方程式は共変的であり，作用が保存するのは当然であるのだが，今回は <span class="math">\(Q(q, p)\)</span> のようにpの関数になっているから，作用は変化してしまう．</p>
+</div>
+<p>よってラグランジアンの値自体も変化する．よって</p>
+<div class="math">
+\begin{align*}
+\int \left( p \dot{q} - H(q, p) \right) dt \rightarrow \int \left( P\dot{Q} - H(q(Q, P), p(Q, P)) + \dfrac{dG}{dt} \right) d t
+\end{align*}</div><p>のように「表面項」が付け加わる．これは <strong>正準変換に伴いラグランジアンが増えてしまった分を補償している</strong> とも言える．この関数 <span class="math">\(G\)</span> を決めることは正準変換を指定することに対応しているので特に正準変換の母関数と呼ばれている．</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id29">母関数の例</a><a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>位相空間で回転を行う正準変換</p>
+<div class="math">
+\begin{align*}
+(q, p) \rightarrow (Q, P) = (q\cos \theta + p\sin \theta, -q\sin \theta + p \cos \theta)
+\end{align*}</div><p>を考えてみよう．</p>
+<div class="math">
+\begin{align*}
+P\dot{Q} + \dfrac{dG}{dt} &amp;= p \dot{q} \\
+(p \cos \theta - q \sin \theta)(\dot{p}\sin \theta + \dot{q} \cos \theta) + \dfrac{dG}{dt} = p\dot{q} \\
+(p\dot{p} - q\dot{q})\cos \theta \sin \theta -  p\dot{q}(1 - \cos^{2} \theta) - q \dot{p}\sin^{2} \theta + \dfrac{dG}{dt} &amp;= 0 \\
+\dfrac{1}{2}\dfrac{d(p^2 - q^2)}{dt}\cos \theta \sin \theta - \dfrac{d(pq)}{dt} \sin^{2} \theta + \dfrac{dG}{dt} &amp;= 0
+ \end{align*}</div><p>よって</p>
+<div class="math">
+\begin{align*}
+G = -\dfrac{1}{2}(p^2 - q^2)\cos \theta \sin \theta + pq \sin^{2}\theta
+\end{align*}</div><p>が得られる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ハミルトニアンの値は変わらないが， <span class="math">\(p\dot{q}\)</span> の項はずれが生じる．等しくなるようにずれを求めているだけ．むしろこの関数 <span class="math">\(G\)</span> がきちんと見つかるのか，そしてこの関数から正準変換に関する情報を引き出せるだけの情報があるのか，という視点の方が重要．</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id30">正準変換の変数のとり方</a><a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>結局母関数は作用の積分を等しくするために</p>
+<div class="math">
+\begin{align*}
+p\dot{q} = P\dot{Q} + \dfrac{dG}{dt}
+\end{align*}</div><p>が成立するようズレを計算してあげたものである．この式から</p>
+<div class="math">
+\begin{align*}
+pdq = PdQ + dG
+\end{align*}</div><p>が得られる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">数学力が乏しいため，「単純に約分した」というようにしか今は見ることしかできない．</p>
+</div>
+<p>基本的に <span class="math">\(G\)</span> は <span class="math">\(q, p, Q, P\)</span> どの変数で表しても良いのだが， <span class="math">\(Q = Q(q, p)\)</span> ， <span class="math">\(P = P(q, p)\)</span> のような関係があるので，自由度は2つだけである．</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">もしそうでなければ(自由度が2でなければ)  <span class="math">\(dG = \dfrac{\partial G}{\partial q}dq + \dfrac{\partial G}{\partial p}dp + \dfrac{\partial G}{\partial Q}dQ + \dfrac{\partial G}{\partial P}dP\)</span> のようになってしまい， <span class="math">\(dq, dp, dQ, dP\)</span> が独立でなくなるため各係数を比較することができない．</p>
+</div>
+<p>なので2つを選んで残り2つは消去する．ただし，上の式を見ると <span class="math">\(dG = pdq - PdQ\)</span> となっているので，基本的には <span class="math">\((q, Q)\)</span> を変数にしてスタートする．そしてルジャンドル変換を通して変数を入れ替えていく．</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">母関数 <span class="math">\(G\)</span> を求めるのが目的ではなく，与えられた母関数から正準変換 <span class="math">\(Q = Q(q, p), P = P(q, p)\)</span> を求めるのが目的である．</p>
+</div>
+<div class="section" id="id11">
+<h4>ケース1<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>母関数の独立変数を <span class="math">\(q, Q\)</span> とする．すると</p>
+<div class="math">
+\begin{align*}
+&amp; p(q, Q) = \left. \dfrac{\partial G(q, Q)}{\partial q} \right|_{Q} \\
+&amp; P(q, Q) = \left. -\dfrac{\partial G(q, Q)}{\partial Q} \right|_{q}
+\end{align*}</div><p>を得る．</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">目的は <span class="math">\(Q = Q(q, p), P = P(q, p)\)</span> を求めることである．</p>
+</div>
+<p>よってこれらを解いて <span class="math">\(Q = Q(q, p), q = q(Q, P)\)</span> などを求めれば</p>
+<div class="math">
+\begin{align*}
+&amp; Q(q, p) \\
+&amp; P(q, p) = P(q, Q(q, p))
+\end{align*}</div><p>より正準変換を得られる．</p>
+</div>
+<div class="section" id="id12">
+<h4>ケース2<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>母関数の独立変数を <span class="math">\(q, P\)</span> とする．しかし今 <span class="math">\(G\)</span> は <span class="math">\(q, Q\)</span> の関数であるから，変数を <span class="math">\(Q \rightarrow P\)</span> と変更する必要がある．そこでルジャンドル変換 <span class="math">\(W = G(q, P) + PQ\)</span> を行う．まず始めに <span class="math">\(pdq = P dQ + dG\)</span> より</p>
+<div class="math">
+\begin{align*}
+pdq = P \left( \dfrac{\partial Q(q, P)}{\partial q}dq + \dfrac{\partial Q(q, P)}{\partial P}dP \right) + \dfrac{\partial G(q, P)}{\partial q}dq + \dfrac{\partial G(q, P)}{\partial P}dP
+\end{align*}</div><p>よって</p>
+<div class="math">
+\begin{align*}
+p = P \left. \dfrac{\partial Q}{\partial q} \right|_{P} + \left. \dfrac{\partial G}{\partial q} \right|_{P}, \quad 0 = P\left. \dfrac{\partial Q}{\partial P}\right|_{q} + \left. \dfrac{\partial G}{\partial P}\right|_{q}
+\end{align*}</div><p>すると</p>
+<div class="math">
+\begin{align*}
+&amp; \left. \dfrac{\partial (G + PQ)}{\partial q}\right|_{P} = \left. \dfrac{\partial G}{\partial q}\right|_{P} + P \left. \dfrac{\partial Q}{\partial q}\right|_{P} = p \\
+&amp; \left. \dfrac{\partial (G + PQ)}{\partial P} \right|_{q} = \left. \dfrac{\partial G}{\partial P} \right|_{q} + P\left. \dfrac{\partial Q}{\partial P} \right|_{q} + Q = Q
+\end{align*}</div><p>より <span class="math">\(p(q, P) = \partial W / \partial q\)</span> ， <span class="math">\(Q(q, P) = \partial W / \partial P\)</span> を求められる．ここから <span class="math">\(Q(q, p), P(q, p)\)</span> を頑張って求めれば良い．</p>
+</div>
+<div class="section" id="id13">
+<h4>ケース3<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>母関数の独立変数を <span class="math">\(p, Q\)</span> とする．しかし今 <span class="math">\(G\)</span> は <span class="math">\(q, Q\)</span> の関数であるから，変数を <span class="math">\(q \rightarrow p\)</span> と変更する．ルジャンドル変換 <span class="math">\(W(p, Q) = G(p, Q) - pq\)</span> を行う．すると <span class="math">\(q(p, Q) = -\partial W / \partial p\)</span> ， <span class="math">\(P(p, Q)= - \partial W / \partial Q\)</span> を求められる．ここから <span class="math">\(Q(q, p), P(q, p)\)</span> を頑張って求めれば良い．</p>
+</div>
+<div class="section" id="id14">
+<h4>ケース4<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>母関数の独立変数を <span class="math">\(p, P\)</span> とする．しかし今 <span class="math">\(G\)</span> は <span class="math">\(q, Q\)</span> の関数であるから，変数を <span class="math">\((q, Q) \rightarrow (p, P)\)</span> と変更する必要がある．そこでルジャンドル変換 <span class="math">\(W = G(p, P) - pq + PQ\)</span> を行う．すると <span class="math">\(q(p, P) = - \partial W / \partial p\)</span> ， <span class="math">\(Q(p, P) = \partial W / \partial P\)</span> を求められる．ここから <span class="math">\(Q(q, p), P(q, p)\)</span> を頑張って求めれば良い．</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id31">まとめ</a><a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>それぞれの場合についてGまたはWという関数を1つ指定すると変換が1つ決まる．つまり正準変換は関数の数だけ,つまり無限個ある．厳密に分類するとGが母関数であり，Wはルジャンドル変換された母関数である．</p>
+<div class="figure align-center" id="id21">
+<span id="generating-function-figure"></span><a class="reference internal image-reference" href="../../_images/generating_function.png"><img alt="../../_images/generating_function.png" src="../../_images/generating_function.png" style="width: 50%;" /></a>
+<p class="caption"><span class="caption-text">正準変換の表</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">各場合において母関数は <strong>ユーザーが自由に決めて良い</strong> ．</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id32">母関数による正準変換の例</a><a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>とても簡単な母関数を使ってどういう正準変換になっているかを見てみよう．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">表の1つ目:</th><td class="field-body"><span class="math">\(W = qQ\)</span> とする．すると <span class="math">\(p = Q, P = -q\)</span> が得られる．よって正準変換は <span class="math">\(Q = p, P = -q\)</span> である．これはq，pの立場を入れ変える変換である．</td>
+</tr>
+<tr class="field-even field"><th class="field-name">表の2つ目:</th><td class="field-body"><span class="math">\(W = qP\)</span> とする．すると <span class="math">\(p = P, Q = q\)</span> となる．これは恒等変換である．この場合 <span class="math">\(G = W - PQ = 0\)</span> であるから，ラグランジアンのずれはない．よって作用は不変である．</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">表の2つ目:</th><td class="field-body"><span class="math">\(W = qp + \epsilon \mathcal{G}(q, P)\)</span> とする．これは <a class="reference internal" href="#labelinfinitestimal"><span class="std std-ref">ポアソン括弧を使って無限小変換を記述する</span></a> で述べた無限小変換になる．</td>
+</tr>
+<tr class="field-even field"><th class="field-name">表の2つ目:</th><td class="field-body"><span class="math">\(W = Pf(q)\)</span> とする．すると <span class="math">\(p = P \dfrac{df}{dq}, Q = f(q)\)</span> となる．これはラグランジュ形式における点変換である． <span class="math">\(dQ = \dfrac{df}{dq}dq, P = \dfrac{dq}{df}p\)</span> と変換することにより <span class="math">\(p\dot{q} = P\dot{Q}\)</span> が成立する．よってこの場合も作用は不変である．</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">表の3つ目:</th><td class="field-body"><span class="math">\(W = pQ\)</span> とする．すると <span class="math">\(q = -Q,, P = -p\)</span> となる．よって正準変換は <span class="math">\(Q = -q, P = -p\)</span> である．これは座標と運動量座標の符号を一斉に反転する変換である．</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id33">時間に依存する変換</a><a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ハミルトンヤコビ方程式のところで必要になるためここでやっておく必要がある．次に正準変換が</p>
+<div class="math">
+\begin{align*}
+Q = Q(q, p, t), \quad P = P(q, p, t)
+\end{align*}</div><p>のように時間に依存している場合を考える．</p>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id34">作用の変化</a><a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>時間に依存する変換の場合ハミルトニアンの値も変換するので， <span class="math">\(H \rightarrow K\)</span> と変化したとしよう． つまり <span class="math">\((q, Q)\)</span> を独立変数にとって</p>
+<div class="math">
+\begin{align*}
+p(q, Q, t)\dot{q} - H(q, p(q, Q, t), t) = P(q, Q, t)\dot{Q} - K(Q, P(q, Q, t), t) + \dfrac{dG(q, Q, t)}{dt}
+\end{align*}</div><p>が作用に関する等式である．dG/dtを展開すると</p>
+<div class="math">
+\begin{align*}
+p\dot{q} - H = P\dot{Q} - K + \left. \dfrac{\partial G}{\partial q} \right|_{Q, t} + \left. \dfrac{\partial G}{\partial Q} \right|_{q, t} + \left. \dfrac{\partial G}{\partial t} \right|_{q, Q}
+\end{align*}</div><p>となる．各係数を比較すると</p>
+<div class="math">
+\begin{align*}
+&amp; p = \left. \dfrac{\partial G}{\partial q} \right|_{Q, t} \\
+&amp; P = -\left. \dfrac{\partial G}{\partial Q} \right|_{q, t} \\
+&amp; K = H + \left. \dfrac{\partial G}{\partial t} \right|_{q, Q}
+\end{align*}</div><p>となる．<a class="reference internal" href="#generating-function-figure"><span class="std std-ref">正準変換の表</span></a> で <span class="math">\(H \rightarrow K = H + \partial W / \partial t\)</span> となること以外に変化はない．</p>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id35">多変数の正準変換</a><a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>1変数の場合から，ポアソン括弧が保存するのであればそれは正準変換だ，と分かったので，多変数の場合についてもポアソン括弧が保存するものを正準変換とする．つまりN次元において <span class="math">\((q_i, p_i) (i = 1, 2, \cdots, N)\)</span> から <span class="math">\((Q_{i}(q_{*}, p_{*}), P_{i}(q_{*}, p_{*})) (i = 1, 2, \cdots, N)\)</span> へと変換されたとする．物理量A，Bのポアソン括弧をそれぞれの座標系で表した</p>
+<div class="math">
+\begin{align*}
+\{ A, B \}_{Q, P} = \sum_{i}\left( \dfrac{\partial A}{\partial Q_i}\dfrac{\partial B}{\partial P_i} - \dfrac{\partial B}{\partial Q_i}\dfrac{\partial A}{\partial P_i} \right)
+\end{align*}</div><p>及び</p>
+<div class="math">
+\begin{align*}
+\{ A, B \}_{q, p} = \sum_{i}\left( \dfrac{\partial A}{\partial q_i}\dfrac{\partial B}{\partial p_i} - \dfrac{\partial B}{\partial q_i}\dfrac{\partial A}{\partial p_i} \right)
+\end{align*}</div><p>が等しくなる条件を求める．ここでも詳しい計算は省く．ポアソン括弧が保存する条件は</p>
+<div class="math">
+\begin{align*}
+\{ Q_j, Q_k \}_{q, p} = 0, \quad \{ P_j, P_k\}_{q, p} = 0, \quad \{ Q_j, P_k\}_{q, p} = \delta_{jk}
+\end{align*}</div><p>である．</p>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id36">多変数の場合の母関数</a><a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>母関数を用いる正準変換は，多変数の場合も同様に行える． <span class="math">\((q_{*}, Q_{*})\)</span> を独立変数とする母関数だと</p>
+<div class="math">
+\begin{align*}
+\sum_{i}p_i \dot{q}_i - H = \sum_{i}P_i \dot{Q}_i - K + \dfrac{dG}{dt}
+\end{align*}</div><p>から</p>
+<div class="math">
+\begin{align*}
+p_i = \dfrac{\partial G}{\partial q_i}, \quad P_i = \dfrac{\partial G}{\partial Q_i}, \quad K = H + \dfrac{\partial G}{\partial t}
+\end{align*}</div><p>が得られる．これらから <span class="math">\((Q_{i}(q_{*}, p_{*}), P_{i}(q_{*}, p_{*})) (i = 1, 2, \cdots, N)\)</span> を求めれば良い．</p>
+<blockquote>
+<div><span class="math">\(q_{*}, P_{*}\)</span> を独立変数にとって，点変換を引き起こす母関数 <span class="math">\(W = \sum_{i}P_i f_{i}(q_{*})\)</span> を用いると，きちんと</div></blockquote>
+<div class="math">
+\begin{align*}
+Q_i = f_{i}(q_{*}), \quad p_i = \sum_{j}P_j \dfrac{\partial f_{j}(q_{*})}{\partial q_i}
+\end{align*}</div><p>が得られる．</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter11.html" class="btn btn-neutral float-right" title="ハミルトンヤコビ方程式" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter09.html" class="btn btn-neutral" title="ハミルトン形式の解析力学" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

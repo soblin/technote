@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="ハミルトニアンをゼロにするような正準変換があったとしたら，変換後の正準方程式はQとPの時間微分がゼロという方程式になる，つまりQとPが定数に見えるような座標変換を求めるのはハミルトンヤコビの方法．一方最小作用を満たす経路の必要条件からもハミルトンヤコビ方程式は導出できる．" name="description" />
+<meta content="ハミルトンヤコビの方程式" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="ハミルトンヤコビ方程式 K = 0 となる正準変換の母関数を求める 作用とハミルトンヤコビ方程式 正準変換をすることで出来る限りハミルトニアンを簡単にしていくことで問題を解いていきたいというモチベーションがある．そこで  となるような正準変換を行うことを考える．どのような独立変数の取り方をしても であったから，  となるようWを選ぶ．ここで独立変数の取り方が4通り考えられる． ここから先では...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="モダンC言語プログラミング" href="../modern_c_programming/index.html"/>
+        <link rel="prev" title="正準変換" href="chapter10.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ハミルトンヤコビ方程式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#k-0">K = 0 となる正準変換の母関数を求める</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>ハミルトンヤコビ方程式</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id4">ハミルトンヤコビ方程式</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id4">ハミルトンヤコビ方程式</a><ul>
+<li><a class="reference internal" href="#k-0" id="id5">K = 0 となる正準変換の母関数を求める</a><ul>
+<li><a class="reference internal" href="#id3" id="id6">作用とハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="k-0">
+<h2><a class="toc-backref" href="#id5">K = 0 となる正準変換の母関数を求める</a><a class="headerlink" href="#k-0" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>正準変換をすることで出来る限りハミルトニアンを簡単にしていくことで問題を解いていきたいというモチベーションがある．そこで <span class="math">\(K = 0\)</span> となるような正準変換を行うことを考える．どのような独立変数の取り方をしても</p>
+<div class="math">
+\begin{align*}
+K = H + \dfrac{\partial W}{\partial t}
+\end{align*}</div><p>であったから， <span class="math">\(H = -\dfrac{\partial W}{\partial t}\)</span> となるようWを選ぶ．ここで独立変数の取り方が4通り考えられる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ここから先ではとりあえず独立変数として <span class="math">\((q, Q)\)</span> あるいは <span class="math">\((q, P)\)</span> を用いることでHJ方程式を導出する．これ以外の2通りの独立変数の取り方をしても問題はない．重要なのは，この2つを選んだことを覚えておくことである．実際にHJ方程式を求めるのは難しいので，<strong>実際にはWの関数形を予め指定することが多い</strong> ．その際に必ず <span class="math">\(W(q, Q)\)</span> あるいは <span class="math">\(W(q, P)\)</span> としないといけないということを忘れてはいけない．</p>
+</div>
+<p>そこで独立変数として <span class="math">\((q, Q)\)</span> あるいは <span class="math">\((q, P)\)</span> を用いると <span class="math">\(p = \partial W / \partial q\)</span> となるから</p>
+<div class="math">
+\begin{align*}
+H\left( q, \dfrac{\partial W}{\partial q}, t \right) = -\dfrac{\partial W}{\partial t}
+\end{align*}</div><p>が得られる．この方程式をハミルトン・ヤコビ方程式と呼ぶ．</p>
+<p>これで問題を解くのが簡単になったわけではなく，難しさがHJ方程式を解くこと自体に移っている．それでもWというスカラーに関する方程式になっており，このWを見つければそれによる正準変換でハミルトニアンはゼロになるため，問題は解けてしまう．</p>
+<p>例として自由粒子の場合，ハミルトニアンは <span class="math">\(H = \sum_{i}\dfrac{p_{i}^{2}}{2m}\)</span> であるから，HJ方程式は</p>
+<div class="math">
+\begin{align*}
+-\dfrac{\partial W}{\partial t} = \dfrac{1}{2m} \sum_{i}\left( \dfrac{\partial W}{\partial x_i} \right)^{2}
+\end{align*}</div><p>である．ここで <span class="math">\(W = \sum \alpha_i x_i + \beta t + S_0\)</span> と形を仮定する(独立変数として <span class="math">\(q\)</span> を用いた母関数)．すると</p>
+<div class="math">
+\begin{align*}
+-\beta = \dfrac{1}{2}\sum_{i}\alpha^{2}
+\end{align*}</div><p>となり</p>
+<div class="math">
+\begin{align*}
+S = \sum_{i}\alpha_i x_i - \dfrac{1}{2m}\sum_{i}\alpha^{2} t + S_0
+\end{align*}</div><p>と母関数が求まる．ここで <span class="math">\(q_i = x_i\)</span> であるが，もうひとつの座標は <span class="math">\(P_i = \alpha_i\)</span> とみなす．つまり</p>
+<div class="math">
+\begin{align*}
+S = \sum_{i}P_i x_i - \dfrac{1}{2m}\sum_{i}P^{2} t + S_0
+\end{align*}</div><p>である．すると</p>
+<div class="math">
+\begin{align*}
+p_i = \dfrac{\partial W}{\partial x_i} = P_i, \quad Q_i = \dfrac{\partial W}{\partial P_i} = x_i - \dfrac{P_i}{m}t
+\end{align*}</div><p>となり，新しいハミルトニアンは</p>
+<div class="math">
+\begin{align*}
+K = H + \dfrac{\partial W}{\partial t} = \dfrac{1}{2m}\sum_{i}P_{i}^{2} - \dfrac{1}{2m}\sum_{i}P_{i}^{2} = 0
+\end{align*}</div><p>となる．よって新しい正準座標系での正準方程式は</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{dP_i}{dt} = 0 \\
+&amp; \dfrac{dQ_i}{dt} = 0
+\end{align*}</div><p>である．</p>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id6">作用とハミルトンヤコビ方程式</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>運動量保存則は空間並進の不変性と，エネルギー保存則は時間並進の不変性と結びついていることを述べた．その時ハミルトンの主関数と運動量，ハミルトニアンは</p>
+<div class="math">
+\begin{align*}
+p_{t_f} = \left. \dfrac{\partial \bar{S}}{\partial q} \right|_{t = t_f} \\
+H_{t_f} = -\left. \dfrac{\partial \bar{S}}{\partial t} \right|_{t = t_f}
+\end{align*}</div><p>なる関係があった．ここでハミルトニアンは <span class="math">\(q, p, t\)</span> の関数であるから</p>
+<div class="math">
+\begin{align*}
+-\dfrac{\partial \bar{S}}{\partial t} = H\left( q_{*}, \dfrac{\partial \bar{S}}{\partial q_{*}}, t \right)
+\end{align*}</div><p>という式が成立せねばならない．これもHJ方程式の形をしている．始めに導出したHJ方程式は「新しいハミルトニアンを0にする母関数を求める」方程式であった．ここでは「on-shellで計算した作用の満たすべき条件」としてもHJ方程式を導出できた．これはもちろん偶然ではない．<strong>始めに導出したHJ方程式の解である作用</strong> を時間微分してみると</p>
+<div class="math">
+\begin{align*}
+\dfrac{d \bar{S}}{dt} = \sum_{i} \dfrac{\partial \bar{S}}{\partial q_i}\dot{q_i} + \dfrac{\partial \bar{S}}{\partial t} = \sum_{i}p_i \dot{q}_i - H
+\end{align*}</div><p>となり，ラグランジアンになる．つまり <strong>始めの方法で導出したHJ方程式を満たす関数</strong>  <span class="math">\(\bar{S}\)</span> は，最小作用を与える．</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../modern_c_programming/index.html" class="btn btn-neutral float-right" title="モダンC言語プログラミング" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter10.html" class="btn btn-neutral" title="正準変換" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

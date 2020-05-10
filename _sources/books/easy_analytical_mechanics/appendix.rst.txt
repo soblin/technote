@@ -1,0 +1,284 @@
+.. meta::
+   :description: 先に数学的な基礎から述べておく．個人的に「なるほどな」と思ったのはルジャンドル変換の項である．
+   :keywords: ルジャンドル変換，曲線座標
+
+
+======================================================================
+付録
+======================================================================
+
+先に数学的な基礎から述べておく．個人的に「なるほどな」と思ったのはルジャンドル変換の項である．
+
+.. contents:: 目次
+   :depth: 2
+
+
+ルジャンドル変換
+======================================================================
+ルジャンドル変換は，関数の引数を :math:`x` から :math:`d/dx` に変更する際に，関数から得られる「情報」を保存するために，関数 :math:`f(x)` を変換する方法．この「情報」とは「その関数の切片に関する情報」である．
+
+もしルジャンドル変換をしなかったら?
+----------------------------------------------------------------------
+aを定数として以下のような関数
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	f(x) = (x - a)^{2}
+	\end{align*}
+
+を考えよう．そこでxによる微分
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	p_x = \dfrac{\partial f}{\partial x} = 2(x - a)
+	\end{align*}
+
+を独立変数に新たにとろう．そしてfを以下のように書き換える．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\tilde{f} = \dfrac{p_{x}^{2}}{4}
+	\end{align*}
+
+ここで，関数fは量としては変わっていないものの関数の形(写像としては)が変わっているので，本来は :math:`\tilde{f}` と書くべきではある．
+
+しかし，変換後の :math:`\tilde{f}` にはaに関する情報が入っていない．そのため， :math:`f(x) = (x - a)^{2}` でも :math:`f(x) = (x - b)^{2}` でも写像として :math:`\tilde{f}` はそれに応じて変化しない(から問題である)．
+
+ルジャンドル変換
+----------------------------------------------------------------------
+もし関数の引数を元々の引数の微分に置き換えてもこのような「情報」を保存するためには以下のように変換すれば良い．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\tilde{f}(p_x) = f(x) - xp_x
+	\end{align*}
+
+ただし，xを :math:`p_x` について解いて代入する．
+つまり，元々の関数から，(微分に用いる変数) x (fをそれで微分したもの)を引くわけである．
+
+また逆変換は上の式を :math:`p_x` で偏微分して
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	x = -\dfrac{\partial \tilde{f}}{\partial p_x}
+	\end{align*}
+
+
+とした式である．
+
+上の例で計算すると．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\tilde{f}(p_x) = (x - a)^{2} - xp_x = \dfrac{p_{x}^{2}}{4} - \left( \dfrac{p_x}{2} + a \right)p_x = -\dfrac{p_{x}^{2}}{4} - ap_x
+	\end{align*}
+
+一方ここから逆変換すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	x = -\dfrac{\partial \tilde{f}}{\partial p_x} = \dfrac{p_x}{2} + a
+	\end{align*}
+
+より
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	f(x) = -(x - a)^{2} - 2a(x - a) + 2x(x - a) =  (x - a)^{2}
+	\end{align*}
+
+より元に戻る．
+  
+ルジャンドル変換で独立変数の関係をうまく行える理由を全微分を求めて示しておこう．:math:`f(x, y)` としてみなすと
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	df = \dfrac{\partial f}{\partial x}dx + \dfrac{\partial f}{\partial y}dy
+	\end{align*}
+
+ただしそれぞれの偏微分ではｙとxが一定になっている．一方 :math:`\tilde{f} = f - xp_x` については
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	d\tilde{f} = \dfrac{\partial f}{\partial x}dx + \dfrac{\partial f}{\partial y}dy - (p_x dx + x dp_x) = \dfrac{\partial f}{\partial y}dy - x dp_x
+	\end{align*}
+
+となる．よって関数の変換の前後においてxを一定としたときのfのy微分と， :math:`p_x` を一定として :math:`\tilde{f}` をy微分した時の値が等しくなる．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial f}{\partial y}\right|_x = \left. \dfrac{\partial \tilde{f}}{\partial y} \right|_{p_x}
+	\end{align*}
+
+
+ある意味，変換の前後で :math:`x` と :math:`p_x` の立場が対等になっていると言える．
+
+解析力学ではラグランジアン :math:`L` を :math:`\dot{q}` で偏微分した値として定義される一般化運動量
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	p = \dfrac{\partial L}{\partial \dot{q}}
+	\end{align*}
+
+をラグランジアンの引数 :math:`\dot{q}` と変換するために，次のようにルジャンドル変換を行う．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	H(q, p, t) = \dot{q}p - L(q, \dot{q}, t)
+	\end{align*}
+
+
+座標系に関して
+======================================================================
+まだ曲線座標で表される点がユークリッド空間に存在していることを仮定しているが，微分幾何学っぽくなってきた．曲線座標上の座標値はユークリッド空間での :math:`(x_1, x_2, \cdots x_D)` には対応していない．ただし，原点は共有しているものとする．
+
+曲線座標とベクトル
+----------------------------------------------------------------------
+曲線座標を用いてD次元ユークリッド座標における点が :math:`(X^1, X^2, \cdots, X^D)` 表されているとする．誤解を招かないよう一応書いておくと，これはx, y, z ,,,座標の値を順番に表示したものではない．実際は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   x &= r \cos \theta \\
+   y &= r \sin \theta   
+      \end{align*}
+
+のように曲線座標からユークリッド空間へとマッピングされている．曲線座標における基底ベクトルを次のように定義する．
+
+:math:`(X^1, X^2, \cdots, X^D)` のうち :math:`X^i` だけを :math:`dX^i` だけ変化させることによる **ユークリッド空間上での移動ベクトル** を :math:`\vec{E}_i` と定義する．
+
+例えば2次元の極座標では，下の図のようになる．
+
+
+.. figure:: /_images/2dpolar.png
+	:align: center
+	:width: 50%
+	:alt: 2dpolar.png
+
+
+変位ベクトル :math:`d\vec{x}` は以下のように書ける．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   d\vec{x} = \begin{cases} dx\vec{e_x} + dy\vec{e_y} \\ dr\vec{e_r} + rd\theta \vec{e_{\theta}} \end{cases}
+   \end{align*}
+
+
+よって微小変位を取り出したものが
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \vec{E_r} &= \vec{e_r} \\
+   \vec{E_{\theta}} &= r \vec{e_{\theta}}    
+   \end{align*}
+
+
+となる．微小変位は座標系によらない量であるため，これによりそれを以下のように表現できる．
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	d\vec{x} = dx\vec{E_x} + dy\vec{E_y} = dr\vec{E_r} + d\theta\vec{E_{\theta}}
+	\end{align*}
+
+つまり，座標系による違いは各 :math:`\vec{E}` に吸収されている．
+
+もし座標変換により
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	dX^i = \sum_{j}\dfrac{\partial X^i}{\partial Y^j}dY^j
+	\end{align*}
+
+と変換されたとき，基底の方はその逆行列で
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\vec{E_{X^i}} = \sum_{k}\dfrac{\partial Y^k}{\partial X^i}\vec{E_{Y^k}}
+	\end{align*}
+
+と変換される．上付きと下付きのイメージ図を下に示す．
+
+.. figure:: /_images/upper_lower.png
+	:align: center
+	:width: 50%
+	:alt: upper_lower.png
+
+ここで :math:`\vec{E_{X^i}}` に双対なベクトルとして :math:`\vec{E^{X^i}}` を
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \vec{E_{X^i}} \cdot \vec{E_{X^i}} = \delta_{ij}
+   \end{align*}
+
+
+を満たすものとして定義する．
+
+すると
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\nabla =  \vec{E^{X^i}} \dfrac{\partial}{\partial X^i} 
+	\end{align*}
+
+として表される．たとえ以下のように3次元であっても．
+   
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\nabla = \begin{cases} \vec{E^{x}} \dfrac{\partial}{\partial x} + \vec{E^{y}} \dfrac{\partial}{\partial y} + \vec{E^{z}} \dfrac{\partial}{\partial z} \\ \vec{E^{r}} \dfrac{\partial}{\partial r} + \vec{E^{\theta}} \dfrac{\partial}{\partial \theta} + \vec{E^{\phi}} \dfrac{\partial}{\partial \phi}\end{cases}
+	\end{align*}
+

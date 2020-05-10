@@ -1,0 +1,250 @@
+.. meta::
+   :description: 循環座標がなくても保存量は存在することがある．系の対称性というのは循環座標の有無に限った話ではない．ネーターの定理が，それを統一的に表現する．
+   :keywords: 循環座標, 対称性, ハミルトンの主関数, ネーターの定理
+
+======================================================================
+保存則と対称性
+======================================================================
+循環座標がなくても保存量は存在することがある．系の対称性というのは循環座標の有無に限った話ではない．ネーターの定理が，それを統一的に表現する．
+
+.. contents:: 目次
+   :depth: 2
+
+
+一般に与えられた経路の作用は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	S[x(t)] = \int_{t_0}^{t_f}dt\left( \dfrac{m}{2}|\dot{x}(t)|^{2} - V(x(t)) \right)
+	\end{align*}
+
+で与えられる．始点 :math:`x_{i}` と終着点 :math:`x_{f}` を固定して経路を変分させたものの中で作用の停留値を与える経路は，オイラーラグランジュ方程式を解くことで得られる．この運動方程式を満たす経路について求めた作用(最小値)は出発点 :math:`x_{i}` と終着点 :math:`x_{f}` の関数になる．
+
+.. note::   
+   最適制御理論におけるcost-to-go :math:`V(x, t)` と同様．最適軌道に対する最小値は初期状態の関数になっている．
+   
+.. warning::
+   汎関数の最小値を求めたものだから，もはや関数になっている
+
+
+このようにして初期状態と終端状態の関数になった **関数** のことを :math:`\bar{S}(x_i, x_f)` と書きハミルトンの主関数と呼ぶ．
+
+この章の目的は， **循環座標に頼らずに保存量を見つける** ことである．今まではラグランジアンの循環座標( :math:`q` に関して :math:`\dot{q}` の項しか含まれていない)に対応する運動量を保存量としてきた．しかしこれは **十分条件** に過ぎない．この章では， :math:`q` がラグランジアンにおいて循環座標になっているか否かは仮定せず，ハミルトンの主関数を用いて保存量を特定する．
+
+.. note::
+   実際，対応する循環座標を持たない保存量も存在する．
+
+
+主関数の端点微分としての運動量
+======================================================================
+まず始めに到着点を変化させると主関数がどのように変化するかを求める．そしてそこからさらに運動量の保存則を(ラグランジアンにおける循環座標を利用することなく)発見する．
+
+
+.. figure:: /_images/variation_action.png
+	:align: center
+	:width: 50%
+	:alt: variation_action.png
+
+到着点を :math:`x_{f} \to x_{f} + \epsilon` とすると，それに応じて経路自体も移動する．変化した経路 :math:`x(t) + \delta x(t)` 自体もEL方程式を満たす．それによる作用の変化 :math:`\delta \bar{S}` は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\int_{t_i}^{t_f}dt L(x_t, \dot{x_t}) \to \int_{t_i}^{t_f}dt L(x_t + \delta x_t, \dot{x_t} + \delta \dot{x_t})
+	\end{align*}
+
+2つ目の式を展開すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	& \int_{t_i}^{t_f}dt L(x_t + \delta x_t, \dot{x_t} + \delta \dot{x_t}) \\ &= \int_{t_i}^{t_f}dt \left( L(x_t, \dot{x_t}) + \delta x_t \cdot \dfrac{\partial L}{\partial x_t} + \delta \dot{x_t} \cdot \dfrac{\partial L}{\partial x_t} \right)
+	\end{align*}
+
+となるから変化量は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta \bar{S}(x_f, x_i) = \int_{t_i}^{t_f}dt\left( \delta x_t \cdot \dfrac{\partial L}{\partial x_t} + \delta \dot{x_t} \cdot \dfrac{\partial L}{\partial \dot{x_t}} \right)
+	\end{align*}
+
+部分積分を行い，またEL方程式を使って項を消すと
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \delta \bar{S} = \left. \delta x_t \cdot \dfrac{\partial L}{\partial \dot{x_t}} \right|_{t_f} - \left. \delta x_t \cdot \dfrac{\partial L}{\partial \dot{x_t}} \right|_{t_i}
+   \end{align*}
+
+
+:math:`\delta x_t` は出発点では0，到着点で :math:`\epsilon` としていたので
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial \bar{S}}{\partial x_f} = \dfrac{\partial L}{\partial \dot{x_t}} = \left. m\dot{x} \right|_{t_f}
+	\end{align*}
+
+となる．
+
+運動量保存則の導出
+----------------------------------------------------------------------
+上の計算では変分は出発点では0であったが，出発点でも到着点でも等しい，つまり一様に座標をシフトさせたとする．ここで，作用に :math:`x \to x + \epsilon` なる変換に不変性があるとする．すると主関数の値は変化しないので
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	m \left. \dot{x} \right|_{t_f} - m \left. \dot{x} \right|_{t_i} = 0
+	\end{align*}
+
+となり運動量保存則が導かれる．
+
+時間並進不変性とエネルギー保存則
+======================================================================
+空間座標 :math:`x` を :math:`x + \epsilon` とずらした時の不変性から運動量保存則が出るのであれば，時間座標を :math:`t` から :math:`t + \epsilon` とずらした時に作用が不変だとしたら，何が導かれるのだろうか?すなわち,
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\int_{t_i}^{t_f}dt L(x_t, \dot{x_t}) \rightarrow \int_{t_i}^{t_f + \epsilon} dt L(x_t + \delta x_t, \dot{x} + \delta \dot{x_t})
+	\end{align*}
+
+と到着時間を少しずらしても作用が不変だった場合である．
+
+.. warning::
+   到着点は固定している．そのため少し遅れてやってくる．
+
+.. figure:: /_images/variation_action_time.png
+	:align: center
+	:width: 50%
+	:alt: variation_action_time.png
+
+    
+この場合も到着時間が変化することにより経路自体も変化する．図のようにEL方程式を満たすon-shellの2つの経路があるとして，その際のハミルトンの主関数の値を
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\int_{t_f}^{t_f + \epsilon}dt L(x_t + \delta x_t, \dot{x} + \delta \dot{x_t}) + \int_{t_i}^{t_f} dt L(x_t + \delta x_t, \dot{x} + \delta \dot{x_t}) 
+	\end{align*}
+
+のようにして2つに分ける．第一項は積分領域が微小であるから， :math:`\epsilon L(x(t_f), \dot{x}(t_f))` という値になる．第二項については
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta x \cdot \left. \dfrac{\partial L}{\partial \dot{x}} \right|_{t_f} - \delta x \cdot \left. \dfrac{\partial L}{\partial \dot{x}} \right|_{t_i}
+	\end{align*}
+
+となる．しかし今回は :math:`\delta x(t_i) = 0` ではあるが :math:`\delta x(t_f) = \epsilon` **ではない**．
+
+この場合図から， :math:`(x \delta x)(t_f)` はあと :math:`\epsilon` だけ時間経過したらもともとの到着点である :math:`x(t_f)` に到着する予定である地点である．そのため,
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	x(t_f) = x(t_f + \epsilon) + \delta x(t_f + \epsilon)
+	\end{align*}
+
+が成立する．これをTaylor展開して
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	x(t_f) = x(t_f) + \epsilon \dot{x}(t_f) + \delta x(t_f) + \epsilon \delta \dot{x}(t_f)
+	\end{align*}
+
+となり，その最終項は2次の微小量である．ここから
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta x(t_f) = \epsilon \dot{x}(t_f)
+	\end{align*}
+
+が得られる．よってまとめると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta \bar{S} = \epsilon \left. L \right|_{t_f} - \epsilon \dot{x} \cdot \left. \dfrac{\partial L}{\partial \dot{x}} \right|_{t_f} = -\epsilon \left. \left( \dot{x} \cdot \dfrac{\partial L}{\partial \dot{x}} - L \right)\right|_{t_f}
+	\end{align*}
+
+ラグランジアンが :math:`L = \dfrac{m}{2}|\dot{x}|^{2} - V(x)` であるとするとこの括弧の中の量はハミルトニアン :math:`H = \dfrac{m}{2}|\dot{x}|^{2} + V(x)` である．というより，そもそもハミルトニアンの定義になっている．
+
+.. note::
+   「この座標の並進に関して作用が不変であるからこの量が保存する」ということを言うためには，その座標を :math:`\epsilon` だけずらした際の作用のズレ :math:`\delta \bar{S}` を計算して，そのズレにおける :math:`\epsilon` に関する一次の項の係数をゼロとすればよい，すなわち保存量とすればよい．
+
+
+例題
+----------------------------------------------------------------------
+以下のラグランジアンに対応する保存量をネーターの定理から見つけよ．
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	L = \dfrac{\dot{x}}{\dot{y}} - k\dfrac{x}{y}
+	\end{align*}
+
+
+このラグラジアンはxとyの同次式になっている．そのため :math:`x \rightarrow \epsilon x` ， :math:`y \rightarrow \epsilon y` なる変換に対して不変であると考えられる．これに対するラグランジアンの変化を計算してみよう．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \delta L &= \dfrac{\dot{x} + \delta \dot{x}}{\dot{y} + \delta \dot{y}} - k\dfrac{x + \delta x}{y + \delta y} - \dfrac{\dot{x}}{\dot{y}} + k\dfrac{x}{y} \\
+    &= (\dot{x} + \delta \dot{x})\dfrac{1}{\dot{y}}\left( 1 - \dfrac{\delta \dot{y}}{\dot{y}} \right) - k(x + \delta x)\dfrac{1}{y}\left( 1 - \dfrac{\delta y}{y} \right) - \dfrac{\dot{x}}{\dot{y}} + k\dfrac{x}{y} \\
+    &= \dfrac{\dot{y}\delta \dot{x} - \dot{x}\delta \dot{y}}{\dot{y}^{2}} + \dfrac{x \delta y - y \delta x}{y^2}k \\
+   \end{align*}
+
+
+ここで :math:`\delta x = \epsilon x` ， :math:`\delta y = \epsilon y` を代入すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta L = 0
+	\end{align*}
+
+となる．よってネーターの定理において :math:`J = 0` である．したがって以下の
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{L}{\partial \dot{x}}\epsilon x + \dfrac{L}{\partial \dot{y}}\epsilon y - J(=0)
+	\end{align*}
+
+の :math:`\epsilon` の一次の項
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial L}{\partial \dot{x}} x + \dfrac{\partial L}{\partial \dot{y}} y = \dfrac{x}{\dot{y}} - \dfrac{\dot{x}y}{\dot{y}^{2}}
+	\end{align*}
+
+が保存量である．
+
+ネーターの定理の導出
+======================================================================

@@ -1,0 +1,86 @@
+======================================================================
+RRT-Connect
+======================================================================
+
+.. include:: /_include/ref/rrt_connect.txt
+
+Abstract
+======================================================================
+どうやらこの論文はRRTにおいてbidirectional searchを行うことを初めから全面に押し出しているようだ．conventional literatureにおいてbidirectinal searchは存在しているから，そのRRTバージョンというところかなあ．
+
+start，goalのconfigurationから同時にRRTをbuildし，greedy-heuristicを用いることでお互いに向かって伸ばす．
+
+シミュレーション結果の画像が妙にリアルなのが面白い．
+
+
+Introduction
+======================================================================
+ありがちな文章から始まっている．
+
+	Motion planning problem arise in such diverse fields as robotics, assembly analysis, virtual prototyping, pharmaceutical drug design, manufactuaring, and computer animation.
+
+このような問題では初期と終端のconfigurationを接続するような経路を，多数の複雑な障害物が存在するconfiguration spaceにおいて探索する必要がある．completeなアルゴリズムの設計ではなく，randomizationを用いてincompleteではあるけれども任意の確率で given running time の間に解を見つけられるアルゴリズムが数多く設計されてきた．Randomized path planning algorithms は大まかに2種類ある．
+
+:single-query problem:  A single-query problem is solved quickly without any pre-processing．The most popular method for this problem so far(at the time of this paper) is randomized-potential field．pre-processingを行わずsingle-queryで問題が解かれる．この中で最も有名なのは(この論文が書かれている時点で)randomized potential fieldである．
+:multiple-query problem: Path planning problem is solved for the same environment twice. The pre-processing data is stored in a data structure for fast planning. The probabilistic roadmap method is the first method to address this problem. A graph is constructed in the configuration space by choosing many configuratione at random. 同じ環境に対してpath planningが2回行われる．pre-processingにおける探索結果のデータ(roadmap)を実際にquery与えられた際に利用する．そのためこのロードマップは様々なqueryに対して利用できるためmultiple-queryであると言われる．probabilistic roadmap methodがこのようなアプローチをとった最初の手法である．
+
+	PRM enjoyed considerable success owing to its simplility and reliable behavior. Even in single-query problem where randomized potential field might yield better performance, PRM is preferred for its simplicity.
+
+
+   Randomized potential field method enocodes  greedy heuristic in the form of a potential function over the configuration space. When the planner stucks in a local minima, it esapce from it using random walk.
+
+randomzied potential fieldはconfiguration spaceにおけるポテンシャル関数という形でヒューリスティック探索を行う．
+
+	The authors proposed RRT-conect that aggressivley tries to connect two trees, one from the inital configuration and the other from the goal.
+
+	The key idea of this method is the use of RRTs as a sampling scheme and data structure for uniform exploration and coverage of the plannning domain.
+    
+本手法のキーとなるアイデアは，探索空間を一様に探索し被覆するため，RRTをサンプリングとデータ構造として用いることである．
+    
+Rapily-exploring Random Trees
+======================================================================
+	The key idea of RRT is to bias the exploration toward unexplored portions of the configuration space, which is expressed as the set of Voronoi regions.
+
+RRTのキーアイデアはconfiguration spaceにおいてまだ探索されていない領域へと探索をバイアスすることである．
+
+	The fast-coverage-nature of RRT comes from the greedy-extention toward the Voronoi region of the seleced node. The probability that a vertex is selected for extention is proportional to the area of its Voronoi region. Also RRT possess a uniform coverage of the configuration space.
+
+RRTが探索空間を(単純にランダムに枝を伸ばすよりも)素早く探索を行えるのは，選択されたノードに対するボロノイ領域へと枝を伸ばそうとするところにある．一様分布を用いるのであれは，あるノードが選ばれてそこから枝が伸ばされる確率はそのノードに対するボロノイ領域の面積の探索空間に対する割合に等しい．
+
+The RRT-Connect Path Planner
+======================================================================
+This algorithm is specifically designed for path planning without differential constraints. So incremental motions is not so important. Instead the heuristic attempts to move over a longer distance.
+
+The RRT-Connect algorithm iterates the *EXTEND* procedure until a new node reaches obstacle, so is is more greedy than original RRT. This behavior is similar the artifical pontential function in a randomied potential field. Although both method employs same greedy-heuristic, RRT-Connect is combined with the rapid and uniform exploration of RRT. In a sense, we can say that the **attractor basin** continues to move around as RRT grows, as opposed to artifical potential field.
+
+
+Analysis
+=====================================================================
+The properties of basic-RRT and the RRT-Connect are analyzed in this section. The key result is that the distribution of the RRT vertices converges toward the sampling distribution (This distribution is often uniform).
+
+	We prove the RRT-Conenct is probabilisticlly complete, although we cannot have a theoretical characterization of the rate of convergence.
+
+RRT-Connectがprobabilisically completeであることが示されるものの，その具体的な収束率の表式は与えられない．
+
+	Let :math:`D_{k}(q)` denote a random variable whose value is the distance of  :math:`q` to its closest vertex in G, in which  :math:`k` is the number of vertices in an RR. Let  :math:`d_l` denote the value of  :math:`D_k` . Let :math:`\epsilon` denote the incremental distance traveled in the *EXTEND* procedure(the RRT step size).
+
+ここの証明では，考えうる **k個のノードからなるRRTの分布** の集合が標本集合 :math:`\Omega_k` になっている．そして各々の要素は特定のRRTの分布 :math:`\omega_k` を表している．confnguration space における特定の点 :math:`q` に対して，確率変数 :math:`D_{k}(q)` を以下のように定義する．
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	D_{k}(q) : \Omega \rightarrow d_{k}(q)
+	\end{align*}
+
+ここで :math:`d_{k}(q)` は :math:`\omega_k` なる特定のRRTの分布が与えられたもとでの，:math:`q` とその最近傍ノードの間の距離を表す関数である．つまり :math:`D_{k}(q)` は関数を返す確率変数である．
+    
+:Lemma1: Suppose  :math:`C_{free}`  is a convex, bounded, open n-dimensional subset of an n-dimensional configuration space. For any  :math:`q \in C_{free}` and positive constant  :math:`\epsilon > 0` ,  :math:`\lim_{k \to \infty}P[d_{k}(q) < \epsilon] = 1` .
+         
+:Sketch of Proof:  :math:`q` を :math:`C_{free}` における任意の点， :math:`q_0` をRRTの初期の点とする．また :math:`B(q)` を :math:`q` を中心とする半径 :math:`\epsilon` の円とする．また :math:`B^{\prime}(q) = B(q) \cup C_{free}` と定義する．その測度 :math:`\mu(B^{\prime}(q))` は正である．初め，RRTが初期状態のみからなる場合， :math:`d_{1}(q) = \rho(q, q_0)` である．RRTの各iterationにおいてランダムに選択された点が :math:`B^{\prime}(q)` に存在している確率は必ず正である．そのため，もしRRTの頂点集合が全て :math:`B(q)` の外に存在していたら，ある正の数 :math:`b` が存在して :math:`E[D_k] - E[D_{k+1}] > b` が成立する．よって :math:`\lim_{k \to \infty}P[d_{k}(q) < \epsilon] = 1` が成立する．
+
+これを用いて :math:`C_{free}` がnonconvexである場合の証明を行う．
+
+:Lemma2: Suppose  :math:`C_{free}` is a nonconvex, boundd, open, n-dimensional connected component of an n-dimensional ocnfiguration space. For any  :math:`q \in C_{free}` and positive real number  :math:`\epsilon > 0` ,  :math:`\lim_{n \to \infty}P[d_{n}(q) < \epsilon] = 1` .
+
+:Sketch of Proof:

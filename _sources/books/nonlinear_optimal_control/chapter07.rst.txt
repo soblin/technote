@@ -1,0 +1,198 @@
+.. meta::
+   :description: この章では今まで見てきた最適制御の問題に対する数値的なアルゴリズムを紹介している．最適制御は初期値と終端値が与えられた2点境界値問題であるので，まさにハミルトン形式の精神に則っている．勾配法とシューティング法が紹介されている．
+   :keywords: 最適制御，シューティング法
+
+======================================================================
+7章 最適制御問題の解法
+======================================================================
+
+この章では今まで見てきた最適制御の問題に対する数値的なアルゴリズムを紹介している．最適制御は初期値と終端値が与えられた2点境界値問題であるので，まさにハミルトン形式の精神に則っている．勾配法とシューティング法が紹介されている．
+
+.. contents:: 目次
+   :depth: 2
+
+
+最適解が満たすべき方程式は以下のオイラーラグランジュ方程式である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align}
+   & \dot{x}(t) = \left( \dfrac{\partial H}{\partial \lambda}\right)^{\text{T}}(x, u, \lambda, t) = f(x(t), u(t), t) & x(t_0) = x_0 \\
+   & \dot{\lambda}(t) = -\left( \dfrac{\partial H}{\partial x}\right)^{\text{T}}(x, u, \lambda, t) & \lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x}\right)^{\text{T}}(x(t_f)) \\
+   & \dfrac{\partial H}{\partial u}(x, u, \lambda, t) = 0
+   \end{align}
+
+
+ここで未知関数は :math:`x(t), \lambda(t), u(t)` の3つ存在しているが，どれかの関数の「初期関数」を与えれば上の方程式を用いて残りを評価することができるので，オイラーラグランジュ方程式が満たされるようにその「初期関数」を修正すれば良い．
+
+* 制御入力の関数を未知関数とする場合．適当な制御入力の関数 :math:`u(t)(t \in [t_0, t_f])` を与えるとそれを用いて状態方程式から :math:`x(t)(t \in [t_0, t_f])` を求めることができる．すると今度は :math:`\lambda(t)(t \in [t_f, t_0])` を逆向きに解くことができるが，このようにしてu(t)の推定「値」を使って求めた関数は3つ目の式を満たさないので，左辺の値が0にならない．そこでこの値が0になるようu(t)を修正することで最終的に最適な制御入力を求める．
+* 随伴変数の **初期値**  :math:`\lambda_0` を未知量とする場合．上の場合に比べて「未知関数」ではなく「未知量」を仮定するので，保持すべき変数のメモリはかなり減らせる(時間の刻み幅の粒度にも依るが)．すると :math:`x(t_0) = x_0, \lambda(t_0)= \lambda_0` を用いて1つ目と2つ目の微分方程式を「前向きに」解くことができる．ただしその際の制御入力 :math:`u(t)` は3つ目の式をu(t)について求めた値とする．これを :math:`t = t_f` まで続けると :math:`x(t_f), \lambda(t_f)` を求めることができるが，終端条件
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x} \right)^{\text{T}}(x(t_f))
+	\end{align*}
+
+は満たされないのが普通である(もし初めから随伴変数の値をguessすることができていたら成り立ってくれるが)．そこでこの終端条件が成立するよう随伴変数の初期値を更新していく．
+
+
+7.2 勾配法
+======================================================================
+ラグランジアンの :math:`\delta u` に対する変分は
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta \bar{J} = \left(\dfrac{\partial \phi}{\partial x}(x(t_f)) - \lambda^{\text{T}}(t_f) \right) \delta x(t_f) + \int_{t_0}^{t_f}\left( \left(\dfrac{\partial H}{\partial x} + \dot{\lambda}^{\text{T}} \right) \delta x + \dfrac{\partial H}{\partial u} \delta u \right) dt
+	\end{align*}
+
+と表されるが，もし :math:`x(t)` と :math:`\lambda(t)` がオイラーラグランジュ方程式を満たすのであれば(この仮定を使うために，:math:`x(t)` と :math:`\lambda(t)` の微分方程式を使って最小原理以外が成り立つようにしている)
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta \bar{J} = \int_{t_0}^{t_f} \dfrac{\partial H}{\partial u} \delta u dt
+	\end{align*}
+
+となる．スカラー値関数の微小変化が勾配ベクトルと変数の微小変化(今回は :math:`\delta u` )の内積で表されることを類推すると，関数 :math:`\partial H / \partial u` が評価関数の勾配になっていることが分かる．そこで探索方向として
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	s =  - \left( \dfrac{\partial H}{\partial u}\right)^{\text{T}}
+	\end{align*}
+
+を用いる．例えば
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta u = -\alpha \left(\dfrac{\partial H}{\partial u} \right)^{\text{T}}
+	\end{align*}
+
+として :math:`\delta u` のノルム :math:`|\delta|` が0に近づくまでこの量だけ修正を繰り返せば良い．
+
+
+#. 適当な関数 :math:`u(t) \quad (t_0 \leq t \leq t_f)` を推定値とする
+#.  :math:`x(t_0) = x_0` と :math:`\dot{x}` の状態方程式から :math:`x(t) \quad (t_0 \leq t \leq t_f)` を求める
+#. 先ほど求めた :math:`x(t_f)` を使って :math:`\lambda(t_f)` を求める．そして :math:`\dot{\lambda}` の状態方程式から :math:`\lambda(t) \quad (t_0 \leq t \leq t_f)` を求める
+#. 勾配 :math:`\partial H / \partial u \quad (t_0 \leq t \leq t_f)` を各時刻で求める．これのノルム(積分値)が小さければ終了
+#.  :math:`s = -(\partial H / \partial u)` とおく．
+#. 制御入力を :math:`u + \alpha s` としたときの :math:`J[u + \alpha s]` を最小にする値 :math:`\alpha^{*}` を求める．
+#.  :math:`u(t) \leftarrow u(t) + \alpha^{*}s(t)` として繰り返す．
+
+
+7.3. シューティング法(遷移行列によるもの)
+======================================================================
+シューティング法は先程述べたように，随伴変数の初期値 :math:`\lambda(t_0) = \lambda_0` を未知量として，それを少しづつ修正して終端条件 :math:`\lambda(t_f) = (\partial \phi / \partial x)(x(t_f))` が成り立つようにするものである．初期値を調整して終端条件を満たすようにする様子が射撃に似ていることからシューティング法と呼ばれている．随伴変数の初期値が :math:`\delta \lambda_{0}` だけ変化した時，終端時刻における状態 :math:`x(t_f)` と :math:`\lambda(t_f)` がどれだけ変化するか調べてみる．それにより各関数が :math:`\delta x(t), \delta \lambda(t), \delta u(t)` だけ変化したとして随伴変数の終端状態以外の条件を満たしているとする．つまり
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{d}{dt}(x + \delta x) = f(x + \delta x, u + \delta u, t) \\
+   & \dfrac{d}{dt}(\lambda + \delta \lambda) = -\left( \dfrac{\partial H}{\partial x}\right)^{\text{T}}(x + \delta x, u + \delta u, \lambda + \delta \lambda, t) \\
+   & \dfrac{\partial H}{\partial u}(x + \delta x, u + \delta u, \lambda + \delta \lambda, t) = 0
+   \end{align*}
+
+を満たしている．ここで変関数 :math:`\delta x(t), \delta \lambda(t)` の初期値はそれぞれ :math:`0, \delta \lambda_0` である．この  :math:`\delta \lambda_0` をうまく与えるのがここでの目的である．上の式をテイラー展開すると例によって変関数に関して以下のような線形部分方程式が得られる．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{d}{dt}\begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix} = \begin{bmatrix} A(t) & -B(t) \\ -C(t) & -A^{\text{T}}(t) \end{bmatrix}\begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix}
+	\end{align*}
+
+ここで各行列は以下のように :math:`x(t), \lambda(t), u(t)` を用いて評価される(アルゴリズムとして数値的に解く際は，これらの行列はそのときの推定値を用いて具体的に計算される)．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & A(t) = A(x(t), \lambda(t), u(t)) = \dfrac{\partial f}{\partial x} - \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x} \\
+   & B(t) = B(x(t), \lambda(t), u(t)) = \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\left(\dfrac{\partial f}{\partial u} \right)^{\text{T}} \\
+   & C(t) = C(x(t), \lambda(t), u(t)) = \dfrac{\partial^{2} H}{\partial x^{2}} - \dfrac{\partial^{2} H}{\partial x \partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x}
+   \end{align*}
+
+
+もう少し辛抱強く計算してみよう．我々は随伴変数を :math:`\delta \lambda_0` だけ変動させることで誤差 :math:`E = \lambda(t_f) - (\partial \phi / \partial x)(x(t_f))` を **どれくらい減らせるか** に関心がある．つまり
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	dE = \delta \lambda(t_f) - \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))\delta x(t_f)
+	\end{align*}
+
+をもう少し評価したい．
+遷移行列 :math:`\Phi(t)` を以下を満たす行列として定義する．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{d}{dt} \Phi(t) = \begin{bmatrix} A(t) & -B(t) \\ -C(t) & -A^{\text{T}}(t) \end{bmatrix} \Phi(t) \\
+   & \Phi(t_0) = I
+   \end{align*}
+
+すると :math:`\delta x(t_0) = 0, \delta \lambda(t_0) = \delta \lambda_0` を用いて
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\begin{bmatrix} \delta x(t_f) \\ \delta \lambda(t_f) \end{bmatrix} = \begin{bmatrix} \Phi_{12}(t_f) \\ \Phi_{22}(t_f) \end{bmatrix}
+	\end{align*}
+
+であるから，先ほどの :math:`dE` は
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	dE = \left( \Phi_{22}(t_f) - \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))\Phi_{12}(t_f) \right) \delta \lambda_0
+	\end{align*}
+
+つまり，現在の随伴変数の初期値を :math:`\delta \lambda_0` だけずらすことで，上の量だけ終端時刻での誤差を減らすことができる．では具体的にどれだけ減らしたいかというと，現在の誤差 :math:`E` を0にするように
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	dE = -E
+	\end{align*}
+
+だけ減らせば良い．つまり
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta \lambda_0 = \left( \Phi_{22}(t_f) - \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))\Phi_{12}(t_f) \right)^{-1}E
+	\end{align*}
+
+だけ修正すれば良い．
+
+#.  :math:`\lambda_0` を随伴変数の初期値の適当な推定値とする
+#.  :math:`x(t_0) = x_0, \lambda(t_0) = \lambda_0` を用いて :math:`\dot{x}, \dot{\lambda}` に関する状態方程式を解いて :math:`x(t) \quad (t_0 \leq t \leq t_f)`  :math:`\lambda(t) \quad (t_0 \leq t \leq t_f)` を求める．その際 :math:`u(t)` は最小原理を :math:`u(t)` に関して解いた値を用いる．
+#.  :math:`E = \lambda(t_f) - (\partial \phi / \partial x)(x(t_f))` を評価する．もし :math:`|E|` が小さければ終了．
+#. 上で求めた :math:`x(t) \quad (t_0 \leq t \leq t_f)`  :math:`\lambda(t) \quad (t_0 \leq t \leq t_f)`  :math:`u(t) \quad (t_0 \leq t \leq t_f)` を用いて各行列 :math:`A(t), B(t), C(t)` を計算することで，遷移行列 :math:`\Phi(t_f)` を計算する．そして上の式に従って :math:`\delta \lambda_0` を求める．
+#.  :math:`\lambda_0 \leftarrow \lambda_0 + \delta \lambda_0` として繰り返し．

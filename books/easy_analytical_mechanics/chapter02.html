@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では変分法の導入を行っている．" name="description" />
+<meta content="変分法" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では変分法の導入を行っている． 簡単な変分問題 等しい周で最大面積の長方形 微分と変分の交換 長方形の周の長さが一定の時，その面積が最も大きくなるのはどのようなときか?という問題を考える．縦と横の長さをそれぞれ  ，周の長さを  とおくと yを消去すると面積は と表されるから，面積は  のとき最大値となる． 一方別の考え方もある．xが  だけ大きくなったとすると，等周であるためにはyが...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="静力学" href="chapter03.html"/>
+        <link rel="prev" title="付録" href="appendix.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">簡単な変分問題</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">等しい周で最大面積の長方形</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">微分と変分の交換</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>簡単な変分問題</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">簡単な変分問題</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では変分法の導入を行っている．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">簡単な変分問題</a><ul>
+<li><a class="reference internal" href="#id3" id="id6">等しい周で最大面積の長方形</a></li>
+<li><a class="reference internal" href="#id4" id="id7">微分と変分の交換</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">等しい周で最大面積の長方形</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>長方形の周の長さが一定の時，その面積が最も大きくなるのはどのようなときか?という問題を考える．縦と横の長さをそれぞれ <span class="math">\(x, y\)</span> ，周の長さを <span class="math">\(L\)</span> とおくと</p>
+<div class="math">
+\begin{align*}
+&amp; S = xy \\ &amp; 2x + 2y = L
+\end{align*}</div><p>yを消去すると面積は</p>
+<div class="math">
+\begin{align*}
+S = x \left( \dfrac{L}{2} - x \right)
+\end{align*}</div><p>と表されるから，面積は <span class="math">\(x = L / 4\)</span> のとき最大値となる．</p>
+<p>一方別の考え方もある．xが <span class="math">\(\Delta x\)</span> だけ大きくなったとすると，等周であるためにはyが <span class="math">\(\Delta x\)</span> だけ小さくなる．それにより面積は <span class="math">\(\Delta S = y \Delta x - x \Delta x = (y - x)\Delta x\)</span> だけ変化する．ここでもし <span class="math">\(x &lt; y\)</span> ならば <span class="math">\(\Delta x &gt; 0\)</span> にすることで <span class="math">\(\Delta S &gt; 0\)</span> となる．一方 <span class="math">\(x &gt; y\)</span> であるときは <span class="math">\(\Delta x &lt; 0\)</span> とすれば <span class="math">\(\Delta S &gt; 0\)</span> とすれば良い．従って <span class="math">\(x = y\)</span> のとき面積は最大値になる．数式でこれを導くには以下のようにすれば良い．まず．面積の全微分は</p>
+<div class="math">
+\begin{align*}
+\Delta S = \dfrac{\partial S}{\partial x}\Delta x + \dfrac{\partial S}{\partial y}\Delta y
+\end{align*}</div><p>である一方，拘束条件より</p>
+<div class="math">
+\begin{align*}
+2\Delta x + 2\Delta y = 0
+\end{align*}</div><p>であるから</p>
+<div class="math">
+\begin{align*}
+\Delta S = \left( -\dfrac{\partial S}{\partial x} + \dfrac{\partial S}{\partial y} \right)\Delta y
+\end{align*}</div><p>よって停留値をとる条件として</p>
+<div class="math">
+\begin{align*}
+\left( -\dfrac{\partial S}{\partial x} + \dfrac{\partial S}{\partial y} \right) = -y + x = 0
+\end{align*}</div><p>を得る．</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">微分と変分の交換</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以降よく用いるのでここで簡単な証明を与えておく．</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dx}\delta y = \delta \left( \dfrac{dy}{dx} \right)
+\end{align*}</div><p>まずそれぞれの厳密な計算方法をきちんと考えねばならない．左辺は変関数の微分であるから</p>
+<div class="math">
+\begin{align*}
+\lim_{x_2 \to x_1} \dfrac{\delta y(x_2) - \delta y(x_1)}{x_2 - x_1}
+\end{align*}</div><p>である．一方右辺は <span class="math">\(dy /dx\)</span> の変分であるから，</p>
+<div class="math">
+\begin{align*}
+\delta \left( \dfrac{dy}{dx} \right) &amp;= \lim_{x_2 \to x_1}\left( \dfrac{y(x_2) + \delta y(x_2) - (y(x_1) + \delta y(x_1))}{x_2 - x_1} - \dfrac{y(x_2) - y(x_1)}{x_2 - x_1} \right) \\
+&amp;= \lim_{x_2 \to x_1}\dfrac{\delta y(x_2) - \delta y(x_1)}{x_2 - x_1}
+\end{align*}</div><p>よって示された．</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter03.html" class="btn btn-neutral float-right" title="静力学" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="appendix.html" class="btn btn-neutral" title="付録" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

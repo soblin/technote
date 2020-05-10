@@ -1,0 +1,18 @@
+@import url("theme.css");
+ 
+.wy-nav-content {
+    max-width: none;
+}
+
+span.MJXc-display {
+    margin: 15px auto;
+    padding: 10px 12px;
+    width: 100%;
+    overflow: auto;
+    border-radius: 8px;
+    border: 1px solid #36c
+}
+
+p {
+    line-height: 2.0;
+}

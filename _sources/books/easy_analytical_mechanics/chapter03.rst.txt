@@ -1,0 +1,82 @@
+.. meta::
+   :description: ポテンシャルの安定性の項だけまとめた．
+   :keywords: 
+
+======================================================================
+静力学
+======================================================================
+ポテンシャルの安定性の項だけまとめた．
+
+.. contents:: 目次
+   :depth: 2
+
+
+異なる座標系で計算したポテンシャルの安定性
+----------------------------------------------------------------------
+この章で気になったのはここだけかなあ．
+
+以下のようなポテンシャルを考える．
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	U = \dfrac{1}{2}k(x^2 + y^2)
+	\end{align*}
+
+このポテンシャルの停留点はもちろん原点 :math:`(x, y) = (0, 0)` である．
+これを極座標で考えると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	U = \dfrac{1}{2}kr^2
+	\end{align*}
+
+となるから
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial U}{\partial r} = kr = 0
+	\end{align*}
+
+より同じく原点 :math:`r = 0` が停留点になる．
+また少し違う形のポテンシャル
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	U = \dfrac{1}{4}K(x^2 + y^2)^2 - \dfrac{1}{2}k(x^2 + y^2)
+	\end{align*}
+
+は極座標で表すと
+
+．． math::
+	:nowrap:
+
+	\begin{align*}
+	U = \dfrac{1}{4}Kr^4 - \dfrac{1}{2}kr^2
+	\end{align*}
+
+であり，ポテンシャル安定点は同様に :math:`r^2 = k / K` である．
+ある座標系 :math:`q` と別の座標系 :math:`Q` で表したポテンシャル :math:`U(q), \tilde{U}(Q)` は **同じ位置を表す**  :math:`q` と :math:`Q` に対し同じ値をとる．つまり，
+
+..  math::
+	:nowrap:
+
+	\begin{align*}
+	U(q) = \left. \tilde{U}(Q(q)) \right|_{Q = q}
+	\end{align*}
+
+が成立する．そのため
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial U(q)}{\partial q_i} = \left. \sum_{j}\dfrac{\partial \tilde{U}(Q(q))}{\partial Q_j}\dfrac{\partial Q_j}{\partial q_i} \right|_{Q = q}
+	\end{align*}

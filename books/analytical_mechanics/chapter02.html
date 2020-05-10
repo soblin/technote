@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では初めに他の書物のように仮想仕事の原理からオイラーラグランジュ方程式を導出している．またラグランジアンのゲージ変換についても述べられている．個人的にラウシアンの導出に際のラグランジアンの引き戻しが，関数の引き戻しの良い例であると思う．微分形式でのオイラーラグランジュ方程式の表現は本書で初めて見た．最後のポアンカレ方程式のところはきちんと理解しきれていないと思う．" name="description" />
+<meta content="オイラーラグランジュ方程式, ゲージ変換, ネーターの定理, ラウシアン, ポアンカレ方程式, 非ホロノミック拘束" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="ラグランジュ形式の力学 ラグランジュ方程式 スクレロノーマスな場合 一般的な場合への拡張 共変性 一般化ポテンシャル ラグランジアンのゲージ変換 対称性と保存則 第1積分 系の対称性とネーターの定理 ハミルトニアンとエネルギー積分 配位空間の縮約と自由度の削減 ラグランジュ方程式の幾何学的表現 ラグランジアン1形式，2形式 ラグランジュ方程式の座標系によらない表現">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="解析力学 I，II" href="index.html"/>
+        <link rel="next" title="Planning Algorithms" href="../planning_algorithms/index.html"/>
+        <link rel="prev" title="序章 数学的準備" href="chapter01.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">解析力学 I，II</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter01.html">序章 数学的準備</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ラグランジュ形式の力学</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">ラグランジュ方程式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">対称性と保存則</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">ラグランジュ方程式の幾何学的表現</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">解析力学 I，II</a> &raquo;</li>
+        
+      <li>ラグランジュ形式の力学</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id17">ラグランジュ形式の力学</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">この章の目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id17">ラグランジュ形式の力学</a><ul>
+<li><a class="reference internal" href="#id3" id="id18">ラグランジュ方程式</a><ul>
+<li><a class="reference internal" href="#id4" id="id19">スクレロノーマスな場合</a></li>
+<li><a class="reference internal" href="#id5" id="id20">一般的な場合への拡張</a></li>
+<li><a class="reference internal" href="#id6" id="id21">共変性</a></li>
+<li><a class="reference internal" href="#id7" id="id22">一般化ポテンシャル</a></li>
+<li><a class="reference internal" href="#id8" id="id23">ラグランジアンのゲージ変換</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id24">対称性と保存則</a><ul>
+<li><a class="reference internal" href="#id10" id="id25">第1積分</a></li>
+<li><a class="reference internal" href="#id11" id="id26">系の対称性とネーターの定理</a></li>
+<li><a class="reference internal" href="#id12" id="id27">ハミルトニアンとエネルギー積分</a></li>
+<li><a class="reference internal" href="#id13" id="id28">配位空間の縮約と自由度の削減</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14" id="id29">ラグランジュ方程式の幾何学的表現</a><ul>
+<li><a class="reference internal" href="#id15" id="id30">ラグランジアン1形式，2形式</a></li>
+<li><a class="reference internal" href="#id16" id="id31">ラグランジュ方程式の座標系によらない表現</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id18">ラグランジュ方程式</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id19">スクレロノーマスな場合</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>省略．</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id20">一般的な場合への拡張</a><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一般化力を用いるとオイラーラグランジュ方程式は</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\dfrac{\partial T}{\partial \dot{q^i}} - \dfrac{\partial T}{\partial q^i} = \mathcal{F}_i
+\end{align*}</div><p>もし一般化力がポテンシャルで表されているなら <span class="math">\(\mathcal{F}_i = -\partial U / \partial q^i\)</span> であるから <span class="math">\(L(q, \dot{q}) = T(q, \dot{q}, t) - U(q, t)\)</span> を用いて</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\dfrac{\partial L}{\partial \dot{q^i}} - \dfrac{\partial L}{\partial q^i} = 0
+\end{align*}</div><p>と表される．ラグランジアンに掛かっている演算子を以下のように記す．</p>
+<div class="math">
+\begin{align*}
+\mathcal{E}_i = \left( \dfrac{d}{dt}\dfrac{\partial}{\partial \dot{q}^i} - \dfrac{\partial}{\partial q^i} \right)
+\end{align*}</div><p>拘束のある系のconfigurationは配位空間上Nの一点で表される．そしてN上の接バンドルTNを力学では状態空間という．すると系の状態 <span class="math">\((q, \dot{q})\)</span> はTN上の一点で表される．それは次のような理由による．ラグランジュ方程式は以下のように展開される．</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial^2 L}{\partial \dot{q}^i \dot{q}^j}\ddot{q}^j + \dfrac{\partial^2 L}{\partial \dot{q}^i \partial q^j}\dot{q}^j + \dfrac{\partial^2 L}{\partial \dot{q}^i \partial t} - \dfrac{\partial L}{\partial q^i} = 0
+\end{align*}</div><p>そしてラグランジアンの <span class="math">\(\dot{q}\)</span> に関するヘッセ行列 <span class="math">\(A_{ij} = (\partial^2 L / \partial \dot{q}^i \partial \dot{q}^j)\)</span> が正則であるならば上式は</p>
+<div class="math">
+\begin{align*}
+\ddot{q}^j = (A^{-1})^{ij} \left( -\dfrac{\partial^2 L}{\partial \dot{q}^i \partial q^k}\dot{q}^k - \dfrac{\partial^2 L}{\partial \dot{q}^i \partial t} + \dfrac{\partial L}{\partial q^i} \right)
+\end{align*}</div><p>の形に解くことができる．この式の右辺は <span class="math">\((q, \dot{q})\)</span> の関数であるから，それらの初期条件を与えればその後の状態空間上の位置は一意的に決定される．つまり，ラグランジアンが正則であるならば <strong>古典的因果律</strong> は満たされているということである．</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id21">共変性</a><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>配位空間における座標変換</p>
+<div class="math">
+\begin{align*}
+\Phi: \mathrm{N} \longrightarrow \mathrm{N}: q \longrightarrow Q = \Phi^i(q, t)
+\end{align*}</div><p>そしてその逆変換を</p>
+<div class="math">
+\begin{align*}
+\phi: Q \longrightarrow q = \phi^i(Q, t)
+\end{align*}</div><p>とする．このような変換を点変換という．</p>
+<div class="math">
+\begin{align*}
+\dot{q}^i = \dfrac{\partial \phi^i}{\partial Q^k}\dot{Q}^k + \dfrac{\partial \phi^i}{\partial t}
+\end{align*}</div><p>と表されるから， <span class="math">\(\dot{q}^i\)</span> を <span class="math">\(Q, \dot{Q}\)</span> の関数とみなすと</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial \dot{q}^i}{\partial \dot{Q}^k}= \dfrac{\partial \phi^i}{\partial Q^k}
+\end{align*}</div><p>が成立する．ここでの偏微分においては， <span class="math">\(Q, \dot{Q}\)</span> を独立変数としている．この逆変換のヤコビ行列を <span class="math">\(J_k^i = (\partial \phi^i / \partial Q^k)\)</span> とする．この変換は同一の点を異なる座標系で見るものであるから，ラグランジアンの値は同一の点の対しては変わらない．つまり <span class="math">\(L(q, \dot{q})\)</span> を逆変換 <span class="math">\(q^i = \phi^i(Q, t)\)</span> で <strong>引き戻した</strong> 関数 <span class="math">\(\phi^{*}L\)</span> についても同様にEL方程式</p>
+<div class="math">
+\begin{align*}
+\mathcal{E}_i[\phi^{*}L] = 0
+\end{align*}</div><p>が成立する．以降， <span class="math">\(L(q, \dot{q}, t)\)</span> において <span class="math">\(q^i = \phi^i(Q, t)\)</span> ，及び２つ上の式を用いて <span class="math">\(\dot{q}^i\)</span> に <span class="math">\(Q, \dot{Q}\)</span> を代入してQの関数に引き戻すことを <span class="math">\(\phi^{*}L\)</span> によって表現する．上の式を計算すると</p>
+<div class="math">
+\begin{align*}
+&amp; \mathcal{E}_i [\phi^{*}L] \\
+&amp;= \dfrac{d}{dt} \left[ \phi^{*}\left( \dfrac{\partial L}{\partial \dot{q}^k} \right) \dfrac{\partial \dot{q}^k}{\partial \dot{Q}^i} \right] - \left[ \phi^{*}\left( \dfrac{\partial L}{\partial q^k} \right) \dfrac{\partial \phi^k}{\partial Q^i} + \phi^{*}\left( \dfrac{\partial L}{\partial \dot{q}^k} \right) \dfrac{\partial}{\partial Q^i}\dfrac{d \phi^k}{dt} \right] \\
+&amp;= \dfrac{\partial \phi^k}{\partial Q^i}\mathcal{E}_k [L(q, \dot{q}, t)] = J^k_i \mathcal{E}_k [L]
+\end{align*}</div><p>すなわち <span class="math">\(\mathcal{E}_i [L]\)</span> は共変成分として変換される．そして変換が正則であるならばラグランジュ方程式は変換にたいして共変的である．</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id22">一般化ポテンシャル</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一般化力が <span class="math">\(\mathcal{F}_i = -\partial U(q, t) / \partial q^i\)</span> であるとき，EL方程式は</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\left( \dfrac{\partial L}{\partial \dot{q}^i} \right) - \dfrac{\partial L}{\partial q^i} = 0
+\end{align*}</div><p>である．ここでポテンシャルが速度に依存する場合， <span class="math">\(L = T(q, \dot{q}) - U(q, \dot{q})\)</span> となるので,</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\left( \dfrac{\partial T}{\partial \dot{q}^i} \right) - \dfrac{\partial T}{\partial q^i} = -\dfrac{\partial U}{\partial q^i} + \dfrac{d}{dt}\left( \dfrac{\partial U}{\partial \dot{q}^i}\right)
+\end{align*}</div><p>となる．よって一般化力が</p>
+<div class="math">
+\begin{align*}
+\mathcal{F}_i = -\dfrac{\partial U}{\partial q^i} + \dfrac{d}{dt}\left( \dfrac{\partial U}{\partial \dot{q}^i} \right)
+\end{align*}</div><p>と表されるならばEL方程式が同様に成り立つ．このUを一般化ポテンシャルという．力が速度に依存する例として，電磁場中における荷電粒子の運動が上げられる．運動方程式は</p>
+<div class="math">
+\begin{align*}
+m \dfrac{d^2 \vec{r}}{dt^2} = e \left( \vec{E} + \dfrac{\vec{v}}{c} \times \vec{B} \right)
+\end{align*}</div><p>である．スカラーポテンシャル <span class="math">\(\Phi(\vec{r}, t)\)</span> 及びベクトルポテンシャル <span class="math">\(\vec{A}(\vec{r}, t)\)</span> を用いると</p>
+<div class="math">
+\begin{align*}
+&amp; \vec{E} = -\nabla \Phi - \dfrac{1}{c} \dfrac{\partial \vec{A}}{\partial t} \\ &amp; \vec{B} = \nabla \times \vec{A}
+\end{align*}</div><p>と表される．すると上の運動方程式は</p>
+<div class="math">
+\begin{align*}
+   m\ddot{r} &amp;= -e\nabla \Phi - \dfrac{e}{c}\dfrac{\partial \vec{A}}{\partial t} + \dfrac{e}{c}\dot{r} \times (\nabla \times \vec{A}) \\ &amp;= -\left[ \dfrac{\partial}{\partial \vec{r}} - \dfrac{d}{dt}\dfrac{\partial}{\partial \dot{\vec{r}}}\right]\left( e\Phi - \dfrac{e}{c}(\dot{r} \cdot \vec{A}) \right)
+\end{align*}</div><p>と書き直されるので，一般化ポテンシャルとラグランジアンは</p>
+<div class="math">
+\begin{align*}
+&amp; U(\vec{r}, \dot{\vec{r}}, t) = e\left( \Phi(\vec{r}, t) - \dfrac{1}{c}(\dot{\vec{r}} \cdot \vec{A}(\vec{r}, t))\right) \\
+&amp; L(\vec{r}, \dot{\vec{r}}, t) = \dfrac{m}{2}\dot{\vec{r}}^2 - e\Phi + \dfrac{e}{c}(\dot{\vec{r}} \cdot A)
+\end{align*}</div><p>となる．</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id23">ラグランジアンのゲージ変換</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ラグランジアン <span class="math">\(L\)</span> と <span class="math">\(L^{\prime} = L + \Omega\)</span> がともに</p>
+<div class="math">
+\begin{align*}
+\mathcal{E}_i [L] = \mathcal{E}_i [L^{\prime} + \Omega]
+\end{align*}</div><p>を満たしているとする．このとき</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\dfrac{\partial \Omega}{\partial \dot{q}^i} - \dfrac{\partial \Omega}{\partial \dot{q}} = 0
+\end{align*}</div><p>を満たす．すなわち</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial^2 \Omega}{\partial \dot{q}^k \partial \dot{q}^i}\ddot{q}^k + \dfrac{\partial^2 \Omega}{\partial q^k \partial \dot{q}^i}\dot{q}^k + \dfrac{\partial^2 \Omega}{\partial t \partial \dot{q}^i} - \dfrac{\partial \Omega}{\partial q^i} = 0
+\end{align*}</div><p>ラグランジアンはqの２階微分を含まないはずなので，この式でその係数はゼロである．つまり <span class="math">\(\partial^2 \Omega / \partial \dot{q}^k \dot{q}^i = 0\)</span> であるから</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial^2 \Omega}{\partial q^k \partial \dot{q}^i} + \dfrac{\partial^2 \Omega}{\partial t \partial \dot{q}^i} - \dfrac{\partial \Omega}{\partial q^i} = 0
+\end{align*}</div><p>が成立する．また <span class="math">\(\partial^2 \Omega / \partial \dot{q}^k \dot{q}^i = 0\)</span> より</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{\partial \Omega}{\partial \dot{q}^i} = \alpha_i (q, t) \\ &amp; \Omega = \dot{q}^i \alpha_i (q, t) + \beta(q, t)
+\end{align*}</div><p>と表される．この式を2つ上の式に代入すると</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{\partial \alpha_i}{\partial q^k} = \dfrac{\partial \alpha_k}{\partial q^i} \\ &amp; \dfrac{\partial \alpha_i}{\partial t} = \dfrac{\partial \beta}{\partial q^i}
+\end{align*}</div><p>が成立することが必要．したがってポアンカレの補題より</p>
+<div class="math">
+\begin{align*}
+&amp; \alpha_i = \dfrac{\partial \Lambda}{\partial q^i} \\ &amp; \beta = \dfrac{\partial \Lambda}{\partial t}
+\end{align*}</div><p>を満たす関数 <span class="math">\(\Lambda(q, t)\)</span> が存在するはずである．一般に <span class="math">\(L \longrightarrow L^{\prime} = L + d\Lambda / dt\)</span> なる変換に対してラグランジュ方程式は不変である．この変換をゲージ変換という．先ほど求めた電磁場のラグランジアンだと，<span class="math">\(\Lambda = (e/c)\chi\)</span> とした</p>
+<div class="math">
+\begin{align*}
+L^{\prime} = \dfrac{m}{2}\dot{\vec{r}}^2 - e\left(\Phi - \dfrac{1}{c}\dfrac{\partial \chi}{\partial t} \right) + \dfrac{e}{c} \dot{\vec{r}} \cdot (\vec{A} + \nabla \chi)
+\end{align*}</div><p>である．この変換は</p>
+<div class="math">
+\begin{align*}
+&amp; \Phi^{\prime} = \Phi - \dfrac{1}{c}\dfrac{\partial \chi}{\partial t} \\ &amp; \vec{A}^{\prime} = \vec{A} + \nabla \chi
+\end{align*}</div><p>に対応している．この変換を電磁場のゲージ変換という．</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id24">対称性と保存則</a><a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id25">第1積分</a><a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>運動方程式を解くためには保存量を見つけることが重要である．それにより運動がとる経路が限定されていくためである．</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}I(q, \dot{q}, t) = 0
+\end{align*}</div><p>なる量を第1積分という．最も簡単な第1積分は，循環座標に対する運動量である．</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\dfrac{\partial L}{\partial \dot{q}^i} = \dfrac{\partial L}{\partial q^i}
+\end{align*}</div><p>においてもしラグランジアンが <span class="math">\(q^i\)</span> を文字通り含まないのであれば，この右辺はゼロになる．よって対応する一般化運動量 <span class="math">\(\partial L / \partial \dot{q}^n\)</span> は定数</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial L}{\partial \dot{q}^n} = \alpha_n
+\end{align*}</div><p>である．このときLは <span class="math">\(q^n\)</span> を含んでいないのであった．よってこの式の右辺は <span class="math">\(q^1, \cdots, q^{n-1}, \dot{q}^1, \cdots, \dot{q}^{n}\)</span> の式である．よって陰関数定理からこの式を逆に解くことにより</p>
+<div class="math">
+\begin{align*}
+\dot{q}^{n} = \psi(q^1, \cdots, q^{n-1}, \dot{q}^1, \dot{q}^{n-1})
+\end{align*}</div><p>の形で書き表せる．この関数をラグランジアンに代入すると，もともと2n次元の引数をとっていたラグランジアンLが <span class="math">\(q^n\)</span> (もともと存在していない)， <span class="math">\(\dot{q}^n\)</span> (今示したように2n-2個の変数の関数になる)を束縛されて(部分適用されて)(2n-2)次元の関数 <span class="math">\(L^*\)</span> に引き戻される．これを自由度の削減や配位空間の縮約という．これについては後にラウシアンの項で再度説明される．またこのような変数 <span class="math">\(q^n\)</span> のことを循環座標というのだが，これについても幾何学的な命名の由来が存在している．これは作用変数と角変数の章で説明される．</p>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id26">系の対称性とネーターの定理</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>解析力学では座標変換してもラグランジアンの関数の形が変わらない，つまり座標変換に伴うラグランジアンの <strong>引き戻しの前後で関数の形が変化しない</strong> ことを「系に対称性がある」と表現する．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">例えば <span class="math">\(L(a, b) = a / b\)</span> に対して座標変換 <span class="math">\(a^* = ka, b^* = kb\)</span> を施すと, 引き戻されたラグランジアンは <span class="math">\(L^* (a^*, b^*) = (a^* / k) / (b^* / k) = a^* / b^*\)</span> となるから, <strong>引き戻しの前後</strong> において <span class="math">\(L(a^*, b^*) = L (a, b)\)</span> が成立するためにラグランジアンの関数形が変わらない．よってこの系は対称性があるという．このように引き戻してもラグランジアンの形が変わらない座標変換があれば，それに付随して対応する保存量が存在することを主張するのがネーターの定理である．</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last"><strong>半分以上嘘に聞こえるが</strong> 解析力学における保存量は <strong>すべて運動量</strong> である．</p>
+</div>
+<p>本書のここに対応するところではモーメント関数なるものを用いて抽象的に理論を展開しているが，今のところその詳細は省こうと思う．上の注意書きで理解は十分ではないだろうか．ただしその一般形が以下のように</p>
+<div class="math">
+\begin{align*}
+F(q, \dot{q}) = f_i \dfrac{\partial L}{\partial \dot{q}^i}
+\end{align*}</div><p>なる一般化運動量の線形和であることはremindしておくべきである．</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">循環座標がなくても保存量は存在する．ネーターの定理は循環座標に頼らずに保存量を求めるフレームワークである．しかしその保存量であるモーメント関数も結局は一般化運動量の線型結合であるから，やはり運動量が保存するのはネーターの定理でも変わらない．</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id27">ハミルトニアンとエネルギー積分</a><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>先ほど解析力学における保存量はすべて運動量であると述べたが，最も代表的な保存量も運動量であるというのだろうか? 実は時間を平行移動させてもラグランジアンが不変(関数形が変わらない)ことを要請するとあたかもそれに対する運動量のようにしてエネルギーが保存する．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">とはいえ物理的には位置座標と時間座標には圧倒的な違いが存在している．相対性理論ではこれらも混ざり合う座標となっているが．</p>
+</div>
+<p>以下の恒等式</p>
+<div class="math">
+\begin{align*}
+\dfrac{dL}{dt} - \dfrac{\partial L}{\partial t} &amp;= \dfrac{\partial L}{\partial q^i}\dot{q}i + \dfrac{\partial L}{\partial \dot{q}^i}\ddot{q}^i \\ &amp;= \dfrac{d}{dt} \left( \dot{q}^i \dfrac{\partial L}{\partial \dot{q}^i} \right) - \dot{q}^i \mathcal{E}_i [L]
+\end{align*}</div><p>よりもしラグランジアンがtの平行移動に不変であるならば <span class="math">\(\partial L / \partial t = 0\)</span> である．よって</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\left( \dfrac{\partial L}{\partial \dot{q}^i}\dot{q}^i - L \right) = \mathcal{E}_i [L]
+\end{align*}</div><p>は，<strong>系が実際にとる経路上では保存する</strong>．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">やはり解釈が難しい．だって系がオイラーラグランジュ方程式に従わないことなんてありえない．実際に起こり得た以外の経路ではハミルトニアンは保存していない．そして実際に実現する以上，ハミルトニアンは保存している．というより，<strong>ハミルトニアンを保存しながらオイラーラグランジュ方程式は発展していく</strong> と言ったほうが良いか．</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">結局ラグラジアンにおける <span class="math">\(q^i, \dot{q}^i\)</span> は独立なんだろうか? EL方程式は微分方程式であるから，状態空間の各点においてはその2つは独立変数かもしれない．けど一旦解が求まったのであれば，片方からもう片方を求められるんじゃないだろうか．この点についてはまた後で考えよう．</p>
+</div>
+<p>この量をハミルトニアン <span class="math">\(H_L(q, \dot{q}, t)\)</span> という．</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id28">配位空間の縮約と自由度の削減</a><a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>先ほどのラウシアンについて．もし <span class="math">\(q^n\)</span> が循環座標であるならば <span class="math">\(\dot{q}^n\)</span> は <span class="math">\(q^n, \dot{q}^n\)</span> 以外の変数の関数 <span class="math">\(\psi\)</span> で表される．よってこの関数でラグランジアンも引き戻されて <span class="math">\(L^*\)</span> なる(2n-2)変数関数になるのであった．ここで記号* の上付きは， <span class="math">\(\dot{q}^n\)</span> に <span class="math">\(\psi\)</span> を代入する操作を表す．ここで <span class="math">\(\mathcal{E}_i [L^*]\)</span> を計算すると以下のような計算になる．</p>
+<div class="math">
+\begin{align*}
+\mathcal{E}_i [L^*] &amp;= \dfrac{d}{dt}\left( \dfrac{\partial L^*}{\partial \dot{q}^i} \right) - \dfrac{\partial L^*}{\partial \dot{q}^i}  \\ &amp;= \left[ \mathcal{E}_i [L] \right]^* + \alpha_n \mathcal{E}_i [\psi^n]
+\end{align*}</div><p>ここで <span class="math">\(i = 1, \cdots, n-1\)</span> である．よって</p>
+<div class="math">
+\begin{align*}
+\mathcal{E}_i [L^* - \alpha_n \psi^n] = \left[ \mathcal{E}_i [L] \right]^*
+\end{align*}</div><p>が成立する．つまりもともとの2n変数のラグランジアンに対するラグランジュ方程式が成り立つならば，そのラグランジアンにおいて保存量を代入して2変数低減したラグランジアン <span class="math">\(L^*\)</span> については</p>
+<div class="math">
+\begin{align*}
+R(q^1, \cdots, q^{n-1}, \dot{q}^1, \cdots, \dot{q}^{n-1}) = L^* - \alpha_n \psi^n
+\end{align*}</div><p>が同様に(n-1)個のEL方程式を与える.</p>
+<p>この関数をラウシアンという．</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id29">ラグランジュ方程式の幾何学的表現</a><a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id30">ラグランジアン1形式，2形式</a><a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ラグランジュ方程式は配位空間N上の曲線 <span class="math">\(c_L (t)\)</span> とその上での速度 <span class="math">\(\dot{c}_L (t)\)</span> を決定するものであり，今まで用いてきた <span class="math">\(\{ q^i \}, \{ \dot{q}^i \}\)</span> はその局所的な表現に過ぎない．したがって座標系によらない表現は <span class="math">\(c_L (t)\)</span> の接ベクトルを与えるベクトル場</p>
+<div class="math">
+\begin{align*}
+\dot{c}_L (t) = \dot{q}^i \dfrac{\partial}{\partial q^i}
+\end{align*}</div><p>についての関係式を直接に与えるものでなければならない．</p>
+<p>そこで <span class="math">\(\mathcal{E}_i [L]\)</span> が共変ベクトルの成分としての変換則を受けることが大きなヒントになる．つまり</p>
+<div class="math">
+\begin{align*}
+\mathcal{E}_i [L] dq^i = 0
+\end{align*}</div><p>の右辺は座標系によらない1形式である．そのため先ほどの <span class="math">\(c_L (t)\)</span> が作るベクトル場とある適当な2形式との内部積をとって1形式にすることでこのEL方程式が得られるのではないかというふうに考える．</p>
+<p>天下り的ではあるが，一般化運動量の変換</p>
+<div class="math">
+\begin{align*}
+p_i = \dfrac{\partial}{\partial \dot{q}^i}L(q, \dot{q}) \longrightarrow P = \dfrac{\partial}{\partial \dot{Q}^i}L^*(Q, \dot{Q})
+\end{align*}</div><p>の際に，各成分は</p>
+<div class="math">
+\begin{align*}
+P_i = \dfrac{\partial L^*}{\partial \dot{Q}^i} = \dfrac{\partial L}{\partial \dot{q}^k}\dfrac{\partial \dot{q}^k}{\partial \dot{Q}^i} = p_k \dfrac{\partial q^k}{\partial Q^i}
+\end{align*}</div><p>と変換されるから，運動量の成分は共変ベクトルの成分として変換されている．つまり以下の1形式</p>
+<div class="math">
+\begin{align*}
+\theta_L = p_i (q, \dot{q}) dq^i
+\end{align*}</div><p>を幾何学的な対象として定義することができる．その外微分である2形式</p>
+<div class="math">
+\begin{align*}
+d\theta_L = d \left( \dfrac{\partial L}{\partial \dot{q}^i} \right) \wedge dq^i
+\end{align*}</div><p>も定義できる(これを使えば良さそう)．</p>
+<p>この <span class="math">\(\theta_L, d \theta_L\)</span> のことをそれぞれラグランジアン1形式，ラグランジアン2形式と呼ぶ．</p>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id31">ラグランジュ方程式の座標系によらない表現</a><a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ラグランジアン2形式と先ほどのベクトル場の内部積をとってみる．</p>
+<div class="math">
+\begin{align*}
+\langle d \theta_L | \dot{c}_L , \bullet \rangle  = \left\langle  d \left( \dfrac{\partial L}{\partial \dot{q}^i }\right) | \dot{c}_L \right\rangle  dq^i - \langle dq^i | \dot{c}_L \rangle  d \left( \dfrac{\partial L}{\partial \dot{q}^i }\right)
+\end{align*}</div></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../planning_algorithms/index.html" class="btn btn-neutral float-right" title="Planning Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter01.html" class="btn btn-neutral" title="序章 数学的準備" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

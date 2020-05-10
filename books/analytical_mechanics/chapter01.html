@@ -1,0 +1,1234 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="いきなり微分幾何の準備から始まるのだが，運動方程式をユークリッド空間に埋め込まれた超曲面上での方程式として表すところから始めているのでついていきやすい．また多様体の入門書としても「多様体の基礎」より分かりやすかった．接ベクトル空間，ベクトル場，積分曲線の概念は本書でつかむことができた．関数とベクトル場のリー微分の導出も追うことができた．リー群はまだ理解しきれていない．テンソルとしての微分形式の説明，微分形式の「部分適用」としての内部積の導入も分かりやすい．" name="description" />
+<meta content="多様体, 微分幾何学, 接ベクトル, 積分曲線, リー微分, 共変テンソル, 微分形式, 内部積, 外微分" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="序章 数学的準備 運動方程式 拘束条件と配位空間 仮想仕事による拘束力の消去 曲面上の拘束運動 加速度ベクトルと運動方程式 拘束力の決定 曲面上での運動方程式 慣性運動と測地線 曲面上のテンソルと共変微分 曲面上のベクトル 曲面上のテンソル 接続と平行移動 多様体とベクトル場 微分可能多様体 多様体上の関数と曲線 方向微分と微分作用素 接ベクトルと接空間 ベクトル場 積分曲線と一径数変換群 ...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="解析力学 I，II" href="index.html"/>
+        <link rel="next" title="ラグランジュ形式の力学" href="chapter02.html"/>
+        <link rel="prev" title="解析力学 I，II" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">解析力学 I，II</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">序章 数学的準備</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">運動方程式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">曲面上の拘束運動</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">曲面上のテンソルと共変微分</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">多様体とベクトル場</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">双対空間と共変テンソル</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id35">余接バンドルと微分形式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">ラグランジュ形式の力学</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">解析力学 I，II</a> &raquo;</li>
+        
+      <li>序章 数学的準備</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id45">序章 数学的準備</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">この章の目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id45">序章 数学的準備</a><ul>
+<li><a class="reference internal" href="#id3" id="id46">運動方程式</a><ul>
+<li><a class="reference internal" href="#id6" id="id47">拘束条件と配位空間</a></li>
+<li><a class="reference internal" href="#id7" id="id48">仮想仕事による拘束力の消去</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8" id="id49">曲面上の拘束運動</a><ul>
+<li><a class="reference internal" href="#id9" id="id50">加速度ベクトルと運動方程式</a></li>
+<li><a class="reference internal" href="#id10" id="id51">拘束力の決定</a></li>
+<li><a class="reference internal" href="#id11" id="id52">曲面上での運動方程式</a></li>
+<li><a class="reference internal" href="#id12" id="id53">慣性運動と測地線</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13" id="id54">曲面上のテンソルと共変微分</a><ul>
+<li><a class="reference internal" href="#id14" id="id55">曲面上のベクトル</a></li>
+<li><a class="reference internal" href="#id15" id="id56">曲面上のテンソル</a></li>
+<li><a class="reference internal" href="#id16" id="id57">接続と平行移動</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17" id="id58">多様体とベクトル場</a><ul>
+<li><a class="reference internal" href="#id18" id="id59">微分可能多様体</a></li>
+<li><a class="reference internal" href="#id19" id="id60">多様体上の関数と曲線</a></li>
+<li><a class="reference internal" href="#id20" id="id61">方向微分と微分作用素</a></li>
+<li><a class="reference internal" href="#id21" id="id62">接ベクトルと接空間</a></li>
+<li><a class="reference internal" href="#id22" id="id63">ベクトル場</a></li>
+<li><a class="reference internal" href="#id23" id="id64">積分曲線と一径数変換群</a></li>
+<li><a class="reference internal" href="#pull-back" id="id65">引き戻し(pull-back)</a></li>
+<li><a class="reference internal" href="#push-forward" id="id66">微分写像(押し出し，push-forward)</a></li>
+<li><a class="reference internal" href="#id24" id="id67">押し出し(微分写像)の局所座標表示</a></li>
+<li><a class="reference internal" href="#id25" id="id68">引き戻しと押し出しの順番交換について</a></li>
+<li><a class="reference internal" href="#id26" id="id69">リー微分</a></li>
+<li><a class="reference internal" href="#id27" id="id70">リー括弧とリー代数</a></li>
+<li><a class="reference internal" href="#id28" id="id71">リー群とリー代数</a></li>
+<li><a class="reference internal" href="#id29" id="id72">一径数部分群と指数写像</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30" id="id73">双対空間と共変テンソル</a><ul>
+<li><a class="reference internal" href="#id31" id="id74">双対空間と1ベクトル</a></li>
+<li><a class="reference internal" href="#id32" id="id75">反変ベクトルと共変ベクトル</a></li>
+<li><a class="reference internal" href="#id33" id="id76">共変テンソル</a></li>
+<li><a class="reference internal" href="#p" id="id77">交代テンソルとpベクトル</a></li>
+<li><a class="reference internal" href="#id34" id="id78">テンソルの交代化と外積</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id35" id="id79">余接バンドルと微分形式</a><ul>
+<li><a class="reference internal" href="#id36" id="id80">余接空間と1ベクトル</a></li>
+<li><a class="reference internal" href="#id37" id="id81">1形式</a></li>
+<li><a class="reference internal" href="#id38" id="id82">テンソル場とリーマン計量</a></li>
+<li><a class="reference internal" href="#id39" id="id83">内部積，及び添字の上げ下げ</a></li>
+<li><a class="reference internal" href="#id40" id="id84">p形式</a></li>
+<li><a class="reference internal" href="#id41" id="id85">外微分</a></li>
+<li><a class="reference internal" href="#id42" id="id86">ポアンカレの補題</a></li>
+<li><a class="reference internal" href="#id43" id="id87">微分形式の積分</a></li>
+<li><a class="reference internal" href="#id44" id="id88">ストークスの定理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id46">運動方程式</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず始めにニュートン力学の曖昧なところから話は始まる．『よく分かる解析力学』にも述べられていたが，ニュートンの運動方程式は <strong>力の定義式</strong> なのか，それとも <a href="#id4"><span class="problematic" id="id5">**</span></a>力から加速度を求めるもの ** なのか，という問題意識である．基本的には力の作用のもとでの物質的物体の運動が論じられるが,</p>
+<blockquote>
+<div>その際に作用する力の法則自体は，通常は力学の外にある場の古典論で扱われるべきものとなっているのである．</div></blockquote>
+<p>そうだ．そのため</p>
+<ol class="arabic simple">
+<li>与えられた力から運動を予測する(力 -&gt; 運動)</li>
+<li>運動から力の性質を解析する(運動 -&gt; 力)，例えばケプラーの法則からの万有引力</li>
+</ol>
+<p>とい両義性がニュートン力学には存在する．それは力を発生する「場」については力学の外に与られたものとして扱い，場が個別粒子に与える作用を「力」という「概念」にまとめ上げたためである</p>
+<p>物質と場の二元論，および個別をそれぞれ個々に力学的対象として扱うニュートン力学の一面性と限定性は，現在では場の量子論において物質と場の両者を量子化することによって解決が模索されている(いやもう解決されているのか？ 頭のいい人たちのことはよく知らないけれど)．そこでは粒子系と場がともに同レベルの量子化された「場」とみなされ，同種の基礎方程式で統一的に扱われる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">「粒子系」も「場」として扱われるらしい．</p>
+</div>
+<p>そしてこの移行を可能にしたのがラグランジュ形式及びハミルトン形式の解析力学であるそうだ．</p>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id47">拘束条件と配位空間</a><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>各質点の運動空間(configuration space)  <span class="math">\(\in \mathbb{R}^3\)</span> のN個の直積により質点系の配置を <span class="math">\(\mathbb{R}^{3N}\)</span> における一点</p>
+<div class="math">
+\begin{align*}
+x = (x^1, x^2, \cdots, x^{3N})
+\end{align*}</div><p>で表す．するとニュートンの運動方程式は以下のような</p>
+<div class="math">
+\begin{align*}
+m_a \dfrac{d^2 r_a}{d t^2} = F_{a}^{total}
+\end{align*}</div><p>なるN個の連立方程式であり， <span class="math">\(F_{a}^{total}\)</span> が与えられれば初期条件と合わせて系の発展を与える微分方程式となる． しかし一般には剛体を構成する全粒子についてそのようなことは考えられず，代わりに拘束条件が与えられる．</p>
+<p>とくにその関係が</p>
+<div class="math">
+\begin{align*}
+f_s(x^1, x^2, \cdots, x^{3N})
+\end{align*}</div><p>で表される時，ホロノミックな拘束という，逆に非ホロノミックな拘束は，条件が不等式で表されるとか，座標の間の微分の積分不可能な関係で与えられるものである．もし積分可能ならば，例えば <span class="math">\(dx, dy\)</span> が</p>
+<div class="math">
+\begin{align*}
+dy = cdx, \quad \dfrac{dy}{dx} = c
+\end{align*}</div><p>であるならば <span class="math">\(y = cx + c_1\)</span> みたいにして <strong>ホロノミックな拘束に</strong> 生まれ変わる．そのためホロノミックな拘束を全て除去すると，結局系の自由度はある3N以下の定数 <span class="math">\(k\)</span> に低減される．数学的にはホロノミックな拘束たちのヤコビアン <span class="math">\((\partial f_s / \partial x^i)\)</span> のランクがkであるならば，xの3N個の成分は全てが独立ではなく，局所的には <span class="math">\(n = 3N - k\)</span> 個の座標を用いて <span class="math">\(x^i = x^i(q^1, q^2, \cdots, q^n)\)</span> とパラメトライズされる．幾何学的には，拘束条件を満たす点の集合は <span class="math">\(\mathbb{R}^{3N}\)</span> に埋め込まれたn次元の超曲面をなす．そして各質点は</p>
+<div class="math">
+\begin{align*}
+r_a = r_a (q^1, q^2, \cdots,  q^n)
+\end{align*}</div><p>と表される．この超曲面は配位空間と呼ばれる．そしてこのn個のパラメーターが系の特定の位置を特定するのに必要十分なパラメーターであり，一般化座標と呼ばれる．そして系の時間的発展はこの配位空間上の点とその速度ベクトルとして表される．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">つまり接バンドル．</p>
+</div>
+<p>運動空間が超曲面上Nに限定されているということは，物理的に見直すならば各質点にはそれをN上に拘束するための強制「力」が働いているということである．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ここで「力」の曖昧性が現れる．回転座標系においてコリオリ「力」が現れるし，もしこの粒子が超曲面上での測地線を慣性運動していたなら何も外力は加えられていないはずである．しかし，拘束「力」が見かけ上現れる．</p>
+</div>
+<p>まあそれをよしとして拘束力を仮定すると,</p>
+<div class="math">
+\begin{align*}
+m_a \dfrac{d^2 r_a}{dt^2} = F_a + F_a^{\prime}
+\end{align*}</div><p>として拘束力が現れる．この拘束力は，<strong>問題を解いて求められる力である</strong> ．</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id48">仮想仕事による拘束力の消去</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>仮想変位との内積をとることで拘束力を消去できるという話．「動ける方向だけ」考えるから，「動けない方向」つまり「外からみて動ける方向に働いているように見える力」を消去するという感じだ．ニュートンの運動方程式は，仮想変位との内積をとると以下のようになる．</p>
+<div class="math">
+\begin{align*}
+\sum_a m_a \left( \dfrac{d^2 r_a}{d^2 t} \cdot \dfrac{\partial r_a}{\partial q^i}\right) = \mathcal{F}_i :=\sum_a F_a \cdot \dfrac{\partial r_a}{\partial q^i}
+\end{align*}</div><p>ここで <span class="math">\(\mathcal{F}_i\)</span> は一般化力である．</p>
+<p>ここで <span class="math">\(r_a\)</span> の二階微分を計算するとかなりややこしくなってしまうのだが，以下のように微分幾何っぽいことをやる．まず</p>
+<div class="math">
+\begin{align*}
+(d \bar{s})^2 := \sum_a \left( \dfrac{\partial r_a}{\partial q^i} \cdot \dfrac{\partial r_a}{\partial q^j} \right) dq^i dq^j
+\end{align*}</div><p>なる計量を定義すると運動エネルギーは</p>
+<div class="math">
+\begin{align*}
+T = \dfrac{1}{2}\left( \dfrac{d \bar{s}}{dt} \right)^{2}
+\end{align*}</div><p>と表される．ここで</p>
+<div class="math">
+\begin{align*}
+m_{ij} = m_{ji} = \sum_a m_a \left( \dfrac{\partial r_a}{\partial q^i} \cdot \dfrac{\partial r_a}{\partial q^j} \right)
+\end{align*}</div><p>は計量テンソルであり,</p>
+<div class="math">
+\begin{align*}
+(d \bar{s})^2 = m_{ij} d q^i d q^j
+\end{align*}</div><p>であり．さらに</p>
+<div class="math">
+\begin{align*}
+C_{ijk} = \sum_a \left( \dfrac{\partial r_a}{\partial q^i} \cdot \dfrac{\partial^2 r_a}{\partial q^i \partial q^j} \right)
+\end{align*}</div><p>とするとこれは</p>
+<div class="math">
+\begin{align*}
+C_{ijk} = \dfrac{1}{2} \left( \dfrac{\partial m_{ki}}{\partial q^j } + \dfrac{\partial m_{ji}}{\partial q^k} - \dfrac{\partial m_{jk}}{\partial q^i} \right)
+\end{align*}</div><p>を満たしている．この量を第一種クリストッフェル記号という．これらを用いると運動エネルギーは</p>
+<div class="math">
+\begin{align*}
+T = \dfrac{1}{2} m_{ji} \dot{q}^i \dot{q}^j
+\end{align*}</div><p>となり，そして運動方程式は</p>
+<div class="math">
+\begin{align*}
+m_{ij}\ddot{q}^{ij} + C_{ijk}\dot{q}^i \dot{q}^j = \mathcal{F}_i
+\end{align*}</div><p>と表される．</p>
+<p>一般化力は，力がポテンシャルから導かれる場合</p>
+<div class="math">
+\begin{align*}
+\mathcal{F}_i = \sum_a F_a \cdot \dfrac{\partial r_a}{\partial q^i} = \sum_a -\dfrac{\partial U}{\partial r_a} \cdot \dfrac{\partial r_a}{\partial q^i} = -\dfrac{\partial U(r(q))}{\partial q^i}
+\end{align*}</div><p>であり，運動方程式は</p>
+<div class="math">
+\begin{align*}
+m_{ij}\ddot{q}^{ij} + C_{ijk}\dot{q}^i \dot{q}^j = -\partial_i U(r(q))
+\end{align*}</div><p>と与えられる．</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id49">曲面上の拘束運動</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここでは超曲面上に拘束された運動の幾何学的な意味を明らかにするため，1質点の，3次元空間に埋め込まれた2次元多様体上での運動を考える．その座標は <span class="math">\(r = (x(q^1, q^2), y(q^1, q^2), z(q^1, q^2))\)</span> と表される．そしてその各座標に関する偏微分 <span class="math">\(\partial_1 r, \partial_2 r\)</span> は接ベクトルである．この曲面上の線素は</p>
+<div class="math">
+\begin{align*}
+ds^2 = dr \cdot dr = \left( \dfrac{\partial r}{\partial q^i} dq^i \cdot \dfrac{\partial r}{\partial q^j} dq^j \right) = g_{ij}dq^i dq^j
+\end{align*}</div><p>と表され， <span class="math">\(g_{ij}\)</span> を曲面の第一基本量，上の二次形式のことを曲面の第一基本形式という．またその行列式は正則</p>
+<div class="math">
+\begin{align*}
+\mathrm{det}(g_{ij}) = (\partial_1 r \times \partial_2 r)^2 \neq 0
+\end{align*}</div><p>であるから，その逆行列を <span class="math">\(g^{ij}\)</span> と表す．</p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id50">加速度ベクトルと運動方程式</a><a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>加速度ベクトルを計算してみると</p>
+<div class="math">
+\begin{align*}
+\dfrac{d^2 r}{d t^2} = \dfrac{\partial r}{\partial q^j}\dfrac{d^2 q^j}{dt^2} + \dfrac{\partial^2 r }{\partial q^k \partial q^j}\dfrac{d q^k}{dt}\dfrac{d q^j}{dt}
+\end{align*}</div><p>となるから，接ベクトルに属する成分と，接ベクトルとは平行でない成分に分かれる．これからこれらを平行成分と垂直成分に分離する．</p>
+<p>垂直方向の法ベクトル <span class="math">\(e_{N}\)</span> は</p>
+<div class="math">
+\begin{align*}
+e_{N} = \dfrac{\partial_1 r \times \partial_2 r}{|\partial_1 r \times \partial_2 r|}
+\end{align*}</div><p>であり，加速度ベクトルの第二成分はこれにより</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial^2 r }{\partial q^k \partial q^j}\dfrac{d q^k}{dt}\dfrac{d q^j}{dt} = \Gamma^{i}_{jk}\dfrac{\partial r}{\partial q^i} + h_{jk}e_{N}
+\end{align*}</div><p>と分離できるはずである．それぞれの係数は</p>
+<div class="math">
+\begin{align*}
+h_{jk} = \dfrac{\partial^2 r}{\partial q^j \partial q^k} \cdot e_{N}
+\end{align*}</div><div class="math">
+\begin{align*}
+\dfrac{\partial r}{\partial q^n} \cdot \dfrac{\partial^2 r}{\partial q^j \partial q^k} = \Gamma_{jk}^{i} \left( \dfrac{\partial r}{\partial q^n} \cdot \dfrac{\partial r}{\partial q^i} \right) = g_{ni}\Gamma_{jk}^{i} = \Gamma_{njk}
+\end{align*}</div><p>と表される．ここの <span class="math">\(\Gamma\)</span> はクリストッフェル記号と呼ばれる．同様に</p>
+<div class="math">
+\begin{align*}
+\Gamma_{ijk} = \dfrac{1}{2} \left( \dfrac{\partial g_{ki}}{\partial q^j} + \dfrac{\partial g_{ij}}{\partial q^k} - \dfrac{\partial q_{jk}}{\partial q^i} \right)
+\end{align*}</div><p>を満たすためである．結局運動方程式は曲面に平行な成分と垂直な成分</p>
+<div class="math">
+\begin{align*}
+&amp; m(\ddot{q}^k + \Gamma_{ij}^k \dot{q}^i \dot{q}^j) \partial_k r = F_r \\
+&amp; m h_{ij} \dot{q}^i \dot{q}^j e_{N} = F_N
+\end{align*}</div><p>に分けられる．運動方程式を解くとはまず初めに1つ目の方程式を解き，次に2つ目の方程式から拘束力を求めることである．</p>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id51">拘束力の決定</a><a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>拘束力を表す第二項であるが，一般的に</p>
+<div class="math">
+\begin{align*}
+H = h_{jk} q^j q^k
+\end{align*}</div><p>は曲面の第二形式と呼ばれている．これは垂直方向の曲率半径を用いて</p>
+<div class="math">
+\begin{align*}
+h_{jk}\dot{q}^j \dot{q}^k = \dfrac{v^2}{\rho_N}
+\end{align*}</div><p>と表される．すると先ほどの運動方程式は</p>
+<div class="math">
+\begin{align*}
+F_N = m \dfrac{v^2}{\rho_N} e_N
+\end{align*}</div><p>と表される．道理で曲面へと拘束するように力が働いているわけだ．</p>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id52">曲面上での運動方程式</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>質点の曲面上での運動を，弧長変数を時間軸にとると便利なことがある．</p>
+<div class="math">
+\begin{align*}
+s = \int_{0}^{t} vdt = \int_{0}^{t} |\dot{r}| dt
+\end{align*}</div><p>すると軌道に沿った接ベクトルは</p>
+<div class="math">
+\begin{align*}
+e_T = \dfrac{dr}{ds} = \dfrac{dt}{ds} \dfrac{dr}{dt} = \dfrac{\dot{r}}{v}
+\end{align*}</div><p>であり，ノルムは自然と1になっている．さらにr(s)において曲面に接しかつ <span class="math">\(e_ｒ\)</span> 垂直なベクトルを</p>
+<div class="math">
+\begin{align*}
+e_G = \dfrac{\partial_2 r - (\partial_2 r \cdot e_T)e_T}{\partial_2 r - (\partial_2 r \cdot e_T)e_T}
+\end{align*}</div><p>ととれる(確かに内積が1になっていることを確認できる)．そして法ベクトルを <span class="math">\(e_N = e_T \times e_G\)</span> と定義できる．すると加速度は</p>
+<div class="math">
+\begin{align*}
+\ddot{r} = \dfrac{d \dot{r}}{dt} = \dot{v} e_T + v^2 e_{T}^{\prime}
+\end{align*}</div><p>の形に表せる．ここで <span class="math">\(e_T \cdot e_T = 1\)</span> をsで微分すると <span class="math">\(2 e_T \cdot e_{T}^{\prime}\)</span> となるから， <span class="math">\(e_{T}^{\prime}\)</span> は <span class="math">\(e_T\)</span> と直交しているから</p>
+<div class="math">
+\begin{align*}
+r^{\prime \prime} = \kappa_G e_G + \kappa_N e_N
+\end{align*}</div><p>と分解できると予想できる．よって</p>
+<div class="math">
+\begin{align*}
+\ddot{r} = \dot{r} e_T + v^2(\kappa_G e_G+ \kappa_N e_N)
+\end{align*}</div><p>となる．ここで先ほどの結果から</p>
+<div class="math">
+\begin{align*}
+&amp; v^2 \kappa_N = \ddot{r} e_N = \pm \dfrac{v^2}{\rho_N}
+&amp; \kappa_N = \pm \dfrac{1}{\rho_N}
+\end{align*}</div><p>が得られる．ここで <span class="math">\(\kappa_N\)</span> は曲面自体の湾曲による軌道の曲がり具合であり，もしこの質点が平面上を移動していたのならばこの曲率はゼロである．この量は <strong>法曲率</strong> と呼ばれる．一方</p>
+<div class="math">
+\begin{align*}
+\kappa_G = r^{\prime \prime} \cdot e_G = \dfrac{\ddot{r} \cdot e_G}{v^2}
+\end{align*}</div><p>は軌道を接平面TNに射影して得られる曲線の曲率であり，<strong>測地的曲率</strong> と呼ばれる．これは軌道を「平面に直した」際の軌道の曲率であり，実際に2次元上をへばりついている生物に感じられる曲率である．</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id53">慣性運動と測地線</a><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>とくに拘束力以外の外力が曲面上で働いていないとする．つまり <span class="math">\(v = \mathrm{const}\)</span> ， <span class="math">\(\kappa_G = 0\)</span> であるとする．</p>
+<div class="math">
+\begin{align*}
+\kappa_G = (r^{\prime \prime} \cdot e_G) = (q^{k \prime \prime} + \Gamma^{k}_{ij}q^{i \prime} q^{j \prime})(\partial_k r \cdot e_G) = 0
+\end{align*}</div><p>より</p>
+<div class="math">
+\begin{align*}
+\dfrac{d^2 q^k}{d s^2} + \Gamma^{k}_{ij} \dfrac{d q^i}{ds} \dfrac{d q^j}{ds} = 0
+\end{align*}</div><p>が得られる．この解曲線を測地線という．測地線は曲面上の2点を結ぶ最短曲線である．</p>
+<blockquote>
+<div>したがって，曲面上での自由運動では，質点はある点からいま一つの点までその2点を結ぶ最短距離で移動する(一般には距離が留地となる経路をとる)．このことは光学におけるフェルマーの原理と同様の原理が力学においても成り立つことを示唆している．</div></blockquote>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id54">曲面上のテンソルと共変微分</a><a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id55">曲面上のベクトル</a><a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>力学のほとんどの物理量は座標と速度，加速度の関数であり，物理法則とはそのような物理量の関係である．そのためその表現は特定の座標系を用いて表される．しかしその物理的法則の「意味」は使用する座標系によって変化してはいけない．そのためには座標変換にさいして法則の「かたち」が変わってはいけない．</p>
+<p>例えば曲面上での温度や電位は座標系によらず「同じ位置」については同一の値をとらなければならない．例えば2つの異なる座標系 <span class="math">\((q^1, q^2)\)</span> ,  <span class="math">\((\bar{q}^1, \bar{q}^2)\)</span> においてその分布を表す関数は</p>
+<div class="math">
+\begin{align*}
+f(q^1, q^2) = \bar{f}(\bar{q}^1, \bar{q}^2)
+\end{align*}</div><p>を満たさなければならない．</p>
+<p>ベクトルについては，基底ベクトルを</p>
+<div class="math">
+\begin{align*}
+(e_1, e_2) = \left( \dfrac{\partial r}{\partial q^1} \dfrac{\partial r}{\partial q^2} \right)
+\end{align*}</div><p>とみなすとその速度成分を</p>
+<div class="math">
+\begin{align*}
+(v^1, v^2) = \left( \dfrac{d q^1}{dt}, \dfrac{d q^2}{dt} \right)
+\end{align*}</div><p>と定義できる．偏微分の連鎖率から</p>
+<div class="math">
+\begin{align*}
+e_i = \dfrac{\partial \bar{q}^k}{\partial q^i}\bar{e}_k
+v_i = \dfrac{\partial q^i}{\partial \bar{q}^k} \bar{v}_k
+\end{align*}</div><p>であるから,</p>
+<div class="math">
+\begin{align*}
+v^i e_i = \bar{v}^i \bar{e}_i
+\end{align*}</div><p>のように表されるので，座標系によらない「ベクトル」になっている(そうなるように連鎖率を定義しているのだが)．一般に座標変換に際して基底成分と同じように変換される量を共変成分という．一方速度成分と同じように変換される量を反変成分という．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">「下を打ち消しあって上が残る」のが反変成分，「上が打ち消し合って下が残る」のが共変成分</p>
+</div>
+<p>例えば</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial}{\partial q^i} = \dfrac{\partial \bar{q}^j}{\partial q^i} \dfrac{\partial}{\partial \bar{q}^j}
+\end{align*}</div><p>における <span class="math">\(\partial \bar{q}^j / \partial q^i\)</span> は反変成分である．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">「基底ベクトルと同じように変換される」のが共変成分．基底ベクトルを基準にしている．大雑把には <strong>位置による偏微分で定義される量は共変</strong> と思えばよい．</p>
+</div>
+<p>勾配ベクトルは位置による偏微分であるから，以下のように共変成分である．</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial f(q)}{\partial q^i} = \dfrac{\partial \bar{q}^l}{\partial q^i} \dfrac{\partial \bar{f}(\bar{q})}{\partial \bar{q}^l}
+\end{align*}</div></div>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id56">曲面上のテンソル</a><a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>計量テンソル <span class="math">\(g_{ij}\)</span> は</p>
+<div class="math">
+\begin{align*}
+\partial_i r \cdot \partial_j r
+\end{align*}</div><p>であるから，2階共変成分である．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">位置で2回偏微分しているから，当然2階共変テンソル．</p>
+</div>
+<p>一方クリストッフェル記号 <span class="math">\(\Gamma_{ijk}\)</span> はテンソルではない．また速度成分(特定の座標系の特定の位置座標に関する)の偏微分</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial v^i}{\partial q^j}
+\end{align*}</div><p>もテンソルではない．</p>
+<p>微分幾何においてこれらの変換則に従わない量は，<strong>特定の座標系でしか意味を持たない量</strong> ということである．つまり物理的な意味はない．</p>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id57">接続と平行移動</a><a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>この章はそれほど後で使うわけでもないし，省略しようと思う．後で計算練習をするときにやると面白いかもしれない．</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id58">多様体とベクトル場</a><a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id59">微分可能多様体</a><a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>省略．</p>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id60">多様体上の関数と曲線</a><a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここでは，後々出てくる「関数の引き戻し」を理解するために，多様体上の関数の概念についての認識を改めて記しておきたい．基本的に，多様体上の関数は <strong>点</strong> を引数にとるのであり，<strong>使用する座標系によって関数の見た目が変化する</strong> ．例えば「原点からの距離を返す関数」はユークリッド空間の <strong>点</strong> を引数にとる関数であるが，その局所座標表示は <span class="math">\(f(x_1, x_2, x_3) = x_{1}^{2} + x_{2}^{2} + x_{3}^{2}\)</span> であったり(通常のユークリッド空間)， <span class="math">\(\bar{f}(\bar{x}_1, \bar{x}_2, \bar{x}_3) = \bar{x}_{1}^{2}\)</span> (球座標)であったりする．</p>
+</div>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id61">方向微分と微分作用素</a><a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まずここで「ベクトルを関数に作用させると方向微分になる」というベクトルを演算子として捉える見方をする．そして多様体上では「方向微分をベクトルとみなす」という風にして「ベクトル」を定義する．</p>
+<p>関数</p>
+<div class="math">
+\begin{align*}
+f: M \longrightarrow \mathbb{R}
+\end{align*}</div><p>を，多様体上での曲線 <span class="math">\(c(t): t \longrightarrow M\)</span> との合成写像により</p>
+<div class="math">
+\begin{align*}
+f \circ c(t) : t \longrightarrow \mathbb{R}
+\end{align*}</div><p>を定義できる．これはtについて普通に微分できる．この方向微分を， <strong>関数fにベクトルを作用させる</strong> と表現し，以下のようにベクトルを演算子のようにかく．</p>
+<div class="math">
+\begin{align*}
+v_{Q}[f] = \dfrac{f(c(t))}{dt}
+\end{align*}</div><div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">ここではまだユークリッド空間上のように，ベクトルは「ただの矢印」だと思っている．</p>
+</div>
+<p>これを局所座標表示してみよう．この曲線は写像 <span class="math">\(\phi: U \longrightarrow \mathbb{R}^{m}\)</span> により</p>
+<div class="math">
+\begin{align*}
+c(\tau) \longrightarrow q(\tau) = (q^1(\tau), q^2(\tau), \cdots, q^{m}(\tau))
+\end{align*}</div><p>と表示される．すると</p>
+<div class="math">
+\begin{align*}
+v_{Q}[f] = \dfrac{d f(c(t))}{dt} = \dfrac{dq^i}{dt} \dfrac{\partial f}{\partial q^i}
+\end{align*}</div><p>と表される．つまり「作用素」とみなしたベクトルは</p>
+<div class="math">
+\begin{align*}
+v_Q = \dot{q}^{i} (\partial_{i})_{Q}
+\end{align*}</div><p>と表せる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">筆者はもう慣れたが，「微分演算子」が「ベクトル」であるというのはどうしても初めは理解に苦しんでしまう．それはユークリッド空間ではベクトルは「向きと大きさ」を持った <strong>矢印</strong> であったためであると思われる．しかし微分幾何で定義されるベクトルは <strong>曲面の表面上</strong> だけで理解されなければならないから，矢印にすると表面から突き出てしまう．突き出ることがないように，「方向だけ」指定できればそれで良いのではないのだろうか．いわば「大きさゼロの，方向だけを示す矢印」 である．すると微分演算子 <span class="math">\(\partial / \partial q^i\)</span> が丁度そのようなものであると言える．なぜならば，それは <span class="math">\(q^i\)</span> 方向の変化をとる演算子であるからだ．それはつまり <span class="math">\(q^i\)</span> 方向のベクトルと言えそうである．</p>
+</div>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id62">接ベクトルと接空間</a><a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>点Qにおける微分作用素(あるいはベクトル)は局所座標表示により</p>
+<div class="math">
+\begin{align*}
+u_{Q}[f] = u^i_Q \left( \dfrac{\partial f}{\partial q^i} \right)_Q
+\end{align*}</div><p>と書ける．そのため微分作用素の集合はベクトル空間を張り，その基底を</p>
+<div class="math">
+\begin{align*}
+\langle e_1, e_2, \cdots, e_m\rangle  = \left\langle  \dfrac{\partial}{\partial q^1}, \dfrac{\partial}{\partial q^2}, \cdots, \dfrac{\partial}{\partial q^m}\right\rangle
+\end{align*}</div><p>と表したりする．別の局所座標表示では</p>
+<div class="math">
+\begin{align*}
+\langle \bar{e}_1, \bar{e}_2, \cdots, \bar{e}_m\rangle  = \left\langle  \dfrac{\partial}{\partial \bar{q}^1}, \dfrac{\partial}{\partial \bar{q}^2}, \cdots, \dfrac{\partial}{\partial q^m}\right\rangle
+\end{align*}</div><p>そして偏微分の連鎖率より</p>
+<div class="math">
+\begin{align*}
+&amp; e_i = \dfrac{\partial \bar{q}^j}{\partial q^i} \bar{e}_j \\
+&amp; \dfrac{\partial}{\partial q_i} = \dfrac{\partial \bar{q}^j}{\partial q^i} \dfrac{\partial}{\partial \bar{q}^j}
+\end{align*}</div><p>よりこれらは同様の変換則に従っている．このようにして各基底 <span class="math">\(\bar{e}_i\)</span> は <span class="math">\(e_i\)</span> の線型結合で表されるので，接空間の次元は局所座標系によらない．つまり接空間は幾何学的な量である．一方速度成分は</p>
+<div class="math">
+\begin{align*}
+\bar{u}^j = \left( \dfrac{\partial \bar{q}^j}{\partial q^i} \right) u^i
+\end{align*}</div><p>と変換され，反変成分である．</p>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id63">ベクトル場</a><a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ベクトル場は多様体上の各点において「ベクトル」が貼り付けられたもの．つまり多様体の <strong>表面</strong> に流れができている．ベクトル場は「方向微分場」でもあるので，多様体上の関数ｆを方向微分した新たな関数を考えることができる．</p>
+<div class="math">
+\begin{align*}
+vf: M \longrightarrow R
+\end{align*}</div><p>この座標表示は</p>
+<div class="math">
+\begin{align*}
+vf = v^i \partial_i f
+\end{align*}</div><p>と表される．</p>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id64">積分曲線と一径数変換群</a><a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>多様体上にベクトル場wが与えられているとする．するとM上のある点から出発し，各点でこのwによって定められるベクトルに導かれて進む点の描く軌跡を考えられる．この曲線をc(t)とすると</p>
+<div class="math">
+\begin{align*}
+\dfrac{dc}{dt} = w(c(t))
+\end{align*}</div><p>あるいは局所座標表示では</p>
+<div class="math">
+\begin{align*}
+\dot{q}^i = w^i(q^1, q^2, \cdots, q^m)
+\end{align*}</div><p>である．これはm本の連立微分方程式であり，初期条件を与えられれば一本の曲線を得られる．</p>
+<p>この方程式のq(0)を初期値とする解はc(t; q(0))であり，q(0)から導かれてベクトル場に沿ってt秒後に <span class="math">\(Q_t = c(t; q(0))\)</span> まで到達する．この運動を与えるM上の写像</p>
+<div class="math">
+\begin{align*}
+\phi_t: M \longrightarrow M: Q_0 \longrightarrow Q_t
+\end{align*}</div><p>を相流という．これは以下のように</p>
+<div class="math">
+\begin{align*}
+&amp; \phi_0 = \mathrm{id} \\ &amp; \phi_{t+s} = \phi_t \circ \phi_s \\ &amp; \phi_{-t} = (\phi_t)^{-1}
+\end{align*}</div><p>を満たすので，群を構成する．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">この写像は，<strong>オレンジの皮だけを中身から浮かせてt秒間回転させる</strong> ような写像だ．</p>
+</div>
+</div>
+<div class="section" id="pull-back">
+<h3><a class="toc-backref" href="#id65">引き戻し(pull-back)</a><a class="headerlink" href="#pull-back" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>多様体MからNへの写像</p>
+<div class="math">
+\begin{align*}
+\phi: M \longrightarrow N: Q \in M \longrightarrow P = \phi(Q) \in N
+\end{align*}</div><p>とN上の関数 <span class="math">\(g: N \longrightarrow \mathbb{R}\)</span> があるとき，合成関数 <span class="math">\(g \circ \phi\)</span> をM上の関数とみなして <span class="math">\(\phi^* g\)</span> と表す．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">数学をやっていると，<strong>同じ位置についての量なのに，使用する座標系によって関数の形が異なる量がたくさんある</strong>．例えば点Pにおける電位を表す関数f(P)は，デカルト座標では <span class="math">\(x, y, z\)</span> で表されるのに対して球座標では <span class="math">\(r, \theta, \psi\)</span> で表される．なので， <strong>適当な教科書</strong> だとそれを <span class="math">\(f(x, y, z)\)</span> とか <span class="math">\(f(r, \theta, \psi)\)</span> とかと表したりしている．しかし，<span class="math">\(f(x, y, z)\)</span> と <span class="math">\(f(r, \theta, \psi)\)</span> で関数fの写像としての形(<strong>代数的な形のこと</strong>)は違うはずである．例えば <span class="math">\(f(a, b, c)\)</span> と書かれたら，<strong>それがデカルト座標でのfのことを言っているのか，それとも球座標でのことを言っているのか分からない</strong>．引き戻しは，多様体上の関数f(Q)がどの局所座標系を用いて表された関数であるかをきちんと表現するものである．今話した例で言うと，ユークリッド空間 <span class="math">\(M\)</span> における関数 <span class="math">\(f(x, y, z)\)</span> と，それを球座標で表した関数</p>
+</div>
+<div class="math">
+\begin{align*}
+g(r, \theta, \psi) = f(x = r\sin \theta \cos \psi, y = r\sin \theta \sin \psi, z = r \cos \theta)
+\end{align*}</div><p>は値としては同じである． この関数gのことを <span class="math">\(\phi^* f\)</span> と表し，<strong>値は同じだが関数は異なる</strong> ことを意図する．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">関数の引数が新しい方(というより <span class="math">\(\phi\)</span> のoutput)から古い方( <span class="math">\(\phi\)</span> のinput)へと映るので， <span class="math">\(\phi\)</span> とは逆向きであるという点で <strong>引き戻し</strong> と言っている．</p>
+</div>
+</div>
+<div class="section" id="push-forward">
+<h3><a class="toc-backref" href="#id66">微分写像(押し出し，push-forward)</a><a class="headerlink" href="#push-forward" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<blockquote>
+<div><span class="math">\(\phi\)</span> が微分同相写像であるとすれば，M上の接ベクトルをN上の接ベクトルへと移す写像</div></blockquote>
+<div class="math">
+\begin{align*}
+\phi_*: \mathrm{TM} \longrightarrow \mathrm{TN}: v_Q \longrightarrow u_P = (\phi_* v)_P
+\end{align*}</div><p>なる写像を考えられる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">先程引き戻しは <span class="math">\(\phi^*\)</span> のようにして上付きで表していた．一方この微分写像は <span class="math">\(\phi\)</span> とinputとoutputの向きが同じである．そのため，引き戻しとは逆向きであることを区別するために下付きにしている．なぜかこの本では書かれていないが，この <span class="math">\(\phi_*\)</span> のことをpush-forwardという．</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id67">押し出し(微分写像)の局所座標表示</a><a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>MからNへの写像 <span class="math">\(\phi\)</span> が</p>
+<div class="math">
+\begin{align*}
+\phi: q \longrightarrow p = \phi(q)
+\end{align*}</div><p>のように表される時，その押し出し <span class="math">\(\phi^{*}\)</span> は接ベクトルに対して定義される．</p>
+<div class="math">
+\begin{align*}
+\phi^{*} \left( \dfrac{\partial}{\partial q^j} \right) = \left( \dfrac{\partial p^i}{\partial q^j}\right)_{q = \phi^{-1}(p)} \dfrac{\partial}{\partial p^i}
+\end{align*}</div><p>これは非線形な写像を線形近似により再現する写像であるといえる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">写像 <span class="math">\(\phi\)</span> は一般的には非線形である．そのため関数 <span class="math">\(g\)</span> を引き戻す <span class="math">\(\phi_* g\)</span> のは簡単で，線形近似は全く必要ではない．一方押し出しはヤコビアンで線形近似するものである．</p>
+</div>
+</div>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id68">引き戻しと押し出しの順番交換について</a><a class="headerlink" href="#id25" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>以下のような関係がある．</p>
+<div class="math">
+\begin{align*}
+\phi^* ((\phi_* v)g)(Q) = (v(\phi^* g))(Q)
+\end{align*}</div><p>これは</p>
+<ol class="arabic simple">
+<li><span class="math">\(\phi^* ((\phi_* v)g)(Q)\)</span> ，つまり(i) v(&#64;M)を押し出しにより <span class="math">\(\phi_* v\)</span> (&#64;N)へと変換し，これで方向微分(&#64;N) <span class="math">\((\phi_* v)g\)</span> して得られた関数を引き戻した(N-&gt;M)関数 <span class="math">\(\phi^* ((\phi_* v)g)\)</span> (&#64;M)の点Q(&#64;M)での値と</li>
+<li><span class="math">\((v(\phi^* g))(Q)\)</span> ，つまり関数g(&#64;N)を引き戻した関数 <span class="math">\(\phi^* g\)</span> (&#64;M)をv(&#64;M)で方向微分した関数 <span class="math">\((v(\phi^* g))\)</span> の点Q(&#64;M)での値</li>
+</ol>
+<p>が等しいということを言っている．</p>
+</div>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id69">リー微分</a><a class="headerlink" href="#id26" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>関数のリー微分は普通の方向微分であるが，ベクトル場のリー微分はちょっと変わっている．この2つが一見異なるような形になるのは，異なる点での関数やベクトル場の値を比較する際に用いる写像が <strong>引き戻しであるか押し出しであるか</strong> が異なるためである．</p>
+<p>多様体上にベクトル場ｖがあるとき，それによる関数ｆの点Qにおけるリー微分を以下のように定義する．ｖの積分曲線にそってｔだけ動かす写像を <span class="math">\(\phi_t\)</span> ，Qを始点とする積分曲線を <span class="math">\(\phi_t(Q) = c(t)\)</span> とすると</p>
+<div class="math">
+\begin{align*}
+L_v [f] = \lim_{t \to 0} \dfrac{\phi_{t}^{*} f -f}{t}
+\end{align*}</div><div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ここで関数の <strong>引き戻し</strong> を用いていることに注意．ここではinputのMが点Q，そしてoutputのNがMを <span class="math">\(\phi_t\)</span> により「流した」多様体である．</p>
+</div>
+<p>そして</p>
+<div class="math">
+\begin{align*}
+(\phi_{t}^{*} f)(Q) = f(\phi_t (Q)) = f(c(t))
+\end{align*}</div><p>であるから結局</p>
+<div class="math">
+\begin{align*}
+L_v [f] = v_{Q}[f] = (vf)(Q)
+\end{align*}</div><p>となり，方向微分である．</p>
+<p>次にベクトル場uのベクトル場vによるリー微分を定義する．そのためには点Qにおけるuの値 <span class="math">\(u_Q\)</span> と，Qを時刻tだけ進めた <span class="math">\(\phi_t(Q) = Q^{\prime}\)</span> におけるベクトル <span class="math">\(u_{Q^{\prime}}\)</span> を比べる必要がある．ここでは，uをvに沿って <span class="math">\(-t\)</span> だけ逆向きにずらして得られるベクトル場 <span class="math">\(u^{\prime} = \phi_{-t*}u\)</span> の点Qにおける値と比べる．</p>
+<div class="math">
+\begin{align*}
+(L_v [u])[f] = \lim_{t \to 0} \dfrac{((\phi_{-t*}u)f)(Q) - (uf)(Q)}{t}
+\end{align*}</div><p>ここで先程の公式より</p>
+<div class="math">
+\begin{align*}
+((\phi_{-t*}u)f)(Q)  = (u(\phi_{-t}^{*} f)) \circ \phi_{t}(Q)
+\end{align*}</div><p>であるから，</p>
+<div class="math">
+\begin{align*}
+&amp; ((\phi_{-t*}u)f)(Q) - (uf)(Q) \\ &amp;= ((\phi_{-t*}u)f)(Q) - (uf) \circ \phi_t (Q) + (uf) \circ \phi_t (Q) - (uf)(Q) \\ &amp;= (u(\phi_{-t}^{*} - f)) \circ \phi_t (Q) + ((uf) \circ \phi_t (Q) - (uf)(Q))
+\end{align*}</div><p>そして第一項は</p>
+<div class="math">
+\begin{align*}
+-(u(vf))(Q)
+\end{align*}</div><p>第二項は</p>
+<div class="math">
+\begin{align*}
+(v(uf))(Q)
+\end{align*}</div><p>となるから,</p>
+<div class="math">
+\begin{align*}
+L_v [u] = vu - uv
+\end{align*}</div><p>が得られる．</p>
+</div>
+<div class="section" id="id27">
+<h3><a class="toc-backref" href="#id70">リー括弧とリー代数</a><a class="headerlink" href="#id27" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここで出てきた</p>
+<div class="math">
+\begin{align*}
+vu - uv = [v, u]_{\mathrm{L}}
+\end{align*}</div><p>はベクトル場のリー括弧ないし交換子と呼ばれている．局所座標表示ではそれぞれは各点において1階の微分作用素であるが，その積は2階の微分作用素を含みベクトル場ではない．しかし引き算することにより</p>
+<div class="math">
+\begin{align*}
+vu - uv &amp;= (v^j \partial_j)(u^i \partial_i) - (u^j \partial_j)(v^i \partial_i) \\ &amp;= (v^j (\partial_j u^i) - u^j(\partial_j v^i))\partial_i \\ &amp;= ((vu^i) - (uv^i))\partial_i
+\end{align*}</div><p>少し分かりにくいが，ここで <span class="math">\(vu^i\)</span> は関数 <span class="math">\(u^i\)</span> を <span class="math">\(v\)</span> で方向微分して得られる関数， <span class="math">\(uv^i\)</span> も <span class="math">\(v^i\)</span> を <span class="math">\(u\)</span> で方向微分して得られる関数である．よって1階の微分作用素，ベクトルとなっている．</p>
+<p>リー括弧が満たす性質の1つとしてヤコビの恒等式が有名である．</p>
+<div class="math">
+\begin{align*}
+[u, [v, w]] + [v, [w, u]] + [w, [u, v]] = 0
+\end{align*}</div><p>これは代数的には分かりやすいが，すこし「意味」が分かりにくい．しかし以下のように書き換えると意味が分かるようになる．</p>
+<div class="math">
+\begin{align*}
+&amp; [[v, w], u] = [v, [w, u]] + [w, [u, v]] \\
+&amp; [[v, w], u] = [v, [w, u]] + [w, -[v, u]] \\
+&amp; [[v, w], u] = [v, [w, u]] - [w, [v, u]]
+\end{align*}</div><p>つまりuに(i)wをかけてからvをかける のと (ii)vをかけてからwをかける 効果の差は (iii)uに[v, w]をかけるのと等しい．</p>
+</div>
+<div class="section" id="id28">
+<h3><a class="toc-backref" href="#id71">リー群とリー代数</a><a class="headerlink" href="#id28" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リー群が面白いのは，各点が演算子になっていて，点Aを点Bに「作用」させることができる．そして任意の点が任意の点による「作用」について閉じている．リー群は単位元をもつ．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">なんというか，完備な集合みたいな感じといったところか．まだいまいちリー群の幾何学的なイメージが湧かない．</p>
+</div>
+<p>Gの任意の元 <span class="math">\(g\)</span> に対して，Gの左移動 <span class="math">\(L_g\)</span> を以下のように定義する．</p>
+<div class="math">
+\begin{align*}
+L_g : G \longrightarrow G: \forall h \in G \longrightarrow gh \in G
+\end{align*}</div><p>リー群Gは多様体であるから，単位元eにおける接平面 <span class="math">\((\mathrm{TG})_e\)</span> 上の接ベクトル <span class="math">\(x \in (\mathrm{TG})_e\)</span> を考えることができる． <span class="math">\(L_g e = g\)</span> であるから <span class="math">\(L_g\)</span> による微分写像 <span class="math">\(L_{g*}\)</span> による <span class="math">\(x\)</span> の像 <span class="math">\(L_{g*} x\)</span> は多様体G上の点 <span class="math">\(g\)</span> における接ベクトルになっている．そこで <span class="math">\(g\)</span> をG全体に動かせば，ベクトル場</p>
+<div class="math">
+\begin{align*}
+V_x: G \longrightarrow \mathrm{T}G: g \longrightarrow V_x (g)
+\end{align*}</div><p>が得られる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">各点gにおいて，それを演算子としてxをその押し出し <span class="math">\(L_g\)</span> により <span class="math">\(L_{g*} x\)</span> に移すことができる．よってリー群Gの各点の上に，ベクトルが張り付いている状態である．ただ，この状態で積分曲線があるかはまだ不明である．</p>
+</div>
+<p>このベクトル場 <span class="math">\(V_x (G)\)</span> は任意の <span class="math">\(h \in G\)</span> に対して</p>
+<div class="math">
+\begin{align*}
+L_{h*} V_x (G) = V_x (hG)
+\end{align*}</div><p>が成立する．このようにベクトル場 <span class="math">\(V_x\)</span> は左からの <span class="math">\(G\)</span> の作用に対して <strong>不変</strong> であるため，これをxにより誘導される左不変ベクトル場という．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">やっぱりこの式の解釈は，リー群G上のベクトル場 <span class="math">\(V_x (G)\)</span> を <span class="math">\(L_{h*}\)</span> により「回転」(みたいなもの)をしたベクトル場は，Gをhにより「回転」させた郡hG上でのベクトル場 <span class="math">\(V_x (hG)\)</span> に等しい，というのが一番いいだろう．</p>
+</div>
+<p>リー群G上で定義された左不変なベクトル場，すなわち</p>
+<div class="math">
+\begin{align*}
+L_{h*} V(G) = V(hG) \quad \forall h \in G
+\end{align*}</div><p>を満たすベクトル場全体がつくる集合を考え，これを <span class="math">\(\mathcal{G}\)</span> とかく．</p>
+<blockquote>
+<div><p><span class="math">\(\mathcal{G}\)</span> の任意の元 <span class="math">\(V, W\)</span> に対してその任意の一次結合 <span class="math">\(aV + bW\)</span> もまた <span class="math">\(\mathcal{G}\)</span> の元になっている．またこの2つのリー括弧 <span class="math">\([V, W]_{L}\)</span> がやはり左不変であり，したがって <span class="math">\(\mathcal{G}\)</span> の元となることは以下のようにして示される．</p>
+<p>G上で定義された関数fのgにおける値の方向微分について以下が成立する．</p>
+</div></blockquote>
+<div class="math">
+\begin{align*}
+L_g^* \{ (L_{g*}[V, W]_L) f \} = [V, W]_L (L_g^* f)
+\end{align*}</div><p>これは「方向微分演算子を押し出してから押し出した先でfを方向微分して，その値を引き戻した値」と「fを引き戻してから方向微分演算子を適用した値」が等しいという先ほどの公式である．したがって</p>
+<div class="math">
+\begin{align*}
+[V, W]_L (L_g^* f) &amp;= V \{ W(L_g^* f)\} - W \{ V(L_g^* f)\} \\
+&amp;= V(L_g^* \{ (L_{g*} W)f \}) - W(L_g^* \{ (L_{g*} V)f \}) \\
+&amp;= L_g^* [(L_g^* V)\{ (L_{g*}W) f\} - (L_g^* W)\{ (L_{g*}V) f\}] \\
+&amp;= L_g^* ([L_{g*}V, L_{g*}W]_L f)
+\end{align*}</div><p>よって(左辺を変形して)</p>
+<div class="math">
+\begin{align*}
+L_g^* \{ (L_{g*}[V, W]_L) f\} = L_g^* ([L_{g*}V, L_{g*}W]_L f)
+\end{align*}</div><p>が成立する．仮定よりV, Wは左不変なベクトル場である，すなわち <span class="math">\(L_{g*}V = V\)</span> ， <span class="math">\(L_{g*}W = W\)</span> であるから</p>
+<div class="math">
+\begin{align*}
+L_{g*}[V, W]_L = [L_{g*}V, L_{g*}W]_L = [V, W]_L
+\end{align*}</div><p>となり，リー括弧も左不変ベクトル場であることが言える．よって <span class="math">\(\mathcal{G}\)</span> はリー括弧を積演算としてリー代数を構成している．これをリー群G上のリー代数と呼ぶ．</p>
+<p>リー群Gのリー代数 <span class="math">\(\mathcal{G}\)</span> の元 <span class="math">\(V\)</span> にGの単位元eでの値 <span class="math">\(V(e)\)</span> を対応させると <span class="math">\(\mathcal{G}\)</span> から接空間 <span class="math">\((\mathrm{T}G)_e\)</span> への写像が作れる．逆に <span class="math">\((\mathrm{T}G)_e\)</span> の任意の元 <span class="math">\(x\)</span> に対してベクトル場 <span class="math">\(V_x\)</span> を作るとそれは <span class="math">\(\mathcal{G}\)</span> の元になっている．したがってこの写像 <span class="math">\(\mathcal{G} \longrightarrow (\mathcal{T}G)_e\)</span> は全射である．</p>
+<p>したがってベクトル空間として <span class="math">\(\mathcal{G}\)</span> と <span class="math">\((\mathrm{T}G)_e\)</span> は同型であり，それゆえ</p>
+<div class="math">
+\begin{align*}
+\mathrm{dim} \mathcal{G} = \mathrm{dim} (\mathcal{T}G)_e = n
+\end{align*}</div><p>である．そして <span class="math">\(\mathcal{G}\)</span> の基底を <span class="math">\((V_1, \cdots, V_n)\)</span> とするとそれらの単位元での値</p>
+<div class="math">
+\begin{align*}
+x_i = V_i (e)
+\end{align*}</div><p>の組 <span class="math">\((x_1, \cdots, x_n)\)</span> は接空間 <span class="math">\((\mathrm{T}G)\)</span> の基底ベクトルになる．</p>
+</div>
+<div class="section" id="id29">
+<h3><a class="toc-backref" href="#id72">一径数部分群と指数写像</a><a class="headerlink" href="#id29" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リー群Gのリー代数 <span class="math">\(\mathcal{G}\)</span> の1つの元 <span class="math">\(V\)</span> (すなわちG上の1つの左不変ベクトル場)に対して，このベクトル場Vの積分曲線でGの単位元を通る曲線 <span class="math">\(c_V (\lambda)\)</span> を考える．</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{d c_V (\lambda)}{d \lambda} = V(c_V (\lambda)) \\ &amp; c_V (0) = e
+\end{align*}</div><p>この曲線は</p>
+<div class="math">
+\begin{align*}
+c_V (\sigma + \lambda) = c_V (\sigma) c_V (\lambda)
+\end{align*}</div><p>を満たす．</p>
+<p>リー群において任意の <span class="math">\(x \in (\mathrm{T}G)_e\)</span> に対して左不変ベクトル場 <span class="math">\(V_x\)</span> が1つ決まり，そしてその <span class="math">\(V_x\)</span> によりGの一径数部分群 <span class="math">\(c_V (\lambda)\)</span> が決まる．よってこれを使えば指数写像と呼ばれる <span class="math">\((\mathrm{T}G)_e\)</span> から <span class="math">\(G\)</span> への写像</p>
+<div class="math">
+\begin{align*}
+\exp: (\mathrm{T}G)_e \longrightarrow G: x \in (\mathrm{T}G)_e \longrightarrow \exp(x) = c_V (1)
+\end{align*}</div><p>が定義できる．このように定義された指数写像は</p>
+<div class="math">
+\begin{align*}
+\exp (\lambda x) = c_{V_x} (\lambda)
+\end{align*}</div><p>を満たす．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">リー群Gの単位元eにおける任意の接ベクトルxにより決まる左不変ベクトル場 <span class="math">\(V_x\)</span> の原点を通る積分曲線，すなわちxにより生成される一径数部分群が， <span class="math">\(\{ \exp (\lambda x) | \lambda \in \mathbb{R} \}\)</span> で表されることを示している．</p>
+</div>
+</div>
+</div>
+<div class="section" id="id30">
+<h2><a class="toc-backref" href="#id73">双対空間と共変テンソル</a><a class="headerlink" href="#id30" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id31">
+<h3><a class="toc-backref" href="#id74">双対空間と1ベクトル</a><a class="headerlink" href="#id31" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ヘクトル空間 <span class="math">\(V\)</span> のベクトル <span class="math">\(u, v\)</span> に実数を対応させる線形写像</p>
+<div class="math">
+\begin{align*}
+\omega: V \longrightarrow \mathbb{R}: v \in V \longrightarrow \omega[v] \in \mathbb{R}
+\end{align*}</div><p>を考える．この写像は以下のように線形である．</p>
+<div class="math">
+\begin{align*}
+&amp; \omega[u + v] = \omega[u] + \omega[v] \\ &amp; \omega[av] = a(\omega[v])
+\end{align*}</div><p>この線形写像 <span class="math">\(\omega\)</span> の集合 <span class="math">\(V^*\)</span> もベクトル空間を構成するので，このベクトル空間を <span class="math">\(V\)</span> の双対空間という．そしてその要素を1ベクトルやコベクトルという．</p>
+<p>Vの基底を <span class="math">\(\langle e_1, e_2, \cdots e_n\rangle ` とすると，その双対基底 :math:\)</span>langle epsilon^1, epsilon^2, cdots, epsilon^nrangle ` はベクトル <span class="math">\(u = u^i e_i\)</span> に対してそのi成分 <span class="math">\(u^i\)</span> を対応させる．つまり</p>
+<div class="math">
+\begin{align*}
+\epsilon^i [e_k] = \delta^{i}_K
+\end{align*}</div><p>である．</p>
+</div>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id75">反変ベクトルと共変ベクトル</a><a class="headerlink" href="#id32" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここからややこしい共変と反変ベクトルの定義に入る．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">「共」変ベクトルとは，<strong>成分</strong> の変換が基底ベクトルと共通しているベクトルである．一方「反」変ベクトルとは <strong>成分</strong> の変換が基底ベクトルと反対であるようなベクトルである．</p>
+</div>
+<p>Vにおける基底の変換を</p>
+<div class="math">
+\begin{align*}
+\bar{e}_k = e_i C_k^i
+\end{align*}</div><p>とする．ベクトルは基底の変換に対しても同じ大きさの矢印でなければならないので，</p>
+<div class="math">
+\begin{align*}
+u^i e_i = \bar{u}^k \bar{e}_k = \bar{u}_k e_i C_k^i
+\end{align*}</div><p>を満たすはずである．よって</p>
+<div class="math">
+\begin{align*}
+u^i = \bar{u}_k C_k^i
+\end{align*}</div><p>よって <strong>いわゆるベクトルは反変ベクトルである</strong>．一方</p>
+<div class="math">
+\begin{align*}
+\bar{\omega}_k = \omega[\bar{e}_k] = \omega[e_i]C_k^i = \omega_i C_l^i
+\end{align*}</div><p>であるから，</p>
+<div class="math">
+\begin{align*}
+\omega_i \epsilon^i = \bar{\omega}_k \bar{\epsilon}^k = \omega_i C_k^i \bar{\epsilon}^k
+\end{align*}</div><p>と変換される．よってコベクトルは共変ベクトルである．双対基底の変換則は</p>
+<div class="math">
+\begin{align*}
+\epsilon^i = C_k^i \bar{\epsilon}^k
+\end{align*}</div><p>である．</p>
+<p>以下の量</p>
+<div class="math">
+\begin{align*}
+\omega[u] = \langle \omega|u\rangle  = \omega_i u^i
+\end{align*}</div><p>は双対内積という．</p>
+</div>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id76">共変テンソル</a><a class="headerlink" href="#id33" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ベクトル空間Vの任意のベクトルの対 <span class="math">\(u, v\)</span> に実数を対応させる写像</p>
+<div class="math">
+\begin{align*}
+\tau: V \times V \longrightarrow R: u, v \in V \longrightarrow \tau[u, v] \in \mathbb{R}
+\end{align*}</div><p>がu, v双方に対して線形であるときこの <span class="math">\(\tau\)</span> を双線形写像という．例えば2個の1ベクトルに対し</p>
+<div class="math">
+\begin{align*}
+(\omega \otimes \sigma)[u, v] = \omega[u]\sigma[v]
+\end{align*}</div><p>と定義されるテンソル積 <span class="math">\(\omega \otimes \sigma\)</span> は双線形写像である．</p>
+<div class="math">
+\begin{align*}
+\tau[u, v] &amp;= (\tau[e_i, e_j])u^i v^j \\ &amp;= (\tau[e_i, e_j])\epsilon^i[u]\epsilon^j[v] \\ &amp;= (\tau[e_i, e_j])(\epsilon^i \otimes \epsilon^j)[u, v]
+\end{align*}</div><p>より</p>
+<div class="math">
+\begin{align*}
+\tau = T_{ij} \epsilon^i \otimes \epsilon^j, \quad T_{ij} = \tau[e_i, e_j]
+\end{align*}</div><p>と表される．このテンソルは双対基底(反変)のテンソル積の線型結合で表されるので，そのテンソルの成分は共変である．そのため2階共変テンソルという．</p>
+<p>同様に高階テンソルも論じられる．ベクトル空間Vのp個のベクトルの組 <span class="math">\((u_{(1)}, u_{(2)}, \cdots, u_{(p)})\)</span> に実数を対応させる写像 <span class="math">\(\tau: V \times V \times \cdots \times V \longrightarrow \mathbb{R}\)</span> において， <span class="math">\(\tau[u_{(1)}, u_{(2)}, \cdots, u_{(p)}] \in \mathbb{R}\)</span> が全てのuについて線形であるものをp階共変テンソルという．</p>
+<div class="math">
+\begin{align*}
+(\omega_{(1)} \otimes \omega_{(2)} \otimes \cdots \omega_{(p)})[u_{(1)}, u_{(2)}, \cdots, u_{(p)}] = \omega_{(1)}[u_{(1)}] \omega_{(2)}[u_{(2)}] \cdots \omega_{(p)}[u_{(p)}]
+\end{align*}</div></div>
+<div class="section" id="p">
+<h3><a class="toc-backref" href="#id77">交代テンソルとpベクトル</a><a class="headerlink" href="#p" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>2階テンソル <span class="math">\(\tau \in L^2(V)\)</span> が任意の <span class="math">\(u, v \in V\)</span> にたいして</p>
+<div class="math">
+\begin{align*}
+\tau [u, v] = -\tau[u, v]
+\end{align*}</div><p>を満たすならば2階交代テンソルないし2ベクトルといわれる．2ベクトル全体の集合を <span class="math">\(\Lambda^2(V)\)</span> で表す．そしてその次元は <span class="math">\(\dim \Lambda^2(V) = n(n-1)/2\)</span> である．</p>
+<p>交代テンソルに対しては任意のuに対して <span class="math">\(\tau[u, u] = 0\)</span> であるが，逆にこれを満たせば必ず交代テンソルである．</p>
+</div>
+<div class="section" id="id34">
+<h3><a class="toc-backref" href="#id78">テンソルの交代化と外積</a><a class="headerlink" href="#id34" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>省略</p>
+</div>
+</div>
+<div class="section" id="id35">
+<h2><a class="toc-backref" href="#id79">余接バンドルと微分形式</a><a class="headerlink" href="#id35" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id36">
+<h3><a class="toc-backref" href="#id80">余接空間と1ベクトル</a><a class="headerlink" href="#id36" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>m次元微分可能多様体Mの接ベクトル空間 <span class="math">\(\mathrm{T}M\)</span> に対する双対空間を <strong>余接空間</strong> といい <span class="math">\(\mathrm{T}^{*}M\)</span> と表す．</p>
+<p>点Qにおける接ベクトルの1つ <span class="math">\(v_Q\)</span> をとると，M上の関数fの方向微分</p>
+<div class="math">
+\begin{align*}
+v_Q[f] = v^i \partial_i f
+\end{align*}</div><p>を定義できる．これをベクトル <span class="math">\(v_Q\)</span> から実数 <span class="math">\(v_Q [f]\)</span> への写像とみなし</p>
+<div class="math">
+\begin{align*}
+df: \mathrm{T}M \longrightarrow \mathbb{R}: v_Q \longrightarrow v_Q[f]
+\end{align*}</div><p>と表す．ここで <span class="math">\(df\)</span> は <span class="math">\(d\)</span> を <span class="math">\(f\)</span> に作用させたものではなく，あくまで1つの写像である．</p>
+<div class="math">
+\begin{align*}
+df[v_Q] = v_Q [f]
+\end{align*}</div><p>局所座標表示 <span class="math">\(v_Q = v^i e_i\)</span> 及び <span class="math">\(\epsilon^i[v_Q] = v^i_Q\)</span> で定義される双対基底 <span class="math">\(\epsilon^i\)</span> を用いれば上式は</p>
+<div class="math">
+\begin{align*}
+(df)[v_Q] = \left( \dfrac{\partial f}{\partial q^i} \right) v^i = \left( \dfrac{\partial f}{\partial q^i} \right) \epsilon^i[v_Q]
+\end{align*}</div><p>と表されるから</p>
+<div class="math">
+\begin{align*}
+df = \left( \dfrac{\partial f}{\partial q^i} \right) \epsilon^i
+\end{align*}</div><p>のように1ベクトルとして表される．これを関数fの微分という．本来微分というのは「微分する方向」「変化を求める方向」を指定して決まる量であるから，ここでの「微分」とはまだ方向を定義していない．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ここまでのベクトル <span class="math">\(e_i = \partial / \partial q^i\)</span> は「微分する方向」を関数に与えるものであった．つまり <strong>関数に微分する方向を提供する</strong> ものであった．一方この <span class="math">\(df\)</span> は <strong>微分演算子(方向)に微分する値を提供する</strong> ようなものである．ベクトルを「方向を指定するフィルター」みたいなものとすれば， <span class="math">\(df\)</span> は「全方向に関する方向微分の値を保持したもの」ということができ， <span class="math">\((df)[v_Q]\)</span> はそのうち特定の方向に関する成分を「抽出している」と言えそうだ．</p>
+</div>
+<p>その成分 <span class="math">\(\partial f / \partial q^i\)</span> は位置の偏微分になっているから，これは共変ベクトルである．ここで関数fとして <span class="math">\(q^i\)</span> を用いると</p>
+<div class="math">
+\begin{align*}
+\epsilon^i = (dq^i)
+\end{align*}</div><p>が得られる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">もはやここで用いられている <span class="math">\(dq^i\)</span> は高校の微積分で使う <span class="math">\(dx\)</span> とは別物である．</p>
+</div>
+<p>こうして得られる</p>
+<div class="math">
+\begin{align*}
+\langle (dq^1), (dq^2), \cdots (dq^n)\rangle
+\end{align*}</div><p>を <span class="math">\(\mathrm{T}^{*}M\)</span> の自然基底という．ベクトルと1ベクトルから得られる実数</p>
+<div class="math">
+\begin{align*}
+\omega[v] = \langle \omega|v\rangle  = \omega_i v^i
+\end{align*}</div><p>は双対内積と呼ばれる．この記法を用いると</p>
+<div class="math">
+\begin{align*}
+v[f] = \langle df | v\rangle  = v^i \langle df | \partial_i\rangle  = v^i \dfrac{\partial f}{\partial q^i}
+\end{align*}</div><p>と表される．</p>
+</div>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id81">1形式</a><a class="headerlink" href="#id37" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>多様体の各点において <span class="math">\(\mathrm{T}^{*}Q\)</span> の各点を対応させる写像のことを多様体上の1形式という．ベクトル場 <span class="math">\(v\)</span> と，1形式の間に以下のような公式がある．</p>
+<div class="math">
+\begin{align*}
+&amp; \langle dq^i | \partial_j\rangle  = \delta^i_j \\ &amp; \langle dq^i | v\rangle  = v_i \\ &amp; \langle df | v\rangle  = v^i(\partial_i f)
+\end{align*}</div></div>
+<div class="section" id="id38">
+<h3><a class="toc-backref" href="#id82">テンソル場とリーマン計量</a><a class="headerlink" href="#id38" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>これまでの議論と同様にして多様体上において共変テンソル <span class="math">\(\tau\)</span> が定義できる． 特に重要なものとしてM上の2階対称テンソル場 <span class="math">\(g\)</span> が正定値であるとき，つまり任意の0でないベクトル <span class="math">\(u \in (\mathrm{T}Q)\)</span> に対して</p>
+<div class="math">
+\begin{align*}
+g[u, u] \rangle  0
+\end{align*}</div><p>であるとき，gをリーマン計量という．局所座標表示では</p>
+<div class="math">
+\begin{align*}
+g = g_{ij} dq^i \otimes dq^j
+\end{align*}</div><p>と表される．リーマン多様体ではMの各点の接空間において内積</p>
+<div class="math">
+\begin{align*}
+(u_Q \cdot v_Q) = g[u_Q, v_Q]
+\end{align*}</div><p>が定義される．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">基本的に微分幾何学においては <strong>ベクトル場は反変</strong> ，<strong>テンソル場は共変</strong> である．それ以外は出ないと言っていい．</p>
+</div>
+</div>
+<div class="section" id="id39">
+<h3><a class="toc-backref" href="#id83">内部積，及び添字の上げ下げ</a><a class="headerlink" href="#id39" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リーマン多様体では(反変)ベクトル場 <span class="math">\(u = u^i \partial_i\)</span> を共変テンソル場 <span class="math">\(g = g_{ij} dq^i \otimes dq^j\)</span> を用いて</p>
+<div class="math">
+\begin{align*}
+g[u, \bullet] = g_{ij}u^i dq^i
+\end{align*}</div><p>のようにして双対空間に写像することによって新たな1形式</p>
+<div class="math">
+\begin{align*}
+\tilde{u} = g_{ij}u^i dq^j
+\end{align*}</div><p>が得られる．これは計量テンソルによる添字の上げ下げに対応している．このようにリーマン多様体では計量テンソルを介して反変ベクトルと共変ベクトル(1ベクトル)，さらにまたベクトル場と1形式が1対1に対応している．そのため2個の反変ベクトルの内積</p>
+<div class="math">
+\begin{align*}
+(u \cdot v) = g_{ij}u^iv^j
+\end{align*}</div><p>は，1ベクトル <span class="math">\(\tilde{u} = g_{ij}u^i (dq^j)\)</span> とベクトル <span class="math">\(v\)</span> の双対内積</p>
+<div class="math">
+\begin{align*}
+\langle \tilde{u} | v\rangle  = g[u, v]
+\end{align*}</div><p>と一致する．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ここでは次数の上げ下げに対応していると表現しているが，コンピューターサイエンス的には2階共変テンソル <span class="math">\(\langle g | \bullet, \bullet\rangle ` が第一引数を **部分適用** されて :math:\)</span>langle  g | u, bulletrangle ` なる1階共変テンソルに <strong>低減</strong> した，と考えたほうが分かりやすい．もちろんこれは演算子から見た立場であり，反変ベクトル <span class="math">\(v\)</span> からすると1階共変テンソル <span class="math">\(\tilde{u} = g_{ij}u^i (dq^j)\)</span> へと添字を上げられたと考えられる．</p>
+</div>
+</div>
+<div class="section" id="id40">
+<h3><a class="toc-backref" href="#id84">p形式</a><a class="headerlink" href="#id40" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>高階の交代テンソル場は高次の微分形式として重要である．またpベクトルに対してp個の反変ベクトルを作用させた値は以下のように行列式となる．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/tensor_product.png"><img alt="tensor_product" src="../../_images/tensor_product.png" style="width: 50%;" /></a>
+</div>
+<p>具体的に2階テンソルの場合について計算してみよう．</p>
+<div class="math">
+\begin{align*}
+\omega^1 = \sum^{\prime} a_{ij}(dq^i \wedge dq^j)
+\end{align*}</div><p>そしてベクトル場 <span class="math">\(u = u^i \partial_i\)</span> ,  <span class="math">\(v = v^i \partial_i\)</span> に作用させると</p>
+<div class="math">
+\begin{align*}
+\langle \omega^2 | u, v\rangle  &amp;= \sum^{\prime}a_{ij} [(dq^i)\otimes (dq^j) - (dq^j)\otimes (dq^i)](u, v) \\ &amp;= a_{ij} [\langle dq^i|u\rangle \langle dq^j|v\rangle  - \langle dq^j|u\rangle \langle dq^i|v\rangle ] \\ &amp;= \sum^{\prime}a_{ij}(u^iv^j - u^jv^i)
+\end{align*}</div><p>となる．ここで <span class="math">\(\sum\)</span> は <span class="math">\(i \langle  j\)</span> についてである．</p>
+<p>さらに</p>
+<div class="math">
+\begin{align*}
+\langle \omega^2 | \bullet, v\rangle  &amp;= \sum^{\prime}a_{ij}[\langle dq^i|v\rangle  dq^i - \langle dq^i|v\rangle dq^j] \\ &amp;= \sum^{\prime}a_{ij}(v^j dq^i - v^i dq^j)
+\end{align*}</div><div class="math">
+\begin{align*}
+\langle \omega^2 | u, \bullet\rangle  &amp;= \sum^{\prime}a_{ij}[\langle dq^i|u\rangle dq^j - \langle dq^j|u\rangle dq^i] \\ &amp;= \sum^{\prime}a_{ij}(u^i dq^j - u^j dq^i)
+\end{align*}</div><p>のようにして2形式から1形式へと落とすことができる．</p>
+</div>
+<div class="section" id="id41">
+<h3><a class="toc-backref" href="#id85">外微分</a><a class="headerlink" href="#id41" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>スカラー関数を全微分することにより1形式が得られた．この操作を一般化して <span class="math">\(p\)</span> 形式から <span class="math">\(p+1\)</span> 形式が得られる．この <span class="math">\(p+1\)</span> 形式を外微分という．</p>
+<p>まずスカラー関数に対する外微分を全微分</p>
+<div class="math">
+\begin{align*}
+df = \dfrac{\partial f}{\partial q^i}dq^i
+\end{align*}</div><p>で定義する．また1形式 <span class="math">\(\omega = f_i dq^i\)</span> の外微分を</p>
+<div class="math">
+\begin{align*}
+d\omega = df_i \wedge dq^i = \dfrac{\partial f_i}{\partial q^j}dq^j \wedge dq^i = \sum^{\prime}\left( \dfrac{\partial f_i}{\partial q^j} - \dfrac{\partial f_j}{\partial q^i} \right) dq^j \wedge dq^i
+\end{align*}</div><p>で定義する．同様にp形式についても定義される．</p>
+</div>
+<div class="section" id="id42">
+<h3><a class="toc-backref" href="#id86">ポアンカレの補題</a><a class="headerlink" href="#id42" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>外微分は以下を満たす．</p>
+<ol class="arabic simple">
+<li><span class="math">\(d(\omega^p + \sigma^p) = d\omega^p + d\sigma^p\)</span></li>
+<li><span class="math">\(d(f \omega^p) = df \wedge \omega^p + fd\omega^p\)</span></li>
+<li><span class="math">\(d(df) = 0\)</span></li>
+<li><span class="math">\(d(\omega^p \wedge \omega^q) = d\omega^p \wedge \omega^q + (-1)^p \omega^p \wedge d\omega^q\)</span></li>
+</ol>
+<p>一般に微分形式 <span class="math">\(\Omega\)</span> が <span class="math">\(\Omega = d\omega\)</span> と書けるとき， <span class="math">\(\Omega\)</span> を完全形式という．そして <span class="math">\(d\Omega = 0\)</span> とな微分形式を閉形式という．3つ目の公式は</p>
+<div class="math">
+\begin{align*}
+\Omega = d\omega &amp;\Longrightarrow d\Omega = 0 \\
+\Omega \text{ is exact form} &amp;\Longrightarrow \Omega \text{ is closed form}
+\end{align*}</div><p>という意味．本書ではド・ラームコホモロジーについては触れられていなかった．</p>
+</div>
+<div class="section" id="id43">
+<h3><a class="toc-backref" href="#id87">微分形式の積分</a><a class="headerlink" href="#id43" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>省略．</p>
+</div>
+<div class="section" id="id44">
+<h3><a class="toc-backref" href="#id88">ストークスの定理</a><a class="headerlink" href="#id44" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>省略．</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter02.html" class="btn btn-neutral float-right" title="ラグランジュ形式の力学" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="解析力学 I，II" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

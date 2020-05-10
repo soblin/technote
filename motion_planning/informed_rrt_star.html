@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="本ノートはInformed RRT Star(InformedRRTStar*)が提唱された論文の読書ノートである．RRT-Starにおいて最初の解が得られた際に，サンプリング範囲をその一時的な解の周辺の楕円に絞ることで，最適解への漸近をより早めることができるというもの．楕円を使うあたりに，著者らの頭の良さを感じる．" name="description" />
+<meta content="経路生成，RRT，Informed RRT Star" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="本ノートはInformed RRT Star(InformedRRTStar*が提唱された論文の読書ノートである．RRT-Starにおいて最初の解が得られた際に，サンプリング範囲をその一時的な解の周辺の楕円に絞ることで，最適解への漸近をより早めることができるというもの．楕円を使うあたりに，著者らの頭の良さを感じる． Date: 3/20 Jonathan D. Gammell, Siddha...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
+        <link rel="up" title="Motion Planning" href="index.html"/>
+        <link rel="next" title="LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information" href="lqg_mp.html"/>
+        <link rel="prev" title="Incremental Sampling-based Algorithms for Optimal Motion Planning" href="rrt_star_original.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Motion Planning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="randomized_kinodynamic_planning.html">Randomized Kinodynamic Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introductions">Introductions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#problem-definition">Problem Definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prior-work">Prior Work</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-of-the-ellipsoidal-informed-subset">Analysis of the Ellipsoidal Informed Subset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#remark-1">Remark 1(棄却サンプリング)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remark-2-rectangular-rejection-sampling">Remark 2(Rectangular rejection sampling)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#theorem-1-obstacle-free-linear-convergence">Theorem 1(Obstacle-free linear convergence)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#direct-sampling-of-an-ellipsoidal-heuristic">Direct Sampling of an Ellipsoidal Heuristic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#informed-rrt">Informed RRT*</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lqg_mp.html">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_connect.html">RRT-Connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="a_star.html">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../control/index.html">Control</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Motion Planning</a> &raquo;</li>
+        
+      <li>Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="informed-rrt-optimal-sampling-based-path-planning-via-direct-sampling-of-an-admissible-ellipsoidal-heuristic">
+<h1>Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic<a class="headerlink" href="#informed-rrt-optimal-sampling-based-path-planning-via-direct-sampling-of-an-admissible-ellipsoidal-heuristic" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>本ノートはInformed RRT Star(InformedRRTStar*が提唱された論文の読書ノートである．RRT-Starにおいて最初の解が得られた際に，サンプリング範囲をその一時的な解の周辺の楕円に絞ることで，最適解への漸近をより早めることができるというもの．楕円を使うあたりに，著者らの頭の良さを感じる．</p>
+<p>Date: 3/20</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jonathan D. Gammell, Siddhartha S. Srinivasa, and Timothy D. Barfoot</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2014</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Accepted:</th><td class="field-body">arXiv:</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Detail:</th><td class="field-body">arXiv:1404.2334v3 [cs.RO] 28 Nov</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Rapidly-exploring random trees(RRTs)はsingle-queryの経路計画問題に対しては効率的に解を求められるためポピュラーである(学術的に，多分)．Optimal RRTs(RRT*)はRRTを最短解を求める問題へと拡張する．しかし初期状態から探索木における <strong>一つ一つの全てのノードへの</strong> 最短解を漸近的に求める．この振る舞いは非効率的なだけでなく，sigle-queryという元々のRRTの性質と一貫性がない(single-queryに対してのみ最短経路を求めればよいのに，無駄なことをしている)．</p>
+<p>経路を短くしようという問題においては，解をrefineしうる状態の部分集合は超楕円として表すことができる．もし探索空間が比較的大きいか次元が高い場合，この超楕円から直接サンプリングを行わない限り得られた解がさらに最短解へと収束する確率は0へと収束することを示す．</p>
+<p>このようにしてサンプリングを行うことの利点を活用して， <em>Informed RRT</em>* なる新しいアルゴリズムを提案する．この手法はRRT*のprobabilistic complentenessとasymptotic optimalityを保持しているが，RRT* に比べ収束率と最終的な解のqualityが改善されている．このアルゴリズムは他のより優れたpath-planningのアルゴリズムにも拡張できるようRRT* を簡潔に拡張している．このアルゴリズムはシミュレーションにより，状態空間の次元やplanning problemの範囲によらずRRT* を，収束率や最終解のコスト，diffucut passagesを探索する能力において上回ることを示す．</p>
+</div>
+<div class="section" id="introductions">
+<h2>Introductions<a class="headerlink" href="#introductions" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>motion-planningは，グリッドベースの手法か，インクリメンタルサーチを用いるサンプリングベースの手法により，まず初めに状態空間を離散化してから行われるのが普通である．A* (P. E. Hart, N. J. Nilsson, and B. Raphael (1968))に代表されるグリッドベースの手法は <strong>resolution complete</strong> や <strong>resolution optimal</strong> と言われる．これらの手法はもし解が存在するのならば解像度や離散化の粒度に制限されるものの最短解を得られることが保証されている．これらのグリッドベースの手法は探索空間の次元が高くなると現実的でない(do not scale well with problem size)．</p>
+<p>Rapidly-explopring random trees(S. M. Lavalle and J. J. Kuffner Jr (2001))やProbabilistic Roadmap Method(L.E.Kavraki, P. SVestka, J.-C.Latombe, and M. H. Overemars (1996))，Expansive Space Trees(D. Hsu, R. Kindel, J. -C. Latombe, and S. Rock (2002))といった確率的に探索を行う手法は，サンプリングを用いることで探索空間の離散化を必要としない．それにより問題のサイズによくスケールしkinodynamic constraintsを直接考慮することができる．その代わりにcompletenessの保証が弱い．RRTとその亜種は <em>probabilistic complete</em> である，すなわちもし解が存在しているのであれば探索回数を増やせば増やすほど，解が見つかる確率が1に近づく(こう書くと当たり前にも聞こえる)．最近までこれらのサンプリングベースの手法は解の optimality については言及されて来なかった． Urmson and Simmons(2003)らはサンプリングをバイアスするためにヒューリスティックを用いることでRRTの解を改善することができることを示したがその改善効果をきちんとは定量化してはいない．Ferguson and Stenz(2006)は解となる経路の長さがその改善効果に限度をかけていることに気づき，一連のより小さいplanningを解く，逐次的anytime RRTを提唱した(それにしてもanytimeの意味が未だに分からない)．Karaman and Frazzoli(2011)はRRTは確率1でsuboptimalな解を返すことを示し，新たなクラスのoptimal plannerを提唱した．彼らはそれらをRRT*，PRM*と名付けた．これらのアルゴリズムは <strong>asymptotically optimal</strong> ，すなわちイテレーションが無限大に近づくほど最適(最短)解を求める確率が1に近づくことが示されている．</p>
+<p>RRTがasymptotically optimalでない理由は，各段階での状態グラフが，それから先のグラフの伸長にバイアスを与えるからである(その標本が発散してしまう感じ．最適解へと収束せず離れてしまう)．RRT* ではグラフをインクリメンタルに再接続を行うことでこれを克服している(フィードバックに近いかもしれない)．新しい状態は探索木に単純に加えられるだけでなく，周辺の既存のノードの代わりの親の候補となる．大域的に一様分布によりサンプリングを行うと，このアルゴリズムは <strong>初期状態から，対象とする領域全体に分布する全てのサンプルードに対して，漸近的に最短経路を求めることで</strong> single-queryの最短経路問題を解くことになる．これはRRT のsingle-queryの性質と相性が悪く，高次元においては計算コストが大きい．</p>
+<p>この論文では <span class="math">\(\mathbb{R}^{n}\)</span> における経路を最小化するのに特化したoptimal planning problemを対象とする．そのような問題において現在の解を改善するための必要条件は，対象領域の超楕円の部分集合からノードを加えることである．我々は，一様分布によりその部分集合からノードがサンプルされる確率は，対象領域が大きくなったり解が理論的な最小値に近づいたりするにつれて，任意に小さくなることを示す．そしてその超楕円から直接サンプリングを行う．また障害物が存在しないという厳しい仮定の下で，そのサンプリングを行うことで得られる解は最短解へと一次収束することも示す．</p>
+<p>Informed RRT* は解が見つかるまではRRT* と同様の振る舞いを示す．そして一旦その解が見つかった後はadmisssible heuristic により定義される部分集合のみからサンプリングを行う．この部分集合を定めるのにはチューニングは必要なく，explorationとexploitationを陰に両立する．ヒューリスティックを用いることで常に探索の効率が良くなるわけでないが，もしヒューリスティックが何ら情報をもたらさない場合(例えば全空間を探索するようなヒューリスティック，全空間を一様分布で探索するからベイズにおける無情報信念といったところか)Informed RRT* は RRT* と全く同様に振る舞う．</p>
+<p>focused searchを行うおかげでこの手法は探索空間の次元や対象領域の大きさにそれほど依存しない(収束率がってことね．)．またトポロジーの異なる，より最短に近い経路をより素早く探索することができる．また障害物が存在しない場合マシンゼロの精度で有限時間内に最短解を見つけることができる．</p>
+<p>この論文は以下のような構成になっている．第2章においてfocused optimal planningの正式な定義と既存の手法のreviewを行う．第3章において解を改善しうる部分集合を閉じた形で表し，RRT* スタイルのアルゴリズムへのimplicationを解析する．第4章においてInforme RRT* の解説を行い，第5章においてシミュレーションとRRT* との比較を行う．</p>
+</div>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="problem-definition">
+<h3>Problem Definition<a class="headerlink" href="#problem-definition" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここではKaraman and Frazolli(2011)に従いoptimal planning problemを定義する． <span class="math">\(X \in \mathbb{R}^{n}\)</span> をdomain of planning problem,  <span class="math">\(X_{obs} \in X\)</span> を障害物の存在する領域， <span class="math">\(X_{free} = X - X_{obs}\)</span> をpermissible statesの部分集合とする． <span class="math">\(x_{start} \in X_{free}\)</span> を初期の点， <span class="math">\(x_{goal} \in X_{free}\)</span> を終点とする．この2点を接続する経路は <span class="math">\(\sigma: [0, 1] \mapsto X\)</span> である．optimal path planningとはコスト関数 <span class="math">\(c: \Sigma \mapsto \mathbb{R}_{&gt;0}\)</span> が与えられた時に以下の条件を満たす <span class="math">\(\sigma{*}\)</span> を求めることである．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/informed_rrt_star_eq1.png"><img alt="Equation1" src="../_images/informed_rrt_star_eq1.png" style="width: 50%;" /></a>
+</div>
+<p><span class="math">\(f(x)\)</span> を経路のコストとする．すると現在の解を改善しうる部分集合 <span class="math">\(X_{f}\)</span> は以下のように表される．</p>
+<div class="math">
+\begin{align*}
+X_{f} = \{ x \in X \, | \, f(x) &lt; c_{best} \}
+\end{align*}</div><p>RRT* において収束率を上げることは，ノードがこの領域からサンプリングされるようにすることである．</p>
+<p>この関数は実際は分からないので(多分cost-to-goなんだろうな)代わりにヒューリスティック関数 <span class="math">\(\hat{f}\)</span> が使われる．このヒューリスティック関数は，もし経路の <strong>本当のコストを過大評価しないならば</strong> admissibleであると言われる．すなわち</p>
+<div class="math">
+\begin{align*}
+\forall x \in X, \hat{f}(x) &lt; f(x)
+\end{align*}</div><p>であるということ．もし真のコストを過小評価するとどうなるか．そのヒューリスティックは <strong>実際は真の解のコストより大きくなっている経路を，勘違いして真の解より最適であると</strong> みなしてしまうため，探索があらぬ方向へ向かってしまうということだろう．そのため， <span class="math">\(X_{f}\)</span> の推定値である <span class="math">\(X_{\hat{f}}\)</span> は <span class="math">\(X_{\hat{f}} \supset X_{f}\)</span> である(もしこれが逆で <span class="math">\(X_{\hat{f}} \subset X_{f}\)</span> だったら，真の経路を外す可能性があるので)．</p>
+</div>
+<div class="section" id="prior-work">
+<h3>Prior Work<a class="headerlink" href="#prior-work" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここから1ページ半，従来法が続く．さすがよく調べている．</p>
+<p>RRT/RRT* の(サンプリングをfocusする)従来手法では</p>
+<ol class="arabic simple">
+<li>sample biasing</li>
+<li>heursitic-based sample rejection</li>
+<li>heuristic-based graph pruning</li>
+<li>iterative search</li>
+</ol>
+<p>が知られている．</p>
+<div class="section" id="sample-biasing">
+<h4>Sample Biasing<a class="headerlink" href="#sample-biasing" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>sample biasingでは <span class="math">\(X\)</span> からのサンプリングの確率分布にバイアスをかけることでノードが <span class="math">\(X_{f}\)</span> からよりサンプリングされるようにする．しかしこれは解を改善しえない <span class="math">\(X_{f}\)</span> の外からもサンプリングを続ける．また探索範囲において一様でない確率分布になるためRRT* の重要な前提を破っている．</p>
+<ul class="simple">
+<li>Heuristic-based Sampling</li>
+</ul>
+<p>論文を読まないと分からないが，おそらくヒューリスティックな確率分布を用いて各状態の尤度的なものを評価して重み付けすることで <span class="math">\(X_{f}\)</span> からサンプリングされやすくなるようにしている．Urmson and Simmons(2003)ではヒューリスティックにより評価したコストの逆数に比例する確率でノードが選ばれる陽にするHeuristically guided RRTを提唱している(意外と子供だましな発想)．RRTより良い結果を得ることができているが，基本的にRRTとその亜種はsuboptimalな解しか得られない．</p>
+<p>Keisel et al. (2012)では2段階に分けて問題を解くことでRRT* にヒューリスティックを導入している．初めに粗い離散化をした上で問題を解き，各々のブロックのコストのヒューリスティックを求めている(cost-to-goの近似値，多分)．それからRRT* は，離散化したブロックからのサンプリング，さらにそのブロック内でのサンプリングを行う．ブロックのサンプリングでは，離散化の段階での解(粗いグリッドでの経路)が最も選ばれやすいようバイアスがかけられる．一方各々のブロック内では一様分布である．</p>
+<ul class="simple">
+<li>Path Biasing</li>
+</ul>
+<p>path-biased samplingでは現在の解の周辺でサンプリングを行うことで <span class="math">\(X_{f}\)</span> からのサンプルを増やそうとする．これは，現在の解は最適解とホモトピーが同じか少数の障害物を間に挟んでいる程度という仮定を行っている．この仮定は常には正しくないため，局所極小解を避けるためにまだ大域的なサンプリングを続けねばならない．Alterovitz et.al (2011)はPRMを構築するのにpath-biasingを用いている．一旦解が求まったら，それからは新しいノードをサンプルするか，現在の解のノードを選んでrefineを行う．</p>
+<p>Akgun and Stilman(2011)はdual version RRT*(bidirectionalのこと?)においてpath-biasingを用いている．ここでは一旦解が求まった後，ユーザーが指定した割合で現在の解のrefinementを行う．その際は解に含まれるノードをランダムに選んで，そのボロノイ領域からサンプリングを行う．これはホモトピーの異なる解を探索する代わりに現在の解を改善する確率をあげることになる．</p>
+<p>Nasier et.al(2013)においてはRRT* -Smartと名付けられたアルゴリズにおいてpath-biasingとsmoothingが組み合わされている．解が一旦求まったら，その解にsmoothingを適用してノードの数を最小限に減らす(それらを将来のbiasingに用いることはしない)．これはplannerをpath-smoothingの分複雑にするのと，まだ局所解を避けるためにglobalなサンプリングを必要とする．path-smoothingにより現在の解のコストは減らすことができるが，ノードを削ることにより将来のbiasingによりホモトピーの異なる経路を探索する確率を減らすことに繋がる．</p>
+</div>
+<div class="section" id="heuristic-based-sampling-rejection">
+<h4>Heuristic-based Sampling Rejection<a class="headerlink" href="#heuristic-based-sampling-rejection" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Heuristic-based sample rejectionは <span class="math">\(X\)</span> において棄却サンプリングを行うことで <span class="math">\(X_{f}\)</span> からのサンプリングを増やそうとし，結果 <span class="math">\(X_{\hat{f}}\)</span> からのサンプリングを増やす．larger distributionからサンプルされたノードはヒューリスティックな評価値により保持/棄却するかが決められる．これは一回の繰り返しでは計算負荷は小さいが，the number of iterations necessary to find a single state in  <span class="math">\(X_{\hat{f}}\)</span> is proportional to its size relative to the sampling domain. This becomes nontrivial as the solution approaches the theoretical minimum or the planning domain grows.</p>
+</div>
+<div class="section" id="graph-pruning">
+<h4>Graph Pruning<a class="headerlink" href="#graph-pruning" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Graph Pruningにおいては，グラフを <span class="math">\(X_{\hat{f}}\)</span> へと制限するためにヒューリスティック関数を用いることで  <span class="math">\(X_{f}\)</span> からのサンプリングを増やす．現在の解のコストよりヒューリスティックのコストが大きいノードは探索グラフから周期的に枝刈りされる一方大域的なサンプリングも続けられる．RRTは空間をカバーしようとする傾向があるので(space-filling nature) <span class="math">\(X_{\hat{f}}\)</span> の境界へ向かって枝刈りされた探索木の伸長にバイアスをかける．この部分集合がカバーされた後は <span class="math">\(X_{\hat{f}}\)</span> からの状態のみが新たにグラフへと加えられる．このようにしてgreedlyに目標とする部分集合をカバーした後，枝刈りを行うのは棄却サンプリングを行うことになる．RRTへと新たにを加える際，最近傍探索を要するので枝刈りは単純な棄却サンプリングに比べて計算コストが高い．また同様のprobabilistic limitationsに直面する．</p>
+<p>Karamn et. al(2011)らは実行中に解を改善するanytimeなRRTにおいて枝刈りを利用している．そこでは現在の解を改善するために，各ノードは現在のコストにプラスとしてゴールまでのヒューリスティックなコストを加えて評価され，現在の解を改善する見込みのないノードは枝刈りされる．RRT* はノードの(真の)コストに漸近的に <strong>上から</strong> 近づくものなので，このヒューリスティックはinadmissibleである(何か過大評価してるっけ...?)．これは特に初期において探索木が粗い時にノードのコストを過大評価し，誤って(本当は真の経路に含まれるはずの)ノードを削除しかねない．</p>
+</div>
+<div class="section" id="anytime-rrt">
+<h4>Anytime RRT*<a class="headerlink" href="#anytime-rrt" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Ferguson and Stentz(2006)では，解が求まると，それを改善しうる部分集合も限定されることに気付いている．彼らの提唱したiterative RRT(Anytime RRT, Anytimeってそういうことね)では，一つ前の段階での解から定義されるplanning domain において一連の独立したplanning problemを解く(再帰的に)．その論文において彼らはplanning domainを楕円として表現していたが，どのようにしてサンプルを生成するかについては議論していない．planning domainを制限することでRRTは一つ前よりより良い解を見つけようとするが， <span class="math">\(X_{\hat{f}}\)</span> においてすでに見つかった状態をdiscardしないといけない(だからどうなる?)．</p>
+<p>本論文において提案されるアルゴリズムは <span class="math">\(X_{\hat{f}}\)</span> を明示的に計算しそこから直接サンプリングを行う(新規性はおそらくこの2つ)．path-biasingとは異なりこの手法は最適経路のホモトピー類について仮定をおかず，またheuristic-baisingと異なり解を改善し得ないノードは探索しない．RRT* 基づいているため探索途中で見つかった <span class="math">\(X_{\hat{f}}\)</span> に属するノードは保持し続ける． <span class="math">\(X_{\hat{f}}\)</span> から直接サンプリングを行うことで <span class="math">\(X\)</span> との相対的なサイズによらず，解を改善しうるノードだけをサンプルする．またそれによりsample-rejectionやgraph-pruningとも異なり理論値と比べて現在の解が相対的に離れていてもうまく動く．</p>
+</div>
+</div>
+</div>
+<div class="section" id="analysis-of-the-ellipsoidal-informed-subset">
+<h2>Analysis of the Ellipsoidal Informed Subset<a class="headerlink" href="#analysis-of-the-ellipsoidal-informed-subset" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>正の値をとるコスト関数が与えられた時， <span class="math">\(x_{start}\)</span> から <span class="math">\(x_{goal}\)</span> へ <span class="math">\(x\)</span> を経由する最短経路のコスト <span class="math">\(f(x)\)</span> は <span class="math">\(x_{start}\)</span> から <span class="math">\(x\)</span> へのコスト <span class="math">\(g(x)\)</span> と <span class="math">\(x\)</span> から <span class="math">\(x_{goal}\)</span> へのコスト <span class="math">\(h(x)\)</span> の和に等しい．RRT* ベースのアルゴリズムは <em>上から</em> (どんどん短くなっていく)最短経路へと近づくので，admissibleなヒューリスティック関数 <span class="math">\(X_{\hat{f}}\)</span> はこれらの2項を両方満たさねばならない．つまり <span class="math">\(g(x)\)</span> と <span class="math">\(h(x)\)</span> が両方共 <span class="math">\(\hat{g}(x)\)</span> と <span class="math">\(\hat{h}(x)\)</span> のadmissibleな推定値になっていなければならない． <span class="math">\(\mathbb{R}^{n}\)</span> において経路を最小化しよういう問題においてはユークリッド距離がadmissbleなコスト関数となる．現在の解を改善しうるノードの部分集合(== <strong>informed subset</strong>) <span class="math">\(X_{\hat{f}} \supset X_{f}\)</span> は現在の解のコスト <span class="math">\(c_{best}\)</span> を用いて以下のように表される．</p>
+<div class="math">
+\begin{align*}
+X_{\hat{f}} = \{ x \in X \quad \mathrm{s.t.} \quad |x_{start} - x|_{2} + |x - x_{goal}|_{2}  \leq c_{best}\}
+\end{align*}</div><p>これはn次元における超楕円の一般的な定式である．ここで <span class="math">\(x_{start}\)</span> ， <span class="math">\(x_{goal}\)</span> はこの超楕円の焦点であり，長軸は <span class="math">\(c_{best}\)</span> ，短軸は <span class="math">\(\sqrt{c_best^{2} - c_{min}^{2}}\)</span> である．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/hyperspheroid.png"><img alt="超楕円" src="../_images/hyperspheroid.png" style="width: 50%;" /></a>
+</div>
+<p><span class="math">\(X_{\hat{f}}\)</span> を包含する部分集合 <span class="math">\(X_{s}\)</span> から一様分布を用いて <span class="math">\(X_{\hat{f}}\)</span> から <span class="math">\(x_{i+1}\)</span> が得られて解が改善される確率は</p>
+<div class="math">
+\begin{align*}
+P(c^{i+1}_{best} &lt; c^{i}_{best}) &amp;\leq P(x^{i+1} \in X_{f}) \\ &amp;\leq P(x^{i+1} \in X_{\hat{f}}) = \frac{\lambda(X_{\hat{f}})}{\lambda(X_{s})}
+\end{align*}</div><p>n次元における超楕円の体積を計算することでこの確率は以下のように評価される．</p>
+<div class="math">
+\begin{align*}
+P(c_{best}^{i+1} &lt; c_{best}^{i}) \leq \dfrac{c_{best}^{i}(c_{best}^{i} - c_{min}^{2})^{n(n-1)/2} \xi_{n}}{2^{n}\lambda (X_{s})}
+\end{align*}</div><p>ここで <span class="math">\(\xi_{n}\)</span> はn次元における球の体積である．</p>
+<div class="section" id="remark-1">
+<h3>Remark 1(棄却サンプリング)<a class="headerlink" href="#remark-1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>上の式から一様分布を用いて解を改善することのできる確率は， <span class="math">\(X_{s}\)</span> が比較的大きい場合や現在の解のコストが理論的な下限に近づくにつれて0に収束する．</p>
+<div class="section" id="id1">
+<h4>解説<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>つまり <span class="math">\(c_{best}^{i}\)</span> が <span class="math">\(c_{min}\)</span> に近づくか，または <span class="math">\(\lambda (X_{s})\)</span> が大きくなると確率が0に収束する．始点と終点を結ぶ「ヒモ」は連続的に伸びたり縮んだりするが，現在の解より小さい経路(直線距離で)は楕円を描く．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/informed_hyperspheroid.png"><img alt="informed_hyperspheroid" src="../_images/informed_hyperspheroid.png" style="width: 50%;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="remark-2-rectangular-rejection-sampling">
+<h3>Remark 2(Rectangular rejection sampling)<a class="headerlink" href="#remark-2-rectangular-rejection-sampling" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もしここで <span class="math">\(X_{s}\)</span> が図の楕円を囲む長方形であれば(辺の長さがそれぞれ長軸と短軸の長さに等しい)一様分布により <span class="math">\(X_{s}\)</span> からのサンプルが <span class="math">\(X_{\hat{f}}\)</span> に入る確率は <span class="math">\(\xi_{n} / 2^{n}\)</span> である．これはnが増えるにつれて急速に減少するため(<strong>球面集中現象!!</strong>)棄却サンプリングにより解が改善される確率はかなり小さい．</p>
+</div>
+<div class="section" id="theorem-1-obstacle-free-linear-convergence">
+<h3>Theorem 1(Obstacle-free linear convergence)<a class="headerlink" href="#theorem-1-obstacle-free-linear-convergence" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もし障害物が存在しない場合，Informed Subsetから一様的にサンプリングを行うことで <span class="math">\(c_{best}\)</span> は理論的な最小値へと収束することを示す．</p>
+<div class="section" id="id2">
+<h4>証明<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>状態 <span class="math">\(x\)</span> のヒューリスティックな評価値は <span class="math">\(x_{start}\)</span> と <span class="math">\(x_{goal}\)</span> を焦点にもち <span class="math">\(x\)</span> を通る超楕円のtransverse diamiter(横半径)に等しい．一様分布を使うとその期待値は</p>
+<div class="math">
+\begin{align*}
+E[\hat{f}(x)] = \dfrac{nc_{best}^{2} + c_{min}^{2}}{(n+1)c_{best}}
+\end{align*}</div><p>である．</p>
+<p>ここではRRT* のasymptotic optimalityに関する証明がなされている論文と同様に，RRT* のrewiringを行う際の探索半径のスケーリングパラメータ <span class="math">\(R\)</span> は十分大きいと仮定する．改善された経路の長さの期待値 <span class="math">\(c_{best}^{i}\)</span> はtransverse diamiterが <span class="math">\(c_{best}^{i-1}\)</span> である超楕円からのサンプルのヒューリスティックの評価値である．すなわち</p>
+<div class="math">
+\begin{align*}
+E[c_{best}^{i}] = E[\hat{f}(x^{i})]
+\end{align*}</div><p>2つ上の式から解の収束率は以下のような次元nにのみ依存するパラメータに従って線形に収束する．</p>
+<div class="math">
+\begin{align*}
+\mu = \left.\dfrac{\partial E[c_{best}^{i}]}{\partial c_{best}^{i-1}}\right|_{c_{best}^{i-1} = c_{min}} = \dfrac{n-1}{n+1}
+\end{align*}</div><p>障害物が存在しないという仮定はimpracticalではあるがこのような解析はinformed subsetからサンプリングを行うことの有効性を示している．</p>
+</div>
+</div>
+</div>
+<div class="section" id="direct-sampling-of-an-ellipsoidal-heuristic">
+<h2>Direct Sampling of an Ellipsoidal Heuristic<a class="headerlink" href="#direct-sampling-of-an-ellipsoidal-heuristic" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ようやくここまで読んで気付いたのだが，今まで出てきた <span class="math">\(x_{ellipse} \sim \mathcal{U}(X_{ellipse})\)</span> の <span class="math">\(\mathcal{U}\)</span> って一様分布のUniformだったのか．とにかくこの領域からのサンプリングはn次元の単位球における一様分布を以下のようにアフィン変換することで得られる．</p>
+<div class="math">
+\begin{align*}
+x_{ellipse} = Lx_{ball} + x_{center}
+\end{align*}</div><p>ここで <span class="math">\(x_{center}\)</span> は2つの焦点の中心である．
+また行列 <span class="math">\(L\)</span> は以下のようにして計算される．超楕円は以下のように二次形式により表現されるから</p>
+<div class="math">
+\begin{align*}
+(x - x_{center})^{T}S(x - x_{center})
+\end{align*}</div><p>この正定値行列 <span class="math">\(S\)</span> をコレスキー分解した行列が <span class="math">\(L\)</span> である．</p>
+<div class="math">
+\begin{align*}
+LL^{T} = S
+\end{align*}</div><p>先ほどの図の超楕円は</p>
+<div class="math">
+\begin{align*}
+S = \mathrm{diag} \{ c_{best}^{2}/4, (c_{best}^{2} - c_{min}^{2})/4, \cdots (c_{best}^{2} - c_{min}^{2})/4 \}
+\end{align*}</div><p>と表されるから</p>
+<div class="math">
+\begin{align*}
+L = \mathrm{diag} \{ c_{best}/2, \sqrt{c_{best}^{2} - c_{min}^{2}}/2, \cdots \sqrt{c_{best}^{2} - c_{min}^{2}}/2 \}
+\end{align*}</div><p>が得られる．</p>
+<p>超楕円における座標軸から(frame)world-frameへの変換は general Wahba problemとして直接解くことができることが知られている．その際の回転行列 <span class="math">\(C\)</span> は以下のように表すことができる．</p>
+<div class="math">
+\begin{align*}
+C = U \mathrm{diag} \{ 1, ..., 1, \mathrm{det}(U), \mathrm{det}(V) \} V^{T}
+\end{align*}</div><p>ここで行列 <span class="math">\(U\)</span> と <span class="math">\(V\)</span> はある行列 <span class="math">\(M\)</span> を特異値分解した <span class="math">\(U\Sigma V^{T} = M\)</span> なる行列である．行列 <span class="math">\(M\)</span> は以下のようなベクトル <span class="math">\(a\)</span></p>
+<div class="math">
+\begin{align*}
+a = (x_{goal} - x_{start}) / |x_{goal} - x_{start}|_{2}
+\end{align*}</div><p>を用いて</p>
+<div class="math">
+\begin{align*}
+M = a \bf{1}^{T}
+\end{align*}</div><p>と表される．</p>
+<p>超楕円で表されるInformed-Subsetから一様に分布するサンプル <span class="math">\(x_{\hat{f}} \sim \mathcal{U}(X_{\hat{f}})\)</span> を得るにはn次元球からの一様分布を以下のように変換すれば良い．</p>
+<div class="math">
+\begin{align*}
+x_{\hat{f}} = CLx_{ball} + x_{center}
+\end{align*}</div></div>
+<div class="section" id="informed-rrt">
+<h2>Informed RRT*<a class="headerlink" href="#informed-rrt" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Informed RRT* のアルゴリズムを下に示す．Informed RRT* は途中まではRRT* と同様に解を探索するが，一旦解が見つかったら解を改善しうる部分集合にサンプリングをフォーカスする．InGoalRegion()において，見つかった解を全て格納し， <span class="math">\(c_{max}\)</span> を更新する．</p>
+</div>
+<div class="section" id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Informed RRT* は，ヒューリスティックを用いることでオリジナルのplannig domainの部分集合へとshrinkする．著者らはInformed RRT* においてinitial solutionがなくてもよいよう，Batch Informed Trees(BIT*)を現在開発している．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/informed_rrt_star_algorithm.png"><img alt="informed_rrt_star_algorithm" src="../_images/informed_rrt_star_algorithm.png" style="width: 50%;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/informed_rrt_star_sample.png"><img alt="informed_rrt_star_sampling" src="../_images/informed_rrt_star_sample.png" style="width: 50%;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lqg_mp.html" class="btn btn-neutral float-right" title="LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rrt_star_original.html" class="btn btn-neutral" title="Incremental Sampling-based Algorithms for Optimal Motion Planning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

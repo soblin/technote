@@ -1,0 +1,23 @@
+.. meta::
+   :description: Soblin's Technote - ロボットの動作計画に関する論文の感想
+   :keywords: control, robotics, mathematics, motion planning, 制御, ロボティクス, 数学, 動作計画
+
+
+
+======================================================================
+Motion Planning
+======================================================================
+
+この章ではロボットの動作計画や経路計画に関する論文の読書ノートをまとめている．
+
+.. toctree::
+   :maxdepth: 1
+
+   randomized_kinodynamic_planning.rst
+   rrt_star_original.rst
+   informed_rrt_star.rst              
+   lqg_mp.rst
+   rrt_connect.rst
+   a_star.rst
+   riemannian_motion_policy.rst
+

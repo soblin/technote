@@ -1,0 +1,26 @@
+.. meta::
+   :description: Soblin's Technote - 今まで読んだ書籍の感想の一覧
+   :keywords: control, robotics, mathematics, 制御, ロボティクス, 数学
+
+
+======================================================================
+Books
+======================================================================
+
+ここでは読んだ書籍の感想の一覧をまとめている．
+
+.. toctree::
+   :maxdepth: 1
+
+   nonlinear_optimal_control/index.rst
+   easy_analytical_mechanics/index.rst
+   modern_c_programming/index.rst
+   analytical_mechanics/index.rst
+   planning_algorithms/index.rst
+   SLAM入門 ロボットの自己位置推定と地図構築の技術 <https://github.com/soblin/slam>
+   C++で学ぶディープラーニング <https://github.com/soblin/DeepLearning>
+   LinuxとPthreadsによるマルチスレッドプログラミング入門 <https://github.com/soblin/pthread-practice>
+   modern_analytical_mechanics/index.rst
+   入門Goプログラミング <https://github.com/soblin/go-introduction.git>
+   markov_decision_process/index.rst
+   

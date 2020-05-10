@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="James J. Kuffner, Jr., Steven M. LaValle 2000 ICRA 2000 https://personalrobotics.ri.cmu.edu/courses/papers/Kuffner00-rrtconnect.pdf どうやらこの論文はRRTにおいてbidirectional searchを行うことを初めから全面に押し出しているようだ．conve...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
+        <link rel="up" title="Motion Planning" href="index.html"/>
+        <link rel="next" title="A Formal Basis for the Heuristic Determination of Minimum Cost Paths" href="a_star.html"/>
+        <link rel="prev" title="LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information" href="lqg_mp.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Motion Planning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="randomized_kinodynamic_planning.html">Randomized Kinodynamic Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="informed_rrt_star.html">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lqg_mp.html">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RRT-Connect</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rapily-exploring-random-trees">Rapily-exploring Random Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-rrt-connect-path-planner">The RRT-Connect Path Planner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis">Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="a_star.html">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../control/index.html">Control</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Motion Planning</a> &raquo;</li>
+        
+      <li>RRT-Connect</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rrt-connect">
+<h1>RRT-Connect<a class="headerlink" href="#rrt-connect" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">James J. Kuffner, Jr., Steven M. LaValle</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2000</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Accepted:</th><td class="field-body">ICRA 2000</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="https://personalrobotics.ri.cmu.edu/courses/papers/Kuffner00-rrtconnect.pdf">https://personalrobotics.ri.cmu.edu/courses/papers/Kuffner00-rrtconnect.pdf</a></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>どうやらこの論文はRRTにおいてbidirectional searchを行うことを初めから全面に押し出しているようだ．conventional literatureにおいてbidirectinal searchは存在しているから，そのRRTバージョンというところかなあ．</p>
+<p>start，goalのconfigurationから同時にRRTをbuildし，greedy-heuristicを用いることでお互いに向かって伸ばす．</p>
+<p>シミュレーション結果の画像が妙にリアルなのが面白い．</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ありがちな文章から始まっている．</p>
+<blockquote>
+<div>Motion planning problem arise in such diverse fields as robotics, assembly analysis, virtual prototyping, pharmaceutical drug design, manufactuaring, and computer animation.</div></blockquote>
+<p>このような問題では初期と終端のconfigurationを接続するような経路を，多数の複雑な障害物が存在するconfiguration spaceにおいて探索する必要がある．completeなアルゴリズムの設計ではなく，randomizationを用いてincompleteではあるけれども任意の確率で given running time の間に解を見つけられるアルゴリズムが数多く設計されてきた．Randomized path planning algorithms は大まかに2種類ある．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">single-query problem:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">A single-query problem is solved quickly without any pre-processing．The most popular method for this problem so far(at the time of this paper) is randomized-potential field．pre-processingを行わずsingle-queryで問題が解かれる．この中で最も有名なのは(この論文が書かれている時点で)randomized potential fieldである．</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">multiple-query problem:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">Path planning problem is solved for the same environment twice. The pre-processing data is stored in a data structure for fast planning. The probabilistic roadmap method is the first method to address this problem. A graph is constructed in the configuration space by choosing many configuratione at random. 同じ環境に対してpath planningが2回行われる．pre-processingにおける探索結果のデータ(roadmap)を実際にquery与えられた際に利用する．そのためこのロードマップは様々なqueryに対して利用できるためmultiple-queryであると言われる．probabilistic roadmap methodがこのようなアプローチをとった最初の手法である．</p>
+<blockquote>
+<div><p>PRM enjoyed considerable success owing to its simplility and reliable behavior. Even in single-query problem where randomized potential field might yield better performance, PRM is preferred for its simplicity.</p>
+</div></blockquote>
+<p class="last">Randomized potential field method enocodes  greedy heuristic in the form of a potential function over the configuration space. When the planner stucks in a local minima, it esapce from it using random walk.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>randomzied potential fieldはconfiguration spaceにおけるポテンシャル関数という形でヒューリスティック探索を行う．</p>
+<blockquote>
+<div><p>The authors proposed RRT-conect that aggressivley tries to connect two trees, one from the inital configuration and the other from the goal.</p>
+<p>The key idea of this method is the use of RRTs as a sampling scheme and data structure for uniform exploration and coverage of the plannning domain.</p>
+</div></blockquote>
+<p>本手法のキーとなるアイデアは，探索空間を一様に探索し被覆するため，RRTをサンプリングとデータ構造として用いることである．</p>
+</div>
+<div class="section" id="rapily-exploring-random-trees">
+<h2>Rapily-exploring Random Trees<a class="headerlink" href="#rapily-exploring-random-trees" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<blockquote>
+<div>The key idea of RRT is to bias the exploration toward unexplored portions of the configuration space, which is expressed as the set of Voronoi regions.</div></blockquote>
+<p>RRTのキーアイデアはconfiguration spaceにおいてまだ探索されていない領域へと探索をバイアスすることである．</p>
+<blockquote>
+<div>The fast-coverage-nature of RRT comes from the greedy-extention toward the Voronoi region of the seleced node. The probability that a vertex is selected for extention is proportional to the area of its Voronoi region. Also RRT possess a uniform coverage of the configuration space.</div></blockquote>
+<p>RRTが探索空間を(単純にランダムに枝を伸ばすよりも)素早く探索を行えるのは，選択されたノードに対するボロノイ領域へと枝を伸ばそうとするところにある．一様分布を用いるのであれは，あるノードが選ばれてそこから枝が伸ばされる確率はそのノードに対するボロノイ領域の面積の探索空間に対する割合に等しい．</p>
+</div>
+<div class="section" id="the-rrt-connect-path-planner">
+<h2>The RRT-Connect Path Planner<a class="headerlink" href="#the-rrt-connect-path-planner" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>This algorithm is specifically designed for path planning without differential constraints. So incremental motions is not so important. Instead the heuristic attempts to move over a longer distance.</p>
+<p>The RRT-Connect algorithm iterates the <em>EXTEND</em> procedure until a new node reaches obstacle, so is is more greedy than original RRT. This behavior is similar the artifical pontential function in a randomied potential field. Although both method employs same greedy-heuristic, RRT-Connect is combined with the rapid and uniform exploration of RRT. In a sense, we can say that the <strong>attractor basin</strong> continues to move around as RRT grows, as opposed to artifical potential field.</p>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>The properties of basic-RRT and the RRT-Connect are analyzed in this section. The key result is that the distribution of the RRT vertices converges toward the sampling distribution (This distribution is often uniform).</p>
+<blockquote>
+<div>We prove the RRT-Conenct is probabilisticlly complete, although we cannot have a theoretical characterization of the rate of convergence.</div></blockquote>
+<p>RRT-Connectがprobabilisically completeであることが示されるものの，その具体的な収束率の表式は与えられない．</p>
+<blockquote>
+<div>Let <span class="math">\(D_{k}(q)\)</span> denote a random variable whose value is the distance of  <span class="math">\(q\)</span> to its closest vertex in G, in which  <span class="math">\(k\)</span> is the number of vertices in an RR. Let  <span class="math">\(d_l\)</span> denote the value of  <span class="math">\(D_k\)</span> . Let <span class="math">\(\epsilon\)</span> denote the incremental distance traveled in the <em>EXTEND</em> procedure(the RRT step size).</div></blockquote>
+<p>ここの証明では，考えうる <strong>k個のノードからなるRRTの分布</strong> の集合が標本集合 <span class="math">\(\Omega_k\)</span> になっている．そして各々の要素は特定のRRTの分布 <span class="math">\(\omega_k\)</span> を表している．confnguration space における特定の点 <span class="math">\(q\)</span> に対して，確率変数 <span class="math">\(D_{k}(q)\)</span> を以下のように定義する．</p>
+<div class="math">
+\begin{align*}
+D_{k}(q) : \Omega \rightarrow d_{k}(q)
+\end{align*}</div><p>ここで <span class="math">\(d_{k}(q)\)</span> は <span class="math">\(\omega_k\)</span> なる特定のRRTの分布が与えられたもとでの，<span class="math">\(q\)</span> とその最近傍ノードの間の距離を表す関数である．つまり <span class="math">\(D_{k}(q)\)</span> は関数を返す確率変数である．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Lemma1:</th><td class="field-body">Suppose  <span class="math">\(C_{free}\)</span>  is a convex, bounded, open n-dimensional subset of an n-dimensional configuration space. For any  <span class="math">\(q \in C_{free}\)</span> and positive constant  <span class="math">\(\epsilon &gt; 0\)</span> ,  <span class="math">\(\lim_{k \to \infty}P[d_{k}(q) &lt; \epsilon] = 1\)</span> .</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Sketch of Proof:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><span class="math">\(q\)</span> を <span class="math">\(C_{free}\)</span> における任意の点， <span class="math">\(q_0\)</span> をRRTの初期の点とする．また <span class="math">\(B(q)\)</span> を <span class="math">\(q\)</span> を中心とする半径 <span class="math">\(\epsilon\)</span> の円とする．また <span class="math">\(B^{\prime}(q) = B(q) \cup C_{free}\)</span> と定義する．その測度 <span class="math">\(\mu(B^{\prime}(q))\)</span> は正である．初め，RRTが初期状態のみからなる場合， <span class="math">\(d_{1}(q) = \rho(q, q_0)\)</span> である．RRTの各iterationにおいてランダムに選択された点が <span class="math">\(B^{\prime}(q)\)</span> に存在している確率は必ず正である．そのため，もしRRTの頂点集合が全て <span class="math">\(B(q)\)</span> の外に存在していたら，ある正の数 <span class="math">\(b\)</span> が存在して <span class="math">\(E[D_k] - E[D_{k+1}] &gt; b\)</span> が成立する．よって <span class="math">\(\lim_{k \to \infty}P[d_{k}(q) &lt; \epsilon] = 1\)</span> が成立する．</td>
+</tr>
+</tbody>
+</table>
+<p>これを用いて <span class="math">\(C_{free}\)</span> がnonconvexである場合の証明を行う．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Lemma2:</th><td class="field-body">Suppose  <span class="math">\(C_{free}\)</span> is a nonconvex, boundd, open, n-dimensional connected component of an n-dimensional ocnfiguration space. For any  <span class="math">\(q \in C_{free}\)</span> and positive real number  <span class="math">\(\epsilon &gt; 0\)</span> ,  <span class="math">\(\lim_{n \to \infty}P[d_{n}(q) &lt; \epsilon] = 1\)</span> .</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Sketch of Proof:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="a_star.html" class="btn btn-neutral float-right" title="A Formal Basis for the Heuristic Determination of Minimum Cost Paths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lqg_mp.html" class="btn btn-neutral" title="LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

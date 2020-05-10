@@ -1,0 +1,1755 @@
+.. meta::
+   :description: いきなり微分幾何の準備から始まるのだが，運動方程式をユークリッド空間に埋め込まれた超曲面上での方程式として表すところから始めているのでついていきやすい．また多様体の入門書としても「多様体の基礎」より分かりやすかった．接ベクトル空間，ベクトル場，積分曲線の概念は本書でつかむことができた．関数とベクトル場のリー微分の導出も追うことができた．リー群はまだ理解しきれていない．テンソルとしての微分形式の説明，微分形式の「部分適用」としての内部積の導入も分かりやすい．
+   :keywords: 多様体, 微分幾何学, 接ベクトル, 積分曲線, リー微分, 共変テンソル, 微分形式, 内部積, 外微分
+
+======================================================================
+序章 数学的準備
+======================================================================
+
+.. contents:: この章の目次
+   :depth: 3
+
+        
+運動方程式
+======================================================================
+まず始めにニュートン力学の曖昧なところから話は始まる．『よく分かる解析力学』にも述べられていたが，ニュートンの運動方程式は **力の定義式** なのか，それとも **力から加速度を求めるもの ** なのか，という問題意識である．基本的には力の作用のもとでの物質的物体の運動が論じられるが,
+
+	その際に作用する力の法則自体は，通常は力学の外にある場の古典論で扱われるべきものとなっているのである．
+
+そうだ．そのため
+
+#. 与えられた力から運動を予測する(力 -> 運動)
+#. 運動から力の性質を解析する(運動 -> 力)，例えばケプラーの法則からの万有引力
+
+とい両義性がニュートン力学には存在する．それは力を発生する「場」については力学の外に与られたものとして扱い，場が個別粒子に与える作用を「力」という「概念」にまとめ上げたためである
+
+物質と場の二元論，および個別をそれぞれ個々に力学的対象として扱うニュートン力学の一面性と限定性は，現在では場の量子論において物質と場の両者を量子化することによって解決が模索されている(いやもう解決されているのか？ 頭のいい人たちのことはよく知らないけれど)．そこでは粒子系と場がともに同レベルの量子化された「場」とみなされ，同種の基礎方程式で統一的に扱われる．
+
+.. note::
+   「粒子系」も「場」として扱われるらしい．
+
+
+そしてこの移行を可能にしたのがラグランジュ形式及びハミルトン形式の解析力学であるそうだ．
+
+拘束条件と配位空間
+----------------------------------------------------------------------
+各質点の運動空間(configuration space)  :math:`\in \mathbb{R}^3` のN個の直積により質点系の配置を :math:`\mathbb{R}^{3N}` における一点
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   x = (x^1, x^2, \cdots, x^{3N})
+   \end{align*}
+
+で表す．するとニュートンの運動方程式は以下のような
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m_a \dfrac{d^2 r_a}{d t^2} = F_{a}^{total}
+   \end{align*}
+
+なるN個の連立方程式であり， :math:`F_{a}^{total}` が与えられれば初期条件と合わせて系の発展を与える微分方程式となる． しかし一般には剛体を構成する全粒子についてそのようなことは考えられず，代わりに拘束条件が与えられる．
+
+とくにその関係が
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   f_s(x^1, x^2, \cdots, x^{3N})
+   \end{align*}
+
+で表される時，ホロノミックな拘束という，逆に非ホロノミックな拘束は，条件が不等式で表されるとか，座標の間の微分の積分不可能な関係で与えられるものである．もし積分可能ならば，例えば :math:`dx, dy` が
+  
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   dy = cdx, \quad \dfrac{dy}{dx} = c
+   \end{align*}
+
+であるならば :math:`y = cx + c_1` みたいにして **ホロノミックな拘束に** 生まれ変わる．そのためホロノミックな拘束を全て除去すると，結局系の自由度はある3N以下の定数 :math:`k` に低減される．数学的にはホロノミックな拘束たちのヤコビアン :math:`(\partial f_s / \partial x^i)` のランクがkであるならば，xの3N個の成分は全てが独立ではなく，局所的には :math:`n = 3N - k` 個の座標を用いて :math:`x^i = x^i(q^1, q^2, \cdots, q^n)` とパラメトライズされる．幾何学的には，拘束条件を満たす点の集合は :math:`\mathbb{R}^{3N}` に埋め込まれたn次元の超曲面をなす．そして各質点は
+  
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   r_a = r_a (q^1, q^2, \cdots,  q^n)
+   \end{align*}
+
+と表される．この超曲面は配位空間と呼ばれる．そしてこのn個のパラメーターが系の特定の位置を特定するのに必要十分なパラメーターであり，一般化座標と呼ばれる．そして系の時間的発展はこの配位空間上の点とその速度ベクトルとして表される．
+
+.. note::
+   つまり接バンドル．
+
+運動空間が超曲面上Nに限定されているということは，物理的に見直すならば各質点にはそれをN上に拘束するための強制「力」が働いているということである．
+
+.. note::
+   ここで「力」の曖昧性が現れる．回転座標系においてコリオリ「力」が現れるし，もしこの粒子が超曲面上での測地線を慣性運動していたなら何も外力は加えられていないはずである．しかし，拘束「力」が見かけ上現れる．
+
+まあそれをよしとして拘束力を仮定すると,
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m_a \dfrac{d^2 r_a}{dt^2} = F_a + F_a^{\prime}
+   \end{align*}
+
+として拘束力が現れる．この拘束力は，**問題を解いて求められる力である** ．
+
+
+仮想仕事による拘束力の消去
+----------------------------------------------------------------------
+仮想変位との内積をとることで拘束力を消去できるという話．「動ける方向だけ」考えるから，「動けない方向」つまり「外からみて動ける方向に働いているように見える力」を消去するという感じだ．ニュートンの運動方程式は，仮想変位との内積をとると以下のようになる．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \sum_a m_a \left( \dfrac{d^2 r_a}{d^2 t} \cdot \dfrac{\partial r_a}{\partial q^i}\right) = \mathcal{F}_i :=\sum_a F_a \cdot \dfrac{\partial r_a}{\partial q^i}
+   \end{align*}
+
+ここで :math:`\mathcal{F}_i` は一般化力である．
+
+ここで :math:`r_a` の二階微分を計算するとかなりややこしくなってしまうのだが，以下のように微分幾何っぽいことをやる．まず
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (d \bar{s})^2 := \sum_a \left( \dfrac{\partial r_a}{\partial q^i} \cdot \dfrac{\partial r_a}{\partial q^j} \right) dq^i dq^j
+   \end{align*}
+
+なる計量を定義すると運動エネルギーは
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   T = \dfrac{1}{2}\left( \dfrac{d \bar{s}}{dt} \right)^{2}
+   \end{align*}
+
+と表される．ここで
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m_{ij} = m_{ji} = \sum_a m_a \left( \dfrac{\partial r_a}{\partial q^i} \cdot \dfrac{\partial r_a}{\partial q^j} \right)
+   \end{align*}
+
+は計量テンソルであり,
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (d \bar{s})^2 = m_{ij} d q^i d q^j
+   \end{align*}
+
+であり．さらに
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   C_{ijk} = \sum_a \left( \dfrac{\partial r_a}{\partial q^i} \cdot \dfrac{\partial^2 r_a}{\partial q^i \partial q^j} \right)
+   \end{align*}
+
+とするとこれは
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   C_{ijk} = \dfrac{1}{2} \left( \dfrac{\partial m_{ki}}{\partial q^j } + \dfrac{\partial m_{ji}}{\partial q^k} - \dfrac{\partial m_{jk}}{\partial q^i} \right)
+   \end{align*}
+
+を満たしている．この量を第一種クリストッフェル記号という．これらを用いると運動エネルギーは
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   T = \dfrac{1}{2} m_{ji} \dot{q}^i \dot{q}^j
+   \end{align*}
+
+となり，そして運動方程式は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m_{ij}\ddot{q}^{ij} + C_{ijk}\dot{q}^i \dot{q}^j = \mathcal{F}_i
+   \end{align*}
+
+と表される．
+
+一般化力は，力がポテンシャルから導かれる場合
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{F}_i = \sum_a F_a \cdot \dfrac{\partial r_a}{\partial q^i} = \sum_a -\dfrac{\partial U}{\partial r_a} \cdot \dfrac{\partial r_a}{\partial q^i} = -\dfrac{\partial U(r(q))}{\partial q^i}
+   \end{align*}
+
+であり，運動方程式は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m_{ij}\ddot{q}^{ij} + C_{ijk}\dot{q}^i \dot{q}^j = -\partial_i U(r(q))
+   \end{align*}
+
+と与えられる．
+   
+曲面上の拘束運動
+======================================================================
+ここでは超曲面上に拘束された運動の幾何学的な意味を明らかにするため，1質点の，3次元空間に埋め込まれた2次元多様体上での運動を考える．その座標は :math:`r = (x(q^1, q^2), y(q^1, q^2), z(q^1, q^2))` と表される．そしてその各座標に関する偏微分 :math:`\partial_1 r, \partial_2 r` は接ベクトルである．この曲面上の線素は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   ds^2 = dr \cdot dr = \left( \dfrac{\partial r}{\partial q^i} dq^i \cdot \dfrac{\partial r}{\partial q^j} dq^j \right) = g_{ij}dq^i dq^j
+   \end{align*}
+
+と表され， :math:`g_{ij}` を曲面の第一基本量，上の二次形式のことを曲面の第一基本形式という．またその行列式は正則
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathrm{det}(g_{ij}) = (\partial_1 r \times \partial_2 r)^2 \neq 0
+   \end{align*}
+
+
+であるから，その逆行列を :math:`g^{ij}` と表す．
+
+
+加速度ベクトルと運動方程式
+----------------------------------------------------------------------
+加速度ベクトルを計算してみると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d^2 r}{d t^2} = \dfrac{\partial r}{\partial q^j}\dfrac{d^2 q^j}{dt^2} + \dfrac{\partial^2 r }{\partial q^k \partial q^j}\dfrac{d q^k}{dt}\dfrac{d q^j}{dt}
+   \end{align*}
+
+となるから，接ベクトルに属する成分と，接ベクトルとは平行でない成分に分かれる．これからこれらを平行成分と垂直成分に分離する．
+
+垂直方向の法ベクトル :math:`e_{N}` は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   e_{N} = \dfrac{\partial_1 r \times \partial_2 r}{|\partial_1 r \times \partial_2 r|}
+   \end{align*}
+
+であり，加速度ベクトルの第二成分はこれにより
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial^2 r }{\partial q^k \partial q^j}\dfrac{d q^k}{dt}\dfrac{d q^j}{dt} = \Gamma^{i}_{jk}\dfrac{\partial r}{\partial q^i} + h_{jk}e_{N}
+   \end{align*}
+
+と分離できるはずである．それぞれの係数は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   h_{jk} = \dfrac{\partial^2 r}{\partial q^j \partial q^k} \cdot e_{N}
+   \end{align*}
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial r}{\partial q^n} \cdot \dfrac{\partial^2 r}{\partial q^j \partial q^k} = \Gamma_{jk}^{i} \left( \dfrac{\partial r}{\partial q^n} \cdot \dfrac{\partial r}{\partial q^i} \right) = g_{ni}\Gamma_{jk}^{i} = \Gamma_{njk}
+   \end{align*}
+
+と表される．ここの :math:`\Gamma` はクリストッフェル記号と呼ばれる．同様に
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \Gamma_{ijk} = \dfrac{1}{2} \left( \dfrac{\partial g_{ki}}{\partial q^j} + \dfrac{\partial g_{ij}}{\partial q^k} - \dfrac{\partial q_{jk}}{\partial q^i} \right)
+   \end{align*}
+
+を満たすためである．結局運動方程式は曲面に平行な成分と垂直な成分
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & m(\ddot{q}^k + \Gamma_{ij}^k \dot{q}^i \dot{q}^j) \partial_k r = F_r \\
+   & m h_{ij} \dot{q}^i \dot{q}^j e_{N} = F_N
+   \end{align*}
+
+に分けられる．運動方程式を解くとはまず初めに1つ目の方程式を解き，次に2つ目の方程式から拘束力を求めることである．
+
+
+拘束力の決定
+----------------------------------------------------------------------
+拘束力を表す第二項であるが，一般的に
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   H = h_{jk} q^j q^k
+   \end{align*}
+
+は曲面の第二形式と呼ばれている．これは垂直方向の曲率半径を用いて
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   h_{jk}\dot{q}^j \dot{q}^k = \dfrac{v^2}{\rho_N}
+   \end{align*}
+
+と表される．すると先ほどの運動方程式は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   F_N = m \dfrac{v^2}{\rho_N} e_N
+   \end{align*}
+
+と表される．道理で曲面へと拘束するように力が働いているわけだ．
+
+曲面上での運動方程式
+----------------------------------------------------------------------
+質点の曲面上での運動を，弧長変数を時間軸にとると便利なことがある．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   s = \int_{0}^{t} vdt = \int_{0}^{t} |\dot{r}| dt
+   \end{align*}
+
+すると軌道に沿った接ベクトルは
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   e_T = \dfrac{dr}{ds} = \dfrac{dt}{ds} \dfrac{dr}{dt} = \dfrac{\dot{r}}{v}
+   \end{align*}
+
+であり，ノルムは自然と1になっている．さらにr(s)において曲面に接しかつ :math:`e_ｒ` 垂直なベクトルを
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   e_G = \dfrac{\partial_2 r - (\partial_2 r \cdot e_T)e_T}{\partial_2 r - (\partial_2 r \cdot e_T)e_T}
+   \end{align*}
+
+
+ととれる(確かに内積が1になっていることを確認できる)．そして法ベクトルを :math:`e_N = e_T \times e_G` と定義できる．すると加速度は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \ddot{r} = \dfrac{d \dot{r}}{dt} = \dot{v} e_T + v^2 e_{T}^{\prime}
+   \end{align*}
+
+の形に表せる．ここで :math:`e_T \cdot e_T = 1` をsで微分すると :math:`2 e_T \cdot e_{T}^{\prime}` となるから， :math:`e_{T}^{\prime}` は :math:`e_T` と直交しているから
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   r^{\prime \prime} = \kappa_G e_G + \kappa_N e_N
+   \end{align*}
+
+と分解できると予想できる．よって
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \ddot{r} = \dot{r} e_T + v^2(\kappa_G e_G+ \kappa_N e_N)
+   \end{align*}
+
+となる．ここで先ほどの結果から
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & v^2 \kappa_N = \ddot{r} e_N = \pm \dfrac{v^2}{\rho_N}
+   & \kappa_N = \pm \dfrac{1}{\rho_N}
+   \end{align*}
+
+が得られる．ここで :math:`\kappa_N` は曲面自体の湾曲による軌道の曲がり具合であり，もしこの質点が平面上を移動していたのならばこの曲率はゼロである．この量は **法曲率** と呼ばれる．一方
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \kappa_G = r^{\prime \prime} \cdot e_G = \dfrac{\ddot{r} \cdot e_G}{v^2}
+   \end{align*}
+
+は軌道を接平面TNに射影して得られる曲線の曲率であり，**測地的曲率** と呼ばれる．これは軌道を「平面に直した」際の軌道の曲率であり，実際に2次元上をへばりついている生物に感じられる曲率である．
+
+慣性運動と測地線
+----------------------------------------------------------------------
+とくに拘束力以外の外力が曲面上で働いていないとする．つまり :math:`v = \mathrm{const}` ， :math:`\kappa_G = 0` であるとする．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \kappa_G = (r^{\prime \prime} \cdot e_G) = (q^{k \prime \prime} + \Gamma^{k}_{ij}q^{i \prime} q^{j \prime})(\partial_k r \cdot e_G) = 0
+   \end{align*}
+
+より
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d^2 q^k}{d s^2} + \Gamma^{k}_{ij} \dfrac{d q^i}{ds} \dfrac{d q^j}{ds} = 0
+   \end{align*}
+
+が得られる．この解曲線を測地線という．測地線は曲面上の2点を結ぶ最短曲線である．
+
+	したがって，曲面上での自由運動では，質点はある点からいま一つの点までその2点を結ぶ最短距離で移動する(一般には距離が留地となる経路をとる)．このことは光学におけるフェルマーの原理と同様の原理が力学においても成り立つことを示唆している．
+
+曲面上のテンソルと共変微分
+======================================================================
+
+曲面上のベクトル
+----------------------------------------------------------------------
+力学のほとんどの物理量は座標と速度，加速度の関数であり，物理法則とはそのような物理量の関係である．そのためその表現は特定の座標系を用いて表される．しかしその物理的法則の「意味」は使用する座標系によって変化してはいけない．そのためには座標変換にさいして法則の「かたち」が変わってはいけない．
+
+例えば曲面上での温度や電位は座標系によらず「同じ位置」については同一の値をとらなければならない．例えば2つの異なる座標系 :math:`(q^1, q^2)` ,  :math:`(\bar{q}^1, \bar{q}^2)` においてその分布を表す関数は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   f(q^1, q^2) = \bar{f}(\bar{q}^1, \bar{q}^2)
+   \end{align*}
+
+を満たさなければならない．
+
+ベクトルについては，基底ベクトルを
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (e_1, e_2) = \left( \dfrac{\partial r}{\partial q^1} \dfrac{\partial r}{\partial q^2} \right)
+   \end{align*}
+
+とみなすとその速度成分を
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (v^1, v^2) = \left( \dfrac{d q^1}{dt}, \dfrac{d q^2}{dt} \right)
+   \end{align*}
+
+と定義できる．偏微分の連鎖率から
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   e_i = \dfrac{\partial \bar{q}^k}{\partial q^i}\bar{e}_k
+   v_i = \dfrac{\partial q^i}{\partial \bar{q}^k} \bar{v}_k
+   \end{align*}
+
+であるから,
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   v^i e_i = \bar{v}^i \bar{e}_i
+   \end{align*}
+
+のように表されるので，座標系によらない「ベクトル」になっている(そうなるように連鎖率を定義しているのだが)．一般に座標変換に際して基底成分と同じように変換される量を共変成分という．一方速度成分と同じように変換される量を反変成分という．
+
+.. note::
+   「下を打ち消しあって上が残る」のが反変成分，「上が打ち消し合って下が残る」のが共変成分
+
+
+例えば
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial}{\partial q^i} = \dfrac{\partial \bar{q}^j}{\partial q^i} \dfrac{\partial}{\partial \bar{q}^j}
+   \end{align*}
+
+における :math:`\partial \bar{q}^j / \partial q^i` は反変成分である．
+
+.. note::
+   「基底ベクトルと同じように変換される」のが共変成分．基底ベクトルを基準にしている．大雑把には **位置による偏微分で定義される量は共変** と思えばよい．
+
+勾配ベクトルは位置による偏微分であるから，以下のように共変成分である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial f(q)}{\partial q^i} = \dfrac{\partial \bar{q}^l}{\partial q^i} \dfrac{\partial \bar{f}(\bar{q})}{\partial \bar{q}^l}
+   \end{align*}
+
+曲面上のテンソル
+----------------------------------------------------------------------
+計量テンソル :math:`g_{ij}` は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \partial_i r \cdot \partial_j r
+   \end{align*}
+
+であるから，2階共変成分である．
+
+.. note::
+   位置で2回偏微分しているから，当然2階共変テンソル．
+
+一方クリストッフェル記号 :math:`\Gamma_{ijk}` はテンソルではない．また速度成分(特定の座標系の特定の位置座標に関する)の偏微分
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial v^i}{\partial q^j}
+   \end{align*}
+
+もテンソルではない．
+
+微分幾何においてこれらの変換則に従わない量は，**特定の座標系でしか意味を持たない量** ということである．つまり物理的な意味はない．
+
+
+接続と平行移動
+----------------------------------------------------------------------
+この章はそれほど後で使うわけでもないし，省略しようと思う．後で計算練習をするときにやると面白いかもしれない．
+
+
+多様体とベクトル場
+======================================================================
+
+微分可能多様体
+----------------------------------------------------------------------
+省略．
+
+多様体上の関数と曲線
+----------------------------------------------------------------------
+ここでは，後々出てくる「関数の引き戻し」を理解するために，多様体上の関数の概念についての認識を改めて記しておきたい．基本的に，多様体上の関数は **点** を引数にとるのであり，**使用する座標系によって関数の見た目が変化する** ．例えば「原点からの距離を返す関数」はユークリッド空間の **点** を引数にとる関数であるが，その局所座標表示は :math:`f(x_1, x_2, x_3) = x_{1}^{2} + x_{2}^{2} + x_{3}^{2}` であったり(通常のユークリッド空間)， :math:`\bar{f}(\bar{x}_1, \bar{x}_2, \bar{x}_3) = \bar{x}_{1}^{2}` (球座標)であったりする．
+
+
+方向微分と微分作用素
+----------------------------------------------------------------------
+まずここで「ベクトルを関数に作用させると方向微分になる」というベクトルを演算子として捉える見方をする．そして多様体上では「方向微分をベクトルとみなす」という風にして「ベクトル」を定義する．
+
+関数
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   f: M \longrightarrow \mathbb{R}
+   \end{align*}
+
+を，多様体上での曲線 :math:`c(t): t \longrightarrow M` との合成写像により
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   f \circ c(t) : t \longrightarrow \mathbb{R}
+   \end{align*}
+
+を定義できる．これはtについて普通に微分できる．この方向微分を， **関数fにベクトルを作用させる** と表現し，以下のようにベクトルを演算子のようにかく．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   v_{Q}[f] = \dfrac{f(c(t))}{dt}
+   \end{align*}
+
+.. warning::
+   ここではまだユークリッド空間上のように，ベクトルは「ただの矢印」だと思っている．
+
+これを局所座標表示してみよう．この曲線は写像 :math:`\phi: U \longrightarrow \mathbb{R}^{m}` により
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   c(\tau) \longrightarrow q(\tau) = (q^1(\tau), q^2(\tau), \cdots, q^{m}(\tau))
+   \end{align*}
+
+と表示される．すると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   v_{Q}[f] = \dfrac{d f(c(t))}{dt} = \dfrac{dq^i}{dt} \dfrac{\partial f}{\partial q^i}
+   \end{align*}
+
+と表される．つまり「作用素」とみなしたベクトルは
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   v_Q = \dot{q}^{i} (\partial_{i})_{Q}
+   \end{align*}
+
+と表せる．
+
+.. note::
+   筆者はもう慣れたが，「微分演算子」が「ベクトル」であるというのはどうしても初めは理解に苦しんでしまう．それはユークリッド空間ではベクトルは「向きと大きさ」を持った **矢印** であったためであると思われる．しかし微分幾何で定義されるベクトルは **曲面の表面上** だけで理解されなければならないから，矢印にすると表面から突き出てしまう．突き出ることがないように，「方向だけ」指定できればそれで良いのではないのだろうか．いわば「大きさゼロの，方向だけを示す矢印」 である．すると微分演算子 :math:`\partial / \partial q^i` が丁度そのようなものであると言える．なぜならば，それは :math:`q^i` 方向の変化をとる演算子であるからだ．それはつまり :math:`q^i` 方向のベクトルと言えそうである．
+
+
+接ベクトルと接空間
+----------------------------------------------------------------------
+点Qにおける微分作用素(あるいはベクトル)は局所座標表示により
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   u_{Q}[f] = u^i_Q \left( \dfrac{\partial f}{\partial q^i} \right)_Q
+   \end{align*}
+
+
+と書ける．そのため微分作用素の集合はベクトル空間を張り，その基底を
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle e_1, e_2, \cdots, e_m\rangle  = \left\langle  \dfrac{\partial}{\partial q^1}, \dfrac{\partial}{\partial q^2}, \cdots, \dfrac{\partial}{\partial q^m}\right\rangle 
+   \end{align*}
+
+と表したりする．別の局所座標表示では
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle \bar{e}_1, \bar{e}_2, \cdots, \bar{e}_m\rangle  = \left\langle  \dfrac{\partial}{\partial \bar{q}^1}, \dfrac{\partial}{\partial \bar{q}^2}, \cdots, \dfrac{\partial}{\partial q^m}\right\rangle 
+   \end{align*}
+
+そして偏微分の連鎖率より
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & e_i = \dfrac{\partial \bar{q}^j}{\partial q^i} \bar{e}_j \\
+   & \dfrac{\partial}{\partial q_i} = \dfrac{\partial \bar{q}^j}{\partial q^i} \dfrac{\partial}{\partial \bar{q}^j}
+   \end{align*}
+
+よりこれらは同様の変換則に従っている．このようにして各基底 :math:`\bar{e}_i` は :math:`e_i` の線型結合で表されるので，接空間の次元は局所座標系によらない．つまり接空間は幾何学的な量である．一方速度成分は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \bar{u}^j = \left( \dfrac{\partial \bar{q}^j}{\partial q^i} \right) u^i
+   \end{align*}
+
+と変換され，反変成分である．
+
+
+ベクトル場
+----------------------------------------------------------------------
+ベクトル場は多様体上の各点において「ベクトル」が貼り付けられたもの．つまり多様体の **表面** に流れができている．ベクトル場は「方向微分場」でもあるので，多様体上の関数ｆを方向微分した新たな関数を考えることができる．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   vf: M \longrightarrow R
+   \end{align*}
+
+この座標表示は
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   vf = v^i \partial_i f
+   \end{align*}
+
+と表される．
+
+積分曲線と一径数変換群
+----------------------------------------------------------------------
+多様体上にベクトル場wが与えられているとする．するとM上のある点から出発し，各点でこのwによって定められるベクトルに導かれて進む点の描く軌跡を考えられる．この曲線をc(t)とすると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{dc}{dt} = w(c(t))
+   \end{align*}
+
+あるいは局所座標表示では
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{q}^i = w^i(q^1, q^2, \cdots, q^m)
+   \end{align*}
+
+である．これはm本の連立微分方程式であり，初期条件を与えられれば一本の曲線を得られる．
+   
+この方程式のq(0)を初期値とする解はc(t; q(0))であり，q(0)から導かれてベクトル場に沿ってt秒後に :math:`Q_t = c(t; q(0))` まで到達する．この運動を与えるM上の写像
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi_t: M \longrightarrow M: Q_0 \longrightarrow Q_t
+   \end{align*}
+
+を相流という．これは以下のように
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \phi_0 = \mathrm{id} \\ & \phi_{t+s} = \phi_t \circ \phi_s \\ & \phi_{-t} = (\phi_t)^{-1}
+   \end{align*}
+
+を満たすので，群を構成する．
+
+.. note::
+   この写像は，**オレンジの皮だけを中身から浮かせてt秒間回転させる** ような写像だ．
+
+引き戻し(pull-back)
+----------------------------------------------------------------------
+多様体MからNへの写像
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi: M \longrightarrow N: Q \in M \longrightarrow P = \phi(Q) \in N
+   \end{align*}
+
+とN上の関数 :math:`g: N \longrightarrow \mathbb{R}` があるとき，合成関数 :math:`g \circ \phi` をM上の関数とみなして :math:`\phi^* g` と表す．
+
+.. note::
+   数学をやっていると，**同じ位置についての量なのに，使用する座標系によって関数の形が異なる量がたくさんある**．例えば点Pにおける電位を表す関数f(P)は，デカルト座標では :math:`x, y, z` で表されるのに対して球座標では :math:`r, \theta, \psi` で表される．なので， **適当な教科書** だとそれを :math:`f(x, y, z)` とか :math:`f(r, \theta, \psi)` とかと表したりしている．しかし，:math:`f(x, y, z)` と :math:`f(r, \theta, \psi)` で関数fの写像としての形(**代数的な形のこと**)は違うはずである．例えば :math:`f(a, b, c)` と書かれたら，**それがデカルト座標でのfのことを言っているのか，それとも球座標でのことを言っているのか分からない**．引き戻しは，多様体上の関数f(Q)がどの局所座標系を用いて表された関数であるかをきちんと表現するものである．今話した例で言うと，ユークリッド空間 :math:`M` における関数 :math:`f(x, y, z)` と，それを球座標で表した関数
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   g(r, \theta, \psi) = f(x = r\sin \theta \cos \psi, y = r\sin \theta \sin \psi, z = r \cos \theta)
+   \end{align*}
+
+
+は値としては同じである． この関数gのことを :math:`\phi^* f` と表し，**値は同じだが関数は異なる** ことを意図する．
+
+.. note::
+   関数の引数が新しい方(というより :math:`\phi` のoutput)から古い方( :math:`\phi` のinput)へと映るので， :math:`\phi` とは逆向きであるという点で **引き戻し** と言っている．
+
+微分写像(押し出し，push-forward)
+----------------------------------------------------------------------
+ :math:`\phi` が微分同相写像であるとすれば，M上の接ベクトルをN上の接ベクトルへと移す写像
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi_*: \mathrm{TM} \longrightarrow \mathrm{TN}: v_Q \longrightarrow u_P = (\phi_* v)_P
+   \end{align*}
+
+なる写像を考えられる．
+
+.. note::
+   先程引き戻しは :math:`\phi^*` のようにして上付きで表していた．一方この微分写像は :math:`\phi` とinputとoutputの向きが同じである．そのため，引き戻しとは逆向きであることを区別するために下付きにしている．なぜかこの本では書かれていないが，この :math:`\phi_*` のことをpush-forwardという．
+
+押し出し(微分写像)の局所座標表示
+----------------------------------------------------------------------
+MからNへの写像 :math:`\phi` が
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi: q \longrightarrow p = \phi(q)
+   \end{align*}
+
+のように表される時，その押し出し :math:`\phi^{*}` は接ベクトルに対して定義される．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi^{*} \left( \dfrac{\partial}{\partial q^j} \right) = \left( \dfrac{\partial p^i}{\partial q^j}\right)_{q = \phi^{-1}(p)} \dfrac{\partial}{\partial p^i}
+   \end{align*}
+
+これは非線形な写像を線形近似により再現する写像であるといえる．
+
+.. note::
+   写像 :math:`\phi` は一般的には非線形である．そのため関数 :math:`g` を引き戻す :math:`\phi_* g` のは簡単で，線形近似は全く必要ではない．一方押し出しはヤコビアンで線形近似するものである．
+
+引き戻しと押し出しの順番交換について
+----------------------------------------------------------------------
+以下のような関係がある．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi^* ((\phi_* v)g)(Q) = (v(\phi^* g))(Q)
+   \end{align*}
+
+これは
+
+#.  :math:`\phi^* ((\phi_* v)g)(Q)` ，つまり(i) v(@M)を押し出しにより :math:`\phi_* v` (@N)へと変換し，これで方向微分(@N) :math:`(\phi_* v)g` して得られた関数を引き戻した(N->M)関数 :math:`\phi^* ((\phi_* v)g)` (@M)の点Q(@M)での値と
+#.  :math:`(v(\phi^* g))(Q)` ，つまり関数g(@N)を引き戻した関数 :math:`\phi^* g` (@M)をv(@M)で方向微分した関数 :math:`(v(\phi^* g))` の点Q(@M)での値 
+
+が等しいということを言っている．
+
+リー微分
+----------------------------------------------------------------------
+関数のリー微分は普通の方向微分であるが，ベクトル場のリー微分はちょっと変わっている．この2つが一見異なるような形になるのは，異なる点での関数やベクトル場の値を比較する際に用いる写像が **引き戻しであるか押し出しであるか** が異なるためである．
+
+
+多様体上にベクトル場ｖがあるとき，それによる関数ｆの点Qにおけるリー微分を以下のように定義する．ｖの積分曲線にそってｔだけ動かす写像を :math:`\phi_t` ，Qを始点とする積分曲線を :math:`\phi_t(Q) = c(t)` とすると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_v [f] = \lim_{t \to 0} \dfrac{\phi_{t}^{*} f -f}{t}
+   \end{align*}
+
+.. note::
+   ここで関数の **引き戻し** を用いていることに注意．ここではinputのMが点Q，そしてoutputのNがMを :math:`\phi_t` により「流した」多様体である．
+
+
+そして
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (\phi_{t}^{*} f)(Q) = f(\phi_t (Q)) = f(c(t))
+   \end{align*}
+
+であるから結局
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_v [f] = v_{Q}[f] = (vf)(Q)
+   \end{align*}
+
+となり，方向微分である．
+
+次にベクトル場uのベクトル場vによるリー微分を定義する．そのためには点Qにおけるuの値 :math:`u_Q` と，Qを時刻tだけ進めた :math:`\phi_t(Q) = Q^{\prime}` におけるベクトル :math:`u_{Q^{\prime}}` を比べる必要がある．ここでは，uをvに沿って :math:`-t` だけ逆向きにずらして得られるベクトル場 :math:`u^{\prime} = \phi_{-t*}u` の点Qにおける値と比べる．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (L_v [u])[f] = \lim_{t \to 0} \dfrac{((\phi_{-t*}u)f)(Q) - (uf)(Q)}{t}
+   \end{align*}
+
+ここで先程の公式より
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   ((\phi_{-t*}u)f)(Q)  = (u(\phi_{-t}^{*} f)) \circ \phi_{t}(Q)
+   \end{align*}
+
+であるから，
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & ((\phi_{-t*}u)f)(Q) - (uf)(Q) \\ &= ((\phi_{-t*}u)f)(Q) - (uf) \circ \phi_t (Q) + (uf) \circ \phi_t (Q) - (uf)(Q) \\ &= (u(\phi_{-t}^{*} - f)) \circ \phi_t (Q) + ((uf) \circ \phi_t (Q) - (uf)(Q))
+   \end{align*}
+
+そして第一項は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   -(u(vf))(Q)
+   \end{align*}
+
+第二項は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (v(uf))(Q)
+   \end{align*}
+
+となるから,
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_v [u] = vu - uv
+   \end{align*}
+
+が得られる．
+
+リー括弧とリー代数
+----------------------------------------------------------------------
+ここで出てきた
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   vu - uv = [v, u]_{\mathrm{L}}
+   \end{align*}
+
+はベクトル場のリー括弧ないし交換子と呼ばれている．局所座標表示ではそれぞれは各点において1階の微分作用素であるが，その積は2階の微分作用素を含みベクトル場ではない．しかし引き算することにより
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   vu - uv &= (v^j \partial_j)(u^i \partial_i) - (u^j \partial_j)(v^i \partial_i) \\ &= (v^j (\partial_j u^i) - u^j(\partial_j v^i))\partial_i \\ &= ((vu^i) - (uv^i))\partial_i
+   \end{align*}
+
+少し分かりにくいが，ここで :math:`vu^i` は関数 :math:`u^i` を :math:`v` で方向微分して得られる関数， :math:`uv^i` も :math:`v^i` を :math:`u` で方向微分して得られる関数である．よって1階の微分作用素，ベクトルとなっている．
+
+
+リー括弧が満たす性質の1つとしてヤコビの恒等式が有名である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   [u, [v, w]] + [v, [w, u]] + [w, [u, v]] = 0
+   \end{align*}
+
+これは代数的には分かりやすいが，すこし「意味」が分かりにくい．しかし以下のように書き換えると意味が分かるようになる．
+ 
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & [[v, w], u] = [v, [w, u]] + [w, [u, v]] \\
+   & [[v, w], u] = [v, [w, u]] + [w, -[v, u]] \\
+   & [[v, w], u] = [v, [w, u]] - [w, [v, u]]
+   \end{align*}
+
+つまりuに(i)wをかけてからvをかける のと (ii)vをかけてからwをかける 効果の差は (iii)uに[v, w]をかけるのと等しい．
+
+リー群とリー代数
+----------------------------------------------------------------------
+リー群が面白いのは，各点が演算子になっていて，点Aを点Bに「作用」させることができる．そして任意の点が任意の点による「作用」について閉じている．リー群は単位元をもつ．
+
+.. note::
+   なんというか，完備な集合みたいな感じといったところか．まだいまいちリー群の幾何学的なイメージが湧かない．
+
+Gの任意の元 :math:`g` に対して，Gの左移動 :math:`L_g` を以下のように定義する．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_g : G \longrightarrow G: \forall h \in G \longrightarrow gh \in G
+   \end{align*}
+
+
+リー群Gは多様体であるから，単位元eにおける接平面 :math:`(\mathrm{TG})_e` 上の接ベクトル :math:`x \in (\mathrm{TG})_e` を考えることができる． :math:`L_g e = g` であるから :math:`L_g` による微分写像 :math:`L_{g*}` による :math:`x` の像 :math:`L_{g*} x` は多様体G上の点 :math:`g` における接ベクトルになっている．そこで :math:`g` をG全体に動かせば，ベクトル場
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   V_x: G \longrightarrow \mathrm{T}G: g \longrightarrow V_x (g)
+   \end{align*}
+
+が得られる．
+
+.. note::
+   各点gにおいて，それを演算子としてxをその押し出し :math:`L_g` により :math:`L_{g*} x` に移すことができる．よってリー群Gの各点の上に，ベクトルが張り付いている状態である．ただ，この状態で積分曲線があるかはまだ不明である．
+
+このベクトル場 :math:`V_x (G)` は任意の :math:`h \in G` に対して
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_{h*} V_x (G) = V_x (hG)
+   \end{align*}
+
+が成立する．このようにベクトル場 :math:`V_x` は左からの :math:`G` の作用に対して **不変** であるため，これをxにより誘導される左不変ベクトル場という．
+   
+.. note::
+   やっぱりこの式の解釈は，リー群G上のベクトル場 :math:`V_x (G)` を :math:`L_{h*}` により「回転」(みたいなもの)をしたベクトル場は，Gをhにより「回転」させた郡hG上でのベクトル場 :math:`V_x (hG)` に等しい，というのが一番いいだろう．
+
+
+リー群G上で定義された左不変なベクトル場，すなわち
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_{h*} V(G) = V(hG) \quad \forall h \in G
+   \end{align*}
+
+を満たすベクトル場全体がつくる集合を考え，これを :math:`\mathcal{G}` とかく．
+
+ :math:`\mathcal{G}` の任意の元 :math:`V, W` に対してその任意の一次結合 :math:`aV + bW` もまた :math:`\mathcal{G}` の元になっている．またこの2つのリー括弧 :math:`[V, W]_{L}` がやはり左不変であり，したがって :math:`\mathcal{G}` の元となることは以下のようにして示される．
+
+ G上で定義された関数fのgにおける値の方向微分について以下が成立する．
+       
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_g^* \{ (L_{g*}[V, W]_L) f \} = [V, W]_L (L_g^* f)
+   \end{align*}
+
+これは「方向微分演算子を押し出してから押し出した先でfを方向微分して，その値を引き戻した値」と「fを引き戻してから方向微分演算子を適用した値」が等しいという先ほどの公式である．したがって
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   [V, W]_L (L_g^* f) &= V \{ W(L_g^* f)\} - W \{ V(L_g^* f)\} \\
+   &= V(L_g^* \{ (L_{g*} W)f \}) - W(L_g^* \{ (L_{g*} V)f \}) \\
+   &= L_g^* [(L_g^* V)\{ (L_{g*}W) f\} - (L_g^* W)\{ (L_{g*}V) f\}] \\
+   &= L_g^* ([L_{g*}V, L_{g*}W]_L f)
+   \end{align*}
+
+
+よって(左辺を変形して)
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_g^* \{ (L_{g*}[V, W]_L) f\} = L_g^* ([L_{g*}V, L_{g*}W]_L f)
+   \end{align*}
+
+が成立する．仮定よりV, Wは左不変なベクトル場である，すなわち :math:`L_{g*}V = V` ， :math:`L_{g*}W = W` であるから
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L_{g*}[V, W]_L = [L_{g*}V, L_{g*}W]_L = [V, W]_L
+   \end{align*}
+
+となり，リー括弧も左不変ベクトル場であることが言える．よって :math:`\mathcal{G}` はリー括弧を積演算としてリー代数を構成している．これをリー群G上のリー代数と呼ぶ．
+
+リー群Gのリー代数 :math:`\mathcal{G}` の元 :math:`V` にGの単位元eでの値 :math:`V(e)` を対応させると :math:`\mathcal{G}` から接空間 :math:`(\mathrm{T}G)_e` への写像が作れる．逆に :math:`(\mathrm{T}G)_e` の任意の元 :math:`x` に対してベクトル場 :math:`V_x` を作るとそれは :math:`\mathcal{G}` の元になっている．したがってこの写像 :math:`\mathcal{G} \longrightarrow (\mathcal{T}G)_e` は全射である．
+
+したがってベクトル空間として :math:`\mathcal{G}` と :math:`(\mathrm{T}G)_e` は同型であり，それゆえ
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathrm{dim} \mathcal{G} = \mathrm{dim} (\mathcal{T}G)_e = n
+   \end{align*}
+
+である．そして :math:`\mathcal{G}` の基底を :math:`(V_1, \cdots, V_n)` とするとそれらの単位元での値
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   x_i = V_i (e)
+   \end{align*}
+
+の組 :math:`(x_1, \cdots, x_n)` は接空間 :math:`(\mathrm{T}G)` の基底ベクトルになる．
+
+一径数部分群と指数写像
+----------------------------------------------------------------------
+リー群Gのリー代数 :math:`\mathcal{G}` の1つの元 :math:`V` (すなわちG上の1つの左不変ベクトル場)に対して，このベクトル場Vの積分曲線でGの単位元を通る曲線 :math:`c_V (\lambda)` を考える．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{d c_V (\lambda)}{d \lambda} = V(c_V (\lambda)) \\ & c_V (0) = e
+   \end{align*}
+
+この曲線は 
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   c_V (\sigma + \lambda) = c_V (\sigma) c_V (\lambda)
+   \end{align*}
+
+を満たす．
+
+リー群において任意の :math:`x \in (\mathrm{T}G)_e` に対して左不変ベクトル場 :math:`V_x` が1つ決まり，そしてその :math:`V_x` によりGの一径数部分群 :math:`c_V (\lambda)` が決まる．よってこれを使えば指数写像と呼ばれる :math:`(\mathrm{T}G)_e` から :math:`G` への写像
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \exp: (\mathrm{T}G)_e \longrightarrow G: x \in (\mathrm{T}G)_e \longrightarrow \exp(x) = c_V (1)
+   \end{align*}
+
+が定義できる．このように定義された指数写像は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \exp (\lambda x) = c_{V_x} (\lambda)
+   \end{align*}
+
+を満たす．
+
+.. note::
+   リー群Gの単位元eにおける任意の接ベクトルxにより決まる左不変ベクトル場 :math:`V_x` の原点を通る積分曲線，すなわちxにより生成される一径数部分群が， :math:`\{ \exp (\lambda x) | \lambda \in \mathbb{R} \}` で表されることを示している．
+
+双対空間と共変テンソル
+======================================================================
+
+双対空間と1ベクトル
+----------------------------------------------------------------------
+ヘクトル空間 :math:`V` のベクトル :math:`u, v` に実数を対応させる線形写像
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \omega: V \longrightarrow \mathbb{R}: v \in V \longrightarrow \omega[v] \in \mathbb{R}
+   \end{align*}
+
+を考える．この写像は以下のように線形である．
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \omega[u + v] = \omega[u] + \omega[v] \\ & \omega[av] = a(\omega[v])
+   \end{align*}
+
+
+この線形写像 :math:`\omega` の集合 :math:`V^*` もベクトル空間を構成するので，このベクトル空間を :math:`V` の双対空間という．そしてその要素を1ベクトルやコベクトルという．
+
+Vの基底を :math:`\langle e_1, e_2, \cdots e_n\rangle ` とすると，その双対基底 :math:`\langle \epsilon^1, \epsilon^2, \cdots, \epsilon^n\rangle ` はベクトル :math:`u = u^i e_i` に対してそのi成分 :math:`u^i` を対応させる．つまり
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \epsilon^i [e_k] = \delta^{i}_K
+   \end{align*}
+
+である．
+
+
+反変ベクトルと共変ベクトル
+----------------------------------------------------------------------
+ここからややこしい共変と反変ベクトルの定義に入る．
+
+.. note::
+   「共」変ベクトルとは，**成分** の変換が基底ベクトルと共通しているベクトルである．一方「反」変ベクトルとは **成分** の変換が基底ベクトルと反対であるようなベクトルである．
+
+Vにおける基底の変換を
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \bar{e}_k = e_i C_k^i
+   \end{align*}
+
+とする．ベクトルは基底の変換に対しても同じ大きさの矢印でなければならないので，
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   u^i e_i = \bar{u}^k \bar{e}_k = \bar{u}_k e_i C_k^i
+   \end{align*}
+
+を満たすはずである．よって
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   u^i = \bar{u}_k C_k^i
+   \end{align*}
+
+
+よって **いわゆるベクトルは反変ベクトルである**．一方
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \bar{\omega}_k = \omega[\bar{e}_k] = \omega[e_i]C_k^i = \omega_i C_l^i
+   \end{align*}
+
+であるから，
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \omega_i \epsilon^i = \bar{\omega}_k \bar{\epsilon}^k = \omega_i C_k^i \bar{\epsilon}^k
+   \end{align*}
+
+と変換される．よってコベクトルは共変ベクトルである．双対基底の変換則は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \epsilon^i = C_k^i \bar{\epsilon}^k
+   \end{align*}
+
+である．
+
+以下の量
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \omega[u] = \langle \omega|u\rangle  = \omega_i u^i
+   \end{align*}
+
+は双対内積という．
+
+共変テンソル
+----------------------------------------------------------------------
+ベクトル空間Vの任意のベクトルの対 :math:`u, v` に実数を対応させる写像 
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \tau: V \times V \longrightarrow R: u, v \in V \longrightarrow \tau[u, v] \in \mathbb{R}
+   \end{align*}
+
+がu, v双方に対して線形であるときこの :math:`\tau` を双線形写像という．例えば2個の1ベクトルに対し
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (\omega \otimes \sigma)[u, v] = \omega[u]\sigma[v]
+   \end{align*}
+
+と定義されるテンソル積 :math:`\omega \otimes \sigma` は双線形写像である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \tau[u, v] &= (\tau[e_i, e_j])u^i v^j \\ &= (\tau[e_i, e_j])\epsilon^i[u]\epsilon^j[v] \\ &= (\tau[e_i, e_j])(\epsilon^i \otimes \epsilon^j)[u, v]
+   \end{align*}
+
+より
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \tau = T_{ij} \epsilon^i \otimes \epsilon^j, \quad T_{ij} = \tau[e_i, e_j]
+   \end{align*}
+
+と表される．このテンソルは双対基底(反変)のテンソル積の線型結合で表されるので，そのテンソルの成分は共変である．そのため2階共変テンソルという．
+
+同様に高階テンソルも論じられる．ベクトル空間Vのp個のベクトルの組 :math:`(u_{(1)}, u_{(2)}, \cdots, u_{(p)})` に実数を対応させる写像 :math:`\tau: V \times V \times \cdots \times V \longrightarrow \mathbb{R}` において， :math:`\tau[u_{(1)}, u_{(2)}, \cdots, u_{(p)}] \in \mathbb{R}` が全てのuについて線形であるものをp階共変テンソルという．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (\omega_{(1)} \otimes \omega_{(2)} \otimes \cdots \omega_{(p)})[u_{(1)}, u_{(2)}, \cdots, u_{(p)}] = \omega_{(1)}[u_{(1)}] \omega_{(2)}[u_{(2)}] \cdots \omega_{(p)}[u_{(p)}]
+   \end{align*}
+
+交代テンソルとpベクトル
+----------------------------------------------------------------------
+2階テンソル :math:`\tau \in L^2(V)` が任意の :math:`u, v \in V` にたいして
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \tau [u, v] = -\tau[u, v]
+   \end{align*}
+
+を満たすならば2階交代テンソルないし2ベクトルといわれる．2ベクトル全体の集合を :math:`\Lambda^2(V)` で表す．そしてその次元は :math:`\dim \Lambda^2(V) = n(n-1)/2` である．
+
+交代テンソルに対しては任意のuに対して :math:`\tau[u, u] = 0` であるが，逆にこれを満たせば必ず交代テンソルである．
+
+テンソルの交代化と外積
+----------------------------------------------------------------------
+省略
+
+余接バンドルと微分形式
+======================================================================
+
+余接空間と1ベクトル
+----------------------------------------------------------------------
+m次元微分可能多様体Mの接ベクトル空間 :math:`\mathrm{T}M` に対する双対空間を **余接空間** といい :math:`\mathrm{T}^{*}M` と表す．
+
+点Qにおける接ベクトルの1つ :math:`v_Q` をとると，M上の関数fの方向微分
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   v_Q[f] = v^i \partial_i f
+   \end{align*}
+
+を定義できる．これをベクトル :math:`v_Q` から実数 :math:`v_Q [f]` への写像とみなし
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   df: \mathrm{T}M \longrightarrow \mathbb{R}: v_Q \longrightarrow v_Q[f]
+   \end{align*}
+
+と表す．ここで :math:`df` は :math:`d` を :math:`f` に作用させたものではなく，あくまで1つの写像である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   df[v_Q] = v_Q [f]
+   \end{align*}
+
+局所座標表示 :math:`v_Q = v^i e_i` 及び :math:`\epsilon^i[v_Q] = v^i_Q` で定義される双対基底 :math:`\epsilon^i` を用いれば上式は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (df)[v_Q] = \left( \dfrac{\partial f}{\partial q^i} \right) v^i = \left( \dfrac{\partial f}{\partial q^i} \right) \epsilon^i[v_Q]
+   \end{align*}
+
+と表されるから
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   df = \left( \dfrac{\partial f}{\partial q^i} \right) \epsilon^i
+   \end{align*}
+
+のように1ベクトルとして表される．これを関数fの微分という．本来微分というのは「微分する方向」「変化を求める方向」を指定して決まる量であるから，ここでの「微分」とはまだ方向を定義していない．
+
+.. note::
+   ここまでのベクトル :math:`e_i = \partial / \partial q^i` は「微分する方向」を関数に与えるものであった．つまり **関数に微分する方向を提供する** ものであった．一方この :math:`df` は **微分演算子(方向)に微分する値を提供する** ようなものである．ベクトルを「方向を指定するフィルター」みたいなものとすれば， :math:`df` は「全方向に関する方向微分の値を保持したもの」ということができ， :math:`(df)[v_Q]` はそのうち特定の方向に関する成分を「抽出している」と言えそうだ．
+
+
+その成分 :math:`\partial f / \partial q^i` は位置の偏微分になっているから，これは共変ベクトルである．ここで関数fとして :math:`q^i` を用いると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \epsilon^i = (dq^i)
+   \end{align*}
+
+が得られる．
+
+.. note::
+   もはやここで用いられている :math:`dq^i` は高校の微積分で使う :math:`dx` とは別物である．
+
+こうして得られる
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle (dq^1), (dq^2), \cdots (dq^n)\rangle 
+   \end{align*}
+
+を :math:`\mathrm{T}^{*}M` の自然基底という．ベクトルと1ベクトルから得られる実数
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \omega[v] = \langle \omega|v\rangle  = \omega_i v^i
+   \end{align*}
+
+は双対内積と呼ばれる．この記法を用いると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   v[f] = \langle df | v\rangle  = v^i \langle df | \partial_i\rangle  = v^i \dfrac{\partial f}{\partial q^i}
+   \end{align*}
+
+と表される．
+
+1形式
+----------------------------------------------------------------------
+多様体の各点において :math:`\mathrm{T}^{*}Q` の各点を対応させる写像のことを多様体上の1形式という．ベクトル場 :math:`v` と，1形式の間に以下のような公式がある．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \langle dq^i | \partial_j\rangle  = \delta^i_j \\ & \langle dq^i | v\rangle  = v_i \\ & \langle df | v\rangle  = v^i(\partial_i f)
+   \end{align*}
+
+
+テンソル場とリーマン計量
+----------------------------------------------------------------------
+これまでの議論と同様にして多様体上において共変テンソル :math:`\tau` が定義できる． 特に重要なものとしてM上の2階対称テンソル場 :math:`g` が正定値であるとき，つまり任意の0でないベクトル :math:`u \in (\mathrm{T}Q)` に対して
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   g[u, u] \rangle  0
+   \end{align*}
+
+であるとき，gをリーマン計量という．局所座標表示では
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   g = g_{ij} dq^i \otimes dq^j
+   \end{align*}
+
+と表される．リーマン多様体ではMの各点の接空間において内積
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (u_Q \cdot v_Q) = g[u_Q, v_Q]
+   \end{align*}
+
+が定義される．
+
+.. note::
+   基本的に微分幾何学においては **ベクトル場は反変** ，**テンソル場は共変** である．それ以外は出ないと言っていい．
+
+
+内部積，及び添字の上げ下げ
+----------------------------------------------------------------------
+リーマン多様体では(反変)ベクトル場 :math:`u = u^i \partial_i` を共変テンソル場 :math:`g = g_{ij} dq^i \otimes dq^j` を用いて
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   g[u, \bullet] = g_{ij}u^i dq^i
+   \end{align*}
+
+のようにして双対空間に写像することによって新たな1形式
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \tilde{u} = g_{ij}u^i dq^j
+   \end{align*}
+
+が得られる．これは計量テンソルによる添字の上げ下げに対応している．このようにリーマン多様体では計量テンソルを介して反変ベクトルと共変ベクトル(1ベクトル)，さらにまたベクトル場と1形式が1対1に対応している．そのため2個の反変ベクトルの内積
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   (u \cdot v) = g_{ij}u^iv^j
+   \end{align*}
+
+は，1ベクトル :math:`\tilde{u} = g_{ij}u^i (dq^j)` とベクトル :math:`v` の双対内積
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle \tilde{u} | v\rangle  = g[u, v]
+   \end{align*}
+
+と一致する．
+
+.. note::
+   ここでは次数の上げ下げに対応していると表現しているが，コンピューターサイエンス的には2階共変テンソル :math:`\langle g | \bullet, \bullet\rangle ` が第一引数を **部分適用** されて :math:`\langle  g | u, \bullet\rangle ` なる1階共変テンソルに **低減** した，と考えたほうが分かりやすい．もちろんこれは演算子から見た立場であり，反変ベクトル :math:`v` からすると1階共変テンソル :math:`\tilde{u} = g_{ij}u^i (dq^j)` へと添字を上げられたと考えられる．
+
+
+p形式
+----------------------------------------------------------------------
+高階の交代テンソル場は高次の微分形式として重要である．またpベクトルに対してp個の反変ベクトルを作用させた値は以下のように行列式となる．
+
+
+.. figure:: /_images/tensor_product.png
+   :align: center
+   :width: 50%
+   :alt: tensor_product
+
+
+具体的に2階テンソルの場合について計算してみよう．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \omega^1 = \sum^{\prime} a_{ij}(dq^i \wedge dq^j)
+   \end{align*}
+
+そしてベクトル場 :math:`u = u^i \partial_i` ,  :math:`v = v^i \partial_i` に作用させると
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle \omega^2 | u, v\rangle  &= \sum^{\prime}a_{ij} [(dq^i)\otimes (dq^j) - (dq^j)\otimes (dq^i)](u, v) \\ &= a_{ij} [\langle dq^i|u\rangle \langle dq^j|v\rangle  - \langle dq^j|u\rangle \langle dq^i|v\rangle ] \\ &= \sum^{\prime}a_{ij}(u^iv^j - u^jv^i)
+   \end{align*}
+
+となる．ここで :math:`\sum` は :math:`i \langle  j` についてである．
+
+さらに
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle \omega^2 | \bullet, v\rangle  &= \sum^{\prime}a_{ij}[\langle dq^i|v\rangle  dq^i - \langle dq^i|v\rangle dq^j] \\ &= \sum^{\prime}a_{ij}(v^j dq^i - v^i dq^j)
+   \end{align*}
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle \omega^2 | u, \bullet\rangle  &= \sum^{\prime}a_{ij}[\langle dq^i|u\rangle dq^j - \langle dq^j|u\rangle dq^i] \\ &= \sum^{\prime}a_{ij}(u^i dq^j - u^j dq^i)
+   \end{align*}
+
+のようにして2形式から1形式へと落とすことができる．
+
+外微分
+----------------------------------------------------------------------
+スカラー関数を全微分することにより1形式が得られた．この操作を一般化して :math:`p` 形式から :math:`p+1` 形式が得られる．この :math:`p+1` 形式を外微分という．
+
+まずスカラー関数に対する外微分を全微分
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   df = \dfrac{\partial f}{\partial q^i}dq^i
+   \end{align*}
+
+で定義する．また1形式 :math:`\omega = f_i dq^i` の外微分を
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   d\omega = df_i \wedge dq^i = \dfrac{\partial f_i}{\partial q^j}dq^j \wedge dq^i = \sum^{\prime}\left( \dfrac{\partial f_i}{\partial q^j} - \dfrac{\partial f_j}{\partial q^i} \right) dq^j \wedge dq^i
+   \end{align*}
+
+で定義する．同様にp形式についても定義される．
+
+ポアンカレの補題
+----------------------------------------------------------------------
+外微分は以下を満たす．
+
+#.  :math:`d(\omega^p + \sigma^p) = d\omega^p + d\sigma^p` 
+#.  :math:`d(f \omega^p) = df \wedge \omega^p + fd\omega^p` 
+#.  :math:`d(df) = 0` 
+#.  :math:`d(\omega^p \wedge \omega^q) = d\omega^p \wedge \omega^q + (-1)^p \omega^p \wedge d\omega^q` 
+
+一般に微分形式 :math:`\Omega` が :math:`\Omega = d\omega` と書けるとき， :math:`\Omega` を完全形式という．そして :math:`d\Omega = 0` とな微分形式を閉形式という．3つ目の公式は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \Omega = d\omega &\Longrightarrow d\Omega = 0 \\
+   \Omega \text{ is exact form} &\Longrightarrow \Omega \text{ is closed form}
+   \end{align*}
+
+という意味．本書ではド・ラームコホモロジーについては触れられていなかった．
+   
+微分形式の積分
+----------------------------------------------------------------------
+省略．
+
+
+ストークスの定理
+----------------------------------------------------------------------
+省略．

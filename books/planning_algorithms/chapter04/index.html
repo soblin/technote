@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="これまでの章では障害物がない場合は2つの姿勢は自由に接続することができた. 例えばサンプリングベースのロードマップ法では configuration space において直線で接続できると仮定されている. 微分拘束があると, 各点において速度に制限がかかる. そのため障害物に起因する グローバルな 制約に対して, こちらは ローカルな 制約と言える. ほとんどのロボットは微分拘束を受ける. ...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="検索" href="../../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../../index.html"/>
+        <link rel="up" title="Planning Algorithms" href="../index.html"/>
+        <link rel="next" title="Differential Models" href="chapter13.html"/>
+        <link rel="prev" title="Planning Algorithms" href="../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Planning Algorithms</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Planning Under Differenital Constraints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview-of-partiv">Overview of PartIV</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="../index.html">Planning Algorithms</a> &raquo;</li>
+        
+      <li>Planning Under Differenital Constraints</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="planning-under-differenital-constraints">
+<h1>Planning Under Differenital Constraints<a class="headerlink" href="#planning-under-differenital-constraints" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="overview-of-partiv">
+<h2>Overview of PartIV<a class="headerlink" href="#overview-of-partiv" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>これまでの章では障害物がない場合は2つの姿勢は自由に接続することができた. 例えばサンプリングベースのロードマップ法では configuration space において直線で接続できると仮定されている.</p>
+<p>微分拘束があると, 各点において速度に制限がかかる. そのため障害物に起因する <em>グローバルな</em> 制約に対して, こちらは <em>ローカルな</em> 制約と言える. ほとんどのロボットは微分拘束を受ける. それを計画段階では無視して, 経路が適切にリファインされることに任せるというアプローチも存在する. つまり実際に制御を行う際に, なるべくそれに追従させるのである. しかし計画段階から微分拘束を考慮することで, メカニカルシステムの自然な動きに合致するような計画になる.</p>
+<p>14章では微分拘束を受ける系に対するサンプリングベースの計画アルゴリズムについて述べられる. 当然, セル分解法のような組み合わせ論的なアルゴリズムは存在しない. そのため完備なアルゴリズムを目指す代わりに, resolution-completeなアルゴリズムに焦点が当てられる.</p>
+<p>15章では制御理論に由来する強力なアイデアやツールを紹介する. 14章における計画手法は15章のアイデアを用いることでよりenhancedされる. 14章はアルゴリズミックな, 15章は数学的な技法がメインである. その中には非ホロノミック, すなわち状態変数の時間微分を完全には消去できないような系も含まれている.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter13.html">Differential Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter13.html#velocity-constraints-on-the-configuraiton-space">Velocity Constraints on the Configuraiton Space</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter13.html" class="btn btn-neutral float-right" title="Differential Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Planning Algorithms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

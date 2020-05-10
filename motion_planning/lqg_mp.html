@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="Jur van den Berg, Pieter Abbeal, Ken Goldberg 2010 link The International Journal of Robotics Research LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Informa...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
+        <link rel="up" title="Motion Planning" href="index.html"/>
+        <link rel="next" title="RRT-Connect" href="rrt_connect.html"/>
+        <link rel="prev" title="Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic" href="informed_rrt_star.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Motion Planning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="randomized_kinodynamic_planning.html">Randomized Kinodynamic Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="informed_rrt_star.html">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#related-work">Related Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-definition">Problem Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-priori-probability-distributions">A-priori Probability Distributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linear-ized-dynamics-and-observation-model">Linear(ized) Dynamics and Observation Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kalman-filter-for-optimal-state-estimation">Kalman Filter for Optimal State Estimation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_connect.html">RRT-Connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="a_star.html">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../control/index.html">Control</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Motion Planning</a> &raquo;</li>
+        
+      <li>LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lqg-mp-optimized-path-planning-for-robots-with-motion-uncertainty-and-imperfect-state-information">
+<h1><a class="toc-backref" href="#id2">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a><a class="headerlink" href="#lqg-mp-optimized-path-planning-for-robots-with-motion-uncertainty-and-imperfect-state-information" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jur van den Berg, Pieter Abbeal, Ken Goldberg</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2010</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="https://people.eecs.berkeley.edu/~pabbeel/papers/vandenBergAbbeelGoldberg_RSS2010.pdf">link</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">The International Journal of Robotics Research</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#lqg-mp-optimized-path-planning-for-robots-with-motion-uncertainty-and-imperfect-state-information" id="id2">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a><ul>
+<li><a class="reference internal" href="#abstract" id="id3">Abstract</a></li>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a></li>
+<li><a class="reference internal" href="#related-work" id="id5">Related Work</a></li>
+<li><a class="reference internal" href="#problem-definition" id="id6">Problem Definition</a></li>
+<li><a class="reference internal" href="#a-priori-probability-distributions" id="id7">A-priori Probability Distributions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h2><a class="toc-backref" href="#id3">Abstract</a><a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この論文で提案されるLQG-MPは経路追従に用いられるセンサやコントローラーの不確実性を考慮に入れた動作計画器であり，具体的には与えられた経路に対するロボットの事前分布を求めることができるので，それに基づいて衝突確率を評価することなどが可能になるとのこと．不確実性はガウス分布で，そしてそれに基づいた線形二次レギュレータに基づいている，つまりカルマンフィルタとLQRね．ロボット系の人って結構軽くカルマンフィルタを使ってしまっているイメージがある．時間領域でアルゴリズムを論じているから仕方ないのかもしれない．</p>
+<p>最適な経路の候補となる経路を生成する手法はたくさんあるが，この論文ではRRTを用いる．この論文で提案されている手法はカルマンスムーザーの適用により得られた経路を <span class="math">\(C_{k}\)</span> 級にすることができる，その例としてダイクストラ法に類似した手法により得られたロードマップに対してそれを適用することで滑らかな(high-quality)経路を得ることができる．</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ロボットの不確実性は</p>
+<ul class="simple">
+<li>モデル化されていない外乱</li>
+<li>センサの雑音によるimperfect state information</li>
+</ul>
+<p>に起因する．これから自分が論文を書くために書いておくと，アプリケーションは</p>
+<ul class="simple">
+<li>guiding mobile robot over uneven terrain</li>
+<li>robotic surgery with high-degree-of freedom (6-DOF)</li>
+</ul>
+<p>などがある．</p>
+<p>ロボットの不確実性はロボットがとる行動やセンシングに依存する．そして各経路に対してその不確実性は異なるであろう．そこで予めその不確実性を考慮できるようにすることでロボットにとって最良の経路が選ばれるようにしたい．</p>
+<p>多くの伝統的な手法は決定論的に環境に関する知識を保有していると仮定している．そして環境の不確実性は実際にその経路を追従する(execute)する制御の段階になって初めてフィードバックの形で考慮されている．</p>
+<p>計画と制御は相互に関係しているものの，異なる領域である．</p>
+<blockquote>
+<div>Planning and control are realted but distinct fields.</div></blockquote>
+<p>近年のmotion planningに関する研究の中には不確実性を考慮に入れているものが存在しているが，そのほとんどは経路を計画する際に制御を考慮に入れていない．そしてほとんどの制御手法は経路を与えられたものとしている．LQG-MPはそれらの間の架け橋となる．</p>
+<blockquote>
+<div>LQG-MP builds a bridge between these desciplines and draws from results in both．</div></blockquote>
+<p>LQG-MPの鍵となるポイントは，経路の追従の際に用いられるコントローラーとセンサーの不確実性の事前分布は，経路生成の際の最適化に利用できるということである．</p>
+<p>本論文では与えられた確率的な(雑音を含む)システムのダイナミクスとセンサの確率的な(雑音を含む)観測モデルを用いて，(大雑把な)経路が与えられた際に，実際にその経路を追従する(execute the path)際のロボットの状態と制御入力の不確実性を見積もることができる．それにより例えば，ロボットが障害物と衝突する確率やゴールに到着する確率，その他経路に関する定量的な評価を行うことができる．</p>
+<p>本論文では任意の次元のホロノミック・非ホロノミックなキネマティクス・ダイナミクスの系に対して適用できる．本手法を適用するには，ロボットの確率的ダイナミクスモデル・確率的観測モデルが明示的に与えられ，その雑音がガウスモデルに従う必要がある．本手法は線形な系に対して設計されているが，線形化により局所的に十分近似されるのであれば，非線形な系に対しても適用できる．</p>
+<p>本論文では候補となる経路を生成するのにRRTが用いられている．経路の良し悪しを評価する際に経路長や障害物からのmaximum clearanceの基準が同じでもダイナミクス・観測モデルの不確実性が異なると得られる経路のqualityは著しく異なることが示される．</p>
+<p>一般にRRTにより得られる経路は滑らかではない．標準的なスムージングのアルゴリズムは経路をshort-cutしたりdynamically unfeasibleな結果を招くことがある(splineの使用などにより)．本論文ではカルマンスムーザーを用いることにより経路を <span class="math">\(C_{k}\)</span> 級の滑らかさにすることが可能であることを示し，提案手法のLQG-MPと併用することでその効果を実証する．</p>
+<p>一方提案手法は直接にはロードマップベースの経路計画手法には向いていない．そこでinformation spaceにおけるplanningを取り扱った先行研究において用いられている近似手法を用いることで，予め求められたロードマップに対してもLQG-MPを適用することができる．</p>
+</div>
+<div class="section" id="related-work">
+<h2><a class="toc-backref" href="#id5">Related Work</a><a class="headerlink" href="#related-work" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>動作計画における不確実性の原因としては主に以下の3つが挙げられる．</p>
+<ul class="simple">
+<li>motion uncertainty</li>
+<li>sensing uncertainty</li>
+<li>uncertainty about the environment</li>
+</ul>
+<p>この論文では主に初めの2つが取り上げられる．</p>
+<p>motion uncertainty を取り扱う手法としては， <code class="docutils literal"><span class="pre">Huang</span> <span class="pre">and</span> <span class="pre">Gupta(2009)</span></code> が挙げられる．ここでは特定の状況におけるマニピュレーターの衝突確率を，base poseが不確実な状態で最小化している．</p>
+<p>sensing uncertainty を取り扱った手法としては，<code class="docutils literal"><span class="pre">Bouilly</span> <span class="pre">et</span> <span class="pre">al.(1995)</span></code> が挙げられる．ここでは経路沿いの情報量の最大化を図っている．</p>
+<p>他には環境においてランドマークが存在しているので，それを見つけたらmotion uncertaintyをresetするとか．</p>
+<p>その他の手法としては全環境におけるglobal control policyを定義することで計画と制御を両立するアプローチを取っている．MDPsはそのような定式化の1つであり，成功確率を最大化するようにmotion uncertaintyを取り扱うことができる．しかし動的計画法ベースなので，状態空間と制御入力の空間を離散化する必要があるので，おそらく最終的にinterpotationするしかないんだろうな．さらにsensing uncertaintyを考慮するのであれば，POMDPsとしての取り扱いができる(環境がpartially observable)だから．しかしもちろんscalaiblityの観点からは良くない．</p>
+<p>他のクラスの経路計画器には，motion-sensing uncertaintyよりもenvironment-obstacle uncertaintyを考慮しているものもある．これらは衝突する確率を最小化するよう計画を行っている．obstacleからのmaximum-clearanceを考慮するrobust指向と似ているかもしれない．</p>
+<p>現在存在している手法のなかでLQG-MPに最も似ているものは，ゴールに到着する確率を最大化したり特定のコストを最小化することを目的としている．しかしこれらの手法はセンサーを通して環境に関するmaximum-likelihood measurementを得られると仮定しており，ロボットの真の状態に関する分布を得られない(その情報が現在の状態に関してどれくらい推論できるか,という程度だけ，a measure of how one will be able to infer the state of the robot)．LQG-MPでは経路沿いの将来のロボットの状態の事前分布を求めることができる．</p>
+</div>
+<div class="section" id="problem-definition">
+<h2><a class="toc-backref" href="#id6">Problem Definition</a><a class="headerlink" href="#problem-definition" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここからはありがちな文章が続くが，将来自分も書くときのためにここで簡単に書いておこう．まずロボットの状態変数が属する空間を <span class="math">\(\mathcal{X}\)</span> ，そして制御入力の属する空間を <span class="math">\(\mathcal{U}\)</span> とする．時間軸は一定の刻み幅で離散化されており <span class="math">\(u_t\)</span> は <span class="math">\(x_t\)</span> を <span class="math">\(x_{t+1}\)</span> にbringするとする．ここでダイナミクスも不確実性があるので</p>
+<div class="math">
+\begin{align*}
+x_t = f(x_{t-1}, u_{t-1}, m_t), \quad m_t \sim \mathcal{N}(0, M_t)
+\end{align*}</div><p>と推移する．もちろんガウス雑音である．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ああ，確率ロボティクスは偉大なあ．</p>
+</div>
+<p>ロボットの出発点となる <span class="math">\(x_{start}\)</span> ，ゴール領域となる <span class="math">\(\mathcal{X}_{goal}\)</span> が与えられるので，求める経路とは <span class="math">\(x_{0}^{*}, u_{0}^{*}, \cdots, x_{l}^{*}, u_{l}^{*}\)</span> なる系列であり，もちろん <span class="math">\(x_{0}^{*} = x_{start}, x_{l}^{*} \in \mathcal{X}_{goal}, x_{t}^{*} = f(x_{t-1}^{*}, u_{t-1}^{*}, 0)\)</span> に従う．つまり雑音がなければ経路は完全にダイナミクスにconsistentである．</p>
+<p>execution of the path の間にロボットはノミナルの経路からずれるので，これを補償するために以下のようなコスト関数を最小化するようにフィードバック制御により経路がexecuteされるとする．</p>
+<div class="math">
+\begin{align*}
+\mathbb{E} \sum_{t=0}^{l}(x_t - x_{t}^{*})^{\text{T}}C(x_t - x_{t}^{*}) + (u_t - u_{t}^{*})^{\text{T}}D(u_t - u_{t}^{*})
+\end{align*}</div><p>もちろんC，Dは正定値行列である．</p>
+<p>そして経路のexecutionの間，センサーによりロボットの状態に関して以下のように部分的な情報を得られるとしよう．</p>
+<div class="math">
+\begin{align*}
+z_t = h(x_t, n_t), \quad n_t \sim \mathcal{N}(0, N_t)
+\end{align*}</div><p>問題提起を2つ行う．</p>
+<ol class="arabic simple">
+<li>stochastic dynamics model と stochastic observation model, cost function が与えられたときに，特定の経路についてそれに沿ったロボットの状態と制御入力の事前分布を評価する．</li>
+<li>候補の中から最良の経路を選択する．</li>
+</ol>
+</div>
+<div class="section" id="a-priori-probability-distributions">
+<h2><a class="toc-backref" href="#id7">A-priori Probability Distributions</a><a class="headerlink" href="#a-priori-probability-distributions" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここでは与えられた(候補の)経路について，それに沿った状態変数と入力変数の事前分布を求める方法について述べる．一応，経路をexecuteする際にどのような制御器を用いるかは予め決まっているとする．線形なダイナミクスとガウス雑音を受ける観測モデルに対しては，LQR-feedbackをKalman-filterと並行して用いる，つまりLQG制御に基づくexecutionがoptimal approachである．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">この人たちって，可制御性とか可観測性についてはどれくらい知っているのだろうか？ 少し軽率さを感じてしまう．まあ間違いではないのだけれど．</p>
+</div>
+<div class="section" id="linear-ized-dynamics-and-observation-model">
+<h3>Linear(ized) Dynamics and Observation Model<a class="headerlink" href="#linear-ized-dynamics-and-observation-model" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ロボットは経路のexecutionの間参照経路にstay closeするので，ロボットの状態は <span class="math">\(x_{t}^{*}, u_{t}^{*}\)</span> 周辺で線形近似することが可能である．よって以下のようにテイラー展開できる．</p>
+<div class="math">
+\begin{align*}
+   x_t &amp;= f(x_{t-1}^{*}, u_{t-1}^{*}, 0) + A_t(x_{t-1} - x_{t-1}^{*}) \\
+   &amp;+ B_t(u_{t-1} - u_{t-1}^{*}) + V_t m_t \\
+   z_t &amp;= h(x_{t}^{*}, 0) + H_t(x_t - x_{t}^{*}) + W_t n_t
+\end{align*}</div><p>ここで各行列は近似された動作点において評価されたヤコビ行列である．</p>
+<div class="math">
+\begin{align*}
+A_t &amp;= \dfrac{\partial f}{\partial x}(x_{t}^{*}, u_{t-1}^{*}, 0) \\
+B_t &amp;= \dfrac{\partial f}{\partial u}(x_{t}^{*}, u_{t-1}^{*}, 0) \\
+V_t &amp;= \dfrac{\partial h}{\partial m}(x_{t}^{*}, u_{t-1}^{*}, 0) \\
+H_t &amp;= \dfrac{\partial h}{\partial x}(x_{t}^{*}, 0) \\
+W_t &amp;= \dfrac{\partial h}{\partial n}(x_{t}^{*}, 0)
+\end{align*}</div><p>ここで各々を動作点からのdeviationで表現し直すと，つまり  <span class="math">\(\bar{x}_t = x_t - x_{t}^{*}\)</span> ， <span class="math">\(\bar{u}_t = u_t - u_{t}^{*}\)</span> ，  <span class="math">\(\bar{z}_t = z_t - h(x_{t}^{*}, 0)\)</span> ととれば</p>
+<div class="math">
+\begin{align*}
+\bar{x}_t &amp;= A_{t-1} \bar{x}_t + B_t \bar{u}_{t-1} + V_t m_t \\
+\bar{z}_t &amp;= H_t \bar{x}_t + W_t n_t
+\end{align*}</div><p>そしてコスト関数は</p>
+<div class="math">
+\begin{align*}
+\mathbb{E}( \sum_{t=0}^{l} \bar{x}_t^{\text{T}}C\bar{x}_t + \bar{u}_t^{\text{T}}D\bar{u}_t)
+\end{align*}</div></div>
+<div class="section" id="kalman-filter-for-optimal-state-estimation">
+<h3>Kalman Filter for Optimal State Estimation<a class="headerlink" href="#kalman-filter-for-optimal-state-estimation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここも復習がてらきちんと書いておこう．カルマンフィルタは <span class="math">\(\bar{x}_t\)</span> の真値の推定値とその誤差共分散 <span class="math">\(P_t\)</span> を追跡する．そのアルゴリズムは2段階からなる．</p>
+<ol class="arabic simple">
+<li>applyした制御入力 <span class="math">\(\bar{u}_t\)</span> をpropagateするダイナミクスのupdate</li>
+<li>得られた測定値 <span class="math">\(\bar{z}_t\)</span> をincorporateする測定のupdate</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rrt_connect.html" class="btn btn-neutral float-right" title="RRT-Connect" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="informed_rrt_star.html" class="btn btn-neutral" title="Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

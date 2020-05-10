@@ -1,0 +1,7 @@
+============================================================================================================================================
+Rapidly Exploring Roadmaps: Weighting Exploration vs. Refinement in Optimal Motion Planning
+============================================================================================================================================
+
+.. include:: /_include/ref/rapidly_exploring_roadmaps.txt
+
+This file is private.

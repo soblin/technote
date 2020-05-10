@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では離散時間の有限ホライズンの最適制御を扱っている．状態方程式に対するラグランジュ乗数として随伴変数を導入し，最適制御のハミルトニアンを導入し，変分からオイラーラグランジュ方程式(正準方程式)を導く．最適制御の評価関数値は初期値と終端値の関数であるので，そこから残余コスト(cost-to-go)を導入し，ハミルトンヤコビベルマン方程式(HJB方程式)を導入する．そしてハミルトンヤコビベルマン方程式と最小原理からオイラーラグランジュ方程式が導かれることを示す．離散時間LQを具体例としているので分かりやすい．" name="description" />
+<meta content="最適制御，ハミルトニアン，オイラーラグランジュ方程式，残余コスト，ハミルトンヤコビベルマン方程式，HJB方程式，最小原理，離散時間LQ，リッカチ方程式" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では離散時間の有限ホライズンの最適制御を扱っている．状態方程式に対するラグランジュ乗数として随伴変数を導入し，最適制御のハミルトニアンを導入し，変分からオイラーラグランジュ方程式(正準方程式)を導く．最適制御の評価関数値は初期値と終端値の関数であるので，そこから残余コスト(cost-to-go)を導入し，ハミルトンヤコビベルマン方程式(HJB方程式)を導入する．そしてハミルトンヤコビベ...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="非線形最適制御入門" href="index.html"/>
+        <link rel="next" title="第4章 変分法" href="chapter04.html"/>
+        <link rel="prev" title="非線形最適制御入門" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">非線形最適制御入門</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">第3章 離散時間システムの最適制御</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3.1 基本的な問題設定と停留条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lq">3.2 離散時間LQ制御問題</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">3.3 動的計画法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">第4章 変分法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">5章 連続時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter06.html">6章 動的計画法と最小原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter07.html">7章 最適制御問題の解法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">非線形最適制御入門</a> &raquo;</li>
+        
+      <li>第3章 離散時間システムの最適制御</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id7">第3章 離散時間システムの最適制御</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では離散時間の有限ホライズンの最適制御を扱っている．状態方程式に対するラグランジュ乗数として随伴変数を導入し，最適制御のハミルトニアンを導入し，変分からオイラーラグランジュ方程式(正準方程式)を導く．最適制御の評価関数値は初期値と終端値の関数であるので，そこから残余コスト(cost-to-go)を導入し，ハミルトンヤコビベルマン方程式(HJB方程式)を導入する．そしてハミルトンヤコビベルマン方程式と最小原理からオイラーラグランジュ方程式が導かれることを示す．離散時間LQを具体例としているので分かりやすい．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id7">第3章 離散時間システムの最適制御</a><ul>
+<li><a class="reference internal" href="#id3" id="id8">3.1 基本的な問題設定と停留条件</a></li>
+<li><a class="reference internal" href="#lq" id="id9">3.2 離散時間LQ制御問題</a></li>
+<li><a class="reference internal" href="#id4" id="id10">3.3 動的計画法</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">3.1 基本的な問題設定と停留条件</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>システムのダイナミクスが</p>
+<div class="math">
+\begin{align*}
+x_{k+1} = f(x_k, u_k, k)
+\end{align*}</div><p>と表されるとする．初期状態 <span class="math">\(x_0\)</span> が与えられた時，以下の評価関数を最小化する制御系列を求める．</p>
+<div class="math">
+\begin{align*}
+J = \phi(x_N) + \sum_{k=0}^{N-1} L(x_k, u_k, k)
+\end{align*}</div><p>初期状態ｘ0から始めると目的変数は <span class="math">\(x_0, u_0, \cdots u_{N-1}\)</span> であるが，状態方程式を等式制約とみなす．つまり <span class="math">\(x_1, ... x_N\)</span> も目的変数であるとみなし，それらが以下のような関係を満たすと考えるのである．</p>
+<div class="math">
+\begin{align*}
+f(x_k, u_k, k) - x_{k+1} = 0
+\end{align*}</div><p>そこで等式制約付き問題として，評価関数は以下のように表される．</p>
+<div class="math">
+\begin{align*}
+\bar{J} = \phi(x_N) + \sum_{k=0}^{N-1}L(x_k, u_k, k) + \lambda_{k+1}^{\text{T}}f(x_k, u_k, k) - \lambda_{k+1}^{\text{T}}x_{k+1}
+\end{align*}</div><p>ラグランジュ乗数 <span class="math">\(\lambda_k\)</span> のことを特に随伴変数と呼ぶ．式を見やすくするために以下のような関数を導入し，ハミルトン関数と呼ぶ．</p>
+<div class="math">
+\begin{align*}
+H(x, u, \lambda, k) = L(x, u, k) + \lambda^{\text{T}}f(x, u, k)
+\end{align*}</div><p>するとラグランジアンは次のように表される．</p>
+<div class="math">
+\begin{align*}
+\bar{J} = \phi(x_N) - \lambda_N^{\text{T}} + H(x_0, u_0, \lambda_1, 0) + \sum_{k=1}^{N-1}H(x_k, u_k, \lambda_{k+1}, k) - \lambda_{k}^{\text{T}}x_k
+\end{align*}</div><p>この両辺の目的変数に関する全微分(変分)をとることで</p>
+<div class="math">
+\begin{align*}
+d\bar{J} = \left( \dfrac{\partial \phi}{\partial x}(x_N) - \lambda_{N}^{\text{T}} \right)dx_N + \sum_{k=1}^{N-1}\left( \dfrac{\partial H_k}{\partial x} - \lambda_{k}^{\text{T}} \right)dx_k + \dfrac{\partial H_k}{\partial x}du_k
+\end{align*}</div><p>各変分に関する係数がゼロであることが必要条件であるので，それにより以下のオイラーラグランジュ方程式を得る．</p>
+<div class="math">
+\begin{align*}
+&amp; x_{k+1} = \left( \dfrac{\partial H}{\partial \lambda} \right)(x_k, u_k, \lambda_{k+1}, k) = f(x_k, u_k, k) \\
+&amp; \lambda_k = \left( \dfrac{\partial H}{\partial x} \right)(x_k, u_k, \lambda_{k+1}, k) \\
+&amp; \dfrac{\partial H}{\partial u}(x_k, u_k, \lambda_{k+1}, k) = 0 \\
+&amp; \lambda_N = \left(\dfrac{\partial \phi}{\partial x} \right)(x_N)
+\end{align*}</div><p>上の2つの式は解析力学におけるハミルトンの正準方程式に似ているためで，正準方程式と呼ばれる(離散時間であるため第2式にマイナスがついていないが，連続時間で導出すると全く同じ形になる)．3つ目の式は最小原理を表しており，この式から陰関数定理により <span class="math">\(u_k\)</span> は <span class="math">\(x_k, \lambda_{k+1}\)</span> の関数として表される．つまり，閉ループにおける状態フィードバックを与える．</p>
+</div>
+<div class="section" id="lq">
+<h2><a class="toc-backref" href="#id9">3.2 離散時間LQ制御問題</a><a class="headerlink" href="#lq" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>解析的に解ける分かりやすい例としてLQ制御が例題として与えられている．評価関数は二次形式であり以下のように表される．</p>
+<div class="math">
+\begin{align*}
+J = \dfrac{1}{2}x_{N}^{\text{T}}S_{f}x_N + \sum_{k=0}^{N-1}\dfrac{1}{2}(x_{k}^{\text{T}}Q_{k}x_k + u_{k}^{\text{T}}R_{k}u_k)
+\end{align*}</div><p>するとハミルトン関数は</p>
+<div class="math">
+\begin{align*}
+H(x_k, u_k, \lambda_{k+1}) = \dfrac{1}{2}(x_{k}^{\text{T}}Q_{k}x_{k} + u_{k}^{\text{T}}R_{k}u_{k}) + \lambda_{k+1}^{\text{T}}(A_k x_k + B_k u_k)
+\end{align*}</div><p>よってオイラーラグランジュ方程式は</p>
+<div class="math">
+\begin{align*}
+&amp; x_{k+1} = A_{k}x_{k} + B_{k}u_{k} \\
+&amp; \lambda_{k} = Q_{k}x_{k} + A_{k}^{\text{T}}\lambda_{k+1} \\
+&amp; u_{k}^{\text{T}}R_{k} + \lambda_{k+1}^{\text{T}}B_{k} = 0 \\
+&amp; \lambda_{N} = S_{f}x_{N}
+\end{align*}</div><p>となる．ここで最適解が <span class="math">\(\lambda_k = S_k x_k\)</span> という形をとると仮定する．ここで <span class="math">\(S_k\)</span> は正定値行列である．これは境界条件を満たしている．詳しい計算は省くが，これは以下のようなRiccati方程式を満たす．</p>
+<div class="math">
+\begin{align*}
+ S_{k} = (Q_{k} + A_{k}^{\text{T}}S_{k+1}A_{k}) - A_{k}^{\text{T}}S_{k+1}B_{k}(R_{k} + B_{k}^{\text{T}}B_{k})^{-1}B_{k}^{\text{T}}S_{k+1}A_{k}
+\end{align*}</div><p>この方程式をNから後ろ向きに0まで解くと，</p>
+<div class="math">
+\begin{align*}
+u_k = -(R_k + B_{k}^{\text{T}}S_{k+1}B_k)^{-1}B_{k}^{\text{T}}S_{k+1}A_k x_k
+\end{align*}</div><p>なる閉ループの最適制御入力を求められる．よって実際の初期値 <span class="math">\(x_0\)</span> を用いてこの制御則を用いていけば評価関数を最小化できる．アルゴリズムの様子を以下の図にまとめる．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/lqr_dp.png"><img alt="lqr_dp" src="../../_images/lqr_dp.png" style="width: 80%;" /></a>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id10">3.3 動的計画法</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>上の図を見て分かるように，最適制御系列は相互に絡みあった複雑な関係になっているが，基本的に行列パラメータを除いて初期状態 <span class="math">\(x_0\)</span> のみの関数となっている．そのため閉ループの状態フィードバックを用いて <span class="math">\(u_{i}^{\mathrm{opt}}\)</span> を入力していけば評価関数Jは最小値(停留値)になる．したがって評価関数の最小値は <strong>もし存在するのならば</strong> 初期状態x0の関数として与えられるはずである．つまり「静的な観点」からみるとそれぞれの状態に対してそこから目的状態が与えられると最適な軌道が存在しているということである．そこでこの関数をcost-to-goと呼ぼう．時刻ｋにおいて状態 <span class="math">\(x_k\)</span> から出発した時の評価関関数を最小にする制御系列が存在するので，cost-to-goは</p>
+<div class="math">
+\begin{align*}
+V(x_k, k) = \min_{u_k, ..., u_{N-1}} \left( \phi(x_N) + \sum_{l=k}^{N-1} L(x_l, u_l, l) \right)
+\end{align*}</div><p>と表される．ただし <span class="math">\(x_{k+1}, \cdots x_{N}\)</span> は自由ではなく，状態方程式に従うので <span class="math">\(x_k\)</span> の関数である．</p>
+<p>基本的にcost-to-goは「目的地までの最短距離，コスト」なので目標地点から離れれば離れるほど大きな値になる．価値関数は以下のようなBellman方程式に従う．</p>
+<div class="math">
+\begin{align*}
+&amp; V(x_k, k) = \min_{u_k}(L(x_k, u_k, k) + V(f(x_k, u_k, k), k+1)) \\
+&amp; V(x_N, N) = \phi(x_N)
+\end{align*}</div><p><span class="math">\(\phi(x_N)\)</span> は本来 <span class="math">\(u_0, \cdots, u_{N-1}\)</span> まで全ての変数になっている．</p>
+<p>価値関数 <span class="math">\(V(x_k, k)\)</span> は「最適制御を <span class="math">\(k = k\)</span> から始めた場合の <span class="math">\(k = N\)</span> までの評価関数の最小値」という意味である．つまり，<span class="math">\(x_k\)</span> が <span class="math">\(u_0, \cdots, u_{k-1}\)</span> の関数であるということを一旦忘れて自由変数とみなし，<span class="math">\(V(x_k, k)\)</span> という <span class="math">\(x_k\)</span> だけの関数とみなすのである．下にイメージ図を示す．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/cost_to_go.png"><img alt="cost_to_go" src="../../_images/cost_to_go.png" style="width: 50%;" /></a>
+</div>
+<div class="section" id="id5">
+<h3>3.3.1 例 離散時間LQ最適制御<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>線形時不変の系に対してベルマン方程式と終端コストは</p>
+<div class="math">
+\begin{align*}
+V(x,k ) &amp;= \min_{u}\left\{ \dfrac{1}{2}(x^{\text{T}}Qx + u^{\text{T}}Ru) + V(Ax + Bu, k+1) \right\} \\
+V(x, N) &amp;= \dfrac{1}{2}x^{\text{T}}S_{f}x
+\end{align*}</div><p>で与えられる．</p>
+<p>まず <span class="math">\(k = N\)</span> の場合について計算し， <span class="math">\(V(x, N-1)\)</span> を求めてみる．</p>
+<div class="math">
+\begin{align*}
+2V(x, N-1) = \min_{u}\left( x^{\text{T}}Qx + u^{\text{T}}Ru + (Ax + Bu)^{\text{T}}S_{f}(Ax + Bu) \right)
+\end{align*}</div><p>左辺の括弧の中をuについてまとめると</p>
+<div class="math">
+\begin{align*}
+u^{\text{T}}(R + B^{\text{T}}S_{f}B)u + 2x^{\text{T}}A^{\text{T}}S_{f}Bu + x^{\text{T}}(Q + A^{\text{T}}S_{f}A)x
+\end{align*}</div><p>これをuについて平方完成して最小値を求めると，</p>
+<div class="math">
+\begin{align*}
+u_{\mathrm{opt}} = -(R + B^{\text{T}}S_{f}B)^{-1}B^{\text{T}}S_{f}Ax
+\end{align*}</div><p>において</p>
+<div class="math">
+\begin{align*}
+V(x, N-1) = \dfrac{1}{2}x^{\text{T}}(Q + A^{\text{T}}S_{f}A)x - \dfrac{1}{2}x^{\text{T}}A^{\text{T}}S_{f}B(R + B^{\text{T}}S_{f}B)^{-1}B^{\text{T}}S_{f}Ax
+\end{align*}</div><p>が得られる．両辺を見比べるとRiccati方程式が得られていることが分かる．</p>
+</div>
+<div class="section" id="id6">
+<h3>3.3.2 ベルマン方程式からのオイラーラグランジュ方程式の導出<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ベルマンの最適性の原理は最適性の十分条件を与えるから，最適性の必要条件を与えるオイラーラグランジュ方程式を導出できるはずである．実際にベルマン方程式から得られる最適制御 <span class="math">\(\bar{u}(k) = \bar{u}_{\mathrm{opt}}(\bar{x}(k), k)\)</span> と最適軌道 <span class="math">\(\bar{x}(k)\)</span> がオイラーラグランジュ方程式を満たすことを導出する．</p>
+<p>まず全ての <span class="math">\(k= 0, 1, \cdots, N-1\)</span> に対して最適制御と最適軌道はベルマン方程式の右辺の最小値を与えるから</p>
+<div class="math">
+\begin{align*}
+-V(\bar{x}(k), k) + L(\bar{x}(k), \bar{u}(k), k) + V(f(\bar{x}(k), \bar{u}(k), k), k+1) = 0
+\end{align*}</div><p>一方他の状態に対しては <span class="math">\(\bar{u}(k)\)</span> は最適制御ではないから，</p>
+<div class="math">
+\begin{align*}
+-V(x(k), k) + L(x(k), \bar{u}(k), k) + V(f(x(k), \bar{u}(k), k), k+1) \geq 0
+\end{align*}</div><p>よって最適軌道 <span class="math">\(\bar{x}(k)\)</span> は左辺を停留させていることになる.そのため左辺をxに関して偏微分して <span class="math">\(\bar{x}(k)\)</span> を代入すると0になるはずである．</p>
+<div class="math">
+\begin{align*}
+&amp; -\dfrac{\partial V}{\partial x}(\bar{x}(k), k) + \dfrac{\partial L}{\partial x}(\bar{x}(k), \bar{u}(k), k) \\
+&amp;+ \dfrac{\partial V}{\partial x}(f(\bar{x}(k), \bar{u}(k), k), k+1)\dfrac{\partial f}{\partial x}(\bar{x}(k), \bar{u}(k), k) = 0
+\end{align*}</div><p><span class="math">\(\bar{x}(k+1) = f(\bar{x}(k), \bar{u}(k), k)\)</span> を用いると，また終端コストの両辺を偏微分すると</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{\partial V}{\partial x}(\bar{x}(k), k) = \dfrac{\partial L}{\partial x}(\bar{x}(k), \bar{u}(k), k) + \dfrac{\partial V}{\partial x}(\bar{x}(k+1), k+1)\dfrac{\partial f}{\partial x}(\bar{x}(k), \bar{u}(k), k) = 0 \\
+&amp; \dfrac{\partial V}{\partial x}(\bar{x}(N), N) = \dfrac{\partial \phi}{\partial x}(\bar{x}(N))
+\end{align*}</div><p>ここで</p>
+<div class="math">
+\begin{align*}
+\lambda(k) = \left(\dfrac{\partial V}{\partial x} \right)(\bar{x}(k), k)
+\end{align*}</div><p>という変数 <span class="math">\(\lambda(k)\)</span> を定義すると，なんと先程導出したオイラーラグランジュ方程式が得られている．つまり，<strong>随伴変数は，最適軌道上でのcost-to-goの状態変数に関する勾配という幾何学的な意味がある</strong> ．またベルマン方程式においてuに関する最小値を取る際に，その最小値においては右辺の括弧の中の関数が停留している．そのためそのuに関する編導関数は0になっているはずだから，</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial L}{\partial u}(\bar{x}(k), \bar{u}(k), k) + \dfrac{\partial V}{\partial x}(f(\bar{x}(k), \bar{u}(k), k), k+1)\dfrac{\partial f}{\partial x}(\bar{x}(k), \bar{u}(k), k) = 0
+\end{align*}</div><p>すなわち，</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial H}{\partial x}\left(\bar{x}(k), \bar{u}(k), \left(\dfrac{\partial V}{\partial x}(\bar{x}(k+1), k+1) , k \right) \right) = 0
+\end{align*}</div><p>となり，残りの方程式も得られた．</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter04.html" class="btn btn-neutral float-right" title="第4章 変分法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="非線形最適制御入門" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

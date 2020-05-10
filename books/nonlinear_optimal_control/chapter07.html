@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では今まで見てきた最適制御の問題に対する数値的なアルゴリズムを紹介している．最適制御は初期値と終端値が与えられた2点境界値問題であるので，まさにハミルトン形式の精神に則っている．勾配法とシューティング法が紹介されている．" name="description" />
+<meta content="最適制御，シューティング法" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では今まで見てきた最適制御の問題に対する数値的なアルゴリズムを紹介している．最適制御は初期値と終端値が与えられた2点境界値問題であるので，まさにハミルトン形式の精神に則っている．勾配法とシューティング法が紹介されている． 7章 最適制御問題の解法 7.2 勾配法 7.3. シューティング法(遷移行列によるもの) 最適解が満たすべき方程式は以下のオイラーラグランジュ方程式である． ここで...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="非線形最適制御入門" href="index.html"/>
+        <link rel="next" title="よく分かる解析力学" href="../easy_analytical_mechanics/index.html"/>
+        <link rel="prev" title="6章 動的計画法と最小原理" href="chapter06.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">非線形最適制御入門</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">第3章 離散時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">第4章 変分法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">5章 連続時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter06.html">6章 動的計画法と最小原理</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7章 最適制御問題の解法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">7.2 勾配法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">7.3. シューティング法(遷移行列によるもの)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">非線形最適制御入門</a> &raquo;</li>
+        
+      <li>7章 最適制御問題の解法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">7章 最適制御問題の解法</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では今まで見てきた最適制御の問題に対する数値的なアルゴリズムを紹介している．最適制御は初期値と終端値が与えられた2点境界値問題であるので，まさにハミルトン形式の精神に則っている．勾配法とシューティング法が紹介されている．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">7章 最適制御問題の解法</a><ul>
+<li><a class="reference internal" href="#id3" id="id6">7.2 勾配法</a></li>
+<li><a class="reference internal" href="#id4" id="id7">7.3. シューティング法(遷移行列によるもの)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>最適解が満たすべき方程式は以下のオイラーラグランジュ方程式である．</p>
+<div class="math">
+\begin{align}
+&amp; \dot{x}(t) = \left( \dfrac{\partial H}{\partial \lambda}\right)^{\text{T}}(x, u, \lambda, t) = f(x(t), u(t), t) &amp; x(t_0) = x_0 \\
+&amp; \dot{\lambda}(t) = -\left( \dfrac{\partial H}{\partial x}\right)^{\text{T}}(x, u, \lambda, t) &amp; \lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x}\right)^{\text{T}}(x(t_f)) \\
+&amp; \dfrac{\partial H}{\partial u}(x, u, \lambda, t) = 0
+\end{align}</div><p>ここで未知関数は <span class="math">\(x(t), \lambda(t), u(t)\)</span> の3つ存在しているが，どれかの関数の「初期関数」を与えれば上の方程式を用いて残りを評価することができるので，オイラーラグランジュ方程式が満たされるようにその「初期関数」を修正すれば良い．</p>
+<ul class="simple">
+<li>制御入力の関数を未知関数とする場合．適当な制御入力の関数 <span class="math">\(u(t)(t \in [t_0, t_f])\)</span> を与えるとそれを用いて状態方程式から <span class="math">\(x(t)(t \in [t_0, t_f])\)</span> を求めることができる．すると今度は <span class="math">\(\lambda(t)(t \in [t_f, t_0])\)</span> を逆向きに解くことができるが，このようにしてu(t)の推定「値」を使って求めた関数は3つ目の式を満たさないので，左辺の値が0にならない．そこでこの値が0になるようu(t)を修正することで最終的に最適な制御入力を求める．</li>
+<li>随伴変数の <strong>初期値</strong>  <span class="math">\(\lambda_0\)</span> を未知量とする場合．上の場合に比べて「未知関数」ではなく「未知量」を仮定するので，保持すべき変数のメモリはかなり減らせる(時間の刻み幅の粒度にも依るが)．すると <span class="math">\(x(t_0) = x_0, \lambda(t_0)= \lambda_0\)</span> を用いて1つ目と2つ目の微分方程式を「前向きに」解くことができる．ただしその際の制御入力 <span class="math">\(u(t)\)</span> は3つ目の式をu(t)について求めた値とする．これを <span class="math">\(t = t_f\)</span> まで続けると <span class="math">\(x(t_f), \lambda(t_f)\)</span> を求めることができるが，終端条件</li>
+</ul>
+<div class="math">
+\begin{align*}
+\lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x} \right)^{\text{T}}(x(t_f))
+\end{align*}</div><p>は満たされないのが普通である(もし初めから随伴変数の値をguessすることができていたら成り立ってくれるが)．そこでこの終端条件が成立するよう随伴変数の初期値を更新していく．</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">7.2 勾配法</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ラグランジアンの <span class="math">\(\delta u\)</span> に対する変分は</p>
+<div class="math">
+\begin{align*}
+\delta \bar{J} = \left(\dfrac{\partial \phi}{\partial x}(x(t_f)) - \lambda^{\text{T}}(t_f) \right) \delta x(t_f) + \int_{t_0}^{t_f}\left( \left(\dfrac{\partial H}{\partial x} + \dot{\lambda}^{\text{T}} \right) \delta x + \dfrac{\partial H}{\partial u} \delta u \right) dt
+\end{align*}</div><p>と表されるが，もし <span class="math">\(x(t)\)</span> と <span class="math">\(\lambda(t)\)</span> がオイラーラグランジュ方程式を満たすのであれば(この仮定を使うために，<span class="math">\(x(t)\)</span> と <span class="math">\(\lambda(t)\)</span> の微分方程式を使って最小原理以外が成り立つようにしている)</p>
+<div class="math">
+\begin{align*}
+\delta \bar{J} = \int_{t_0}^{t_f} \dfrac{\partial H}{\partial u} \delta u dt
+\end{align*}</div><p>となる．スカラー値関数の微小変化が勾配ベクトルと変数の微小変化(今回は <span class="math">\(\delta u\)</span> )の内積で表されることを類推すると，関数 <span class="math">\(\partial H / \partial u\)</span> が評価関数の勾配になっていることが分かる．そこで探索方向として</p>
+<div class="math">
+\begin{align*}
+s =  - \left( \dfrac{\partial H}{\partial u}\right)^{\text{T}}
+\end{align*}</div><p>を用いる．例えば</p>
+<div class="math">
+\begin{align*}
+\delta u = -\alpha \left(\dfrac{\partial H}{\partial u} \right)^{\text{T}}
+\end{align*}</div><p>として <span class="math">\(\delta u\)</span> のノルム <span class="math">\(|\delta|\)</span> が0に近づくまでこの量だけ修正を繰り返せば良い．</p>
+<ol class="arabic simple">
+<li>適当な関数 <span class="math">\(u(t) \quad (t_0 \leq t \leq t_f)\)</span> を推定値とする</li>
+<li><span class="math">\(x(t_0) = x_0\)</span> と <span class="math">\(\dot{x}\)</span> の状態方程式から <span class="math">\(x(t) \quad (t_0 \leq t \leq t_f)\)</span> を求める</li>
+<li>先ほど求めた <span class="math">\(x(t_f)\)</span> を使って <span class="math">\(\lambda(t_f)\)</span> を求める．そして <span class="math">\(\dot{\lambda}\)</span> の状態方程式から <span class="math">\(\lambda(t) \quad (t_0 \leq t \leq t_f)\)</span> を求める</li>
+<li>勾配 <span class="math">\(\partial H / \partial u \quad (t_0 \leq t \leq t_f)\)</span> を各時刻で求める．これのノルム(積分値)が小さければ終了</li>
+<li><span class="math">\(s = -(\partial H / \partial u)\)</span> とおく．</li>
+<li>制御入力を <span class="math">\(u + \alpha s\)</span> としたときの <span class="math">\(J[u + \alpha s]\)</span> を最小にする値 <span class="math">\(\alpha^{*}\)</span> を求める．</li>
+<li><span class="math">\(u(t) \leftarrow u(t) + \alpha^{*}s(t)\)</span> として繰り返す．</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">7.3. シューティング法(遷移行列によるもの)</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>シューティング法は先程述べたように，随伴変数の初期値 <span class="math">\(\lambda(t_0) = \lambda_0\)</span> を未知量として，それを少しづつ修正して終端条件 <span class="math">\(\lambda(t_f) = (\partial \phi / \partial x)(x(t_f))\)</span> が成り立つようにするものである．初期値を調整して終端条件を満たすようにする様子が射撃に似ていることからシューティング法と呼ばれている．随伴変数の初期値が <span class="math">\(\delta \lambda_{0}\)</span> だけ変化した時，終端時刻における状態 <span class="math">\(x(t_f)\)</span> と <span class="math">\(\lambda(t_f)\)</span> がどれだけ変化するか調べてみる．それにより各関数が <span class="math">\(\delta x(t), \delta \lambda(t), \delta u(t)\)</span> だけ変化したとして随伴変数の終端状態以外の条件を満たしているとする．つまり</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{d}{dt}(x + \delta x) = f(x + \delta x, u + \delta u, t) \\
+&amp; \dfrac{d}{dt}(\lambda + \delta \lambda) = -\left( \dfrac{\partial H}{\partial x}\right)^{\text{T}}(x + \delta x, u + \delta u, \lambda + \delta \lambda, t) \\
+&amp; \dfrac{\partial H}{\partial u}(x + \delta x, u + \delta u, \lambda + \delta \lambda, t) = 0
+\end{align*}</div><p>を満たしている．ここで変関数 <span class="math">\(\delta x(t), \delta \lambda(t)\)</span> の初期値はそれぞれ <span class="math">\(0, \delta \lambda_0\)</span> である．この  <span class="math">\(\delta \lambda_0\)</span> をうまく与えるのがここでの目的である．上の式をテイラー展開すると例によって変関数に関して以下のような線形部分方程式が得られる．</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix} = \begin{bmatrix} A(t) &amp; -B(t) \\ -C(t) &amp; -A^{\text{T}}(t) \end{bmatrix}\begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix}
+\end{align*}</div><p>ここで各行列は以下のように <span class="math">\(x(t), \lambda(t), u(t)\)</span> を用いて評価される(アルゴリズムとして数値的に解く際は，これらの行列はそのときの推定値を用いて具体的に計算される)．</p>
+<div class="math">
+\begin{align*}
+&amp; A(t) = A(x(t), \lambda(t), u(t)) = \dfrac{\partial f}{\partial x} - \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x} \\
+&amp; B(t) = B(x(t), \lambda(t), u(t)) = \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\left(\dfrac{\partial f}{\partial u} \right)^{\text{T}} \\
+&amp; C(t) = C(x(t), \lambda(t), u(t)) = \dfrac{\partial^{2} H}{\partial x^{2}} - \dfrac{\partial^{2} H}{\partial x \partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x}
+\end{align*}</div><p>もう少し辛抱強く計算してみよう．我々は随伴変数を <span class="math">\(\delta \lambda_0\)</span> だけ変動させることで誤差 <span class="math">\(E = \lambda(t_f) - (\partial \phi / \partial x)(x(t_f))\)</span> を <strong>どれくらい減らせるか</strong> に関心がある．つまり</p>
+<div class="math">
+\begin{align*}
+dE = \delta \lambda(t_f) - \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))\delta x(t_f)
+\end{align*}</div><p>をもう少し評価したい．
+遷移行列 <span class="math">\(\Phi(t)\)</span> を以下を満たす行列として定義する．</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{d}{dt} \Phi(t) = \begin{bmatrix} A(t) &amp; -B(t) \\ -C(t) &amp; -A^{\text{T}}(t) \end{bmatrix} \Phi(t) \\
+&amp; \Phi(t_0) = I
+\end{align*}</div><p>すると <span class="math">\(\delta x(t_0) = 0, \delta \lambda(t_0) = \delta \lambda_0\)</span> を用いて</p>
+<div class="math">
+\begin{align*}
+\begin{bmatrix} \delta x(t_f) \\ \delta \lambda(t_f) \end{bmatrix} = \begin{bmatrix} \Phi_{12}(t_f) \\ \Phi_{22}(t_f) \end{bmatrix}
+\end{align*}</div><p>であるから，先ほどの <span class="math">\(dE\)</span> は</p>
+<div class="math">
+\begin{align*}
+dE = \left( \Phi_{22}(t_f) - \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))\Phi_{12}(t_f) \right) \delta \lambda_0
+\end{align*}</div><p>つまり，現在の随伴変数の初期値を <span class="math">\(\delta \lambda_0\)</span> だけずらすことで，上の量だけ終端時刻での誤差を減らすことができる．では具体的にどれだけ減らしたいかというと，現在の誤差 <span class="math">\(E\)</span> を0にするように</p>
+<div class="math">
+\begin{align*}
+dE = -E
+\end{align*}</div><p>だけ減らせば良い．つまり</p>
+<div class="math">
+\begin{align*}
+\delta \lambda_0 = \left( \Phi_{22}(t_f) - \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))\Phi_{12}(t_f) \right)^{-1}E
+\end{align*}</div><p>だけ修正すれば良い．</p>
+<ol class="arabic simple">
+<li><span class="math">\(\lambda_0\)</span> を随伴変数の初期値の適当な推定値とする</li>
+<li><span class="math">\(x(t_0) = x_0, \lambda(t_0) = \lambda_0\)</span> を用いて <span class="math">\(\dot{x}, \dot{\lambda}\)</span> に関する状態方程式を解いて <span class="math">\(x(t) \quad (t_0 \leq t \leq t_f)\)</span>  <span class="math">\(\lambda(t) \quad (t_0 \leq t \leq t_f)\)</span> を求める．その際 <span class="math">\(u(t)\)</span> は最小原理を <span class="math">\(u(t)\)</span> に関して解いた値を用いる．</li>
+<li><span class="math">\(E = \lambda(t_f) - (\partial \phi / \partial x)(x(t_f))\)</span> を評価する．もし <span class="math">\(|E|\)</span> が小さければ終了．</li>
+<li>上で求めた <span class="math">\(x(t) \quad (t_0 \leq t \leq t_f)\)</span>  <span class="math">\(\lambda(t) \quad (t_0 \leq t \leq t_f)\)</span>  <span class="math">\(u(t) \quad (t_0 \leq t \leq t_f)\)</span> を用いて各行列 <span class="math">\(A(t), B(t), C(t)\)</span> を計算することで，遷移行列 <span class="math">\(\Phi(t_f)\)</span> を計算する．そして上の式に従って <span class="math">\(\delta \lambda_0\)</span> を求める．</li>
+<li><span class="math">\(\lambda_0 \leftarrow \lambda_0 + \delta \lambda_0\)</span> として繰り返し．</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../easy_analytical_mechanics/index.html" class="btn btn-neutral float-right" title="よく分かる解析力学" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter06.html" class="btn btn-neutral" title="6章 動的計画法と最小原理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

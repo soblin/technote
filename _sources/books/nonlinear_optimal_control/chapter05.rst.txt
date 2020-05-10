@@ -1,0 +1,202 @@
+.. meta::
+   :description: この章では3章では離散時間だった最適制御を連続時間で行う．離散時間と同様に状態方程式に対する制約として随伴変数を導入し，ラグランジアン(作用積分)の変分を停留させる条件を求めることでハミルトニアンに対する正準方程式を導く．また最適解の摂動を評価しているが，これは後の章でシューティング法やモデル予測制御(MPC)の基本となる．
+   :keywords: 連続時間最適制御，ハミルトニアン，随伴変数
+
+======================================================================
+5章 連続時間システムの最適制御
+======================================================================
+
+この章では3章では離散時間だった最適制御を連続時間で行う．離散時間と同様に状態方程式に対する制約として随伴変数を導入し，ラグランジアン(作用積分)の変分をとることでハミルトニアンに対する正準方程式を導く．また最適解の摂動を評価しているが，これは後の章でシューティング法やモデル予測制御(MPC)の基本となる．
+
+.. contents:: 目次
+   :depth: 2
+
+
+5.1 基本的な問題設定と停留条件
+======================================================================
+制御対象である連続時間システムが状態方程式
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dot{x}(t) = f(x(t, u(t), t)
+	\end{align*}
+
+で表されるとする．ここで :math:`x(t) \in \mathbb{R}^{n}` ，  :math:`u(t) \in \mathbb{R}^{m}` とする．初期状態は :math:`x(t_0) = x_0` ， 終端状態は :math:`x(t_f) = x_f` として与えられることもあれば制約なしの場合もある．評価関数は
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	J = \phi(x(t_f)) + \int_{t_0}^{t_f}L(x(t), u(t), t) dt
+	\end{align*}
+
+である．状態方程式を制約とみなすことで，ラグランジュ乗数としての随伴変数 :math:`\lambda(t)` を導入するとラグランジアンは
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\bar{J} = \phi(x(t_f)) + \int_{t_0}^{t_f}L(x(t), u(t), t) + \lambda^{\text{T}}(f - \dot{x}) dt
+	\end{align*}
+
+ここでスカラー関数Hを
+
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	H(x, u, \lambda, t) = L(x, u, t) + \lambda^{\text{T}}f(x, u, t)
+	\end{align*}
+
+として :math:`\bar{J}` の変分をとると以下のオイラーラグランジュ方程式を得る．
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dot{x}(t) = \left( \dfrac{\partial H}{\partial \lambda}\right)^{\text{T}}(x, u, \lambda, t) = f(x(t), u(t), t) & x(t_0) = x_0 \\
+   & \dot{\lambda}(t) = -\left( \dfrac{\partial H}{\partial x}\right)^{\text{T}}(x, u, \lambda, t) & \lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x}\right)^{\text{T}}(x(t_f)) \\
+   & \dfrac{\partial H}{\partial u}(x, u, \lambda, t) = 0
+   \end{align*}
+
+
+ここで上の2つの式は解析力学におけるハミルトンの正準方程式と同じ形をしている．
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dot{q} &= \dfrac{\partial H}{\partial p} \\ \dot{p} &= -\dfrac{\partial H}{\partial q}
+	\end{align*}
+
+
+:math:`(x, \lambda)` が一般化座標と一般化運動量 :math:`(q, p)` に対応している．これを解く際は，3つ目の式をuについて解いて状態フィードバックを得る．
+
+5.3 最適解の摂動
+======================================================================
+最適制御問題の設定がわずかに変わった時に最適解がどれくらい変化するかを調べる．例えば初期状態 :math:`x(t_0)` の微小変化によって最適制御入力がどれくらい変化するのかを評価するといった具合に．いま，初期状態 :math:`x(t_0)` に対して最適制御と最適軌道，対応する随伴変数 :math:`u(t), x(t), \lambda(t)` が得られているとする．そして初期状態が :math:`x(t_0)` だけ変化したとして，それぞれの変関数 :math:`\delta u(t), \delta x(t), \delta \lambda(t)(t_0 \leq t \leq t_f)` を求める．それらも同様にオイラーラグランジュ方程式を満たすはずであるから．
+
+.. math::
+   :nowrap:
+      
+   \begin{align*}
+   & \dfrac{d}{dt}(x + \delta x) = f(x + \delta x, u + \delta u, t) \\
+   & \delta x(t_0) = \delta x_0 \\
+   & \dfrac{d}{dt}(\lambda + \delta \lambda) = -\left( \dfrac{\partial H}{\partial x}\right)(x + \delta x, u + \delta u, \lambda + \delta \lambda, t) \\
+   & \lambda(t_f) + \delta \lambda(t_f) = \left( \dfrac{\partial \phi}{\partial x}\right)(x(t_f) + \delta x(t_f)) \\
+   & \dfrac{\partial H}{\partial u}(x + \delta x, u + \delta u, \lambda + \delta \lambda, t ) = 0
+   \end{align*}
+
+一次の項に関して以下が得られる．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \delta \dot{x} = \dfrac{\partial f}{\partial x}\delta x + \dfrac{\partial f}{\partial u}\delta u \\
+   & \delta x(t_0) = \delta x_0 \\
+   & \delta \dot{\lambda} = -\dfrac{\partial^{2} H}{\partial x^{2}}\delta x - \dfrac{\partial^{2} H}{\partial x \partial u}\delta u - \dfrac{\partial^{2} H}{\partial x \partial \lambda}\delta \lambda \\
+   & \delta \lambda(t_f) = \left( \dfrac{\partial^{2} \phi}{\partial x^{2}}\right)(x(t_f))\delta x(t_f) \\
+   & \dfrac{\partial^{2} H}{\partial u \partial x}\delta x + \dfrac{\partial^{2} H}{\partial u^{2}}\delta u + \dfrac{\partial^{2} H}{\partial u \partial \lambda}\delta \lambda = 0
+   \end{align*}
+
+
+ここで :math:`\delta u` を消去すると
+
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{d}{dt}\begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix} = \begin{bmatrix} A(t) & -B(T) \\ -C(t) & -A^{\text{T}}(t) \end{bmatrix} \begin{bmatrix} \delta x \\ \delta \lambda \end{bmatrix}
+	\end{align*}
+
+ここで
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & A(t) = \dfrac{\partial f}{\partial x} - \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x} \\
+   & B(t) = \dfrac{\partial f}{\partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\left(\dfrac{\partial f}{\partial u} \right)^{\text{T}} \\
+   & C(t) = \dfrac{\partial^{2} H}{\partial x^{2}} - \dfrac{\partial^{2} H}{\partial x \partial u}\left( \dfrac{\partial^{2} H}{\partial u^{2}}\right)^{-1}\dfrac{\partial^{2} H}{\partial u \partial x}
+   \end{align*}
+
+
+であり，予め求まっていた軌道 :math:`u(t), x(t), \lambda(t)` で計算される．ここで
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \delta \lambda(t) = S(t)\delta x(t) \\
+   & S(t_f) = \dfrac{\partial^{2} \phi}{\partial x^{2}}(x(t_f))
+   \end{align*}
+   
+という形を仮定して(どこかでやったような)みると
+ 
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dot{S} + A^{\text{T}}s + SA - SBS + C = 0
+	\end{align*}
+
+なるRiccati方程式になる．よって :math:`S(t)` を後ろ向きに求めたあと，初期状態の摂動 :math:`\delta x_0` から変関数の時間発展を
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta \dot{x}(t) = (A(t) - B(t)S(t))\delta x(t)
+	\end{align*}
+
+から求めることができる．そして元々求まっていた最適軌道からのずれを
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\delta u(t) = -\left(\dfrac{\partial^{2} H}{\partial u}{\partial x} \right)^{-1} \left\{\dfrac{\partial^{2} H}{\partial u}{\partial x} + \left( \dfrac{\partial f}{\partial u}\right)^{\text{T}}S(t) \right\}\delta x(t)
+	\end{align*}
+
+として求められる．
+
+これを用いて，実際の制御対象の状態 :math:`x(t)` が基準となる最適軌道 :math:`\bar{x}(t)` からずれたときに「回復する」ように最適制御を修正することができる．つまり :math:`\bar{x}(t), \bar{u}(t), S(t)` と
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	K(t) = -\left(\dfrac{\partial^{2} H}{\partial u \partial x} \right)^{-1} \left\{\dfrac{\partial^{2} H}{\partial u \partial x} + \left( \dfrac{\partial f}{\partial u}\right)^{\text{T}}S(t) \right\}
+	\end{align*}
+
+
+を求めておけば，
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	u(t) = \bar{u}(t) + K(t)(x(t) - \bar{x}(t))
+	\end{align*}
+
+としてノミナルな軌道へと修正を行える．よって
+
+
+
+
+
+

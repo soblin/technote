@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="最初のうちは「何でこんなことをしないといけないのか」という風に感じてしまいがちであるが，ハミルトン形式のご利益があるのはポアソン括弧や正準変換を行うところにある．もうひとつ重要なのは，位相空間での軌道は絶対に交差しないということだ．" name="description" />
+<meta content="ハミルトニアン, 正準方程式, リウヴィルの定理, ポアソン括弧, ハミルトニアンフロー" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="ハミルトン形式の解析力学 ハミルトニアン 変分原理からの正準方程式 位相空間 リウヴィルの定理 ポアソン括弧 最初のうちは「何でこんなことをしないといけないのか」という風に感じてしまいがちであるが，ハミルトン形式のご利益があるのはポアソン括弧や正準変換を行うところにある．もうひとつ重要なのは，位相空間での軌道は絶対に交差しないということだ． 以下のような量が時間的に保存すること(が多い)こと...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="正準変換" href="chapter10.html"/>
+        <link rel="prev" title="保存則と対称性" href="chapter08.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">ラグランジュ形式の解析力学(発展編)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ハミルトン形式の解析力学</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">ハミルトニアン</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">変分原理からの正準方程式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">位相空間</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">リウヴィルの定理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">ポアソン括弧</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>ハミルトン形式の解析力学</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id12">ハミルトン形式の解析力学</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id12">ハミルトン形式の解析力学</a><ul>
+<li><a class="reference internal" href="#id3" id="id13">ハミルトニアン</a></li>
+<li><a class="reference internal" href="#id4" id="id14">変分原理からの正準方程式</a></li>
+<li><a class="reference internal" href="#id5" id="id15">位相空間</a></li>
+<li><a class="reference internal" href="#id8" id="id16">リウヴィルの定理</a></li>
+<li><a class="reference internal" href="#id9" id="id17">ポアソン括弧</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>最初のうちは「何でこんなことをしないといけないのか」という風に感じてしまいがちであるが，ハミルトン形式のご利益があるのはポアソン括弧や正準変換を行うところにある．もうひとつ重要なのは，位相空間での軌道は絶対に交差しないということだ．</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id13">ハミルトニアン</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以下のような量が時間的に保存すること(が多い)ことは今まで述べてきた．</p>
+<div class="math">
+\begin{align*}
+H = \sum_{i}p_{i}\dot{q}_{i} - L
+\end{align*}</div><p>これをハミルトニアンと呼ぶ．これは <span class="math">\(q, p\)</span> の関数だと思えば</p>
+<div class="math">
+\begin{align*}
+H(q, p) = \sum_{i}p_{i}\dot{q}_{i}(q, p) - L({q}, {\dot{q}(q, p)})
+\end{align*}</div><p><span class="math">\(q, \dot{q}\)</span> の関数だと思えば</p>
+<div class="math">
+\begin{align*}
+H(q, p(q, \dot{q})) = \sum_{i}p_{i}(q, \dot{q})\dot{q} - L(q, \dot{q})
+\end{align*}</div><p>である．この計算はルジャンドル変換になっているので</p>
+<div class="math">
+\begin{align*}
+-\left. \dfrac{\partial H}{\partial q_i} \right|_{q^i, p} = \left. \dfrac{\partial L}{\partial q_i} \right|_{q^i, \dot{q}}
+\end{align*}</div><p>が成立する．ここで左辺と右辺の偏微分の意味は以下の通りである．</p>
+<ul class="simple">
+<li><span class="math">\(p_{*}, q_{*}\)</span> のうち <span class="math">\(q_i\)</span> 以外を一定にして <span class="math">\(-H(q_{*}, p_{*})\)</span> を偏微分したもの</li>
+<li><span class="math">\(q_{*}, \dot{q}_{*}\)</span> のうち <span class="math">\(q_i\)</span> 以外を一定にして <span class="math">\(L(q_{*}, \dot{q}_{*})\)</span> 偏微分したもの</li>
+</ul>
+<p>ただし偏微分の一定にする記号のうち上付きになっているものは，それ以外を一定にするという意味である．
+これが成立するようにルジャンドル変換をしている．これによりオイラーラグランジュ方程式は</p>
+<div class="math">
+\begin{align*}
+\begin{cases} \dfrac{d q_i}{dt} = \left. \dfrac{\partial H}{\partial p_i} \right|_{p^i, q_{*}} \\ \dfrac{dp_i}{dt} = -\left. \dfrac{\partial H}{\partial q_i} \right|_{q^i, p_{*}} \end{cases}
+\end{align*}</div><p>へと書き換えられる．</p>
+<p>この方程式は以下のような形に書き換えられる．</p>
+<div class="math">
+\begin{align*}
+\begin{pmatrix} \dfrac{dq}{dt} \\ \dfrac{dp}{dt} \end{pmatrix} = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp;0 \end{pmatrix} \begin{pmatrix} \dfrac{\partial H}{\partial q} \\ \dfrac{\partial H}{\partial p} \end{pmatrix}
+\end{align*}</div><p>この行列は90度の回転行列であるから，各点においてハミルトニアンの勾配に直角に「流れ」を生み出している．</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id14">変分原理からの正準方程式</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オイラーラグランジュ方程式はラグランジアンの変分の停留を求めることで得られた．そこでハミルトニアンの定義に基づいたラグランジアン</p>
+<div class="math">
+\begin{align*}
+\sum_{i}p_{i}\dot{q}_{i} - H(p_{*}, q_{*})
+\end{align*}</div><p>を停留させる経路を求めることで正準方程式を導出してみる．</p>
+<p>独立変数は <span class="math">\(q_{*}, p_{*}\)</span> であるから，これらの変分</p>
+<div class="math">
+\begin{align*}
+\delta I = \int \left( \sum_{i}(p_i + \delta p_i)(\dot{q}_i + \delta \dot{q}_i - p_{i}\dot{q}_{i}) - H(p_{*} + \delta p_{*}, q_{*} + \delta q_{*}) + H(p_{*}, q_{*}) \right) dt
+\end{align*}</div><p>を計算していくと</p>
+<div class="math">
+\begin{align*}
+\int \left( \sum_{i} \left( \delta q_{i}\left( -\dot{p}_{i} - \dfrac{\partial H}{\partial q_i}\right) + \delta p_{i}\left( \dot{q}_{i} - \dfrac{\partial H}{\partial p_i} \right) \right) + \dfrac{d(p_{i}\delta q_{i})}{dt}\right) dt
+\end{align*}</div><p>となる．最後の項は表面項であるから(停留値にオフセットをのせるだけ)無視できて，変分に関する項の係数をゼロとみなすことで正準方程式を得ることができる．</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id15">位相空間</a><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>座標 <span class="math">\(q\)</span> と運動量座標 <span class="math">\(p\)</span> の2組の <strong>独立な</strong> 変数 <span class="math">\((q, p)\)</span> からなる空間を位相空間と呼ぶ．これに対して <span class="math">\((t, q)\)</span> が表す曲線を配位空間と呼ぶ．</p>
+<p>運動は初期座標 <span class="math">\(q(t_i)\)</span> と初期速度 <span class="math">\(\dot{q}(t_i)\)</span> を決めると一意的に決まる．当然同じ場所にいても初期速度が違えばその後の運動は異なる．そのため配位空間における運動を表現するグラフは交差する可能性がある．一方位相空間における運動は <strong>グラフが交差しない</strong> ．今からその理由の説明を行う．</p>
+<p>正準方程式より位相空間における速度ベクトルは</p>
+<div class="math">
+\begin{align*}
+\left( \dfrac{\partial H}{\partial q}, \dfrac{\partial H}{\partial p} \right) = \left( \dfrac{\partial H}{\partial p}, -\dfrac{\partial H}{\partial q} \right)
+\end{align*}</div><p>であるから，位相空間においてHが変化する方向である <span class="math">\(\nabla H\)</span> を90度回転させた方向である．よってHが変化する方向とは直角に移動する時，Hは変化しない．実際</p>
+<div class="math">
+\begin{align*}
+H\left( q + \epsilon \dfrac{\partial H}{\partial p}, p - \epsilon \dfrac{\partial H}{\partial q} \right) = H(q, p) + \dfrac{\partial H}{\partial q} \cdot \epsilon \dfrac{\partial H}{\partial p} + \dfrac{\partial H}{\partial p} \cdot (-\epsilon) \dfrac{\partial H}{\partial q} = H(q, p)
+\end{align*}</div><p>である．これに関連してこの速度ベクトルの発散はゼロである．</p>
+<div class="math">
+\begin{align*}
+\mathrm{div} \left( \dfrac{\partial H}{\partial p}, -\dfrac{\partial H}{\partial q} \right) = \dfrac{\partial}{\partial q}\left( \dfrac{\partial H}{\partial p} \right) + \dfrac{\partial}{\partial p}\left( -\dfrac{\partial H}{\partial q} \right) = 0
+\end{align*}</div><div class="section" id="id6">
+<h3>位相空間内で表した運動<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>位相空間において以下の時間微分演算子は</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt} = \dfrac{\partial H}{\partial p}\dfrac{\partial}{\partial q} - \dfrac{\partial H}{\partial q}\dfrac{\partial}{\partial p}
+\end{align*}</div><p>とかける．これは <span class="math">\(\partial / \partial q\)</span> ， <span class="math">\(\partial / \partial p\)</span> を速度ベクトルの基底とみなすと各係数がその速度成分を表しているとも読める(微分幾何学的な考え方)．</p>
+<p>この演算子</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt} = \dfrac{\partial H}{\partial p}\dfrac{\partial}{\partial q} - \dfrac{\partial H}{\partial q}\dfrac{\partial}{\partial p}
+\end{align*}</div><p>は多変数についても成立する． <span class="math">\(\partial / \partial q\)</span> は <span class="math">\(q\)</span> 方向の方向微分成分， <span class="math">\(\partial / \partial p\)</span> は <span class="math">\(p\)</span> 方向の方向微分成分である．</p>
+</div>
+<div class="section" id="id7">
+<h3>交差しない理由<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>このようにして位相空間における速度は位置の関数になっている．そのためある場所における速度は1つしかない．そこで各点における速度を接続していくと位相空間全体を結ぶ「流れ」のようなものができる．これらの「流れ」は「起こりうる運動全ての軌道」を表している．そしてこれらの軌道に交差があったとしよう．すると交差点においては2つの別々の方向に流れが分岐して存在していることになるため，正準方程式に矛盾する．そのため，位相空間におけるハミルトニアンフローは絶対に交差しない．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">つまりハミルトニアンフローは積分曲線である．</p>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id16">リウヴィルの定理</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>今ある位相空間に <span class="math">\(q_i, q_i + \delta q_i\)</span> ， <span class="math">\(p_i, p_i + \delta p_i\)</span> で囲まれた長方形の領域があるとする．時間が経過するとこの長方形領域も流されていく．この領域が変化しないというのがリウヴィルの定理である．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/liouville.png"><img alt="liouville.png" src="../../_images/liouville.png" style="width: 50%;" /></a>
+</div>
+<p>始め <span class="math">\((q, p)\)</span> にいた粒子は <span class="math">\(\delta t\)</span> 後には</p>
+<div class="math">
+\begin{align*}
+\left( q + \dfrac{dq}{dt}\delta t, p + \dfrac{dp}{dt}\delta t \right) = \left( q + \dfrac{\partial H(q, p)}{\partial p}\delta t, p - \dfrac{\partial H(q, p)}{\partial q}\delta t \right)
+\end{align*}</div><p>へと流される．同様に <span class="math">\((q + \delta q, p)\)</span> にいた粒子は</p>
+<div class="math">
+\begin{align*}
+&amp; (q + \delta q + \dfrac{\partial H(q + \delta q, p)}{\partial p}\delta t, p - \dfrac{\partial H(q + \delta q, p)}{\partial q}\delta t) \\
+&amp;= \left( q + \delta q + \dfrac{\partial H(q, p)}{\partial p}\delta t + \dfrac{\partial^2 H(q, p)}{\partial q \partial p}\delta q \delta t, p - \dfrac{\partial H(q, p)}{\partial q}\delta t - \dfrac{\partial^2 H(q, p)}{\partial q^2}\delta q \delta t \right)
+\end{align*}</div><p>へと流される．</p>
+<p>始め <span class="math">\((\delta q, 0)\)</span> だったずれが</p>
+<div class="math">
+\begin{align*}
+\left( \delta q + \dfrac{\partial^2 H(q, p)}{\partial q \partial p}\delta q \delta t, -\dfrac{\partial^2 H(q, p)}{\partial q^2}\delta q \delta t \right)
+\end{align*}</div><p>へと変化している．同様に <span class="math">\((q, p + \delta p)\)</span> の場所にいた粒子に対しては</p>
+<div class="math">
+\begin{align*}
+\left( \dfrac{\partial^2 H(q, p)}{\partial p^2}\delta p \delta t, \delta p - \dfrac{\partial^2 H(q, p)}{\partial q \partial p}\delta p \delta t \right)
+\end{align*}</div><p>である．これらの外戚を計算すると</p>
+<div class="math">
+\begin{align*}
+\left( \delta q + \dfrac{\partial^2 H(q, p)}{\partial q \partial p}\delta q \delta t \right) \left( \delta p - \dfrac{\partial^2 H(q, p)}{\partial q \partial p}\delta p \delta t \right) - \left( -\dfrac{\partial^2 H(q, p)}{\partial q^2}\delta q \delta t \right)\left( \dfrac{\partial^2 H(q, p)}{\partial p^2}\delta p \delta t \right) = \delta q \delta p
+\end{align*}</div></div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id17">ポアソン括弧</a><a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>位相空間における関数 <span class="math">\(A(q, p)\)</span> の時間微分を考えると</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}A(q, p) = \sum_{i}\left( \dot{q}_{i}\dfrac{\partial A(q, p)}{\partial q_i} + \dot{p}_{i}\dfrac{\partial A(q, p)}{\partial p_i} \right) + \dfrac{\partial A}{\partial t}
+\end{align*}</div><p>正準方程式を代入すると</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}A(q, p) = \sum_{i}\left( \dfrac{\partial A(q, p)}{\partial q_i}\dfrac{\partial H(q, p)}{\partial p_i} - \dfrac{\partial H(q, p)}{\partial q_i} \dfrac{\partial A(q, p)}{\partial p_i} \right) + \dfrac{\partial A}{\partial t}
+\end{align*}</div><p>となる．ここで以下のポアソン括弧という演算を代入する．</p>
+<div class="math">
+\begin{align*}
+\{ A, B \} = \sum_{i}\left( \dfrac{\partial A}{\partial q_i}\dfrac{\partial B}{\partial p_i} - \dfrac{\partial B}{\partial q_i}\dfrac{\partial A}{\partial p_i} \right)
+\end{align*}</div><p>すると正準方程式は</p>
+<div class="math">
+\begin{align*}
+\begin{cases} \dfrac{dq}{dt} = \{ q, H \} \\ \dfrac{dp}{dt} = \{ p, H \} \end{cases}
+\end{align*}</div><p>と表される．このことから，<strong>ハミルトニアンとのポアソン括弧は時間微分と等価である</strong> といえる．</p>
+<div class="section" id="id10">
+<h3>ポアソン括弧の性質<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>主に以下のような性質を持つ．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">反対称性:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="math">
+\begin{align*}
+\{ A, B \} = -\{ B, A \}
+\end{align*}</div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ヤコビ恒等式:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="math">
+\begin{align*}
+&amp; \{ A, \{ B, C \} \} + \{ B, \{ A, C \} \} + \{ C, \{ A, B \} \} = 0 \\
+&amp; \{ A, \{ B, C \} \} = \{ \{ A, B \}, C \} \{ \{ A, C \}, B  \}
+\end{align*}</div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">位相空間の座標との微分:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="math">
+\begin{align*}
+&amp; \{ A, p_j \} = \dfrac{\partial A}{\partial q_j} \\
+&amp; \{ A, q_j \} = -\dfrac{\partial A}{\partial p_j}
+\end{align*}</div><p>上でハミルトニアンとの <strong>右からのポアソン括弧は時間微分である</strong> と述べたように，基本的にポアソン括弧は <strong>右側から掛けるものである</strong> ．</p>
+</div>
+<div class="section" id="id11">
+<h3>ポアソン括弧が0になることの意味<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ヤコビ恒等式の意味から考える．<span class="math">\(A\)</span> という物理量に対して</p>
+<ol class="arabic simple">
+<li>右から <span class="math">\(B\)</span> とのポアソン括弧をとる．<span class="math">\(\{A, B \}\)</span></li>
+<li>さらに右から <span class="math">\(C\)</span> とのポアソン括弧をとる． <span class="math">\(\{ \{A, B \}, C \}\)</span></li>
+</ol>
+<p>で得られた量と</p>
+<ol class="arabic simple">
+<li>右から <span class="math">\(C\)</span> とのポアソン括弧をとる． <span class="math">\(\{A, C \}\)</span></li>
+<li>さらに右から <span class="math">\(B\)</span> とのポアソン括弧をとる． <span class="math">\(\{ \{A, C \}, B \}\)</span></li>
+</ol>
+<p>の差をとるとそれは</p>
+<div class="math">
+\begin{align*}
+\{ A, \{ B, C \} \} = \{ \{ A, B \}, C \} - \{ \{ A, C \}, B  \}
+\end{align*}</div><p>よってもし <span class="math">\(\{ B, C \} = 0\)</span> ならば上に挙げた2つの操作は同じ結果を出す．このようにポアソン括弧が0になる量の組を，ポアソン括弧の意味で可換であるという．</p>
+<p>例としてハミルトニアンに <span class="math">\(q_i\)</span> が含まれない場合，つまり循環座標である場合を考えよう．すると以下のように <span class="math">\(p_i\)</span> と <span class="math">\(H\)</span> はポアソン可換となる．</p>
+<div class="math">
+\begin{align*}
+\{ p_i, H \} = \{ H, p_i \} = 0
+\end{align*}</div><p>これには物理的には2通りの解釈が可能である．</p>
+<ul class="simple">
+<li><span class="math">\(p_i\)</span> について右から <span class="math">\(H\)</span> とのポアソン括弧をとった結果，つまり <span class="math">\(p_i\)</span> の時間変化はゼロである．これは <span class="math">\(q_i\)</span> が循環座標であれば <span class="math">\(p_i\)</span> が保存量であるということを言っている．</li>
+<li><span class="math">\(H\)</span> について右から <span class="math">\(p_i\)</span> とのポアソン括弧をとった結果，つまり <span class="math">\(H\)</span> の <span class="math">\(q_i\)</span> 方向の微分はゼロである．これはハミルトニアンが <span class="math">\(q_i\)</span> 方向に不変であるということを言っている．</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter10.html" class="btn btn-neutral float-right" title="正準変換" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter08.html" class="btn btn-neutral" title="保存則と対称性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

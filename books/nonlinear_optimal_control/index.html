@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="最終章はMPCについて触れているが，基本的にオイラーラグランジュ方程式をベースに最適制御を解説している．書名こそ「非線形最適制御」を冠しているが，離散時間LQを具体例にしているので分かりやすい．周波数領域の話が一切出てこないので，アルゴリズム的に理解することができる．" name="description" />
+<meta content="最適制御, 非線形制御, 動的計画法, モデル予測制御" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="最終章はMPCについて触れているが，基本的にオイラーラグランジュ方程式をベースに最適制御を解説している．書名こそ「非線形最適制御」を冠しているが，離散時間LQを具体例にしているので分かりやすい．周波数領域の話が一切出てこないので，アルゴリズム的に理解することができる． 大塚敏之 コロナ社 2011 978-4-339-03318-2">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="Books" href="../index.html"/>
+        <link rel="next" title="第3章 離散時間システムの最適制御" href="chapter03.html"/>
+        <link rel="prev" title="Books" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">非線形最適制御入門</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">第3章 離散時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">第4章 変分法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">5章 連続時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter06.html">6章 動的計画法と最小原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter07.html">7章 最適制御問題の解法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+      <li>非線形最適制御入門</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>非線形最適制御入門<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>最終章はMPCについて触れているが，基本的にオイラーラグランジュ方程式をベースに最適制御を解説している．書名こそ「非線形最適制御」を冠しているが，離散時間LQを具体例にしているので分かりやすい．周波数領域の話が一切出てこないので，アルゴリズム的に理解することができる．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">大塚敏之</td>
+</tr>
+<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">コロナ社</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2011</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-339-03318-2</td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter03.html">第3章 離散時間システムの最適制御</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter03.html#id3">3.1 基本的な問題設定と停留条件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter03.html#lq">3.2 離散時間LQ制御問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter03.html#id4">3.3 動的計画法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapter04.html">第4章 変分法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter04.html#id3">4.1 汎関数の停留条件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter04.html#id6">4.3 第2変分</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapter05.html">5章 連続時間システムの最適制御</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter05.html#id3">5.1 基本的な問題設定と停留条件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter05.html#id4">5.3 最適解の摂動</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapter06.html">6章 動的計画法と最小原理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter06.html#id3">6.1 ハミルトン-ヤコビ-ベルマン方程式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter06.html#id4">6.2. 最小原理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapter07.html">7章 最適制御問題の解法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter07.html#id3">7.2 勾配法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter07.html#id4">7.3. シューティング法(遷移行列によるもの)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter03.html" class="btn btn-neutral float-right" title="第3章 離散時間システムの最適制御" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Books" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

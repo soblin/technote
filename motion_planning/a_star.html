@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この論文はA*(A Star)アルゴリズムが提唱された論文である." name="description" />
+<meta content="A* algorithm, A star algorithm" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="Peter E. Hart, Nils  Nillson, and Bertram Raphael 1968 IEEE Transactions on Systems Science and Cybernetics, July, 1968 https://www.cs.auckland.ac.nz/courses/compsci709s2c/resources/Mike.d/astarNil...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
+        <link rel="up" title="Motion Planning" href="index.html"/>
+        <link rel="next" title="Riemannian Motion Policies" href="riemannian_motion_policy.html"/>
+        <link rel="prev" title="RRT-Connect" href="rrt_connect.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Motion Planning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="randomized_kinodynamic_planning.html">Randomized Kinodynamic Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="informed_rrt_star.html">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lqg_mp.html">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_connect.html">RRT-Connect</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-problem-of-finding-paths-through-graphs">The problem of finding paths through graphs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#some-definitions-about-graphs">Some definitions about graphs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#an-admissible-searching-algorithm">An admissible searching algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#algorithms-for-finding-minimum-cost-paths">Algorithms for finding minimum cost paths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#description-of-the-algorithm">Description of the algorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-evaluation-function">The evaluation function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-admissibility-of-a">The admissibility of A*</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#on-the-optimiality-of-a">On the optimiality of A*</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#limitations-of-subgraphs-by-information-from-the-problem">Limitations of subgraphs by information from the problem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-consistency-assumption">A consistency assumption</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#proof-of-the-optimality-of-a">Proof of the optimality of A*</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#discusstion-and-conclusions">Discusstion and conclusions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../control/index.html">Control</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Motion Planning</a> &raquo;</li>
+        
+      <li>A Formal Basis for the Heuristic Determination of Minimum Cost Paths</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="a-formal-basis-for-the-heuristic-determination-of-minimum-cost-paths">
+<h1><a class="toc-backref" href="#id1">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a><a class="headerlink" href="#a-formal-basis-for-the-heuristic-determination-of-minimum-cost-paths" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Peter E. Hart, Nils  Nillson, and Bertram Raphael</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">1968</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Accepted:</th><td class="field-body">IEEE Transactions on Systems Science and Cybernetics, July, 1968</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="https://www.cs.auckland.ac.nz/courses/compsci709s2c/resources/Mike.d/astarNilsson.pdf">https://www.cs.auckland.ac.nz/courses/compsci709s2c/resources/Mike.d/astarNilsson.pdf</a></td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#a-formal-basis-for-the-heuristic-determination-of-minimum-cost-paths" id="id1">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a><ul>
+<li><a class="reference internal" href="#the-problem-of-finding-paths-through-graphs" id="id3">The problem of finding paths through graphs</a></li>
+<li><a class="reference internal" href="#some-definitions-about-graphs" id="id4">Some definitions about graphs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#an-admissible-searching-algorithm" id="id5">An admissible searching algorithm</a><ul>
+<li><a class="reference internal" href="#algorithms-for-finding-minimum-cost-paths" id="id6">Algorithms for finding minimum cost paths</a></li>
+<li><a class="reference internal" href="#description-of-the-algorithm" id="id7">Description of the algorithm</a></li>
+<li><a class="reference internal" href="#the-evaluation-function" id="id8">The evaluation function</a></li>
+<li><a class="reference internal" href="#the-admissibility-of-a" id="id9">The admissibility of A*</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#on-the-optimiality-of-a" id="id10">On the optimiality of A*</a><ul>
+<li><a class="reference internal" href="#limitations-of-subgraphs-by-information-from-the-problem" id="id11">Limitations of subgraphs by information from the problem</a></li>
+<li><a class="reference internal" href="#a-consistency-assumption" id="id12">A consistency assumption</a></li>
+<li><a class="reference internal" href="#proof-of-the-optimality-of-a" id="id13">Proof of the optimality of A*</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#discusstion-and-conclusions" id="id14">Discusstion and conclusions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="the-problem-of-finding-paths-through-graphs">
+<h3><a class="toc-backref" href="#id3">The problem of finding paths through graphs</a><a class="headerlink" href="#the-problem-of-finding-paths-through-graphs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>グラフ理論において最短経路を求める手法を, ここでは <cite>mathematical approach</cite> と <cite>heuristic approach</cite> に分けている.</p>
+<ul class="simple">
+<li>methematical approachというのは, 任意のグラフについての一般論を引き出そうとするアプローチのことを言おうとしているのだと思う. あらゆるグラフに対して最短経路を求められることが保証されている手法の解析など. 計算量の観点には配慮がないとか.</li>
+<li>heuristic approachというのは, グラフとして表現されている問題のdomainに関する特殊な知識を用いる手法のことであり, 計算効率を上げることを目的にしている. 枝狩りを用いるということだろう. heuristic approachを用いている手法は概して, 最短コストの経路を見つけられることが保証されていない.</li>
+</ul>
+<p>この論文で提唱される方法は, 緩い仮定のもとで, 最短経路を保証する経路を求める際に走査するノードの数を最小化するという意味でoptimalであることを証明する.</p>
+<p>最小コストを求めたい2つのノードが与えられた時に, 「その経路の実際の最短コストよりはギリギリ少し大きい」ような評価関数を見つけることができれば, それを使ってグラフを探査することで, 走査するノードの数を減らすことができる.</p>
+</div>
+<div class="section" id="some-definitions-about-graphs">
+<h3><a class="toc-backref" href="#id4">Some definitions about graphs</a><a class="headerlink" href="#some-definitions-about-graphs" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>グラフ理論の教科書にのっているような定義が書かれている. ノードの集合 <span class="math">\(\{ n_i \}\)</span> とエッジの集合  <span class="math">\(\{ e_{pq} \}\)</span> があり, それぞれのエッジにはコストが定められている. また有向グラフである場合,  <span class="math">\(e_{ij}\)</span> と <span class="math">\(e_{ji}\)</span> の値は異なる. エッジのコストの最小値を <span class="math">\(\delta\)</span> としたとき, そのグラフを <span class="math">\(G_{\delta}\)</span> と表す.</p>
+<p>この論文で扱うようなアプリケーションにおいては, グラフの各エッジに対してコストが与えられていることはなく. その代わりimplicitlyにソースノード集合 <span class="math">\(S \in \{ n_j \}\)</span> と, successor operator  <span class="math">\(\Gamma\)</span> が与えられている.  <span class="math">\(\Gamma\)</span> は各ノードに対して, 別のノードへのコストのリスト <span class="math">\(\{ n_j, c_{ij} \}\)</span> を返す関数である. successor operatorを初期のノードリスト, そのsuccessor, 更にその先へと, これ以上新しいノードが見つからなくなるまで適用することで, グラフをexplicitlyに表現することもできる.</p>
+<p>subgraph  <span class="math">\(G_n\)</span> は,  <span class="math">\(\{ n_i \}\)</span> の中のいずれかのノード <span class="math">\(n\)</span> からsuccessor  <span class="math">\(\Gamma\)</span> を用いて「ひとつだけ伸ばして」作られるグラフのこと.</p>
+<p>あるノードからそのpreferred goal nodeへの最短経路のコストを,  <span class="math">\(h(n)\)</span> と表記する.</p>
+</div>
+</div>
+<div class="section" id="an-admissible-searching-algorithm">
+<h2><a class="toc-backref" href="#id5">An admissible searching algorithm</a><a class="headerlink" href="#an-admissible-searching-algorithm" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ノード <span class="math">\(n_i\)</span> から <span class="math">\(n_j\)</span> へのoptimal costのことを <span class="math">\(h(n_i, n_j)\)</span> と表記する. これは <span class="math">\(n_i\)</span> から <span class="math">\(n_j\)</span> の間に最短コストの経路が存在している場合のその値である(連結でなければそもそも定義されないので).</p>
+<p>一応この論文ではゴールとなるノードが複数ある場合を考えている. そのゴール集号のことを  <span class="math">\(T\)</span> , そのノードの中でもソースノードsからの最小コストが最も小さいノードのことをpreferred nodeと呼び, その時のコストのことを <span class="math">\(h(n)\)</span> と呼ぶ. これは動的計画法で言うところの真の価値関数というところだろう.</p>
+<div class="section" id="algorithms-for-finding-minimum-cost-paths">
+<h3><a class="toc-backref" href="#id6">Algorithms for finding minimum cost paths</a><a class="headerlink" href="#algorithms-for-finding-minimum-cost-paths" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ソースノードsからスタートして <span class="math">\(\Gamma\)</span> を適用してsubgraph <span class="math">\(G_s\)</span> を構築することを <cite>expand node</cite> と表現する.</p>
+<p>ソースノードsから訪問した各ノードへの最短経路は, 次のようにして辿ることができる. successorにより, あるノードnへとエッジがexpandされた時, そのノードnに  <code class="docutils literal"><span class="pre">向かう</span></code> エッジの中で, ノードnへの累積コストが最も短くなるものを選ぶ. そしてノードnに, その最小累積コストとその時の親を格納する. この操作をgoal nodeのtに到達するまで続ける. そしてtからsへと逆向きに辿ればいい.</p>
+<p>与えられたソースノードsからpreferred goalへのoptimal solutionを求められるアルゴリズムのことを <cite>admissible</cite> という. グラフが与えられた時に, そのノードを走査する順番や走査する必要のあるノードの数はアルゴリズムによって異なる. 次の章では <cite>admissible</cite> な解を得るためのノードを辿る順番について, その次の章で, 緩やかな仮定のもとで, その方法により, optimal pathを最も少ないノード数で見つけられることを示す.</p>
+</div>
+<div class="section" id="description-of-the-algorithm">
+<h3><a class="toc-backref" href="#id7">Description of the algorithm</a><a class="headerlink" href="#description-of-the-algorithm" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>最短経路を探索する際に辿る必要のあるノード数を出来る限り少なくするためには, 次に走査する必要のあるノードについて, 出来る限り <strong>知識あり</strong> の決定を行う必要がある. そのため, optimal pathを与える可能性のあるノードを無視してしまうとadmissibleな解を得ることができない.</p>
+<p>評価関数として <span class="math">\(\hat{f}(n)\)</span> を各ノードについて評価することができるとする. そしてその時点で <span class="math">\(\hat{f}(n)\)</span> の値が最も小さいノードを次に <cite>expand</cite> するノードとして用いる.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Search Algirthm A*:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="0">
+<li>sを <em>open list</em> に入れて  <span class="math">\(\hat{f}(s)\)</span> を求める</li>
+<li><em>open list</em> の中で最も  <span class="math">\(\hat{f}(n)\)</span> の値が小さいnを求める</li>
+<li>nを <em>closed list</em> に入れる. そしてnからsuccessor  <span class="math">\(\Gamma\)</span> を適用する(エッジを辿る). そしてその中でまだ <em>closed list</em> に入っていないものを <em>open list</em> に入れる. つまり <em>open list</em> に入っているノードは子を持たない <strong>葉</strong> であるか(まだ探索されていなかった)あるいはまだ探索の余地がある(更新される際にコストが下がった), そして <em>closed list</em> に入っているノードは <strong>枝</strong> になっている(基本的には探索の対象とはしない. 枝刈りの対象). そして各々の <span class="math">\(\hat{f}(n)\)</span> を更新する.</li>
+<li>一方 <em>closed list</em> に入っていたノードの中で,  <span class="math">\(\hat{f}(n)\)</span> が下がったものは, 再び <em>open list</em> に入れる. つまり上の手順で枝刈りされたけど(<em>closed list</em> に入れられたけど)再び探索対象に入れる.</li>
+<li>手順1に戻る</li>
+</ol>
+</div>
+<div class="section" id="the-evaluation-function">
+<h3><a class="toc-backref" href="#id8">The evaluation function</a><a class="headerlink" href="#the-evaluation-function" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ソースノードsからゴールノードgへの最短経路を考えた時に, その中でノードnを通るという制約を加えた時の最短経路のコストを,  <span class="math">\(f(n)\)</span> と表記する. つまり <span class="math">\(f(s) = h(s)\)</span> である. そしてｓからｇへの最短経路上に存在するノードｎについては, いずれも <span class="math">\(f(n) = f(s)\)</span> を満たしている. そしてｓからｇへの最短経路上に存在しないノードについては <span class="math">\(f(n) &gt; f(s)\)</span> である. 各ノードについて <span class="math">\(f(n)\)</span> を求めるためには動的計画法を厳密に行う必要があるが, その関数の近似関数 <span class="math">\(\hat{f}(n)\)</span> を探索の途中の「次にどこから伸ばすか」を決めるための評価関数として用いるのは妥当そうである. 始点から探索を開始したのなら, その時点で各ノードについては</p>
+<div class="math">
+\begin{align*}
+f(n) = g(n) + h(n)
+\end{align*}</div><p>のようにして, 現時点でのすでに分かっている, 始点からのコスト <span class="math">\(g(n)\)</span> とまだ未知の終点へのコスト関数 <span class="math">\(g(n)\)</span> に分けることができる. 問題は <span class="math">\(h(n)\)</span> として何を用いるかである.</p>
+<p>初めに, もし <span class="math">\(\hat{f}(n)\)</span> が <span class="math">\(h(n)\)</span> の下界に属していれば, A*アルゴリズムはadmissibleであることを証明する.</p>
+</div>
+<div class="section" id="the-admissibility-of-a">
+<h3><a class="toc-backref" href="#id9">The admissibility of A*</a><a class="headerlink" href="#the-admissibility-of-a" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Lemma1:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="on-the-optimiality-of-a">
+<h2><a class="toc-backref" href="#id10">On the optimiality of A*</a><a class="headerlink" href="#on-the-optimiality-of-a" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="limitations-of-subgraphs-by-information-from-the-problem">
+<h3><a class="toc-backref" href="#id11">Limitations of subgraphs by information from the problem</a><a class="headerlink" href="#limitations-of-subgraphs-by-information-from-the-problem" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="a-consistency-assumption">
+<h3><a class="toc-backref" href="#id12">A consistency assumption</a><a class="headerlink" href="#a-consistency-assumption" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="proof-of-the-optimality-of-a">
+<h3><a class="toc-backref" href="#id13">Proof of the optimality of A*</a><a class="headerlink" href="#proof-of-the-optimality-of-a" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+</div>
+<div class="section" id="discusstion-and-conclusions">
+<h2><a class="toc-backref" href="#id14">Discusstion and conclusions</a><a class="headerlink" href="#discusstion-and-conclusions" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="riemannian_motion_policy.html" class="btn btn-neutral float-right" title="Riemannian Motion Policies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rrt_connect.html" class="btn btn-neutral" title="RRT-Connect" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+.. meta::
+   :description: ハミルトニアンをゼロにするような正準変換があったとしたら，変換後の正準方程式はQとPの時間微分がゼロという方程式になる，つまりQとPが定数に見えるような座標変換を求めるのはハミルトンヤコビの方法．一方最小作用を満たす経路の必要条件からもハミルトンヤコビ方程式は導出できる．
+   :keywords: ハミルトンヤコビの方程式
+
+======================================================================
+ハミルトンヤコビ方程式
+======================================================================
+
+.. contents:: 目次
+   :depth: 3
+
+
+K = 0 となる正準変換の母関数を求める
+======================================================================
+正準変換をすることで出来る限りハミルトニアンを簡単にしていくことで問題を解いていきたいというモチベーションがある．そこで :math:`K = 0` となるような正準変換を行うことを考える．どのような独立変数の取り方をしても
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	K = H + \dfrac{\partial W}{\partial t}
+	\end{align*}
+
+であったから， :math:`H = -\dfrac{\partial W}{\partial t}` となるようWを選ぶ．ここで独立変数の取り方が4通り考えられる．
+
+.. note::
+   ここから先ではとりあえず独立変数として :math:`(q, Q)` あるいは :math:`(q, P)` を用いることでHJ方程式を導出する．これ以外の2通りの独立変数の取り方をしても問題はない．重要なのは，この2つを選んだことを覚えておくことである．実際にHJ方程式を求めるのは難しいので，**実際にはWの関数形を予め指定することが多い** ．その際に必ず :math:`W(q, Q)` あるいは :math:`W(q, P)` としないといけないということを忘れてはいけない．
+
+そこで独立変数として :math:`(q, Q)` あるいは :math:`(q, P)` を用いると :math:`p = \partial W / \partial q` となるから
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	H\left( q, \dfrac{\partial W}{\partial q}, t \right) = -\dfrac{\partial W}{\partial t}
+	\end{align*}
+
+が得られる．この方程式をハミルトン・ヤコビ方程式と呼ぶ．
+
+これで問題を解くのが簡単になったわけではなく，難しさがHJ方程式を解くこと自体に移っている．それでもWというスカラーに関する方程式になっており，このWを見つければそれによる正準変換でハミルトニアンはゼロになるため，問題は解けてしまう．
+
+例として自由粒子の場合，ハミルトニアンは :math:`H = \sum_{i}\dfrac{p_{i}^{2}}{2m}` であるから，HJ方程式は
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	-\dfrac{\partial W}{\partial t} = \dfrac{1}{2m} \sum_{i}\left( \dfrac{\partial W}{\partial x_i} \right)^{2}
+	\end{align*}
+
+である．ここで :math:`W = \sum \alpha_i x_i + \beta t + S_0` と形を仮定する(独立変数として :math:`q` を用いた母関数)．すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	-\beta = \dfrac{1}{2}\sum_{i}\alpha^{2}
+	\end{align*}
+
+となり
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	S = \sum_{i}\alpha_i x_i - \dfrac{1}{2m}\sum_{i}\alpha^{2} t + S_0
+	\end{align*}
+
+と母関数が求まる．ここで :math:`q_i = x_i` であるが，もうひとつの座標は :math:`P_i = \alpha_i` とみなす．つまり
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	S = \sum_{i}P_i x_i - \dfrac{1}{2m}\sum_{i}P^{2} t + S_0
+	\end{align*}
+
+である．すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	p_i = \dfrac{\partial W}{\partial x_i} = P_i, \quad Q_i = \dfrac{\partial W}{\partial P_i} = x_i - \dfrac{P_i}{m}t
+	\end{align*}
+
+となり，新しいハミルトニアンは
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	K = H + \dfrac{\partial W}{\partial t} = \dfrac{1}{2m}\sum_{i}P_{i}^{2} - \dfrac{1}{2m}\sum_{i}P_{i}^{2} = 0
+	\end{align*}
+
+となる．よって新しい正準座標系での正準方程式は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{dP_i}{dt} = 0 \\
+   & \dfrac{dQ_i}{dt} = 0
+   \end{align*}
+
+である．
+
+作用とハミルトンヤコビ方程式
+----------------------------------------------------------------------
+運動量保存則は空間並進の不変性と，エネルギー保存則は時間並進の不変性と結びついていることを述べた．その時ハミルトンの主関数と運動量，ハミルトニアンは
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   p_{t_f} = \left. \dfrac{\partial \bar{S}}{\partial q} \right|_{t = t_f} \\
+   H_{t_f} = -\left. \dfrac{\partial \bar{S}}{\partial t} \right|_{t = t_f}
+   \end{align*}
+
+なる関係があった．ここでハミルトニアンは :math:`q, p, t` の関数であるから
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	-\dfrac{\partial \bar{S}}{\partial t} = H\left( q_{*}, \dfrac{\partial \bar{S}}{\partial q_{*}}, t \right)
+	\end{align*}
+
+という式が成立せねばならない．これもHJ方程式の形をしている．始めに導出したHJ方程式は「新しいハミルトニアンを0にする母関数を求める」方程式であった．ここでは「on-shellで計算した作用の満たすべき条件」としてもHJ方程式を導出できた．これはもちろん偶然ではない．**始めに導出したHJ方程式の解である作用** を時間微分してみると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{d \bar{S}}{dt} = \sum_{i} \dfrac{\partial \bar{S}}{\partial q_i}\dot{q_i} + \dfrac{\partial \bar{S}}{\partial t} = \sum_{i}p_i \dot{q}_i - H
+	\end{align*}
+
+となり，ラグランジアンになる．つまり **始めの方法で導出したHJ方程式を満たす関数**  :math:`\bar{S}` は，最小作用を与える．
+
+
+

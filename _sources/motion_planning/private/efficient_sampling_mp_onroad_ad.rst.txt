@@ -1,0 +1,11 @@
+=================================================================================
+Efficient Sampling-Based Motion Planning for On-Road Autonomous Driving
+=================================================================================
+
+本論文では車両の軌道追従において速度を時変パラメータとして, 線形化したkinematicsを用いてMPCを適用している.
+
+Date: 3/30
+
+.. include:: /_include/ref/efficient_sampling_mp_onroad_ad.txt
+
+This file is private.

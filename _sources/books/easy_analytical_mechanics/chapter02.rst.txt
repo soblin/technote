@@ -1,0 +1,107 @@
+.. meta::
+   :description: この章では変分法の導入を行っている．
+   :keywords: 変分法
+
+
+======================================================================
+簡単な変分問題
+======================================================================
+この章では変分法の導入を行っている．
+
+.. contents:: 目次
+   :depth: 2
+
+
+等しい周で最大面積の長方形
+----------------------------------------------------------------------
+長方形の周の長さが一定の時，その面積が最も大きくなるのはどのようなときか?という問題を考える．縦と横の長さをそれぞれ :math:`x, y` ，周の長さを :math:`L` とおくと
+
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	& S = xy \\ & 2x + 2y = L
+	\end{align*}
+
+yを消去すると面積は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	S = x \left( \dfrac{L}{2} - x \right)
+	\end{align*}
+
+と表されるから，面積は :math:`x = L / 4` のとき最大値となる．
+
+一方別の考え方もある．xが :math:`\Delta x` だけ大きくなったとすると，等周であるためにはyが :math:`\Delta x` だけ小さくなる．それにより面積は :math:`\Delta S = y \Delta x - x \Delta x = (y - x)\Delta x` だけ変化する．ここでもし :math:`x < y` ならば :math:`\Delta x > 0` にすることで :math:`\Delta S > 0` となる．一方 :math:`x > y` であるときは :math:`\Delta x < 0` とすれば :math:`\Delta S > 0` とすれば良い．従って :math:`x = y` のとき面積は最大値になる．数式でこれを導くには以下のようにすれば良い．まず．面積の全微分は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\Delta S = \dfrac{\partial S}{\partial x}\Delta x + \dfrac{\partial S}{\partial y}\Delta y
+	\end{align*}
+
+である一方，拘束条件より
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	2\Delta x + 2\Delta y = 0
+	\end{align*}
+
+であるから
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\Delta S = \left( -\dfrac{\partial S}{\partial x} + \dfrac{\partial S}{\partial y} \right)\Delta y
+	\end{align*}
+
+よって停留値をとる条件として
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left( -\dfrac{\partial S}{\partial x} + \dfrac{\partial S}{\partial y} \right) = -y + x = 0
+	\end{align*}
+
+を得る．
+
+微分と変分の交換
+----------------------------------------------------------------------
+以降よく用いるのでここで簡単な証明を与えておく．
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{d}{dx}\delta y = \delta \left( \dfrac{dy}{dx} \right)
+	\end{align*}
+
+まずそれぞれの厳密な計算方法をきちんと考えねばならない．左辺は変関数の微分であるから
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\lim_{x_2 \to x_1} \dfrac{\delta y(x_2) - \delta y(x_1)}{x_2 - x_1}
+	\end{align*}
+
+である．一方右辺は :math:`dy /dx` の変分であるから，
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \delta \left( \dfrac{dy}{dx} \right) &= \lim_{x_2 \to x_1}\left( \dfrac{y(x_2) + \delta y(x_2) - (y(x_1) + \delta y(x_1))}{x_2 - x_1} - \dfrac{y(x_2) - y(x_1)}{x_2 - x_1} \right) \\
+   &= \lim_{x_2 \to x_1}\dfrac{\delta y(x_2) - \delta y(x_1)}{x_2 - x_1}
+   \end{align*}
+
+
+よって示された．

@@ -1,0 +1,9 @@
+==============================================================================================================
+A Potential Filed-Based Model Predictive Path-Planning Controller for Autonomous Road Vehicles
+==============================================================================================================
+
+この論文はMPCの評価関数において人口ポテンシャル法の項を付け加えることで車両のダイナミクスと障害物回避を考慮した軌道生成を行う論文である.
+
+.. include:: /_include/ref/potential_based_mpc_planning_onroad.txt
+
+This file is private.

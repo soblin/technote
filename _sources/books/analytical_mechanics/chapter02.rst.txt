@@ -1,0 +1,537 @@
+.. meta::
+   :description: この章では初めに他の書物のように仮想仕事の原理からオイラーラグランジュ方程式を導出している．またラグランジアンのゲージ変換についても述べられている．個人的にラウシアンの導出に際のラグランジアンの引き戻しが，関数の引き戻しの良い例であると思う．微分形式でのオイラーラグランジュ方程式の表現は本書で初めて見た．最後のポアンカレ方程式のところはきちんと理解しきれていないと思う．
+   :keywords: オイラーラグランジュ方程式, ゲージ変換, ネーターの定理, ラウシアン, ポアンカレ方程式, 非ホロノミック拘束
+
+
+=====================================================================
+ラグランジュ形式の力学
+=====================================================================
+
+.. contents:: この章の目次
+   :depth: 3
+
+
+ラグランジュ方程式
+======================================================================
+
+スクレロノーマスな場合
+----------------------------------------------------------------------
+省略．
+
+一般的な場合への拡張
+----------------------------------------------------------------------
+一般化力を用いるとオイラーラグランジュ方程式は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\dfrac{\partial T}{\partial \dot{q^i}} - \dfrac{\partial T}{\partial q^i} = \mathcal{F}_i
+   \end{align*}
+
+もし一般化力がポテンシャルで表されているなら :math:`\mathcal{F}_i = -\partial U / \partial q^i` であるから :math:`L(q, \dot{q}) = T(q, \dot{q}, t) - U(q, t)` を用いて
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\dfrac{\partial L}{\partial \dot{q^i}} - \dfrac{\partial L}{\partial q^i} = 0
+   \end{align*}
+
+と表される．ラグランジアンに掛かっている演算子を以下のように記す．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{E}_i = \left( \dfrac{d}{dt}\dfrac{\partial}{\partial \dot{q}^i} - \dfrac{\partial}{\partial q^i} \right)
+   \end{align*}
+
+
+拘束のある系のconfigurationは配位空間上Nの一点で表される．そしてN上の接バンドルTNを力学では状態空間という．すると系の状態 :math:`(q, \dot{q})` はTN上の一点で表される．それは次のような理由による．ラグランジュ方程式は以下のように展開される．
+ 
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial^2 L}{\partial \dot{q}^i \dot{q}^j}\ddot{q}^j + \dfrac{\partial^2 L}{\partial \dot{q}^i \partial q^j}\dot{q}^j + \dfrac{\partial^2 L}{\partial \dot{q}^i \partial t} - \dfrac{\partial L}{\partial q^i} = 0
+   \end{align*}
+
+そしてラグランジアンの :math:`\dot{q}` に関するヘッセ行列 :math:`A_{ij} = (\partial^2 L / \partial \dot{q}^i \partial \dot{q}^j)` が正則であるならば上式は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \ddot{q}^j = (A^{-1})^{ij} \left( -\dfrac{\partial^2 L}{\partial \dot{q}^i \partial q^k}\dot{q}^k - \dfrac{\partial^2 L}{\partial \dot{q}^i \partial t} + \dfrac{\partial L}{\partial q^i} \right)
+   \end{align*}
+
+
+の形に解くことができる．この式の右辺は :math:`(q, \dot{q})` の関数であるから，それらの初期条件を与えればその後の状態空間上の位置は一意的に決定される．つまり，ラグランジアンが正則であるならば **古典的因果律** は満たされているということである．
+
+共変性
+----------------------------------------------------------------------
+配位空間における座標変換
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \Phi: \mathrm{N} \longrightarrow \mathrm{N}: q \longrightarrow Q = \Phi^i(q, t)
+   \end{align*}
+
+そしてその逆変換を
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \phi: Q \longrightarrow q = \phi^i(Q, t)
+   \end{align*}
+
+とする．このような変換を点変換という．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{q}^i = \dfrac{\partial \phi^i}{\partial Q^k}\dot{Q}^k + \dfrac{\partial \phi^i}{\partial t}
+   \end{align*}
+
+と表されるから， :math:`\dot{q}^i` を :math:`Q, \dot{Q}` の関数とみなすと
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial \dot{q}^i}{\partial \dot{Q}^k}= \dfrac{\partial \phi^i}{\partial Q^k}
+   \end{align*}
+
+が成立する．ここでの偏微分においては， :math:`Q, \dot{Q}` を独立変数としている．この逆変換のヤコビ行列を :math:`J_k^i = (\partial \phi^i / \partial Q^k)` とする．この変換は同一の点を異なる座標系で見るものであるから，ラグランジアンの値は同一の点の対しては変わらない．つまり :math:`L(q, \dot{q})` を逆変換 :math:`q^i = \phi^i(Q, t)` で **引き戻した** 関数 :math:`\phi^{*}L` についても同様にEL方程式
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{E}_i[\phi^{*}L] = 0
+   \end{align*}
+
+が成立する．以降， :math:`L(q, \dot{q}, t)` において :math:`q^i = \phi^i(Q, t)` ，及び２つ上の式を用いて :math:`\dot{q}^i` に :math:`Q, \dot{Q}` を代入してQの関数に引き戻すことを :math:`\phi^{*}L` によって表現する．上の式を計算すると
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \mathcal{E}_i [\phi^{*}L] \\
+   &= \dfrac{d}{dt} \left[ \phi^{*}\left( \dfrac{\partial L}{\partial \dot{q}^k} \right) \dfrac{\partial \dot{q}^k}{\partial \dot{Q}^i} \right] - \left[ \phi^{*}\left( \dfrac{\partial L}{\partial q^k} \right) \dfrac{\partial \phi^k}{\partial Q^i} + \phi^{*}\left( \dfrac{\partial L}{\partial \dot{q}^k} \right) \dfrac{\partial}{\partial Q^i}\dfrac{d \phi^k}{dt} \right] \\
+   &= \dfrac{\partial \phi^k}{\partial Q^i}\mathcal{E}_k [L(q, \dot{q}, t)] = J^k_i \mathcal{E}_k [L]
+   \end{align*}
+
+すなわち :math:`\mathcal{E}_i [L]` は共変成分として変換される．そして変換が正則であるならばラグランジュ方程式は変換にたいして共変的である．
+
+一般化ポテンシャル
+----------------------------------------------------------------------
+一般化力が :math:`\mathcal{F}_i = -\partial U(q, t) / \partial q^i` であるとき，EL方程式は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\left( \dfrac{\partial L}{\partial \dot{q}^i} \right) - \dfrac{\partial L}{\partial q^i} = 0
+   \end{align*}
+
+である．ここでポテンシャルが速度に依存する場合， :math:`L = T(q, \dot{q}) - U(q, \dot{q})` となるので,
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\left( \dfrac{\partial T}{\partial \dot{q}^i} \right) - \dfrac{\partial T}{\partial q^i} = -\dfrac{\partial U}{\partial q^i} + \dfrac{d}{dt}\left( \dfrac{\partial U}{\partial \dot{q}^i}\right)
+   \end{align*}
+
+となる．よって一般化力が
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{F}_i = -\dfrac{\partial U}{\partial q^i} + \dfrac{d}{dt}\left( \dfrac{\partial U}{\partial \dot{q}^i} \right)
+   \end{align*}
+
+と表されるならばEL方程式が同様に成り立つ．このUを一般化ポテンシャルという．力が速度に依存する例として，電磁場中における荷電粒子の運動が上げられる．運動方程式は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m \dfrac{d^2 \vec{r}}{dt^2} = e \left( \vec{E} + \dfrac{\vec{v}}{c} \times \vec{B} \right)
+   \end{align*}
+
+である．スカラーポテンシャル :math:`\Phi(\vec{r}, t)` 及びベクトルポテンシャル :math:`\vec{A}(\vec{r}, t)` を用いると
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \vec{E} = -\nabla \Phi - \dfrac{1}{c} \dfrac{\partial \vec{A}}{\partial t} \\ & \vec{B} = \nabla \times \vec{A}
+   \end{align*}
+
+と表される．すると上の運動方程式は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+      m\ddot{r} &= -e\nabla \Phi - \dfrac{e}{c}\dfrac{\partial \vec{A}}{\partial t} + \dfrac{e}{c}\dot{r} \times (\nabla \times \vec{A}) \\ &= -\left[ \dfrac{\partial}{\partial \vec{r}} - \dfrac{d}{dt}\dfrac{\partial}{\partial \dot{\vec{r}}}\right]\left( e\Phi - \dfrac{e}{c}(\dot{r} \cdot \vec{A}) \right)
+   \end{align*}
+
+と書き直されるので，一般化ポテンシャルとラグランジアンは
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & U(\vec{r}, \dot{\vec{r}}, t) = e\left( \Phi(\vec{r}, t) - \dfrac{1}{c}(\dot{\vec{r}} \cdot \vec{A}(\vec{r}, t))\right) \\
+   & L(\vec{r}, \dot{\vec{r}}, t) = \dfrac{m}{2}\dot{\vec{r}}^2 - e\Phi + \dfrac{e}{c}(\dot{\vec{r}} \cdot A)
+   \end{align*}
+
+となる．
+
+ラグランジアンのゲージ変換
+----------------------------------------------------------------------
+ラグランジアン :math:`L` と :math:`L^{\prime} = L + \Omega` がともに
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{E}_i [L] = \mathcal{E}_i [L^{\prime} + \Omega]
+   \end{align*}
+
+を満たしているとする．このとき
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\dfrac{\partial \Omega}{\partial \dot{q}^i} - \dfrac{\partial \Omega}{\partial \dot{q}} = 0
+   \end{align*}
+
+を満たす．すなわち
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial^2 \Omega}{\partial \dot{q}^k \partial \dot{q}^i}\ddot{q}^k + \dfrac{\partial^2 \Omega}{\partial q^k \partial \dot{q}^i}\dot{q}^k + \dfrac{\partial^2 \Omega}{\partial t \partial \dot{q}^i} - \dfrac{\partial \Omega}{\partial q^i} = 0
+   \end{align*}
+
+ラグランジアンはqの２階微分を含まないはずなので，この式でその係数はゼロである．つまり :math:`\partial^2 \Omega / \partial \dot{q}^k \dot{q}^i = 0` であるから
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial^2 \Omega}{\partial q^k \partial \dot{q}^i} + \dfrac{\partial^2 \Omega}{\partial t \partial \dot{q}^i} - \dfrac{\partial \Omega}{\partial q^i} = 0
+   \end{align*}
+
+が成立する．また :math:`\partial^2 \Omega / \partial \dot{q}^k \dot{q}^i = 0` より
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{\partial \Omega}{\partial \dot{q}^i} = \alpha_i (q, t) \\ & \Omega = \dot{q}^i \alpha_i (q, t) + \beta(q, t)
+   \end{align*}
+
+と表される．この式を2つ上の式に代入すると
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{\partial \alpha_i}{\partial q^k} = \dfrac{\partial \alpha_k}{\partial q^i} \\ & \dfrac{\partial \alpha_i}{\partial t} = \dfrac{\partial \beta}{\partial q^i}
+   \end{align*}
+
+が成立することが必要．したがってポアンカレの補題より
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \alpha_i = \dfrac{\partial \Lambda}{\partial q^i} \\ & \beta = \dfrac{\partial \Lambda}{\partial t}
+   \end{align*}
+
+を満たす関数 :math:`\Lambda(q, t)` が存在するはずである．一般に :math:`L \longrightarrow L^{\prime} = L + d\Lambda / dt` なる変換に対してラグランジュ方程式は不変である．この変換をゲージ変換という．先ほど求めた電磁場のラグランジアンだと，:math:`\Lambda = (e/c)\chi` とした
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   L^{\prime} = \dfrac{m}{2}\dot{\vec{r}}^2 - e\left(\Phi - \dfrac{1}{c}\dfrac{\partial \chi}{\partial t} \right) + \dfrac{e}{c} \dot{\vec{r}} \cdot (\vec{A} + \nabla \chi)
+   \end{align*}
+
+である．この変換は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \Phi^{\prime} = \Phi - \dfrac{1}{c}\dfrac{\partial \chi}{\partial t} \\ & \vec{A}^{\prime} = \vec{A} + \nabla \chi
+   \end{align*}
+
+に対応している．この変換を電磁場のゲージ変換という．
+
+対称性と保存則
+======================================================================      
+
+第1積分
+----------------------------------------------------------------------
+運動方程式を解くためには保存量を見つけることが重要である．それにより運動がとる経路が限定されていくためである．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}I(q, \dot{q}, t) = 0
+   \end{align*}
+
+なる量を第1積分という．最も簡単な第1積分は，循環座標に対する運動量である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\dfrac{\partial L}{\partial \dot{q}^i} = \dfrac{\partial L}{\partial q^i}
+   \end{align*}
+
+においてもしラグランジアンが :math:`q^i` を文字通り含まないのであれば，この右辺はゼロになる．よって対応する一般化運動量 :math:`\partial L / \partial \dot{q}^n` は定数
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{\partial L}{\partial \dot{q}^n} = \alpha_n
+   \end{align*}
+
+である．このときLは :math:`q^n` を含んでいないのであった．よってこの式の右辺は :math:`q^1, \cdots, q^{n-1}, \dot{q}^1, \cdots, \dot{q}^{n}` の式である．よって陰関数定理からこの式を逆に解くことにより
+   
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{q}^{n} = \psi(q^1, \cdots, q^{n-1}, \dot{q}^1, \dot{q}^{n-1})
+   \end{align*}
+
+の形で書き表せる．この関数をラグランジアンに代入すると，もともと2n次元の引数をとっていたラグランジアンLが :math:`q^n` (もともと存在していない)， :math:`\dot{q}^n` (今示したように2n-2個の変数の関数になる)を束縛されて(部分適用されて)(2n-2)次元の関数 :math:`L^*` に引き戻される．これを自由度の削減や配位空間の縮約という．これについては後にラウシアンの項で再度説明される．またこのような変数 :math:`q^n` のことを循環座標というのだが，これについても幾何学的な命名の由来が存在している．これは作用変数と角変数の章で説明される．
+
+
+系の対称性とネーターの定理
+----------------------------------------------------------------------
+
+解析力学では座標変換してもラグランジアンの関数の形が変わらない，つまり座標変換に伴うラグランジアンの **引き戻しの前後で関数の形が変化しない** ことを「系に対称性がある」と表現する．
+
+.. note::
+   例えば :math:`L(a, b) = a / b` に対して座標変換 :math:`a^* = ka, b^* = kb` を施すと, 引き戻されたラグランジアンは :math:`L^* (a^*, b^*) = (a^* / k) / (b^* / k) = a^* / b^*` となるから, **引き戻しの前後** において :math:`L(a^*, b^*) = L (a, b)` が成立するためにラグランジアンの関数形が変わらない．よってこの系は対称性があるという．このように引き戻してもラグランジアンの形が変わらない座標変換があれば，それに付随して対応する保存量が存在することを主張するのがネーターの定理である．
+
+.. note::
+   **半分以上嘘に聞こえるが** 解析力学における保存量は **すべて運動量** である．
+
+本書のここに対応するところではモーメント関数なるものを用いて抽象的に理論を展開しているが，今のところその詳細は省こうと思う．上の注意書きで理解は十分ではないだろうか．ただしその一般形が以下のように
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   F(q, \dot{q}) = f_i \dfrac{\partial L}{\partial \dot{q}^i}
+   \end{align*}
+
+なる一般化運動量の線形和であることはremindしておくべきである．
+
+.. warning::
+   循環座標がなくても保存量は存在する．ネーターの定理は循環座標に頼らずに保存量を求めるフレームワークである．しかしその保存量であるモーメント関数も結局は一般化運動量の線型結合であるから，やはり運動量が保存するのはネーターの定理でも変わらない．
+
+ハミルトニアンとエネルギー積分
+----------------------------------------------------------------------
+先ほど解析力学における保存量はすべて運動量であると述べたが，最も代表的な保存量も運動量であるというのだろうか? 実は時間を平行移動させてもラグランジアンが不変(関数形が変わらない)ことを要請するとあたかもそれに対する運動量のようにしてエネルギーが保存する．
+
+.. note::
+   とはいえ物理的には位置座標と時間座標には圧倒的な違いが存在している．相対性理論ではこれらも混ざり合う座標となっているが．
+
+以下の恒等式
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{dL}{dt} - \dfrac{\partial L}{\partial t} &= \dfrac{\partial L}{\partial q^i}\dot{q}i + \dfrac{\partial L}{\partial \dot{q}^i}\ddot{q}^i \\ &= \dfrac{d}{dt} \left( \dot{q}^i \dfrac{\partial L}{\partial \dot{q}^i} \right) - \dot{q}^i \mathcal{E}_i [L]
+   \end{align*}
+
+よりもしラグランジアンがtの平行移動に不変であるならば :math:`\partial L / \partial t = 0` である．よって
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dfrac{d}{dt}\left( \dfrac{\partial L}{\partial \dot{q}^i}\dot{q}^i - L \right) = \mathcal{E}_i [L]
+   \end{align*}
+
+は，**系が実際にとる経路上では保存する**．
+
+.. note::
+   やはり解釈が難しい．だって系がオイラーラグランジュ方程式に従わないことなんてありえない．実際に起こり得た以外の経路ではハミルトニアンは保存していない．そして実際に実現する以上，ハミルトニアンは保存している．というより，**ハミルトニアンを保存しながらオイラーラグランジュ方程式は発展していく** と言ったほうが良いか．
+
+
+.. note::
+   結局ラグラジアンにおける :math:`q^i, \dot{q}^i` は独立なんだろうか? EL方程式は微分方程式であるから，状態空間の各点においてはその2つは独立変数かもしれない．けど一旦解が求まったのであれば，片方からもう片方を求められるんじゃないだろうか．この点についてはまた後で考えよう．
+
+
+この量をハミルトニアン :math:`H_L(q, \dot{q}, t)` という．
+
+
+配位空間の縮約と自由度の削減
+----------------------------------------------------------------------
+先ほどのラウシアンについて．もし :math:`q^n` が循環座標であるならば :math:`\dot{q}^n` は :math:`q^n, \dot{q}^n` 以外の変数の関数 :math:`\psi` で表される．よってこの関数でラグランジアンも引き戻されて :math:`L^*` なる(2n-2)変数関数になるのであった．ここで記号\* の上付きは， :math:`\dot{q}^n` に :math:`\psi` を代入する操作を表す．ここで :math:`\mathcal{E}_i [L^*]` を計算すると以下のような計算になる．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{E}_i [L^*] &= \dfrac{d}{dt}\left( \dfrac{\partial L^*}{\partial \dot{q}^i} \right) - \dfrac{\partial L^*}{\partial \dot{q}^i}  \\ &= \left[ \mathcal{E}_i [L] \right]^* + \alpha_n \mathcal{E}_i [\psi^n]
+   \end{align*}
+
+
+ここで :math:`i = 1, \cdots, n-1` である．よって
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{E}_i [L^* - \alpha_n \psi^n] = \left[ \mathcal{E}_i [L] \right]^*
+   \end{align*}
+
+が成立する．つまりもともとの2n変数のラグランジアンに対するラグランジュ方程式が成り立つならば，そのラグランジアンにおいて保存量を代入して2変数低減したラグランジアン :math:`L^*` については   
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   R(q^1, \cdots, q^{n-1}, \dot{q}^1, \cdots, \dot{q}^{n-1}) = L^* - \alpha_n \psi^n
+   \end{align*}
+
+が同様に(n-1)個のEL方程式を与える.
+
+この関数をラウシアンという．
+
+ラグランジュ方程式の幾何学的表現
+======================================================================
+
+ラグランジアン1形式，2形式
+----------------------------------------------------------------------
+
+ラグランジュ方程式は配位空間N上の曲線 :math:`c_L (t)` とその上での速度 :math:`\dot{c}_L (t)` を決定するものであり，今まで用いてきた :math:`\{ q^i \}, \{ \dot{q}^i \}` はその局所的な表現に過ぎない．したがって座標系によらない表現は :math:`c_L (t)` の接ベクトルを与えるベクトル場
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{c}_L (t) = \dot{q}^i \dfrac{\partial}{\partial q^i}
+   \end{align*}
+
+についての関係式を直接に与えるものでなければならない．
+
+そこで :math:`\mathcal{E}_i [L]` が共変ベクトルの成分としての変換則を受けることが大きなヒントになる．つまり
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{E}_i [L] dq^i = 0
+   \end{align*}
+
+の右辺は座標系によらない1形式である．そのため先ほどの :math:`c_L (t)` が作るベクトル場とある適当な2形式との内部積をとって1形式にすることでこのEL方程式が得られるのではないかというふうに考える．
+   
+天下り的ではあるが，一般化運動量の変換
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   p_i = \dfrac{\partial}{\partial \dot{q}^i}L(q, \dot{q}) \longrightarrow P = \dfrac{\partial}{\partial \dot{Q}^i}L^*(Q, \dot{Q})
+   \end{align*}
+
+
+の際に，各成分は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P_i = \dfrac{\partial L^*}{\partial \dot{Q}^i} = \dfrac{\partial L}{\partial \dot{q}^k}\dfrac{\partial \dot{q}^k}{\partial \dot{Q}^i} = p_k \dfrac{\partial q^k}{\partial Q^i}
+   \end{align*}
+
+と変換されるから，運動量の成分は共変ベクトルの成分として変換されている．つまり以下の1形式
+   
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \theta_L = p_i (q, \dot{q}) dq^i
+   \end{align*}
+
+を幾何学的な対象として定義することができる．その外微分である2形式
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   d\theta_L = d \left( \dfrac{\partial L}{\partial \dot{q}^i} \right) \wedge dq^i
+   \end{align*}
+
+も定義できる(これを使えば良さそう)．
+
+この :math:`\theta_L, d \theta_L` のことをそれぞれラグランジアン1形式，ラグランジアン2形式と呼ぶ．
+
+ラグランジュ方程式の座標系によらない表現
+----------------------------------------------------------------------
+ラグランジアン2形式と先ほどのベクトル場の内部積をとってみる．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \langle d \theta_L | \dot{c}_L , \bullet \rangle  = \left\langle  d \left( \dfrac{\partial L}{\partial \dot{q}^i }\right) | \dot{c}_L \right\rangle  dq^i - \langle dq^i | \dot{c}_L \rangle  d \left( \dfrac{\partial L}{\partial \dot{q}^i }\right)
+   \end{align*}
+
+
+
+
+
+
+
+
+
+

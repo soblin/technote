@@ -1,0 +1,594 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="本ノートは Rapidly Exploring Random Tree (RRT) の Probabilistic Completeness についての証明を含んでいる論文の読書ノートである．KuffnerさんがJSKにいたとき?に書かれたものかもしれない．compeleteness の証明については，:doc:`./rrt_connect` でも触れられている．" name="description" />
+<meta content="経路生成，RRT，Rapidly Exploring Random Tree" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="本ノートは Rapidly Exploring Random Tree (RRT) の Probabilistic Completeness についての証明を含んでいる論文の読書ノートである．KuffnerさんがJSKにいたとき?に書かれたものかもしれない．compeleteness の証明については，RRT-Connect でも触れられている． Date: 2019/2/2 Steven ...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
+        <link rel="up" title="Motion Planning" href="index.html"/>
+        <link rel="next" title="Incremental Sampling-based Algorithms for Optimal Motion Planning" href="rrt_star_original.html"/>
+        <link rel="prev" title="Motion Planning" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Motion Planning</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Randomized Kinodynamic Planning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-related-research">Other Related Research</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-programming">Dynamic Programming</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#steering-methods">Steering Methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nonoholonomic-planning">Nonoholonomic Planning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lower-bounds">Lower Bounds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#randomized-holonomic-planning">Randomized Holonomic Planning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#drawing-inspiration-from-previous-work">Drawing Inspiration from Previous Work</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#recent-advances">Recent Advances</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-formulation-path-planning-in-the-state-space">Problem Formulation: Path Planning in the State Space</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#differential-constraints">Differential Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#obstacles-in-the-state-space">Obstacles in the state space</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-solution-trajectory">A Solution Trajectory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#why-does-theis-problem-present-unique-challenges">Why does theis problem present unique challenges?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-planner-based-on-rrts">A Planner Based on RRTs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rapidly-exploring-the-state-space">Rapidly exploring the state space</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-bidirectional-planning-algorithm">A Bidirectional Planning Algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments-with-hovercrafts-and-spacecrafts">Experiments with Hovercrafts and Spacecrafts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-model-applying-controls">Dynamic Model, Applying Controls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#distance-metric">Distance Metric</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis">Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#designing-metrics">Designing Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="informed_rrt_star.html">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lqg_mp.html">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rrt_connect.html">RRT-Connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="a_star.html">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../control/index.html">Control</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Motion Planning</a> &raquo;</li>
+        
+      <li>Randomized Kinodynamic Planning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="randomized-kinodynamic-planning">
+<h1>Randomized Kinodynamic Planning<a class="headerlink" href="#randomized-kinodynamic-planning" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>本ノートは Rapidly Exploring Random Tree (RRT) の Probabilistic Completeness についての証明を含んでいる論文の読書ノートである．KuffnerさんがJSKにいたとき?に書かれたものかもしれない．compeleteness の証明については，<a class="reference internal" href="rrt_connect.html"><span class="doc">RRT-Connect</span></a> でも触れられている．</p>
+<p>Date: 2019/2/2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Steven M. Lavalle, James J.Kuffner, Jr.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2001</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://msl.cs.uiuc.edu/~lavalle/papers/LavKuf01b.pdf">http://msl.cs.uiuc.edu/~lavalle/papers/LavKuf01b.pdf</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">The International Journal of Robotics Research</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この論文はkinodynamic planningに対してrandomized approachをとる最初の論文である．初期のconfigurationと速度から終端のconfigurationと速度へと状態をderiveするような，系のダイナミクスに従いながらもロボットの作業環境における障害物を回避することのできる制御入力を求めることが目的である．</p>
+<p>kinodynamic planningは一階の微分方程式による微視的な制約とグローバルな障害物の制約を持つ高次元の状態空間におけるmotion plannningである．basicなpath planningに対してはstate-spaceはconfiguration-spaceと同じ役割を果たす．しかし標準的なpath planningのrandomizedされた手法はstate spaceにおける軌道計画には適用できない(inevitable collisionとかかな)．著者たちは高次元のstate spaceにtailoredされたrandomiedな軌道計画手法を提案した．このアプローチの基本としてはRRTを構築することである:RRTはその他のrandomizedなholonomic planningの手法と同じような利点があり，かつより広いクラスの問題に対して適用できる．</p>
+<p>本論文は理論的な解析(probabilistic completenessの証明)を含む．</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>初期のconfiguration(一般化座標のことだろう，多分)だけでなくその一階微分(一般化速度)も境界条件に入れた一般的な，効率的な計画手法が強く求められている．問題は，グローバルな障害物回避の制約とローカルな微分拘束を満たすようなfesibleなオープンループの軌道を求めることである．そのような問題をここではDonald(1993)に従い <cite>kinodynamic planning</cite> と呼ぶ．非線形制御の文脈では，劣駆動系のkinodynamic planningはnonholonomic planningという用語で総称される．制御理論的な用語では，この研究は慣性項と非凸な制約を受ける非線形な系に対するオープンループの軌道計画である．</p>
+<p>ロボティクスにおいてはノミナルな軌道を</p>
+<ul class="simple">
+<li>mobile robots</li>
+<li>manipulators</li>
+<li>space robots</li>
+<li>humanoids</li>
+</ul>
+<p>などに対して設計できる．この軌道を参照値としてフィードバックシステムに組み込むこともできる．</p>
+<p>ロボティクスにおける古典的なアプローチはbacinなpath planningを解いた後dynamicsを満たし経路に追従するような軌道と制御器を設計することであった．基本的なpath planningの大部分ではkinematicsのみが考慮されており，システムのダイナミクスは全く考慮されていなかった．それはplanningとcontrolがdecoupledされていたため．</p>
+<p>純粋にkinematicsな計画器による軌道はトルクや力の制限により実行可能でないこともある．実際のロボットにおいては制御のimprecisionはよくあり，衝突しない経路を保証するためにはシステムのダイナミクスを陽にモデル化する必要があるかもしれない．ロボットのダイナミクスとして典型的なのは，自然法則や可能な制御入力の限界が各configurationにおける可能な速度に制約を課すものである．</p>
+<ul class="simple">
+<li>helicopters</li>
+<li>airplanes</li>
+<li>unanchored space robots</li>
+</ul>
+<p>など．</p>
+<p>kinodyanmicsを考慮しようという試みは</p>
+<ul class="simple">
+<li>Shahar and Hollerbach(1986)，マニピュレータの関節空間をtesellateして動的計画法ベースの探索を用いて探索の次元を低減することで最短時間軌道を求めるもの</li>
+<li>Donald(1993)，近似的に最適な解軌道を求める動的計画法ベースのアルゴリズム</li>
+<li>O'Dunlaing(1987)，代数的に軌道を解析的に求めるもの．ただし1質点系の，速度と加速度制約のかかったものしか求められない．</li>
+<li>Cherif(1999)，all-terrain vehiclesのためのkinodynamic planningに対する動的計画法ベースの探索．</li>
+<li>Ferbach(1995)，incrementalな変分法(?)により状態空間で探索を行う．</li>
+<li>Connolly，Grupen，Souccar(1995)，ハミルトニアン形式の力学を用いる．</li>
+</ul>
+<p>このように前例はあるが，低次元(どれくらい？)なシステムや特別な簡略が可能なシステムに対してしか存在していない．randomizedな手法はbasicなholonomic planningに対して効率的だがincompleteな計画器である．本論文ではrandomizedなkinodynamic planningの手法を提案する(ここまで言い切るには従来手法の何かを改善しているのだろう)．</p>
+</div>
+<div class="section" id="other-related-research">
+<h2>Other Related Research<a class="headerlink" href="#other-related-research" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="dynamic-programming">
+<h3>Dynamic Programming<a class="headerlink" href="#dynamic-programming" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>DoFの低い問題に対しては，古典的な動的計画法が数値的な最適制御解を求めることができる(Bellman 1957; Bertsekas 1975; LaValle1998a)．</p>
+<p>Because control theorists have traditionally preferred feedback solutions, the representation often takes the form of a mesh over which cost-to-go values are defined using interpolations, enabling inputs to be selected over any portion of the state space．If open-loop solutions are the only requirement, then each cell in the mesh could be replace by a vertex that represents a single state within the cell．In this case, the control-theoretic numerical dynamic programming techinique can often be reduced to the construction of a tree grown from an initial state．</p>
+<p>これらの手法はグリッド(メッシュ)(たぶんメモ化再帰のところで必要になる離散化のことを言っている)に頼ることになるので，低次元に対してしか適用できない(次元の呪いのこと)．</p>
+</div>
+<div class="section" id="steering-methods">
+<h3>Steering Methods<a class="headerlink" href="#steering-methods" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>The steering problem(日本語が分からない)はここ数年で注目を集めている．目的は非ホロノミックな系を初期状態から終端状態へ，障害物にぶつからないよう駆動する，オープンループの軌道を計算することである．一般的にこの問題は難しいので，ほとんどの手法は純粋にkinematicなモデルに対して適用されている．</p>
+<p>ステアリング角度が制限されている(=曲率が制限されている)，前進のみできるkinematicな車に対しては，Dubinsにより初期姿勢(configuration，速度ではない)から終端姿勢へと至る最短経路は線分と円弧の組み合わせからなる6通りの経路であることが示されている(Dubins 1957)．</p>
+<p>同様の条件でさらに前進と後進を含む場合は48通りの最適な解が得られている(Boissonnat, Cerezo, and Leblond 1994; Reeds and Shepp 1990; Sussman and Tang 1991)</p>
+<p>その他一般のケースについては</p>
+<ul class="simple">
+<li>nilpotent(Murray and Sastry 1993)</li>
+<li>differentially flat(Murray, Rathinam and Sluis 1995)</li>
+<li>chained form(Bushenll, Tilbury and Sastry 1995)</li>
+</ul>
+<p>など．</p>
+</div>
+<div class="section" id="nonoholonomic-planning">
+<h3>Nonoholonomic Planning<a class="headerlink" href="#nonoholonomic-planning" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>非ホロノミックなplanningの問題は Laumond(1987)において導入され近年盛んに研究されている．この広い分野に関してここで述べるよりはより詳細なサーベイ論文に譲る(Duleba 1998; Laumond, Sekhavat, and Lamiraux 1998)．ほとんどの最近の nonholonomic planning に対するアプローチは holonomic motion planning における手法と組み合わせて用いられている．他の手法は(kinematicなモデルにおける)個別的な特別な性質を利用しているので，より一般的な nonholonomic planning に対する効率的な path planning の手法は大きな課題である．</p>
+</div>
+<div class="section" id="lower-bounds">
+<h3>Lower Bounds<a class="headerlink" href="#lower-bounds" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一般的にkinodynamic planningはPSPACE-hardである(有名な事実， (Reif 1997)において示された)．</p>
+<ul class="simple">
+<li>Donald，速度と加速度の制約がある質点系の多角形の障害物の空間における最短時間軌道を求める問題(でさえ)NP-hardである．</li>
+</ul>
+<p>効率的なkinodynamic planningの必要性や(既存手法の)計算複雑性の下限がdiscouragingであることから，kinodynamic planningに対するrandomized approachの考案に至った．</p>
+</div>
+<div class="section" id="randomized-holonomic-planning">
+<h3>Randomized Holonomic Planning<a class="headerlink" href="#randomized-holonomic-planning" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>既存のbasic-holonomic-planningにおいてsuccessfulであるrandomized path-plannnig の手法からアイデアを援用できるならば有用である．ここでは近年successfulである2つの既存手法を選ぶ: randomized potential field(Barraquand and Latombe 1991b; Challou et al．1995) and probabilistic roadmaps(Amato and Wu 1996; Lavraki et al．1996)．</p>
+<ul class="simple">
+<li>Randomzied Potential Field(Barraquand and Latomebe 1991b; Challou et al．1995)，姿勢空間においてロボットを勾配降下にそってゴールへと誘導するようなヒューリスティックな関数が用いられる．もし探索が局所解におちいったら，ランダムウオークで抜け出す．</li>
+<li>Probabilistic Roadmaps(Amato and Wu 1996; Kavraki et al．1996)，姿勢空間でランダムに姿勢をとってグラフを構築し，それらの間を局所計画器で接続する．一旦(Once)そのグラフができてしまえば，あとは始点と終点を結べば良いし(Dijkstra法などで)，あとからでも使える(multiple-query)．</li>
+</ul>
+</div>
+<div class="section" id="drawing-inspiration-from-previous-work">
+<h3>Drawing Inspiration from Previous Work<a class="headerlink" href="#drawing-inspiration-from-previous-work" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>randomized path-planning の手法や高次元における問題に対するMonte-Carlo法の適用のsuccessにより，我々の興味の対象である問題に対しても既存の手法を用することは自然である．既存の手法のprimary diffucultyは，標準的なpath planning の手法に対してはpowerfulであるがdifferential constraintsを含む一般的な問題に対してはnaturallyに拡張され得ないことである．</p>
+<ul class="simple">
+<li>RPF(Barraquand, Langlois, and Latombe 1992)，ヒューリスティックな関数の選択に依存性が大きい，障害物の存在やdifferential constraintsがあるとその選択が難しい．</li>
+<li>PRM，ノード間の接続は解こうとしている問題と同じぐらい難しい．もしsteeringが効率的に行えるのなら，非ホロノミックな場合にも適用できる．holonomic planningやsteerble nonoholonomic systemに対しては(see Laumond, Sekhavat, and Laumiraux 1998)local planningは効率的に解けるかもしれない．しかし複雑なnonholonmic system，dynamical systemに対してはそれらのconnection problemは非線形制御器の設計問題並に難しいかもしれない，そして数百数千に及ぶ各configurationsに対して <span class="math">\(O(n^{2})\)</span> でそれを行うのはimpracticalである．根底にあるのは，複数のpath-planning問題に対して適用できるよう予め与えられた環境に pre-computation を行っておくのはworthwhileであるというmotivationである．</li>
+</ul>
+<p>我々のアプローチでは環境に対するpre-processは行わずにsingle-queryな問題を解く．そのためprobabilistic roadmapsのようにはpre-computationを行わずexploration and searchはひとつの手法にまとめられている．</p>
+<p>微分拘束を直接取り扱うため最適制御の数値解法を援用し，一方でDoFの高い系に対しても適用できるよう必要条件を緩和する．ほとんどのpath-planningの関する研究のように，最適解をforgoする代わりに，全ての制約を守っているかぎり&quot;good enough&quot;なものを求める．これにより動的計画法と状態空間のsystematic searchを使わなくて済む．</p>
+</div>
+<div class="section" id="recent-advances">
+<h3>Recent Advances<a class="headerlink" href="#recent-advances" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>この論文は Lavalle and Kuffner(1999)の拡張バージョンである．それからいくつかの進展が見られている．Frazzoli, Dahleh, and Feron(1999)における手法は，多角形の障害物の存在下でのhelicopterの軌道生成の問題に適用されている．障害物の存在しない環境における非線形ハイブリッド系における optimal cost-to-go に基づいた計量を用いることで性能を改善している．
+Toussaint, Basar, and Bullo(2000)においては <span class="math">\(H^{\infty}\)</span> 制御理論とカーブフィッティングを用いて, Lavalle and Kuffner(1999)のアイデアに基づいて効率的な計画器を設計している．collocationに基づいた決定論的なkinodynamic planning algorithmが Faiz and Agrawal(2000)において提案された．</p>
+</div>
+</div>
+<div class="section" id="problem-formulation-path-planning-in-the-state-space">
+<h2>Problem Formulation: Path Planning in the State Space<a class="headerlink" href="#problem-formulation-path-planning-in-the-state-space" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>kinodynamic planningは1階の微分拘束を受ける状態空間におけるpath planningとして定義する．姿勢(configuration)は <span class="math">\(q \in \mathcal{C}\)</span> に，状態(state)は <span class="math">\((q, \dot{q}) \in \mathcal{X}\)</span> に属する．</p>
+<div class="section" id="differential-constraints">
+<h3>Differential Constraints<a class="headerlink" href="#differential-constraints" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>非ホロノミック拘束は剛体のロール角の接触やシステムに印加できる入力の形態により発生する．ラグランジアン形式の力学では <span class="math">\(h_{i}(q, \dot{q}, \ddot{q}) = 0\)</span> と表される．状態空間表現ではこれは <span class="math">\(g_{i}(x, \dot{x}) = 0\)</span> for <span class="math">\(i = 1, 2, \cdots, m &lt; 2n\)</span> と表される．つまり <strong>陰関数定理により</strong> 入力の存在が暗示される(なにか深い意味がありそう)．つまり</p>
+<div class="math">
+\begin{align*}
+\dot{x} = f(x, u)
+\end{align*}</div><p>として表される．</p>
+</div>
+<div class="section" id="obstacles-in-the-state-space">
+<h3>Obstacles in the state space<a class="headerlink" href="#obstacles-in-the-state-space" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>障害物はstaticで，障害物判定は定数時間でできるとする．</p>
+<p>path planningだと <span class="math">\(\mathcal{C}_{free}\)</span> は <span class="math">\(\mathcal{C}_{obs}\)</span> を除くだけで良い．では状態空間は <span class="math">\(\dot{q}\)</span> を射影で取り除けば姿勢空間になるから <span class="math">\(x = (q, \dot{q})\)</span> のうち <span class="math">\(q\)</span> が <span class="math">\(\mathcal{C}_{obs}\)</span> に入るものを <span class="math">\(\mathcal{x}_{obst}\)</span> と定義すれば良いのでは？と思うが，momentumによっては衝突してしまうかもしれない．これを <cite>inevitable collision</cite> といい(ようやく意味が分かった)， <span class="math">\(\mathcal{X}_{ric}\)</span> と表記する． <span class="math">\(\mathcal{X}_{ric}\)</span> は <span class="math">\(\mathcal{C}_{obs}\)</span> を含むから，より広い概念．状態 <span class="math">\(x\)</span> が <span class="math">\(\mathcal{X}_{ric}\)</span> に属するとは，planningに用いられるintervalにおいてどのような制御入力を用いてもcollisionを避けるができないことである．そのため <span class="math">\(\mathcal{X}_{free} = \mathcal{X} - \mathcal{X}_{obst}\)</span> として定義したほうが正確である．</p>
+<p>region of inevitable collision は kinodynamic planningの難しさを直感的に教えてくれる．例えばx軸方向に動く質点系の場合，その時の速度と刻み時間をかけた分の距離を-x方向に障害物からinflationすれば良いと思うかも知れない．しかし正確に求めるのは難しいし， <span class="math">\(\mathcal{X} - \mathcal{X}_{ric}\)</span> のトポロジーは <span class="math">\(\mathcal{X} - \mathcal{X}_{ric}\)</span> とはかなり異なるかもしれない．kinematicには衝突しないかもしれないがkinodynamicな場合解が存在しないかもしれない．本論文では <span class="math">\(\mathcal{X} - \mathcal{X}_{obst}\)</span> を用いる．</p>
+</div>
+<div class="section" id="a-solution-trajectory">
+<h3>A Solution Trajectory<a class="headerlink" href="#a-solution-trajectory" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>省略．</p>
+</div>
+<div class="section" id="why-does-theis-problem-present-unique-challenges">
+<h3>Why does theis problem present unique challenges?<a class="headerlink" href="#why-does-theis-problem-present-unique-challenges" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><span class="math">\(\mathcal{X}\)</span> と <span class="math">\(\mathcal{C}\)</span> の違いは次元数における2倍があるかどうかである．次元の呪いをさけるため先に C-space における randmozed path-planningが提案されてきた． <span class="math">\(\mathcal{X}\)</span> における実用的で効率的なplannerに関する研究が欠けている理由としては決定論的に保証された収束率を持つ最適解を得ることに関心が払われているためかもしれない．高次元の問題に対してはこの要求はinfeasibileであり多くの研究者は計画と制御をdecoupleするアプローチを取ってきた．つまり伝統的なmotion planningの問題を解いてからその解の近傍で軌道を最適化するというアプローチである．</p>
+<p>randomized kinodynamic planningによるアプローチがとられて来なかった別の理由としてはドリフトの存在によりkinodynamic planningがかなり難しくなるため．randomized holonomic planningの手法を <span class="math">\(\mathcal{X}_{free}\)</span> において  <span class="math">\(\dot{x} = f(x, u)\)</span> を満たすよう拡張することを考えよう．人口ポテンシャル場の手法は，ポテンシャルを減少させるような離散時間の制御入力を逐次求めることができるため，この問題に適しているように見える．dynamical systemの大きな問題点は通常ドリフト項を有していることであり，ゴールにおいてオーバーシュートや振動を生じることである．入念に設計されたポテンシャル関数を用いない限りこの手法は(単独では)うまく動かない． <span class="math">\(\mathcal{X}_{ric}\)</span> に容易に入り込んでしまいそうである．kinodynamic planningにおいてヒューリスティック関数を求めるのはかなり難しい．</p>
+<p>PRMもkinodynamic planningに適用可能かもしれない．その際にとくに必要になるのはランダムに生成された2つのconfiguration(or state)を接続する局所計画器である．実際この手法は Svestka and Overmars(1995)においてnonholonomic plannnigにsuccessfullyに適用された．この手法がうまく行った大きな理由の一つとしてはReeds-Shepp pathの存在がある．これにより2つのことなるconfigurationを(特定の曲率と円弧と直線の組み合わせで接続するという意味において)optimal pathで接続できる．さらに複雑なシステム(トレーラーなど)に対してはsteering results(Sekhavat et al．1998)を用いてreasonable raodmap plannerを設計することができる．これらの結果により特定のシステムをconfigurationから別のconfigurationへとdriveすることが可能になり，nilpotentizableなdriftlessなシステムに一般的に拡張することができる．しかしこのconnection problemは非線形コントローラを設計するのと同等に難しい．またこのconnectionを全ての組み合わせのconfigurationに対して行わなければならない．</p>
+</div>
+</div>
+<div class="section" id="a-planner-based-on-rrts">
+<h2>A Planner Based on RRTs<a class="headerlink" href="#a-planner-based-on-rrts" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以上の理由により我々はkinodynamic planningに適したrandomized approachを設計するに至った．人口ポテンシャル場のように&quot;drive forward&quot;し，かつPRMのようにquickly and uniformlyに空間を探索したい．</p>
+<p>コンセプトを説明するために，初めに2次元の作業空間における1質点のロボットのpath planningを考える．kinodynamic planningに応用することを考えてロボットは  <span class="math">\(x_{k+1} = f(x_{k}, u_{k})\)</span> なる離散時間のダイナミクスに従うとする．また制御入力の集合 <span class="math">\(U\)</span> は一定時間において一定距離移動することのできる方角 <span class="math">\(S^{1}\)</span> から選ばれるとする．ここで図のような100x100の領域の中心から探索を始める例を考える．この場合探索方法としては2通り考えることができる．</p>
+<p>1つ目は存在している頂点の中から <strong>ランダム</strong> に <span class="math">\(x_{k}\)</span> を選び，次に制御入力の集合から <strong>ランダム</strong> に <span class="math">\(u_{k} \in U\)</span> を選びそれを印加してノードを伸ばすことを繰り返して探索木を構築する方法．この方法は一見一様に広がってくれるように思えるが，実は下の左側の図のように，すでに探索している領域へとバイアスがかかってしまい，一様に空間に広がらない．これを克服するため，次のようにしてRRTを構築する．</p>
+<ol class="arabic simple">
+<li>初期位置(状態)を加える</li>
+<li>以下を繰り返す</li>
+<li>探索空間からランダムに点を1つ選び，それへの最近傍ノード <span class="math">\(x_{k}\)</span> を求める</li>
+<li>サンプルされた点へと向かうような制御入力 <span class="math">\(u_{k}\)</span> を求める</li>
+<li>ノードを新たに加える</li>
+</ol>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/rrt_scheme.png"><img alt="Two schemes for exploration" src="../_images/rrt_scheme.png" style="width: 80%;" /></a>
+</div>
+<p>この方法により，空間をrapidly exploreする探索木を構築することができる．</p>
+<p>こうなる理由としては，頂点集合のボロノイ領域を考えることで説明がつく．ランダムサンプリングすることで，そのときに <strong>一番大きいボロノイ領域</strong> にサンプリング点がfall intoする確率が大きくなり，そのサンプリング点への最近傍ノードからエッジを伸ばすことでまだ探索されていない領域を探索することになる．インクリメンタルにボロノイ領域を狭めていくことで，グラフは一様に広がる． Kuffer and Lavalle(2000) において，holonomic planning においてはRRTの分布はサンプリングに用いられた確率分布へと収束することが示されている．</p>
+<p>RRTのアルゴリズムは以下の通りである．</p>
+<ol class="arabic simple">
+<li>RANDOM_STATE(): 状態をランダムに選択する</li>
+<li>EXTEND(): サンプルされた状態への最近傍ノードをRRTから見つける．このときの&quot;nearest&quot;は状態空間の計量 <span class="math">\(\rho\)</span> により計算される．</li>
+<li>NEW_STATE(): 一定時間 <span class="math">\(\Delta t\)</span> だけ制御入力 <span class="math">\(u \in U\)</span> によりサンプルへと移動する．制御入力はランダムに選ばれるか，新しいノードがサンプルに最も近くなるようなものを求める．このようにして得られた新しいノードがcollision-freeであるならば成功．</li>
+<li>もしNEW_STATE()が成功したならば， <span class="math">\(x_{new}\)</span> と  <span class="math">\(u_{new}\)</span> を得る．これを <span class="math">\(x_{new}\)</span> が <span class="math">\(|x_{new} - x_{goal}| &lt; \epsilon\)</span> を満たすまで続ける．</li>
+</ol>
+<div class="section" id="rapidly-exploring-the-state-space">
+<h3>Rapidly exploring the state space<a class="headerlink" href="#rapidly-exploring-the-state-space" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>先ほどの説明から <span class="math">\(\mathcal{X}\)</span> におけるkinodynamic planning に移行するにあたっていくつかの厄介事が起きる．</p>
+<ol class="arabic simple">
+<li>次元が高い．</li>
+<li>探索木は <span class="math">\(\mathcal{X}_{free}\)</span> から出てはいけない</li>
+<li>ドリフトにより望ましくない動作が実現される可能性がある．</li>
+<li><span class="math">\(\mathcal{X}\)</span> においては最近傍探索のための自然な計量が備わっていない</li>
+</ol>
+<p>1つ目の問題に関しては性能を改善するために最近傍探索を近似的に行えばよい(Arya el al. 1998: Indyk and Motwani 1998)．2つ目の問題があると狭い通路の部分でうろうろすることになる．3つ目の問題は，新たなノードの速度項がサンプルされたものとできるだけ等しくなるよう制御入力を選ぶことでいくらかは解決できるかもしれない．4つ目の問題は，性能を最適化したいのであれば，特定のkinodynamic planningの文脈に沿った計量を選択することになるかもしれない．理論的にはこれらの厄介事を全て解決できる完璧な計量は存在している(2つの状態間の最適コスト)．しかしこの計量を求めるのは元々のplanning problemを解くのと同等に難しい．ここでは最低限のヒューリスティックを用いて解決する．そのためより広範なクラスに少し改良をするだけで適用できる．</p>
+</div>
+<div class="section" id="a-bidirectional-planning-algorithm">
+<h3>A Bidirectional Planning Algorithm<a class="headerlink" href="#a-bidirectional-planning-algorithm" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>RRTの構築の方法は前章で説明したが，path planningを解く際には双方向探索を行えば良い．これは <span class="math">\(x_{init}\)</span> と <span class="math">\(x_{goal}\)</span> から探索木を構築し，共通の状態のノードを求める．双方向探索を用いることの1つの欠点は2つの探索木が接続されるところで軌道が不連続になるということである．軌道を連続にする方法はいくつか考えられる．古典的なシューティング法を用いて，2つ目の軌道の始点に摂動を加えることで1つ目の探索木の終点において接続することが可能かもしれない．</p>
+<p>もしこれらの方法で不連続性を取り除くことが不可能ならば，探索木を1つにする代わりに確率 <span class="math">\(p\)</span> で終端状態をサンプリングするようにすれば解が得られる可能性がある．</p>
+</div>
+</div>
+<div class="section" id="experiments-with-hovercrafts-and-spacecrafts">
+<h2>Experiments with Hovercrafts and Spacecrafts<a class="headerlink" href="#experiments-with-hovercrafts-and-spacecrafts" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="dynamic-model-applying-controls">
+<h3>Dynamic Model, Applying Controls<a class="headerlink" href="#dynamic-model-applying-controls" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>3次元における剛体の運動方程式は次のようにして表すことができる．</p>
+<div class="math">
+\begin{align*}
+p &amp;= [p_{x}, p_{y}, p_{z}] \\
+q &amp;= [q_{\theta}, q_{x}, q_{y}, q_{z}] \\
+v &amp;= [v_{x}, v_{y}, v_{z}] \\
+\omega &amp;= [\omega_{x}, \omega_{y}, \omega_{z}]
+\end{align*}</div><p>として</p>
+<div class="math">
+\begin{align*}
+x(t) = \begin{pmatrix} p(t) \\ q(t) \\ v(t) \\ \omega(t) \end{pmatrix}
+\end{align*}</div><p>ここで要素は全てで13あるが，クオータニオンに関する制約(ノルムが1)により12自由度である．制御入力は力とトルクのペア <span class="math">\((F, \tau)\)</span> であり，状態方程式は以下のようになる．</p>
+<div class="math">
+\begin{align*}
+\dot{x}(t) &amp;= f(x(t), u(t)) \\
+&amp;= \begin{pmatrix} v(t) \\ \hat{\omega}(t) \cdot q(t) / 2 \\ F/M \\ R(t)I^{-1}R(t)^{T}\tau \end{pmatrix}
+\end{align*}</div><p>ここで <span class="math">\(\hat{\omega}(t) = [0, \omega(t)]\)</span> ， <span class="math">\(R(t)\)</span> は回転行列である.</p>
+</div>
+<div class="section" id="distance-metric">
+<h3>Distance Metric<a class="headerlink" href="#distance-metric" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>2つの状態間の計量はそれぞれの重み付け和として定義した．</p>
+<div class="math">
+\begin{align*}
+\rho(x_{1}, x_{2}) &amp;= w_{p}|p_{1} - p_{2}|^{2} + w_{q}|1 - |q_{1} \cdot q_{2}||^{2} \\
+&amp;+ w_{v}|v_{1} - v_{2}|^{2} + w_{\omega}|\omega_{1} - \omega_{2}|^{2}
+\end{align*}</div><p>なおすでに述べたように，最適な計量は2状態間のcost-to-goの差である．</p>
+</div>
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>定理1と2でプランナーの収束率，定理3でプランナーの probabilistic complenetess が示される．だがその収束率のパラメータは直接計算しにくいものである． <span class="math">\([A_{0}, A_{1}, \cdots , A_{k}]\)</span> を <span class="math">\(\mathcal{X}\)</span> における <strong>attraction sequence</strong> と呼ばれる集合列とする． <span class="math">\(A_{0} = x_{init}\)</span> である．以降の各 <span class="math">\(A_{i}\)</span> について <strong>basin</strong> と呼ばれる集合 <span class="math">\(B{i} \in \mathcal{X}\)</span> が存在し，以下を満たす．</p>
+<ol class="arabic simple">
+<li>任意の <span class="math">\(x \in A_{i-1}, y \in A_{i}, z \in \mathcal{X} - B_{i}\)</span> について，計量 <span class="math">\(\rho\)</span> は <span class="math">\(\rho(x, y) &lt; \rho(x, z)\)</span> を満たす．</li>
+<li>任意の <span class="math">\(x \in B_{i}\)</span> について適当な制御入力の系列 <span class="math">\([u_{1}, u_{2}, \cdots , u_{m}]\)</span> が存在して，EXNTED()により <span class="math">\(x\)</span> を  <span class="math">\(A_{i} \in B_{i}\)</span> に持っていくことができる．</li>
+</ol>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/attractor_basin.png"><img alt="Attractor Basin" src="../_images/attractor_basin.png" style="width: 80%;" /></a>
+</div>
+<p><span class="math">\(\mathcal{A}_{i}\)</span> を中心として <span class="math">\(\mathcal{B}_{i}\)</span> は <span class="math">\(\mathcal{A}_{i-1}\)</span> をすっぽりと含むような円．さらに <span class="math">\(\mathcal{B}_{i}\)</span> は数ステップの制御入力 <span class="math">\(u_{1}, \cdots u_{m}\)</span> で <span class="math">\(\mathcal{A}_{i}\)</span> へと移るような要素の集合である．そして <span class="math">\(k\)</span> 回目のiterationで <span class="math">\(\mathcal{A}_{k} = \mathcal{X}_{\mathrm{goal}}\)</span> となる．</p>
+<p>各々のBasin <span class="math">\(B_{i}\)</span> は</p>
+<ol class="arabic simple">
+<li><span class="math">\(B_{i}\)</span> の要素は最近傍探索により選ばれることを保証する</li>
+<li>その状態が <span class="math">\(A_{i}\)</span> へと駆動される可能性</li>
+</ol>
+<p>Attraction Sequence はなるべく大きい方が，そしてiterationの回数 <span class="math">\(k\)</span> はなるべく小さいほうが良い．もし途中に狭い経路を含むと attraction sequence はより長く， <span class="math">\(\mathcal{A}_{i}\)</span> はより狭くなる．この場合経路計画の性能はかなり落ちてしまう．</p>
+<p>またkinodynamic planningにおいては計量 <span class="math">\(\rho\)</span> も attraction sequence と planning の性能に大きく影響を与える．</p>
+<p>ここで <span class="math">\(p\)</span> を</p>
+<div class="math">
+\begin{align*}
+p = \min_{i} \mu(A_{i}) / \mu(\mathcal{X}_{\mathrm{free}})
+\end{align*}</div><p>と定義する．つまりrandomが特定の <span class="math">\(A_{i}\)</span> に入る確率の下限である．</p>
+<ul class="simple">
+<li>定理</li>
+</ul>
+<p>長さ <span class="math">\(k\)</span> のconnection sequence が存在するならば，探索にかかる回数の期待値は <span class="math">\(k / \rho\)</span> である．</p>
+<ul class="simple">
+<li>証明</li>
+</ul>
+<p>もし <span class="math">\(\mathcal{A}_{i-1}\)</span> にRRTの頂点が，<span class="math">\(\mathcal{A}_{i}\)</span> にランダム点 <span class="math">\(x\)</span> が入ったら，次のRRTは <span class="math">\(x\)</span> へと伸びる．なぜならば <span class="math">\(\mathcal{A}_{i}\)</span> に存在している <span class="math">\(x\)</span> を中心とした円の中で，xへの最近傍ノードを含むのは <span class="math">\(\mathcal{A}_{i}\)</span> しかないから． <span class="math">\(A_{i}\)</span> の外のノードは <span class="math">\(\mathcal{B}_{i}\)</span> の定義から絶対に <span class="math">\(\mathcal{A}_{i-1}\)</span> より遠くなる．</p>
+<p>よってランダムサンプリングが <span class="math">\(\mathcal{A}_{i}\)</span> に存在する確率は少なくとも <span class="math">\(p\)</span> はある．すなわち， <span class="math">\(\mathcal{A}_{i-1}\)</span> が頂点を含むのなら， <span class="math">\(\mathcal{A}_{i}\)</span> も確率 <span class="math">\(p\)</span> 以上で頂点を含む．最悪の場合，毎回の経路計画は確率 <span class="math">\(p\)</span> で成功するベルヌーイ試行となる．初期状態から目的状態へと至る軌道を求めるためには，試行が <span class="math">\(k\)</span> 回以上成功しないといけない． <span class="math">\(n\)</span> 回の試行で <span class="math">\(k\)</span> 回成功している確率は二項分布に従うから，</p>
+<div class="math">
+\begin{align*}
+\binom{n}{k} p^{k}(1 - p)^{n-k}
+\end{align*}</div><p>であるから，経路を求めることのできる確率の上界として期待値の <span class="math">\(p / n\)</span> が得られる．</p>
+<p>次の定理はiterationを増やすにつれ経路を求めるのに失敗する確率が指数的に減少することを示している．</p>
+<ul class="simple">
+<li>定理</li>
+</ul>
+<p>長さ <span class="math">\(k\)</span> の attraction sequence が存在するなら，ある定数 <span class="math">\(\delta\)</span> が存在して <span class="math">\(n\)</span> 回の iterationの後に解を見つけるのを失敗する確率は高々 <span class="math">\(\exp(-(np - 2k) / 2)\)</span> である．</p>
+<ul class="simple">
+<li>証明</li>
+</ul>
+<p>先ほどの確率過程は，<strong>最善で</strong> 毎回の成功確率が <span class="math">\(p\)</span> であるベルヌーイ試行で <span class="math">\(k\)</span> 回の成功が起こって経路探索に成功するというものである．</p>
+<p>二項分布の裾野の確率を Chernoff上界を用いて評価することができる．Motwani &amp; Raghavan(1995) より <span class="math">\(C\)</span> が二項分布に従うなら， <span class="math">\(\mu = \mathrm{E}[C]\)</span> ， <span class="math">\(\delta \in (0, 1]\)</span> として <span class="math">\(\mathrm{P}[C \le (1 - \delta)\mu] &lt; \exp(\mu \delta^{2} / 2)\)</span> と評価される．ここで <span class="math">\(\delta = 1 - k/np\)</span> である．指数部は</p>
+<div class="math">
+\begin{align*}
+-\dfrac{1}{2}np + k - \dfrac{k^{2}}{2np}
+\end{align*}</div><p><span class="math">\(\exp(-k^{2} / np) &lt; 1\)</span> より</p>
+<div class="math">
+\begin{align*}
+\exp(\mu \delta^{2} / 2) \le \exp(-\dfrac{1}{2}(np - 2k))
+\end{align*}</div><p>よって探索に失敗する確率は高々:math:<cite>exp(-(np - 2k) / 2)</cite> である．</p>
+<ul class="simple">
+<li>定理</li>
+</ul>
+<p>これが最後の定理．Probabilistic Completeness が示される．</p>
+<p><span class="math">\(x_{\mathrm{init}}\)</span> と <span class="math">\(x_{\mathrm{goal}}\)</span> がn次元の状態空間において有界な非凸の開領域に存在しているとする．また <span class="math">\(x_{\mathrm{init}}\)</span> を <span class="math">\(x_{\mathrm{goal}}\)</span> まで駆動する入力列 <span class="math">\(u_{1}, u_{2}, \cdots, u_{m}\)</span> が存在すると仮定する(つまり解が存在すると仮定)する．</p>
+<ul class="simple">
+<li>証明</li>
+</ul>
+<p>特定の回数の後のRRTが <span class="math">\(x_{i}\)</span> を頂点として持っているとする． <span class="math">\(\mathrm{Vor}(x_{i})\)</span> を <span class="math">\(x_{i}\)</span> に対するボロノイ領域とする．このとき <span class="math">\(\mu(\mathrm{Vor}(x_{i})) &gt; c_{1}\)</span> となるような <span class="math">\(c_{i}\)</span> が存在する．もしランダムサンプリングが <span class="math">\(\mathrm{Vor}(x_{i})\)</span> に入ったら <span class="math">\(x_{i}\)</span> から伸長が行われるから， <span class="math">\(x_{i}\)</span> は確率 <span class="math">\(\mu(\mathrm{Vor}(x_{i})) / \mu(\mathcal{x}_{\mathrm{free}})\)</span> でサンプリングされる． また <span class="math">\(c_{1}\)</span> に依存する <span class="math">\(c_{2}\)</span> があって適切な <span class="math">\(u_{i}\)</span> が選ばれる確率の下限 <span class="math">\(c_{2}\)</span> を与える． <span class="math">\(x_{i}\)</span> ，<span class="math">\(u_{i}\)</span> が共に選ばれる確率が少なくとも <span class="math">\(c_{2}\)</span> であれば，解軌道の次の段階が求められる確率が1になる傾向がある(めちゃくちゃ直訳っぽい)．</p>
+<p>まだ最後の証明が良く分からない．</p>
+</div>
+<div class="section" id="designing-metrics">
+<h2>Designing Metrics<a class="headerlink" href="#designing-metrics" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>RRTに基づいた手法の主な欠点は性能が計量の選択に大きく依存することである．5章での結果は重み付けユークリッド距離として定義された．しかし計量が変わると特定の問題に対しては性能が大きく変化する．この問題はrandomized人口ポテンシャルフィールドにおけるポテンシャル関数の選択にも似ている．しかしRRTは様々なランダムサンプルへと近づこうとするので，(人口ポテンシャル法の)局所的極小解ほど性能は悪化しない．ポテンシャル関数法では全然だめな計量でも，RRTでは性能をまだ出せるかもしれない．</p>
+<p>一般的には理想的な計量を選ぶことができる(実際は計量としての性質を完全には満たしていないので擬計量である)．コスト関数 <span class="math">\(L\)</span> を以下のように定義する．</p>
+<div class="math">
+\begin{align*}
+L = \int_{0}^{T} l[x(t), u(t)]dt + l_{f}[x(T)]
+\end{align*}</div><p>すると <span class="math">\(x\)</span> と <span class="math">\(x^{\prime}\)</span> の間の最適なcost-to-go(値関数，実際はDPを解いて始めて分かる)は</p>
+<div class="math">
+\begin{align*}
+\rho^{*}(x, x^{\prime}) = \underset{u(t)}{min} \left( \int_{0}^{T}l[x(t), u(t)]dt + l_{f}[x(T)] \right)
+\end{align*}</div><p>もちろんこれを求めるのは最適制御を解くのと同等に難しいが， <span class="math">\(\rho{*}\)</span> を近似を用いることで性能を上げることができる．</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rrt_star_original.html" class="btn btn-neutral float-right" title="Incremental Sampling-based Algorithms for Optimal Motion Planning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Motion Planning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

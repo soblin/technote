@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この論文では主に非線形制御理論における differential flatness を 機械系(あるいはラグランジアン系)に適用する(ラグランジアンの配位フラットな出力). differentially flat なシステムは, 特にそれが非線形システムである場合に効果的な制御則を導けるらしい. 特に機械系には幾何学的な性質が存在しており, この論文ではそのような系の関係や特徴を探る. 今までの研究で得られた微分フラットな機械系例をいくつか紹介する." name="description" />
+<meta content="differential flatness, 微分フラットネス" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems Abstract Introduction Differential Flatness Basic Definitions Known Results この論文では主に非線形制御理論における differential fl...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="検索" href="../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
+        <link rel="up" title="Control" href="index.html"/>
+        <link rel="next" title="Books" href="../books/index.html"/>
+        <link rel="prev" title="Feedback Linearization using Gaussian Process" href="feedback_linearization_using_gp.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Control</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="feedback_linearization_using_gp.html">Feedback Linearization using Gaussian Process</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#differential-flatness">Differential Flatness</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-definitions">Basic Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#known-results">Known Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Control</a> &raquo;</li>
+        
+      <li>Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="differential-flatness-of-mechanical-control-systems-a-catalogue-of-prototype-systems">
+<h1><a class="toc-backref" href="#id2">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a><a class="headerlink" href="#differential-flatness-of-mechanical-control-systems-a-catalogue-of-prototype-systems" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">構成</p>
+<ul class="simple">
+<li><a class="reference internal" href="#differential-flatness-of-mechanical-control-systems-a-catalogue-of-prototype-systems" id="id2">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a><ul>
+<li><a class="reference internal" href="#abstract" id="id3">Abstract</a></li>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a></li>
+<li><a class="reference internal" href="#differential-flatness" id="id5">Differential Flatness</a><ul>
+<li><a class="reference internal" href="#basic-definitions" id="id6">Basic Definitions</a></li>
+<li><a class="reference internal" href="#known-results" id="id7">Known Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h2><a class="toc-backref" href="#id3">Abstract</a><a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この論文では主に非線形制御理論における differential flatness を 機械系(あるいはラグランジアン系)に適用する(ラグランジアンの配位フラットな出力). differentially flat なシステムは, 特にそれが非線形システムである場合に効果的な制御則を導けるらしい. 特に機械系には幾何学的な性質が存在しており, この論文ではそのような系の関係や特徴を探る. 今までの研究で得られた微分フラットな機械系例をいくつか紹介する.</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>近年の非線形制御におけるパラダイムは, 非線形システムのコントローラーにおける2自由度制御系の使用である. 2自由度制御の基本的なアプローチは, 初めに非線形系のコントローラーの設計をシステムのノミナルモデルに対する実行可能な軌道の生成を行い, 次に不確かさの存在下でも十分な性能のあるコントローラーを用いたその軌道の周りでの安定化である. このように問題を分割することには既存の非線形システムに対する手法よりもメリットがあり, ロバスト性の確保に際して既存の線形システム論の成果を利用することができる.</p>
+<p>軌道生成が特に容易になる系の1つとして, 微分フラットなシステムというものが知られている. あるシステムについて, もしフラットなアウトプット(入力の数と同じだけ存在する)なるものがあってそれによりシステムの全状態と全入力がそのフラットなアウトプットの高々有限回までの微分で表されるのであれば, そのシステムは微分フラットであると言われる. より正確には  <span class="math">\(x \in \mathbb{R}^n, u \in \mathbb{R}^m\)</span> があって, フラットな出力が <span class="math">\(y \in \mathbb{R}^m\)</span> が存在して</p>
+<div class="math">
+\begin{align*}
+y = y(x, u, \dot{u}, \cdots, u^{(p)})
+\end{align*}</div><p>と表されていて, またこのフラットな出力により</p>
+<div class="math">
+\begin{align*}
+x &amp;= x(y, \dot{y}, \cdots, y^{(q)}) \\
+u &amp;= u(y, \dot{y}, \cdots, y^{(q)})
+\end{align*}</div><p>と表されているということである.</p>
+<p>多様体的にこういうのってどういうふうに説明されるんだろうか. uを単なるパラメータとみなしたらxの多様体上の状態方程式 <span class="math">\(\dot{x} = f(x, u)\)</span> における <span class="math">\(\dot{x}\)</span> は接空間に住んでいるん訳だけど, 状態 <span class="math">\(u\)</span> の時間微分の幾何学的な身分は何なのか. そもそもフラットって何がフラットなのさ？</p>
+<p>とにかくこれによりフラットな系の「振る舞い」はフラット出力の微分により表されるのだから, 軌道生成はフラット出力(なんと多くの場面においてはロボットのある部分の座標だったりする)について行えばよい. それからそのフラット出力の軌道を上の式にしたがって状態変数と制御入力にマッピングすれば良い. 動作計画を行う際は状態変数の制約(x, yがぶつかってはいけない)とか制御入力の制約(飽和)が存在するので, 結局フラット出力の微分方程式にいついて以下のような制約式が得られることになる.</p>
+<div class="math">
+\begin{align*}
+\phi(y, \dot{y}, \cdots, y^{(p)}) \in \mathcal{X}_{free} \\
+\psi(y, \dot{y}, \cdots, y^{(p)}) \in \mathcal{U}_{feasible}
+\end{align*}</div><p>これを守ってフラット出力を計画すれば, 元の系の状態変数と制御入力の制約は守られていることになる.</p>
+<p>微分フラットネスは初めFliessにより微分代数と後にLie-Backlund変換を使う形で定式化された. 一方本論文では differential exterior systems と カルタンのアイデアを用いて微分幾何学的に解釈を行うとのこと. こうすることで現在, 微分代数を使うことで得られている結果のほとんどを再現しかつより幾何学的な解釈を行えるようになる.</p>
+<p>特に機械システムでその自由運動がオイラーラグランジュ方程式で表されるような2階微分の方程式系に焦点を当てる. 多くの結果は, これらのクラスにおける微分フラットネスはラグランジアン系の性質に起因しているようである. また多くの例において, フラット出力は一般化座標や一般化速度の複雑な多項式になっているわけではなく, いくつかの点の座標や角度になっている(もしかしたら座標系に依存しない特定の幾何学的な意味を持つ量かもしれない). このようになる理由は <strong>現時点では</strong> まだ知られていないのだが, ラグランジュ形式に起因してそうだと著者らは思っている様子.</p>
+<p>これらのフラットな系が示唆しているのは軌道生成の問題が単純な代数的な問題に置き換わり, 実用上計算量的に魅力的なアルゴリズムになる. 例えばケーブルでぶら下がった2質点系の運動は約128の状態変数で特徴付けられる. 最適制御的な従来のアプローチはこの場合単純には適用することはできない. しかしフラットな系であるので, この系の実行可能な軌道は, ケーブルの下部の点の運動により完全に特徴づけられる. フラットネスの関係式を用いてシステムの制御入力の制約を, ケーブル下部(フラット出力)が描く軌道の曲率と高階微分に対する制約にマッピングすることができるので, 軌道生成をより効率的に行うことができる.</p>
+</div>
+<div class="section" id="differential-flatness">
+<h2><a class="toc-backref" href="#id5">Differential Flatness</a><a class="headerlink" href="#differential-flatness" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>すでに述べたように微分フラットネスの概念はFliessらにより微分代数を用いて特徴づけられた. しかし微分代数を機械系の幾何学的なシステムに適用するのは困難である. そこで我々はフラットネスを微分幾何, 特に外微分系を用いて代わりに特徴づけている. ここで外微分系について簡単に述べられているようだが, 多分こういうので理解はできないと思う.</p>
+<div class="section" id="basic-definitions">
+<h3><a class="toc-backref" href="#id6">Basic Definitions</a><a class="headerlink" href="#basic-definitions" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>パフィアン系は多様体理論で語る際には座標系によらない形で定式化されなければならないが, ここでは初めから特定の局所座標系で議論を行う(嬉しい). また全ての関数は無限回連続微分可能. 大雑把に言うと, 以下のような系を</p>
+<div class="math">
+\begin{align*}
+\dot{x} = f(x, u)\quad x \in \mathbb{R}^n, u \in \mathbb{R}^m
+\end{align*}</div><p>を <span class="math">\(dt\)</span> だけかけて</p>
+<div class="math">
+\begin{align*}
+I = \{ dx_1, f_1(x, u)dt, \cdots, dx_n - f_n(x, u)dt \}
+\end{align*}</div><p>と表す. これをパフィアン系というらしい(1形式の集合ということ?). 数学的な身分は, <span class="math">\(M = \mathbb{R}^n \times \mathbb{R}^m \times \mathbb{R}^{+}\)</span> 上の1形式のn個の集合である. このパフィアンのことを <span class="math">\((I, M)\)</span> と記す.</p>
+<p>このパフィアン系の解曲線というのは,  <span class="math">\(I\)</span> に属する各1形式に作用させると値がゼロになる(消去される, annihilated)曲線 <span class="math">\(c: \mathbb{R} \rightarrow M\)</span> である. パフィアン系は非線形系の可制御性と線形化可能性を調べるのに 役立つ(ベクトル場を用いるのと同様に(??)). 外微分はリー微分の役割を, derived flag は controllability distribution の役割を果たす.</p>
+<p>パフィアン系において重要な操作は, prolongtion(延長??)である. パフィアン系 <span class="math">\((I, M)\)</span> と別のパフィアン系 <span class="math">\((J, N)\)</span> があるとき,  <span class="math">\(I \subset J\)</span> であり, Jにおける解曲線とIにおける解曲線に一対一の関係があるとき, <em>Cartan prolongation</em> という. その特別な例としては <em>prolongation by differentiation</em> と呼ばれる, 制御入力の1つの微分に関する1形式も含んだパフィアン系</p>
+<div class="math">
+\begin{align*}
+I = \{dx - f(x, u)dt \} \\
+M = \mathbb{R}_{+} \times \mathbb{R}^n \times \mathbb{R}^m \\\
+J = \{ dx - f(x, u)dt, du_1 - v_1 dt \} \\
+N = M \times \mathbb{R}
+\end{align*}</div><p>このようにして全ての制御入力に関して延長を繰り返したものを, 元のシステムの <em>total prolongation</em> という. ここでの  <span class="math">\(v_1\)</span> は射影写像 <span class="math">\(\pi: N \rightarrow M\)</span> のファイバー束という.</p>
+<p>dynamic extention(おそらく制御入力の微分を用いた延長)は非線形制御理論では一般的であるが, カルタン延長は dynamic extention よりも一般的なものである(非ホロノミック拘束を扱う際に有用らしい).</p>
+<p>カルタン延長を用いることで, 等価性の概念を定義することができる. 制御理論的には, 動的フィードバックにより等価なものとみなせるということである.</p>
+</div>
+<div class="section" id="known-results">
+<h3><a class="toc-backref" href="#id7">Known Results</a><a class="headerlink" href="#known-results" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../books/index.html" class="btn btn-neutral float-right" title="Books" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="feedback_linearization_using_gp.html" class="btn btn-neutral" title="Feedback Linearization using Gaussian Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

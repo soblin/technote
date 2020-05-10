@@ -1,0 +1,216 @@
+.. meta::
+   :description: この章では循環座標により保存量を見つける方法と，それを用いてラグランジアンの変数を減らして得られるラウシアンの説明を行っている．ここで「偏微分してから代入する」とか「代入してから偏微分する」とかが出てくるから，引き戻しを使えると便利なのだが．
+   :keywords: 循環座標, ラウシアン
+
+======================================================================
+ラグランジュ形式の解析力学(発展編)
+======================================================================
+この章では循環座標により保存量を見つける方法と，それを用いてラグランジアンの変数を減らして得られるラウシアンの説明を行っている．ここで「偏微分してから代入する」とか「代入してから偏微分する」とかが出てくるから，引き戻しを使えると便利なのだが．
+
+.. contents:: 目次
+   :depth: 2
+
+
+座標系 :math:`q_i` で表したラグランジアンを :math:`L(q, \dot{q})` ， :math:`Q_i = Q_{i}(q)` として同じラグランジアンを :math:`Q` で表したラグランジアンを(関数の形を区別するために) :math:`\tilde{L}(Q, \dot{Q})` とする．
+
+するとオイラーラグランジュ方程式は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \dfrac{\partial L(q, \dot{q})}{\partial q_i} - \dfrac{d}{dt}\left( \dfrac{\partial L(q, \dot{q})}{\partial \dot{q}} \right) = 0 \\
+   & \dfrac{\partial L(q, \dot{Q})}{\partial Q_i} - \dfrac{d}{dt}\left( \dfrac{\partial L(Q, \dot{Q})}{\partial \dot{Q}} \right) = 0
+   \end{align*}
+
+
+となり座標系によって得られる方程式の形(例えば多項式としての形)は変化するものの，**微分方程式としての形は変化しない** ．そのためオイラーラグランジュ方程式は座標変換に関して共変的であると言われる．
+
+ここでは証明は省くが，このような **点変換** に関してEL方程式は共変である．
+
+2次元座標でのEL方程式
+----------------------------------------------------------------------
+2次元の直交座標でのラグランジアンは
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	L(x, y) = \dfrac{m}{2}(\dot{x}^{2} + \dot{y}^{2}) - V(x, y)
+	\end{align*}
+
+一方極座標では
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\tilde{L}(r, \theta) = \dfrac{m}{2}(\dot{r}^{2} + (r\dot{\theta})^{2}) - \tilde{V}(r, \theta)
+	\end{align*}
+
+
+循環座標
+======================================================================
+もしポテンシャルが :math:`\tilde{V}(r)` のように変数 :math:`\theta` を含まない場合，ラグランジアンに :math:`\theta` が含まれないことになる．
+
+.. note::
+   :math:`\dot{\theta}` は含まれている
+
+すると :math:`\partial L / \partial \theta` の部分が0になるので， :math:`\partial L / \partial \dot{\theta}` は保存量になる．このようなとき， :math:`\theta` のことを循環座標と呼ぶ．
+
+.. note::
+   このように，ラグランジュ力学においては，保存量は一般化運動量であることが多い．
+
+この場合
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	mr^2\dot{\theta} = h
+	\end{align*}
+
+が保存量である．
+そして :math:`\dot{\theta} = h / mr^2` を代入すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{h^2}{mr^3} - \dfrac{\partial V}{\partial r} - m\ddot{r} = 0
+	\end{align*}
+
+ラウシアン
+======================================================================
+
+.. warning::
+   以下の方法は間違っています!!
+
+
+:math:`\dot{\theta} = h / mr^2` と分かったのでラグランジアンに代入すると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\tilde{L} = \dfrac{m}{2}\dot{r}^{2} + \dfrac{h^2}{2mr^2} - V(r)
+	\end{align*}
+
+という形になる．ここからオイラーラグランジュ方程式を作ると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	-\dfrac{h^2}{mr^3} - \dfrac{\partial V}{\partial r} - \dfrac{d}{dt}(m\dot{r}) = 0
+	\end{align*}
+
+となって上で「正しく」求めた式と比べて符号がずれている．これは，偏微分を行う際に **どの変数を一定にしているか** が変化してしまっているためである．元々のEL方程式は :math:`\theta, r` をそれぞれ一定にして偏微分をとっていたが， :math:`h = mr^2\dot{\theta}` を代入したため :math:`h` を一定にするよう偏微分をしなければならない．しかし元々のオイラーラグランジュ方程式は :math:`\theta` を一定にして :math:`r` で偏微分することで得られたものであるから，hを定数とみなしていないため整合性が取れていないのが原因．
+
+少し詳しく解析してみよう．元々のオイラーラグランジュ方程式は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{r}, \dot{\theta}} - \left. \dfrac{d}{dt} \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial \dot{r}} \right|_{r, \dot{\theta}}
+	\end{align*}
+
+
+一方変数を形式的に入れ替えただけの
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial \tilde{L}(r, \dot{r}, h)}{\partial r} \right|_{\dot{r}, h} - \left. \dfrac{d}{dt} \dfrac{\partial \tilde{L}(r, \dot{r}, h)}{\partial \dot{r}} \right|_{r, h} = 0
+	\end{align*}
+
+ここで :math:`\theta  = \theta(r, h)` である．そのため，第2項はラグランジアンの第2項の :math:`\dot{r}` について偏微分するだけであるから，それぞれの式で変わらない．一方第一項の :math:`\partial / \partial r` は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{r}, \dot{\theta}}
+	\end{align*}
+
+と
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta}(r, h))}{\partial r} \right|_{\dot{r}, h}
+	\end{align*}
+
+は異なる量である．実際，後者は
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta}(r, h))}{\partial r} \right|_{\dot{r}, h} = \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{\theta} = \dot{\theta}(r, h)} + \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial \dot{\theta}} \right|_{\dot{\theta} = \dot{\theta}(r, h)} \left. \dfrac{\partial \dot{\theta}(r, h)}{\partial r} \right|_{h}
+	\end{align*}
+
+それぞれ第一項は :math:`L(r, \dot{r}, \dot{\theta})` を第一引数の :math:`r` について偏微分した後結果に :math:`\dot{\theta} = \dot{\theta}(r, h)` を代入した項，第二項は :math:`L(r, \dot{r}, \dot{\theta})` を第二引数の :math:`\dot{\theta}` について偏微分した後結果に :math:`\dot{\theta} = \dot{\theta}(r, h)` を代入した項である．この第二項が存在しているせいで計算結果がずれる．
+
+上の例で計算してみると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial}{\partial \dot{\theta}}\left( \dfrac{m}{2}r^2 \dot{\theta}^{2} \right) \right|_{\dot{\theta} = h/mr^2} \cdot \left. \dfrac{\partial}{\partial r}\left( \dfrac{h}{mr^2} \right) \right|_{h} = mr^2\dot{\theta} \cdot \left(-\dfrac{2h}{mr^3} \right) = -\dfrac{2h\dot{\theta}}{r} = -2mr\dot{\theta}^{2}
+	\end{align*}
+
+となり，先ほどの式のずれと一致してることが分かる．そこでこのような間違いを起こさないよう以下のように新しい関数に変換すれば
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	R(r, \dot{r}, h) = L(r, \dot{r}, \dot{\theta}(r, h)) - \dot{\theta}(r, h)h
+	\end{align*}
+
+先ほどのずれの項を相殺することができる．
+実際
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \left. \dfrac{\partial R(r, \dot{r}, h)}{\partial r} \right|_{\dot{r}, h} &= \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{\theta} = \dot{\theta}(r, h)} + \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial \dot{\theta}} \right|_{\dot{\theta} = \dot{\theta}(r, h)}\dfrac{\partial \dot{\theta}}{\partial r} - \dfrac{\partial \dot{\theta}}{\partial r}h \\
+   &= \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{r}, \dot{\theta} = \dot{\theta}(r, h)}
+   \end{align*}
+
+一方 :math:`\partial R / \partial \dot{r}` の項は :math:`h(r, \theta)` とは関係しなかったので，元々のオイラーラグランジュ方程式を用いて
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\left. \dfrac{\partial R(r, \dot{r}, h)}{\partial r} \right|_{\dot{r}, h} - \dfrac{d}{dt}\left( \left. \dfrac{\partial R(r, \dot{r}, h)}{\partial \dot{r}}\right|_{r, h} \right) = 0
+	\end{align*}
+
+とそのまま独立変数を :math:`\dot{\theta}` から :math:`h` に変更することができている．
+
+二次元の極座標の問題に戻ると
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	R(r, \dot{r}, h) = \dfrac{m}{2}(\dot{r}^{2} + (r\dot{\theta})^{2}) - V(r) - \dot{\theta}h = \dfrac{m}{2}\dot{r}^2 - \dfrac{h^2}{2mr^2} - V(r)
+	\end{align*}
+
+このラウシアンについて同様に
+
+.. math::
+	:nowrap:
+
+	\begin{align*}
+	\dfrac{\partial R}{\partial \theta} - \dfrac{d}{dt}\dfrac{\partial R}{\partial \dot{r}} = 0
+	\end{align*}
+
+を解けば良い．

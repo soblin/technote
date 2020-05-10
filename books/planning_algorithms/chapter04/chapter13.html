@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="Differential Models Velocity Constraints on the Configuraiton Space Implicit vs Parametric Representations この章における differential models は, 各点における速度ベクトルに関する制約に置き換わる. 状態変数を拡大して, 1階の微分方程式系に置き換えるため.">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="検索" href="../../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../../index.html"/>
+        <link rel="up" title="Planning Under Differenital Constraints" href="index.html"/>
+        <link rel="prev" title="Planning Under Differenital Constraints" href="index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Planning Algorithms</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Planning Under Differenital Constraints</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html#overview-of-partiv">Overview of PartIV</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="../index.html">Planning Algorithms</a> &raquo;</li>
+        
+          <li><a href="index.html">Planning Under Differenital Constraints</a> &raquo;</li>
+        
+      <li>Differential Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="differential-models">
+<h1><a class="toc-backref" href="#id2">Differential Models</a><a class="headerlink" href="#differential-models" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#differential-models" id="id2">Differential Models</a><ul>
+<li><a class="reference internal" href="#velocity-constraints-on-the-configuraiton-space" id="id3">Velocity Constraints on the Configuraiton Space</a><ul>
+<li><a class="reference internal" href="#implicit-vs-parametric-representations" id="id4">Implicit vs Parametric Representations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="velocity-constraints-on-the-configuraiton-space">
+<h2><a class="toc-backref" href="#id3">Velocity Constraints on the Configuraiton Space</a><a class="headerlink" href="#velocity-constraints-on-the-configuraiton-space" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この章における differential models は, 各点における速度ベクトルに関する制約に置き換わる. 状態変数を拡大して, 1階の微分方程式系に置き換えるため.</p>
+<div class="section" id="implicit-vs-parametric-representations">
+<h3><a class="toc-backref" href="#id4">Implicit vs Parametric Representations</a><a class="headerlink" href="#implicit-vs-parametric-representations" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>微分拘束を表現する方法としてはパラメトリックな表現とインプリシットな表現がある. パラメトリックな表現の方が理解しやすく, より有用である. 一方インプリシットな表現は一般的ではあるものの, 扱いが難しい. その違いは.</p>
+<ul class="simple">
+<li>インプリシットな表現は <em>prohibited</em> されている速度ベクトルを表現している</li>
+<li>パラメトリックな表現は <em>allowed</em> されている速度ベクトルを表現している</li>
+</ul>
+<div class="section" id="implicit-representation">
+<h4>Implicit representation<a class="headerlink" href="#implicit-representation" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>ここでは2次元を例にして速度拘束が具体的にどのようなものであるのか考える.</p>
+<ul class="simple">
+<li><span class="math">\(\dot{x} &gt; 0\)</span> : これは川の流れに沿ってボートを漕ぐ時のように, 横方向(y)には自由に動けるがx方向には前進しかできない状態. そのため運動の積分曲線はx方向について単調に増加する.</li>
+<li><span class="math">\(\dot{x} = 0\)</span> : 各点において, 速度は <span class="math">\((0, \dot{y})\)</span> の形になる. そのためx方向に動けないから, 特定の初期値からy方向にしか動けない</li>
+<li><span class="math">\(a \dot{x} + b \dot{y} = 0\)</span> : これは上の例を少し変えたもので, 動ける方向が <span class="math">\((a, b)\)</span> に垂直な方向に限られる.</li>
+<li><span class="math">\(a \dot{x} + b \dot{y} + c = 0\)</span> : これは先程の式で0を1に変えただけだが, 運動の様相は大きく変わる. 例えば <span class="math">\(a = b = 1\)</span> にしてみよう. すると  <span class="math">\(\dot{y} = -\dot{x} - 1\)</span> になるのだが, 速度ベクトルは以下の図のようになる.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Planning Under Differenital Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

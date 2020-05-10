@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では循環座標により保存量を見つける方法と，それを用いてラグランジアンの変数を減らして得られるラウシアンの説明を行っている．ここで「偏微分してから代入する」とか「代入してから偏微分する」とかが出てくるから，引き戻しを使えると便利なのだが．" name="description" />
+<meta content="循環座標, ラウシアン" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では循環座標により保存量を見つける方法と，それを用いてラグランジアンの変数を減らして得られるラウシアンの説明を行っている．ここで「偏微分してから代入する」とか「代入してから偏微分する」とかが出てくるから，引き戻しを使えると便利なのだが． ラグランジュ形式の解析力学(発展編) 2次元座標でのEL方程式 座標系  で表したラグランジアンを  ，  として同じラグランジアンを  で表したラグ...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="よく分かる解析力学" href="index.html"/>
+        <link rel="next" title="保存則と対称性" href="chapter08.html"/>
+        <link rel="prev" title="ラグランジュ形式の解析力学(導入編)" href="chapter04.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">よく分かる解析力学</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="appendix.html">付録</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">簡単な変分問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">静力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">ラグランジュ形式の解析力学(導入編)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ラグランジュ形式の解析力学(発展編)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#el">2次元座標でのEL方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter08.html">保存則と対称性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">ハミルトン形式の解析力学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter10.html">正準変換</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter11.html">ハミルトンヤコビ方程式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">よく分かる解析力学</a> &raquo;</li>
+        
+      <li>ラグランジュ形式の解析力学(発展編)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">ラグランジュ形式の解析力学(発展編)</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では循環座標により保存量を見つける方法と，それを用いてラグランジアンの変数を減らして得られるラウシアンの説明を行っている．ここで「偏微分してから代入する」とか「代入してから偏微分する」とかが出てくるから，引き戻しを使えると便利なのだが．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">ラグランジュ形式の解析力学(発展編)</a><ul>
+<li><a class="reference internal" href="#el" id="id6">2次元座標でのEL方程式</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>座標系 <span class="math">\(q_i\)</span> で表したラグランジアンを <span class="math">\(L(q, \dot{q})\)</span> ， <span class="math">\(Q_i = Q_{i}(q)\)</span> として同じラグランジアンを <span class="math">\(Q\)</span> で表したラグランジアンを(関数の形を区別するために) <span class="math">\(\tilde{L}(Q, \dot{Q})\)</span> とする．</p>
+<p>するとオイラーラグランジュ方程式は</p>
+<div class="math">
+\begin{align*}
+&amp; \dfrac{\partial L(q, \dot{q})}{\partial q_i} - \dfrac{d}{dt}\left( \dfrac{\partial L(q, \dot{q})}{\partial \dot{q}} \right) = 0 \\
+&amp; \dfrac{\partial L(q, \dot{Q})}{\partial Q_i} - \dfrac{d}{dt}\left( \dfrac{\partial L(Q, \dot{Q})}{\partial \dot{Q}} \right) = 0
+\end{align*}</div><p>となり座標系によって得られる方程式の形(例えば多項式としての形)は変化するものの，<strong>微分方程式としての形は変化しない</strong> ．そのためオイラーラグランジュ方程式は座標変換に関して共変的であると言われる．</p>
+<p>ここでは証明は省くが，このような <strong>点変換</strong> に関してEL方程式は共変である．</p>
+<div class="section" id="el">
+<h2><a class="toc-backref" href="#id6">2次元座標でのEL方程式</a><a class="headerlink" href="#el" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>2次元の直交座標でのラグランジアンは</p>
+<div class="math">
+\begin{align*}
+L(x, y) = \dfrac{m}{2}(\dot{x}^{2} + \dot{y}^{2}) - V(x, y)
+\end{align*}</div><p>一方極座標では</p>
+<div class="math">
+\begin{align*}
+\tilde{L}(r, \theta) = \dfrac{m}{2}(\dot{r}^{2} + (r\dot{\theta})^{2}) - \tilde{V}(r, \theta)
+\end{align*}</div><div class="section" id="id3">
+<h3>循環座標<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もしポテンシャルが <span class="math">\(\tilde{V}(r)\)</span> のように変数 <span class="math">\(\theta\)</span> を含まない場合，ラグランジアンに <span class="math">\(\theta\)</span> が含まれないことになる．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last"><span class="math">\(\dot{\theta}\)</span> は含まれている</p>
+</div>
+<p>すると <span class="math">\(\partial L / \partial \theta\)</span> の部分が0になるので， <span class="math">\(\partial L / \partial \dot{\theta}\)</span> は保存量になる．このようなとき， <span class="math">\(\theta\)</span> のことを循環座標と呼ぶ．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">このように，ラグランジュ力学においては，保存量は一般化運動量であることが多い．</p>
+</div>
+<p>この場合</p>
+<div class="math">
+\begin{align*}
+mr^2\dot{\theta} = h
+\end{align*}</div><p>が保存量である．
+そして <span class="math">\(\dot{\theta} = h / mr^2\)</span> を代入すると</p>
+<div class="math">
+\begin{align*}
+\dfrac{h^2}{mr^3} - \dfrac{\partial V}{\partial r} - m\ddot{r} = 0
+\end{align*}</div></div>
+<div class="section" id="id4">
+<h3>ラウシアン<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">以下の方法は間違っています!!</p>
+</div>
+<p><span class="math">\(\dot{\theta} = h / mr^2\)</span> と分かったのでラグランジアンに代入すると</p>
+<div class="math">
+\begin{align*}
+\tilde{L} = \dfrac{m}{2}\dot{r}^{2} + \dfrac{h^2}{2mr^2} - V(r)
+\end{align*}</div><p>という形になる．ここからオイラーラグランジュ方程式を作ると</p>
+<div class="math">
+\begin{align*}
+-\dfrac{h^2}{mr^3} - \dfrac{\partial V}{\partial r} - \dfrac{d}{dt}(m\dot{r}) = 0
+\end{align*}</div><p>となって上で「正しく」求めた式と比べて符号がずれている．これは，偏微分を行う際に <strong>どの変数を一定にしているか</strong> が変化してしまっているためである．元々のEL方程式は <span class="math">\(\theta, r\)</span> をそれぞれ一定にして偏微分をとっていたが， <span class="math">\(h = mr^2\dot{\theta}\)</span> を代入したため <span class="math">\(h\)</span> を一定にするよう偏微分をしなければならない．しかし元々のオイラーラグランジュ方程式は <span class="math">\(\theta\)</span> を一定にして <span class="math">\(r\)</span> で偏微分することで得られたものであるから，hを定数とみなしていないため整合性が取れていないのが原因．</p>
+<p>少し詳しく解析してみよう．元々のオイラーラグランジュ方程式は</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{r}, \dot{\theta}} - \left. \dfrac{d}{dt} \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial \dot{r}} \right|_{r, \dot{\theta}}
+\end{align*}</div><p>一方変数を形式的に入れ替えただけの</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial \tilde{L}(r, \dot{r}, h)}{\partial r} \right|_{\dot{r}, h} - \left. \dfrac{d}{dt} \dfrac{\partial \tilde{L}(r, \dot{r}, h)}{\partial \dot{r}} \right|_{r, h} = 0
+\end{align*}</div><p>ここで <span class="math">\(\theta  = \theta(r, h)\)</span> である．そのため，第2項はラグランジアンの第2項の <span class="math">\(\dot{r}\)</span> について偏微分するだけであるから，それぞれの式で変わらない．一方第一項の <span class="math">\(\partial / \partial r\)</span> は</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{r}, \dot{\theta}}
+\end{align*}</div><p>と</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta}(r, h))}{\partial r} \right|_{\dot{r}, h}
+\end{align*}</div><p>は異なる量である．実際，後者は</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial L(r, \dot{r}, \dot{\theta}(r, h))}{\partial r} \right|_{\dot{r}, h} = \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{\theta} = \dot{\theta}(r, h)} + \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial \dot{\theta}} \right|_{\dot{\theta} = \dot{\theta}(r, h)} \left. \dfrac{\partial \dot{\theta}(r, h)}{\partial r} \right|_{h}
+\end{align*}</div><p>それぞれ第一項は <span class="math">\(L(r, \dot{r}, \dot{\theta})\)</span> を第一引数の <span class="math">\(r\)</span> について偏微分した後結果に <span class="math">\(\dot{\theta} = \dot{\theta}(r, h)\)</span> を代入した項，第二項は <span class="math">\(L(r, \dot{r}, \dot{\theta})\)</span> を第二引数の <span class="math">\(\dot{\theta}\)</span> について偏微分した後結果に <span class="math">\(\dot{\theta} = \dot{\theta}(r, h)\)</span> を代入した項である．この第二項が存在しているせいで計算結果がずれる．</p>
+<p>上の例で計算してみると</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial}{\partial \dot{\theta}}\left( \dfrac{m}{2}r^2 \dot{\theta}^{2} \right) \right|_{\dot{\theta} = h/mr^2} \cdot \left. \dfrac{\partial}{\partial r}\left( \dfrac{h}{mr^2} \right) \right|_{h} = mr^2\dot{\theta} \cdot \left(-\dfrac{2h}{mr^3} \right) = -\dfrac{2h\dot{\theta}}{r} = -2mr\dot{\theta}^{2}
+\end{align*}</div><p>となり，先ほどの式のずれと一致してることが分かる．そこでこのような間違いを起こさないよう以下のように新しい関数に変換すれば</p>
+<div class="math">
+\begin{align*}
+R(r, \dot{r}, h) = L(r, \dot{r}, \dot{\theta}(r, h)) - \dot{\theta}(r, h)h
+\end{align*}</div><p>先ほどのずれの項を相殺することができる．
+実際</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial R(r, \dot{r}, h)}{\partial r} \right|_{\dot{r}, h} &amp;= \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{\theta} = \dot{\theta}(r, h)} + \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial \dot{\theta}} \right|_{\dot{\theta} = \dot{\theta}(r, h)}\dfrac{\partial \dot{\theta}}{\partial r} - \dfrac{\partial \dot{\theta}}{\partial r}h \\
+&amp;= \left. \dfrac{\partial L(r, \dot{r}, \dot{\theta})}{\partial r} \right|_{\dot{r}, \dot{\theta} = \dot{\theta}(r, h)}
+\end{align*}</div><p>一方 <span class="math">\(\partial R / \partial \dot{r}\)</span> の項は <span class="math">\(h(r, \theta)\)</span> とは関係しなかったので，元々のオイラーラグランジュ方程式を用いて</p>
+<div class="math">
+\begin{align*}
+\left. \dfrac{\partial R(r, \dot{r}, h)}{\partial r} \right|_{\dot{r}, h} - \dfrac{d}{dt}\left( \left. \dfrac{\partial R(r, \dot{r}, h)}{\partial \dot{r}}\right|_{r, h} \right) = 0
+\end{align*}</div><p>とそのまま独立変数を <span class="math">\(\dot{\theta}\)</span> から <span class="math">\(h\)</span> に変更することができている．</p>
+<p>二次元の極座標の問題に戻ると</p>
+<div class="math">
+\begin{align*}
+R(r, \dot{r}, h) = \dfrac{m}{2}(\dot{r}^{2} + (r\dot{\theta})^{2}) - V(r) - \dot{\theta}h = \dfrac{m}{2}\dot{r}^2 - \dfrac{h^2}{2mr^2} - V(r)
+\end{align*}</div><p>このラウシアンについて同様に</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial R}{\partial \theta} - \dfrac{d}{dt}\dfrac{\partial R}{\partial \dot{r}} = 0
+\end{align*}</div><p>を解けば良い．</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter08.html" class="btn btn-neutral float-right" title="保存則と対称性" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter04.html" class="btn btn-neutral" title="ラグランジュ形式の解析力学(導入編)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

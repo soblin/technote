@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="この章では残余コスト(cost-to-go)からハミルトンヤコビベルマン方程式(HJB方程式)を導入する．また最適軌道からの「ずれ」に対する勾配がゼロになるという条件からポントリャーギンの最小原理が導かれ，随伴変数と制御入力の幾何学的な理解が得られる．" name="description" />
+<meta content="残余コスト，cost-to-go，最小原理，ハミルトンヤコビベルマン方程式，HJB方程式" name="keywords" />
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-138456127-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <meta property="og:description" content="この章では残余コスト(cost-to-go)からハミルトンヤコビベルマン方程式を導入する．また最適軌道からの「ずれ」に対する勾配がゼロになるという条件からポントリャーギンの最小原理が導かれ，随伴変数と制御入力の幾何学的な理解が得られる．本書の中で最も深遠な章であるといえるかもしれない． 6章 動的計画法と最小原理 6.1 ハミルトン-ヤコビ-ベルマン方程式 6.2. 最小原理 例によって終端...">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="非線形最適制御入門" href="index.html"/>
+        <link rel="next" title="7章 最適制御問題の解法" href="chapter07.html"/>
+        <link rel="prev" title="5章 連続時間システムの最適制御" href="chapter05.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">非線形最適制御入門</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter03.html">第3章 離散時間システムの最適制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter04.html">第4章 変分法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">5章 連続時間システムの最適制御</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6章 動的計画法と最小原理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">6.1 ハミルトン-ヤコビ-ベルマン方程式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">6.2. 最小原理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter07.html">7章 最適制御問題の解法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">非線形最適制御入門</a> &raquo;</li>
+        
+      <li>6章 動的計画法と最小原理</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id5">6章 動的計画法と最小原理</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では残余コスト(cost-to-go)からハミルトンヤコビベルマン方程式を導入する．また最適軌道からの「ずれ」に対する勾配がゼロになるという条件からポントリャーギンの最小原理が導かれ，随伴変数と制御入力の幾何学的な理解が得られる．本書の中で最も深遠な章であるといえるかもしれない．</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">6章 動的計画法と最小原理</a><ul>
+<li><a class="reference internal" href="#id3" id="id6">6.1 ハミルトン-ヤコビ-ベルマン方程式</a></li>
+<li><a class="reference internal" href="#id4" id="id7">6.2. 最小原理</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">6.1 ハミルトン-ヤコビ-ベルマン方程式</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>例によって終端時刻 <span class="math">\(t_f\)</span> を固定した時に任意の <span class="math">\(t \in [t_0, t_f]\)</span> について <span class="math">\(x(t)\)</span> から始めた時のcost-to-goを <span class="math">\(V(x, t)\)</span> とする．つまり，</p>
+<div class="math">
+\begin{align*}
+V(x, t) = \min_{u[t, t_f]}\left( \phi(x(t_f)) + \int_{t_0}^{t_f} L(x(\tau), u(\tau), \tau) d\tau \right)
+\end{align*}</div><p>すると時刻 <span class="math">\(t\)</span> から <span class="math">\(dt\)</span> だけ進んだ時刻において評価区間 <span class="math">\(t \in [t+dt, t_f]\)</span> における最適制御のcost-to-goは <span class="math">\(V(x + f(x, u, t)dt, t+dt)\)</span> で表されるから</p>
+<div class="math">
+\begin{align*}
+V(x, t) &amp;= \min_{u[t, t+dt]}\left( \int_{t}^{t_f}L(x(\tau), u(\tau), \tau) d\tau + V(x + f(x, u, t) dt, t + dt)\right) \\
+&amp;= \min_{u}(L(x, u, t) dt + V(x + f(x, u , t)dt, t + dt))
+\end{align*}</div><p>ここで <span class="math">\(V(X + fdt, t + dt)\)</span> をテイラー展開すると</p>
+<div class="math">
+\begin{align*}
+V(x + f(x, u ,t)dt, t + dt) \sim V(x, t ) + \dfrac{\partial V}{\partial x}(x, t)f(x, u, t)dt + \dfrac{\partial V}{\partial t}(x, t)dt
+\end{align*}</div><p>となり，代入すると</p>
+<div class="math">
+\begin{align*}
+\min_{u}\left( L(x, u, t) + \dfrac{\partial V}{\partial x}(x, t)f(x, u, t) + \dfrac{\partial V}{\partial t}(x, t) \right)= 0
+\end{align*}</div><p>ここでハミルトン関数 <span class="math">\(H = L + \lambda^{\text{T}}f\)</span> を用いると</p>
+<div class="math">
+\begin{align*}
+L(x, u ,t) + \dfrac{\partial V}{\partial x}(x, t)f(x, u, t) = H\left(x, u, \left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}(x, t), t \right)
+\end{align*}</div><p>のように <span class="math">\(\lambda\)</span> に値関数の偏微分を代入した形として表すことができる．従って以下のようなハミルトン-ヤコビ-ベルマン方程式が得られる．</p>
+<div class="math">
+\begin{align*}
+-\dfrac{\partial V}{\partial t}(x, t) = \min_{u}H \left( x, u, \left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}(x, t), t \right)
+\end{align*}</div></div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">6.2. 最小原理</a><a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>変分法により導かれたオイラーラグランジュ方程式が常微分方程式の2点境界値問題であるのに対し,動的計画法から導かれるHBJ方程式は偏微分方程式である．両者の関係は一見すると分からないが，両者とも同じ最適制御問題から導かれている．ここでは動的計画法から最小原理と呼ばれるものを経由してオイラーラグランジュ方程式が導かれることをみる．ハミルトン関数における随伴変数 <span class="math">\(\lambda\)</span> が値関数の偏微分に置き換わっていることは大きなヒントである．</p>
+<p>例によって最適軌道と最適入力 <span class="math">\(\bar{x}(t), \bar{u}(t)\)</span> の存在を仮定する．すると入力 <span class="math">\(\bar{u}(t)\)</span> は <span class="math">\(\bar{x}(t)\)</span> 以外の一般の状態に対しては最適とは限らないから，ベルマン方程式の「ずれ」の関数は以下を満たす．</p>
+<div class="math">
+\begin{align*}
+\eta(x, t) := \dfrac{\partial V}{\partial t} + H \left( x, \bar{u}, \left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}, t \right) \geq 0
+\end{align*}</div><p>そしてこの左辺は <span class="math">\(x(t) = \bar{x}(t)\)</span> のとき最小値0を取るはずである．そのため，</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial \eta}{\partial x}(\bar{x}(t), t) = 0
+\end{align*}</div><p>が成立する．計算すると</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial^{2} H}{\partial t \partial x} + \dfrac{\partial H}{\partial x} + \dfrac{\partial H}{\partial \lambda}\dfrac{\partial^{2} V}{\partial x^{2}} = \dfrac{\partial^{2} H}{\partial t \partial x} + \dfrac{\partial H}{\partial x} + f^{\text{T}}\dfrac{\partial^{2} V}{\partial x^{2}} = 0
+\end{align*}</div><p>となる．ところで</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\left( \dfrac{\partial V}{\partial x}\right)^{\text{T}}= \dfrac{\partial^{2} V}{\partial x^{2}}f + \dfrac{\partial}{\partial t}\left(\dfrac{\partial V}{\partial x} \right)^{\text{T}} = \left( f^{\text{T}}\dfrac{\partial^{2} V}{\partial x^{2}} + \dfrac{\partial^{2} V}{\partial t \partial x}\right)^{\text{T}}
+\end{align*}</div><p>であるから，先ほどの式は</p>
+<div class="math">
+\begin{align*}
+\dfrac{d}{dt}\left( \dfrac{\partial V}{\partial x}\right)(\bar{x}(t), t) = -\left(\dfrac{\partial H}{\partial x} \right)\left(\bar{x}, \bar{u}, \dfrac{\partial V}{\partial x}, t \right)
+\end{align*}</div><p>となり，終端条件として</p>
+<div class="math">
+\begin{align*}
+\dfrac{\partial V}{\partial x} (\bar{x}(t_f), t_f) = \dfrac{\partial \phi}{\partial x}(\bar{x}(t_f))
+\end{align*}</div><p>を満たすから，これはオイラーラグランジュ方程式における随伴変数に他ならない．また</p>
+<div class="math">
+\begin{align*}
+H(\bar{x}, \bar{u}, \lambda, t) = \min_{u}H(\bar{x}, u, \lambda, t)
+\end{align*}</div><p>より最適軌道沿いのハミルトン関数のuによる偏微分は0になる．</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter07.html" class="btn btn-neutral float-right" title="7章 最適制御問題の解法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="chapter05.html" class="btn btn-neutral" title="5章 連続時間システムの最適制御" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

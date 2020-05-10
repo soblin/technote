@@ -1,0 +1,17 @@
+.. meta::
+   :description: Soblin's Technote - Control
+   :keywords: control, robotics, mathematics, 制御, ロボティクス, 数学
+
+
+
+======================================================================
+Control
+======================================================================
+
+この章では制御理論に関する論文の読書ノートをまとめている.
+
+.. toctree::
+   :maxdepth: 1
+
+   feedback_linearization_using_gp.rst
+   murray_flatness.rst
