@@ -5,9 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta content="C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードはhttps://github.com/soblin/modern_c" name="description" />
-<meta content="C言語，デザインパターン，ステートパターン，テンプレートパターン，ビジターパターン，オブザーバーパターン，chain of responsibility" name="keywords" />
-<script type="text/javascript">
+  <script type="text/javascript">
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-138456127-3']);
@@ -19,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <meta property="og:description" content="https://tatsu-zine.com/books/modern-cprogramming 花井志生 アスキードワンゴ C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードは こちら">
+    <meta property="og:description" content="システムに対称性があるとは，ある無限小点変換に対してラグランジアンが不変(関数としての代数的な形も変化しない)であるということ． 配位座標  を  と無限小変換してみる．すると である．この座標変換によりラグランジアンを  と引き戻しを行う． テイラー展開することにより  以上の項を無視すると よってラグランジアンの代数的な形が変化しないためには  の項がゼロであることが必要． これはLの関...">
     
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -58,9 +56,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="検索" href="../../search.html"/>
     <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
-        <link rel="up" title="Books" href="../index.html"/>
-        <link rel="next" title="C言語とオブジェクト指向" href="chapter3.html"/>
-        <link rel="prev" title="ハミルトンヤコビ方程式" href="../easy_analytical_mechanics/chapter11.html"/> 
+        <link rel="up" title="現代解析力学入門" href="index.html"/>
+        <link rel="next" title="第7章 ハミルトニアン" href="chapter07.html"/>
+        <link rel="prev" title="現代解析力学入門" href="index.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -121,21 +119,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">モダンC言語プログラミング</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapter3.html">C言語とオブジェクト指向</a></li>
-<li class="toctree-l3"><a class="reference internal" href="state_pattern.html">Stateパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="template_pattern.html">テンプレートメソッドパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="visitor_pattern.html">ビジターパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="observer_pattern.html">オブザーバーパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chain_of_responsibility.html">チェインオブレスポンシビリティパターン</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">現代解析力学入門</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">第5章 対称性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">5.2 ラグランジアンの対称性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="chapter07.html">第7章 ハミルトニアン</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
 </ul>
@@ -186,7 +183,9 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>モダンC言語プログラミング</li>
+          <li><a href="index.html">現代解析力学入門</a> &raquo;</li>
+        
+      <li>第5章 対称性</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,30 +202,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="c">
-<h1>モダンC言語プログラミング<a class="headerlink" href="#c" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">出版元リンク:</th><td class="field-body"><a class="reference external" href="https://tatsu-zine.com/books/modern-cprogramming">https://tatsu-zine.com/books/modern-cprogramming</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">著者:</th><td class="field-body">花井志生</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">アスキードワンゴ</td>
-</tr>
-</tbody>
-</table>
-<p>C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードは <a class="reference external" href="https://github.com/soblin/modern_c">こちら</a></p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter3.html">C言語とオブジェクト指向</a></li>
-<li class="toctree-l1"><a class="reference internal" href="state_pattern.html">Stateパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_pattern.html">テンプレートメソッドパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visitor_pattern.html">ビジターパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="observer_pattern.html">オブザーバーパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chain_of_responsibility.html">チェインオブレスポンシビリティパターン</a></li>
-</ul>
+  <div class="section" id="id1">
+<h1>第5章 対称性<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>5.2 ラグランジアンの対称性<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>システムに対称性があるとは，ある無限小点変換に対してラグランジアンが不変(関数としての代数的な形も変化しない)であるということ．</p>
+<p>配位座標 <span class="math">\(\{ q^i \}\)</span> を <span class="math">\(q^i = Q^i + \epsilon f^i (\{ Q \}, t)\)</span> と無限小変換してみる．すると</p>
+<div class="math">
+\begin{align*}
+\dot{q}^i = \dot{Q}^i + \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
+\end{align*}</div><p>である．この座標変換によりラグランジアンを <span class="math">\(L(\{q\}, \{\dot{q}\}, t) \rightarrow L^{\prime}(\{Q\}, \{\dot{Q}\}, t)\)</span> と引き戻しを行う．</p>
+<div class="math">
+\begin{align*}
+ L^{\prime}(\{Q\}, \{\dot{Q}\}, t) &amp;= L(\{q\}, \{\dot{q}\}, t) \\ q^i &amp;= Q^i + \epsilon f^i (\{ Q \}, t) \\ \dot{q}^i &amp;= \dot{Q}^i + \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
+\end{align*}</div><p>テイラー展開することにより <span class="math">\(\epsilon^2\)</span> 以上の項を無視すると</p>
+<div class="math">
+\begin{align*}
+&amp;= L(\{Q\}, \{\dot{Q}\}, t) \\ &amp;+ \sum_{i=1}^{n} \dfrac{\partial L}{\partial Q^i} \cdot \epsilon f^i(\{Q\}, t) \\ &amp;+ \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{Q}^i} \cdot \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
+\end{align*}</div><p>よってラグランジアンの代数的な形が変化しないためには <span class="math">\(\epsilon\)</span> の項がゼロであることが必要．</p>
+<div class="math">
+\begin{align*}
+\sum_{i=1}^{n} \dfrac{\partial L}{\partial Q^i} \cdot f^i(\{Q\}, t) + \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{Q}^i} \cdot \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right) = 0
+\end{align*}</div><p>これはLの関数系に関する条件であるから，変数をQからqに変更する．</p>
+<div class="math">
+\begin{align*}
+\sum_{i=1}^{n} \dfrac{\partial L}{\partial q^i} \cdot f^i(\{q\}, t) + \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{q}^i} \cdot \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial q^j}\dot{q}^j + \dfrac{\partial f^i}{\partial t} \right) = 0
+\end{align*}</div><p>これは単純に</p>
+<div class="math">
+\begin{align*}
+\sum_{i=1}^{n} \left( \dfrac{\partial L}{\partial q^i}f^i + p_i \dot{f}^i\right) = 0
+\end{align*}</div><p>と書ける． <span class="math">\(q^i\)</span> がオイラーラグランジュ方程式の解であるならば， <span class="math">\(\partial L / \partial ^i = \dot{p}^i\)</span> であるから，さらに</p>
+<div class="math">
+\begin{align*}
+\sum_{i=1}^{n} \dot{p}^i f^i + p_i \dot{f}^i = \dfrac{d}{dt}\sum_{i=1}^{n} p_i f^i = 0
+\end{align*}</div><p>が得られ，保存則</p>
+<div class="math">
+\begin{align*}
+\sum_{i=1}^{n} p_i f^i = \mathrm{const}
+\end{align*}</div><p>が導かれる．これがネーターの定理なんだけど，与えられたラグランジアンの代数的な形からこういう変数変換を見つけるのが難しい．</p>
 </div>
 </div>
 
@@ -240,10 +253,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="chapter3.html" class="btn btn-neutral float-right" title="C言語とオブジェクト指向" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="chapter07.html" class="btn btn-neutral float-right" title="第7章 ハミルトニアン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../easy_analytical_mechanics/chapter11.html" class="btn btn-neutral" title="ハミルトンヤコビ方程式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="現代解析力学入門" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

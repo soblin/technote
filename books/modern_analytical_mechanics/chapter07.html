@@ -5,9 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta content="C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードはhttps://github.com/soblin/modern_c" name="description" />
-<meta content="C言語，デザインパターン，ステートパターン，テンプレートパターン，ビジターパターン，オブザーバーパターン，chain of responsibility" name="keywords" />
-<script type="text/javascript">
+  <script type="text/javascript">
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-138456127-3']);
@@ -19,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <meta property="og:description" content="https://tatsu-zine.com/books/modern-cprogramming 花井志生 アスキードワンゴ C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードは こちら">
+    <meta property="og:description" content="ポアソン括弧を使うと，正準座標(正準座標もいろいろあるけど)を使ってポアソン括弧を計算する限り，任意の物理量fの時間変化は と与えられるのだけど，「(q, p)を使ってポアソン括弧を計算した結果と(Q, P)を使って計算した結果って本当に一緒になるっけ？」とたまに混乱することがある．物理量fは(q, p)で表せば  ，(Q, P)=(Q(q, p), P(q, p))で表せば  となる．他の...">
     
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -58,9 +56,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="検索" href="../../search.html"/>
     <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
-        <link rel="up" title="Books" href="../index.html"/>
-        <link rel="next" title="C言語とオブジェクト指向" href="chapter3.html"/>
-        <link rel="prev" title="ハミルトンヤコビ方程式" href="../easy_analytical_mechanics/chapter11.html"/> 
+        <link rel="up" title="現代解析力学入門" href="index.html"/>
+        <link rel="next" title="マルコフ決定過程 -理論とアルゴリズム-" href="../markov_decision_process/index.html"/>
+        <link rel="prev" title="第5章 対称性" href="chapter05.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -121,21 +119,22 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">モダンC言語プログラミング</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapter3.html">C言語とオブジェクト指向</a></li>
-<li class="toctree-l3"><a class="reference internal" href="state_pattern.html">Stateパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="template_pattern.html">テンプレートメソッドパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="visitor_pattern.html">ビジターパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="observer_pattern.html">オブザーバーパターン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chain_of_responsibility.html">チェインオブレスポンシビリティパターン</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">現代解析力学入門</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter05.html">第5章 対称性</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">第7章 ハミルトニアン</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">7.4 ポアソン括弧</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">7.5 リューヴィルの定理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">7.6 ポアンカレ・カルタンの不変量</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
 </ul>
@@ -186,7 +185,9 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>モダンC言語プログラミング</li>
+          <li><a href="index.html">現代解析力学入門</a> &raquo;</li>
+        
+      <li>第7章 ハミルトニアン</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,30 +204,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="c">
-<h1>モダンC言語プログラミング<a class="headerlink" href="#c" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">出版元リンク:</th><td class="field-body"><a class="reference external" href="https://tatsu-zine.com/books/modern-cprogramming">https://tatsu-zine.com/books/modern-cprogramming</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">著者:</th><td class="field-body">花井志生</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">アスキードワンゴ</td>
-</tr>
-</tbody>
-</table>
-<p>C言語でオブジェクト指向プログラミングを試みたり，デザインパターンをいくつか実装してみたりする． 自分でやってみた時のソースコードは <a class="reference external" href="https://github.com/soblin/modern_c">こちら</a></p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter3.html">C言語とオブジェクト指向</a></li>
-<li class="toctree-l1"><a class="reference internal" href="state_pattern.html">Stateパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_pattern.html">テンプレートメソッドパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visitor_pattern.html">ビジターパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="observer_pattern.html">オブザーバーパターン</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chain_of_responsibility.html">チェインオブレスポンシビリティパターン</a></li>
-</ul>
+  <div class="section" id="id1">
+<h1>第7章 ハミルトニアン<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>7.4 ポアソン括弧<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ポアソン括弧を使うと，正準座標(正準座標もいろいろあるけど)を使ってポアソン括弧を計算する限り，任意の物理量fの時間変化は</p>
+<div class="math">
+\begin{align*}
+\dot{f} = \{f, H\}
+\end{align*}</div><p>と与えられるのだけど，「(q, p)を使ってポアソン括弧を計算した結果と(Q, P)を使って計算した結果って本当に一緒になるっけ？」とたまに混乱することがある．物理量fは(q, p)で表せば <span class="math">\(f(q, p)\)</span> ，(Q, P)=(Q(q, p), P(q, p))で表せば <span class="math">\(f(q, p) = \bar{f}(Q, P)\)</span> となる．他の正準座標(Q, P)で表すと引き戻しにより(q, p)による代数的な表現から変化することに注意．</p>
+<p>よって(q, p)によるポアソン括弧</p>
+<div class="math">
+\begin{align*}
+\{f, H\} = \sum_{i=1}^{n} \dfrac{\partial f}{\partial q_i}\dfrac{\partial H}{\partial p^i} - \dfrac{\partial f}{\partial p^i}\dfrac{\partial H}{\partial q_i}
+\end{align*}</div><p>は(Q, P)によるポアソン括弧</p>
+<div class="math">
+\begin{align*}
+\{f, H\} = \sum_{i=1}^{n} \dfrac{\partial \bar{f}}{\partial Q_i}\dfrac{\partial H}{\partial P^i} - \dfrac{\partial \bar{f}}{\partial P^i}\dfrac{\partial H}{\partial Q_i}
+\end{align*}</div><p>と一致する．スカラーであるとはこのように，特定の座標系によらない値であるということである．それは物理量たる資格がある．</p>
+</div>
+<div class="section" id="id3">
+<h2>7.5 リューヴィルの定理<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>相空間上での物理量 <span class="math">\(f(\{q\}, \{p\})\)</span> に対して</p>
+<div class="math">
+\begin{align*}
+\boldsymbol{X}_f = \left( \dfrac{\partial f}{\partial p_1}, \cdots , \dfrac{\partial f}{\partial p_n}, -\dfrac{\partial f}{\partial q^1}, \cdots , -\dfrac{\partial f}{\partial q^n}\right)
+\end{align*}</div><p>をfに対するハミルトンベクトル場という．相空間において閉領域 <span class="math">\(D_0\)</span> をとると，この領域がハミルトンベクトル場</p>
+<div class="math">
+\begin{align*}
+\boldsymbol{X}_H = \left( \dfrac{\partial H}{\partial p_1}, \cdots , \dfrac{\partial H}{\partial p_n}, -\dfrac{\partial H}{\partial q^1}, \cdots , -\dfrac{\partial H}{\partial q^n}\right)
+\end{align*}</div><p>に沿って時刻t後に <span class="math">\(D_t\)</span> まで移動したとする．このとき，体積は保存して <span class="math">\(\mathrm{vol}(D_0) = \mathrm{vol}(D_t)\)</span> となっている．</p>
+</div>
+<div class="section" id="id4">
+<h2>7.6 ポアンカレ・カルタンの不変量<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>今度は相空間内での閉曲線 <span class="math">\(\gamma_0\)</span> を考える．これに沿った線積分</p>
+<div class="math">
+\begin{align*}
+I[\gamma_0] &amp;= \oint_{\gamma 0} (p_1 dq^1 + p_2 dq^2 + \cdots + p_n dq^n) \\ &amp;= \sum_{i=1}^{n} \int_{0}^{1} p_i(\sigma) \dfrac{d q^i(\sigma)}{d \sigma} d \sigma
+\end{align*}</div><p>は，閉曲線 <span class="math">\(\gamma_0\)</span> がハミルトンベクトルに沿って <span class="math">\(\gamma_t\)</span> に移動しても保存する．</p>
+<div class="math">
+\begin{align*}
+I[\gamma_0] = I[\gamma_t]
+\end{align*}</div><p>これをポアンカレ・カルタンの積分の不変性という．</p>
 </div>
 </div>
 
@@ -240,10 +259,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="chapter3.html" class="btn btn-neutral float-right" title="C言語とオブジェクト指向" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../markov_decision_process/index.html" class="btn btn-neutral float-right" title="マルコフ決定過程 -理論とアルゴリズム-" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../easy_analytical_mechanics/chapter11.html" class="btn btn-neutral" title="ハミルトンヤコビ方程式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="chapter05.html" class="btn btn-neutral" title="第5章 対称性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

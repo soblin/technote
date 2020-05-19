@@ -1,0 +1,84 @@
+======================================================================
+第7章 ハミルトニアン
+======================================================================
+
+7.4 ポアソン括弧
+======================================================================
+ポアソン括弧を使うと，正準座標(正準座標もいろいろあるけど)を使ってポアソン括弧を計算する限り，任意の物理量fの時間変化は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{f} = \{f, H\}
+   \end{align*}
+
+と与えられるのだけど，「(q, p)を使ってポアソン括弧を計算した結果と(Q, P)を使って計算した結果って本当に一緒になるっけ？」とたまに混乱することがある．物理量fは(q, p)で表せば :math:`f(q, p)` ，(Q, P)=(Q(q, p), P(q, p))で表せば :math:`f(q, p) = \bar{f}(Q, P)` となる．他の正準座標(Q, P)で表すと引き戻しにより(q, p)による代数的な表現から変化することに注意．
+
+よって(q, p)によるポアソン括弧
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \{f, H\} = \sum_{i=1}^{n} \dfrac{\partial f}{\partial q_i}\dfrac{\partial H}{\partial p^i} - \dfrac{\partial f}{\partial p^i}\dfrac{\partial H}{\partial q_i}
+   \end{align*}
+
+は(Q, P)によるポアソン括弧
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \{f, H\} = \sum_{i=1}^{n} \dfrac{\partial \bar{f}}{\partial Q_i}\dfrac{\partial H}{\partial P^i} - \dfrac{\partial \bar{f}}{\partial P^i}\dfrac{\partial H}{\partial Q_i}
+   \end{align*}
+
+と一致する．スカラーであるとはこのように，特定の座標系によらない値であるということである．それは物理量たる資格がある．
+
+7.5 リューヴィルの定理
+======================================================================
+相空間上での物理量 :math:`f(\{q\}, \{p\})` に対して
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \boldsymbol{X}_f = \left( \dfrac{\partial f}{\partial p_1}, \cdots , \dfrac{\partial f}{\partial p_n}, -\dfrac{\partial f}{\partial q^1}, \cdots , -\dfrac{\partial f}{\partial q^n}\right)
+   \end{align*}
+
+をfに対するハミルトンベクトル場という．相空間において閉領域 :math:`D_0` をとると，この領域がハミルトンベクトル場
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \boldsymbol{X}_H = \left( \dfrac{\partial H}{\partial p_1}, \cdots , \dfrac{\partial H}{\partial p_n}, -\dfrac{\partial H}{\partial q^1}, \cdots , -\dfrac{\partial H}{\partial q^n}\right)
+   \end{align*}
+
+に沿って時刻t後に :math:`D_t` まで移動したとする．このとき，体積は保存して :math:`\mathrm{vol}(D_0) = \mathrm{vol}(D_t)` となっている．
+
+7.6 ポアンカレ・カルタンの不変量
+======================================================================
+今度は相空間内での閉曲線 :math:`\gamma_0` を考える．これに沿った線積分
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   I[\gamma_0] &= \oint_{\gamma 0} (p_1 dq^1 + p_2 dq^2 + \cdots + p_n dq^n) \\ &= \sum_{i=1}^{n} \int_{0}^{1} p_i(\sigma) \dfrac{d q^i(\sigma)}{d \sigma} d \sigma
+   \end{align*}
+
+は，閉曲線 :math:`\gamma_0` がハミルトンベクトルに沿って :math:`\gamma_t` に移動しても保存する．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   I[\gamma_0] = I[\gamma_t]
+   \end{align*}
+
+これをポアンカレ・カルタンの積分の不変性という．
