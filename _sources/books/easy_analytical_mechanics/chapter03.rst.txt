@@ -28,11 +28,12 @@
 これを極座標で考えると
 
 .. math::
-	:nowrap:
+   :nowrap:
+   
+   \begin{align*}
+   U = \dfrac{1}{2}kr^2
+   \end{align*}
 
-	\begin{align*}
-	U = \dfrac{1}{2}kr^2
-	\end{align*}
 
 となるから
 
@@ -55,12 +56,12 @@
 
 は極座標で表すと
 
-．． math::
-	:nowrap:
-
-	\begin{align*}
-	U = \dfrac{1}{4}Kr^4 - \dfrac{1}{2}kr^2
-	\end{align*}
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   U = \dfrac{1}{4}Kr^4 - \dfrac{1}{2}kr^2
+   \end{align*}
 
 であり，ポテンシャル安定点は同様に :math:`r^2 = k / K` である．
 ある座標系 :math:`q` と別の座標系 :math:`Q` で表したポテンシャル :math:`U(q), \tilde{U}(Q)` は **同じ位置を表す**  :math:`q` と :math:`Q` に対し同じ値をとる．つまり，

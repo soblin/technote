@@ -12,7 +12,7 @@
         
 運動方程式
 ======================================================================
-まず始めにニュートン力学の曖昧なところから話は始まる．『よく分かる解析力学』にも述べられていたが，ニュートンの運動方程式は **力の定義式** なのか，それとも **力から加速度を求めるもの ** なのか，という問題意識である．基本的には力の作用のもとでの物質的物体の運動が論じられるが,
+まず始めにニュートン力学の曖昧なところから話は始まる．『よく分かる解析力学』にも述べられていたが，ニュートンの運動方程式は **力の定義式** なのか，それとも **力から加速度を求めるもの** なのか，という問題意識である．基本的には力の作用のもとでの物質的物体の運動が論じられるが,
 
 	その際に作用する力の法則自体は，通常は力学の外にある場の古典論で扱われるべきものとなっているのである．
 
@@ -1267,7 +1267,7 @@ Gの任意の元 :math:`g` に対して，Gの左移動 :math:`L_g` を以下の
 
 この線形写像 :math:`\omega` の集合 :math:`V^*` もベクトル空間を構成するので，このベクトル空間を :math:`V` の双対空間という．そしてその要素を1ベクトルやコベクトルという．
 
-Vの基底を :math:`\langle e_1, e_2, \cdots e_n\rangle ` とすると，その双対基底 :math:`\langle \epsilon^1, \epsilon^2, \cdots, \epsilon^n\rangle ` はベクトル :math:`u = u^i e_i` に対してそのi成分 :math:`u^i` を対応させる．つまり
+Vの基底を :math:`\langle e_1, e_2, \cdots e_n\rangle` とすると，その双対基底 :math:`\langle \epsilon^1, \epsilon^2, \cdots, \epsilon^n\rangle` はベクトル :math:`u = u^i e_i` に対してそのi成分 :math:`u^i` を対応させる．つまり
 
 
 .. math::
@@ -1642,7 +1642,7 @@ m次元微分可能多様体Mの接ベクトル空間 :math:`\mathrm{T}M` に対
 と一致する．
 
 .. note::
-   ここでは次数の上げ下げに対応していると表現しているが，コンピューターサイエンス的には2階共変テンソル :math:`\langle g | \bullet, \bullet\rangle ` が第一引数を **部分適用** されて :math:`\langle  g | u, \bullet\rangle ` なる1階共変テンソルに **低減** した，と考えたほうが分かりやすい．もちろんこれは演算子から見た立場であり，反変ベクトル :math:`v` からすると1階共変テンソル :math:`\tilde{u} = g_{ij}u^i (dq^j)` へと添字を上げられたと考えられる．
+   ここでは次数の上げ下げに対応していると表現しているが，コンピューターサイエンス的には2階共変テンソル :math:`\langle g | \bullet, \bullet\rangle` が第一引数を **部分適用** されて :math:`\langle  g | u, \bullet\rangle` なる1階共変テンソルに **低減** した，と考えたほうが分かりやすい．もちろんこれは演算子から見た立場であり，反変ベクトル :math:`v` からすると1階共変テンソル :math:`\tilde{u} = g_{ij}u^i (dq^j)` へと添字を上げられたと考えられる．
 
 
 p形式
@@ -1727,10 +1727,16 @@ p形式
 ----------------------------------------------------------------------
 外微分は以下を満たす．
 
-#.  :math:`d(\omega^p + \sigma^p) = d\omega^p + d\sigma^p` 
-#.  :math:`d(f \omega^p) = df \wedge \omega^p + fd\omega^p` 
-#.  :math:`d(df) = 0` 
-#.  :math:`d(\omega^p \wedge \omega^q) = d\omega^p \wedge \omega^q + (-1)^p \omega^p \wedge d\omega^q` 
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   d(\omega^p + \sigma^p) &= d\omega^p + d\sigma^p \\
+   d(f \omega^p) &= df \wedge \omega^p + fd\omega^p \\
+   d(df) &= 0 \\
+   d(\omega^p \wedge \omega^q) &= d\omega^p \wedge \omega^q + (-1)^p \omega^p \wedge d\omega^q
+   \end{align*}
+
 
 一般に微分形式 :math:`\Omega` が :math:`\Omega = d\omega` と書けるとき， :math:`\Omega` を完全形式という．そして :math:`d\Omega = 0` とな微分形式を閉形式という．3つ目の公式は
 

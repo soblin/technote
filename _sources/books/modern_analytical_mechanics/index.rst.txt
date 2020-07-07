@@ -12,3 +12,5 @@
    
    chapter05.rst
    chapter07.rst
+   chapter09.rst
+   chapter13.rst

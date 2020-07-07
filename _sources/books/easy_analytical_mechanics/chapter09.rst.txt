@@ -228,7 +228,7 @@
 	\left( \dfrac{\partial^2 H(q, p)}{\partial p^2}\delta p \delta t, \delta p - \dfrac{\partial^2 H(q, p)}{\partial q \partial p}\delta p \delta t \right)
 	\end{align*}
 
-である．これらの外戚を計算すると
+である．これらの外積を計算すると
 
 
 .. math::

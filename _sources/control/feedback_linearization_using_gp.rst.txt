@@ -4,5 +4,296 @@ Feedback Linearization using Gaussian Process
 
 .. include:: /_include/ref/feedback_linearization_using_gp.txt
 
+.. contents:: 目次
+   :depth: 2
+
 Abstract
 ======================================================================
+モデルの構造についての情報が限られているシステムの同定において，機械学習のデータ駆動アプローチは大変有用である．この論文ではノンパラメトリックベイズの手法であるガウス過程を，フィードバック線形化のためのモデル学習に用いる．適切なカーネル関数を用いることで，既存のコントローラーを用いながらシステム同定のためのデータを収集できる．同定されたモデルを用いて，フィードバック線形化に基づいた制御器を提案する．それによる(閉ループの)システムは大域的に有界である(globally uniformly ultimately bounded)ことが示される．また訓練集合と，システムが収束するboundの大きさとの関係を導く．
+
+
+Introduction
+======================================================================
+非線形系に対してフィードバック線形化を用いることで，線形制御におけるよく知られている手法を適用することが可能になる．しかしフィードバック線形化により非線形システムの非線形性を完全にキャンセルするためには，詳細なモデルが必要である．そのためフィードバック線形化を適用するためには非線形システムの詳細なシステム同定が不可欠である．しかし第一原理だけでは導出できないような複雑なダイナミクスに従うシステムに対しても制御を行うようになるにつれ，このアプローチは困難を伴う．古典的なシステム同定は観測値を用いることで，システムのパラメトリックモデルを選択しさらにチューニングを行う．そのためそもそもシステムの構造に関する情報が手に入らない場合，失敗する運命にある．データ駆動のアプローチは，少数の事前情報を用いて訓練集合以外に対しても汎化性能を示すため，gain popularityしてきた．数学的には難関であるがノンパラメトリックベイズを用いることで，ベイズの枠組みで事前知識をデータと融合し，ノンパラメトリックな柔軟性を両立することができる．
+
+
+この論文では著者らはガウス過程(GP)に焦点を当てている．GPはすでにシステム同定にはsuccessfulに用いられている．しかし制御の観点からのformal analysisは欠落している．ガウス過程システムモデルの収束性の解析は[6][7]を参照．GPは各状態空間の領域において，推定された関数とそのモデルの信頼性を評価できるという性質があるため，安定性の解析に有用である．[9]に示されているように，GPは訓練データへの距離を測ることで真の関数値と関数の推定値の誤差の上界を与える．The knowledge of its own ignorance represents a benefit over many other representation approaches.
+
+
+フィードバック線形化を適用するにあたって，モデルに関する情報が欠けていることに対処するため，[10]では入力が状態に与える影響は既知であるという仮定のもとでロバストな設計に着目している．[11]ではオリジナルのモデルが与えられたうえでその不確かさを考慮しているが，そもそもオリジナルのモデルをどのように得るのか言及していない．
+
+main contributionは，GPを用いたシステム同定と提案するフィードバック線形化を用いる手法がglobally uniformly ultimately boundedであることを示すことにある．システム同定にはシステムのcontrol-affineな性質をカーネル関数に変換する．これによりシステムを閉ループで同定することができる．更なる解析を行うことで，情報(訓練データ)が増えるについてultimate boundがどのように減少するかが示され，訓練データ集合のサイズとシステムが収束するサイズとの間の関係を導出する．
+
+Probem Formlation
+======================================================================
+以下に示される可制御標準形の，状態フィードバックにより線形化可能なシステムを考える．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{x}_1 &= x_2 \\ \dot{x}_2 &= x_3 \\ \cdots \\ \dot{x}_n &= f(\boldsymbol{x}) + g(\boldsymbol{x})u \\ \boldsymbol{x}(0) &= \boldsymbol{x}_0
+   \end{align*}
+
+ここで状態ベクトル :math:`\boldsymbol{x} = [x_1 \cdots x_n]^{\text{T}} \in \mathcal{X} \subset \mathbb{R}^n` のすべての値が測定可能であるとする．下のようにいくつかの仮定をおく．
+
+#. 未知関数 :math:`f: \mathcal{X} \rightarrow \mathbb{R}` ， :math:`g: \mathcal{X} \rightarrow \mathbb{R}` は有界かつ無限回微分可能とする
+#. システムの相対次数は :math:`\boldsymbol{x} \in \mathcal{X}` においてシステムの次元nに等しい
+#. 少なくとも一つの :math:`\boldsymbol{x} \in \mathcal{X}` において :math:`g(\boldsymbol{x})` の符号が既知である
+
+3つ目の仮定は相対次数が不良設定とならないためのものである( :math:`g(\boldsymbol{x}) == 0` だと相対次数が定義されない)．そのためgの符号は一定である．
+
+第一には未知関数 :math:`f, g` をデータから :math:`\hat{f}, \hat{g}` で近似し，次に以下のようにフィードバック線形化
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   u_f = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsymbol{x}) + \nu \right)
+   \end{align*}
+
+を行う．また :math:`y = \dot{x}_n + \epsilon` が観測として得られるとする( :math:`\epsilon \sim \mathcal{N}(0, \sigma_{n}^2)` )．そして訓練集合を
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \mathcal{D} = \left\{ \boldsymbol{x}^{(i)}, y^{(i)}\right\}_{i=1}^{N}
+   \end{align*}
+
+
+とする．
+
+Identification of Control Affine Systems Using Gaussian Processes
+======================================================================
+
+Gaussian Process Basics
+----------------------------------------------------------------------
+ガウス過程では関数が平均関数の周辺に関数が分布するイメージである．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   f_{GP} \sim GP(m(\boldsymbol{x}), k(\boldsymbol{x}, \boldsymbol{x}^{\prime}))
+   \end{align*}
+
+このパラメーター :math:`\boldsymbol{\phi} = \{m, k\}` は推定されるべき変数であり，以下のような最適化により求められる．
+
+ :math:`\boldsymbol{\phi^{*}} = \mathrm{argmax} \log p(\boldsymbol{y}_f \mid \boldsymbol{X}, \boldsymbol{\phi})` 
+
+ここで
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \log p(\boldsymbol{y}_f \mid \boldsymbol{X}, \boldsymbol{\phi}) = \dfrac{1}{2}(\boldsymbol{y}_f^{\text{T}}K\boldsymbol{y}_f - \log \det K - N \log (2\pi))
+   \end{align*}
+
+where
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   X &= [\boldsymbol{x}^{{1}} \cdots \boldsymbol{x}^{(N)}] \\ \boldsymbol{y}_f &= [y_{f}^{(1)} \cdots y_{f}^{(N)}]
+   \end{align*}
+
+である．また行列Kはデータの各組み合わせについてカーネル値を求めた
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   K = \begin{bmatrix} k(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(1)}) & \cdots & k(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(N)}) \\ \vdots & \ddots & \vdots \\ k(\boldsymbol{x}^{(N)}, \boldsymbol{x}^{(1)}) & \cdots & k(\boldsymbol{x}^{(N)}, \boldsymbol{x}^{(N)}) \end{bmatrix}
+   \end{align*}
+
+なる行列である． :math:`\phi` に関する最適化は非凸ではあるが，勾配法などで解ける．ガウス過程による回帰では以下の結合分布を用いる．
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \left[\begin{array}{c} f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \\ \boldsymbol{y}_{f} \end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{c} m\left(\boldsymbol{x}^{*}\right) \\ \boldsymbol{m}_{\boldsymbol{X}} \end{array}\right],\left[\begin{array}{cc} k^{*} & \boldsymbol{k}^{\top} \\ \boldsymbol{k} & \boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N} \end{array}\right]\right)
+   \end{align*}
+
+ここで :math:`\boldsymbol{m}_{\boldsymbol{X}} = [m(\boldsymbol{x}^{(1)}) \cdots m(\boldsymbol{x}^{(N)})]^{\text{T}}` である．条件付き分布を求めることで
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \mu\left(\boldsymbol{x}^{*}\right): &=\mathbb{E}\left[f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \mid \mathcal{D}\right] \\
+   &=m\left(\boldsymbol{x}^{*}\right)+\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1}\left(\boldsymbol{y}_{f}-\boldsymbol{m}_{\boldsymbol{X}}\right) \\
+   \sigma\left(\boldsymbol{x}^{*}\right) &:=\mathbb{V}\left[f_{\mathcal{G} \mathcal{P}}\left(\boldsymbol{x}^{*}\right) \mid \mathcal{D}\right]=k^{*}-\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1} \boldsymbol{k}
+   \end{align*}
+
+が得られる．ただし
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   k^{*} &=k\left(\boldsymbol{x}^{*}, \boldsymbol{x}^{*}\right) \\
+   \boldsymbol{k} &=\left[k\left(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{*}\right) \cdots k\left(\boldsymbol{x}^{(N)}, \boldsymbol{x}^{*}\right)\right]^{\top} \in \mathbb{R}^{N}
+   \end{align*}
+
+である．
+
+Expressing Structure in Kernels
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ここで述べられているのはGPを用いてどのようにfとgを分離して推定するかについてである．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   y_{\operatorname{sum}}^{(i)}=f_{\operatorname{sum}}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}=f_{a}\left(\boldsymbol{x}^{(i)}\right)+f_{b}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}
+   \end{align*}
+
+となっている場合，推定したい関数それぞれのカーネル :math:`k_a, k_b` を適当に初期化して以下の結合分布を利用する．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \left[\begin{array}{c}
+   f_{a}\left(\boldsymbol{x}^{*}\right) \\
+   f_{b}\left(\boldsymbol{x}^{*}\right) \\
+   \boldsymbol{y}_{\mathrm{sum}}
+   \end{array}\right] \sim \mathcal{N}\left(\mathbf{0},\left[\begin{array}{ccc}
+   k_{a}^{*} & \mathbf{0} & \boldsymbol{k}_{a}^{\top} \\
+   \mathbf{0} & k_{b}^{*} & \boldsymbol{k}_{b}^{\top} \\
+   \boldsymbol{k}_{a} & \boldsymbol{k}_{b} & \boldsymbol{K}_{a}+\boldsymbol{K}_{b}+\sigma_{n}^{2} \boldsymbol{I}_{N}
+   \end{array}\right]\right)
+   \end{align*}
+
+ここで :math:`k_{a}^{*}, k_{b}^{*}, \boldsymbol{k}_{a}, \boldsymbol{k}_{b}, \boldsymbol{K}_{a}, \boldsymbol{K}_{b}` は :math:`k^{*}, \boldsymbol{k}` と同様に定めるとする．すると観測値 :math:`\boldsymbol{y}_{\mathrm{sum}}` で条件付けして以下の推定式を得ることができる．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \begin{array}{l}
+   f_{a}\left(\boldsymbol{x}^{*}\right) \mid \boldsymbol{y}_{\mathrm{sum}} \sim \mathcal{N}\left(\boldsymbol{k}_{a}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{y}_{\mathrm{sum}}, k_{a}^{*}-\boldsymbol{k}_{a}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{k}_{a}\right) \\
+   f_{b}\left(\boldsymbol{x}^{*}\right) \mid \boldsymbol{y}_{\mathrm{sum}} \sim \mathcal{N}\left(\boldsymbol{k}_{b}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{y}_{\mathrm{sum}}, k_{b}^{*}-\boldsymbol{k}_{b}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{k}_{b}\right)
+   \end{array}
+   \end{align*}
+   
+よって新しい観測値が得られるたびにこのアップデートを行うことができる．
+
+Product with known functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+未知の関数 :math:`f_h(\boldsymbol{x})` が既知の関数 :math:`h(\boldsymbol{x})` だけかけられて以下のように観測されるとする．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   y_{\mathrm{prod}}^{(i)}=f_{\mathrm{prod}}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}=f_{h}\left(\boldsymbol{x}^{(i)}\right) h\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}
+   \end{align*}
+
+すると以下のような結合分布が得られる．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \left[\begin{array}{c}
+   f_{h}\left(\boldsymbol{x}^{*}\right) \\
+   \boldsymbol{y}_{\mathrm{prod}}
+   \end{array}\right] \sim \mathcal{N}\left(\mathbf{0},\left[\begin{array}{cc}
+   h^{*} k_{h}^{*} h^{*} & h^{*} \boldsymbol{k}_{h}^{\top} \boldsymbol{H}^{\top} \\
+   \boldsymbol{H} \boldsymbol{k}_{h} h^{*} & \boldsymbol{H}^{\top} \boldsymbol{K}_{h} \boldsymbol{H}+\sigma_{n}^{2} \boldsymbol{I}_{N}
+   \end{array}\right]\right)
+   \end{align*}
+
+
+すると :math:`\boldsymbol{K}_{\mathrm{prod}} = \boldsymbol{H}^{\top}\boldsymbol{K}_h \boldsymbol{H}` として，観測値で条件付けして以下のような推定式が得られる．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   f_{h}\left(\boldsymbol{x}^{*}\right) \mid \boldsymbol{y}_{\mathrm{prod}} \sim \mathcal{N}\left(h^{*} \boldsymbol{k}_{h}^{\top} \boldsymbol{H}^{\top} \boldsymbol{K}_{\mathrm{prod}}^{-1} \boldsymbol{y}_{\mathrm{prod}}, h^{*} k_{h}^{*} h^{*} - h^{*} \boldsymbol{k}_{h}^{\top} \boldsymbol{H}^{\top} \boldsymbol{K}_{\mathrm{prod}}^{-1} \boldsymbol{H} \boldsymbol{k}_{h} h^{*}\right)
+   \end{align*}
+   
+GP Identification for Control Affine Systems
+----------------------------------------------------------------------
+ここで実際に題意のシステムにおいて関数fgの推定を行う．それぞれの初期値(初期関数)の平均を
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   m_f(\boldsymbol{x}) &= 0 \\ m_g(\boldsymbol{x}) &= b_{\mu}
+   \end{align*}
+
+カーネルを
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \begin{array}{l}
+   k_{f}\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)=\sigma_{f}^{2} \exp \left(\sum_{j=1}^{n} \dfrac{\left(x_{j}-x_{j}^{\prime}\right)^{2}}{-2 l_{j, f}^{2}}\right) \\
+   k_{g}\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)=\sigma_{g}^{2} \exp \left(\sum_{j=1}^{n} \dfrac{\left(x_{j}-x_{j}^{\prime}\right)^{2}}{-2 l_{j, g}^{2}}\right)
+   \end{array}
+   \end{align*}
+   
+とする．そして(オフラインで？)
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \boldsymbol{\phi} = \begin{bmatrix}l_{1, f} & l_{1, g} & \cdots & l_{n, f} & l_{n, g} & \sigma_{f}^2 & \sigma_{g}^2 & \sigma_{n}^2\end{bmatrix}^{\top}
+   \end{align*}
+
+を最適化しておく． :math:`\boldsymbol{U}_{0}=\operatorname{diag}\left(u_{0}\left(\boldsymbol{x}^{(1)}\right), \ldots, u_{0}\left(\boldsymbol{x}^{(N)}\right)\right)` ， :math:`u_{0}^{*} = u_{0}(\boldsymbol{x}^{*})` ， :math:`\boldsymbol{b}_{\mu} = [b_{\mu} \cdots b_{\mu}]^{\top} \in \mathbb{R}^N` として以下の結合分布
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \left[\begin{array}{c}
+   f\left(\boldsymbol{x}^{*}\right) \\
+   g\left(\boldsymbol{x}^{*}\right) \\
+   \boldsymbol{y}
+   \end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{c}
+   0 \\
+   b_{\mu} \\
+   \boldsymbol{U}_{0} \boldsymbol{b}_{\boldsymbol{\mu}}
+   \end{array}\right],\left[\begin{array}{ccc}
+   k_{f}^{*} & 0 & \boldsymbol{k}_{f}^{\top} \\
+   0 & k_{g}^{*} & \boldsymbol{k}_{g}^{\top} \boldsymbol{U}_{0}^{\top} u_{0}^{*} \\
+   \boldsymbol{k}_{f} & \boldsymbol{U}_{0} \boldsymbol{k}_{g} u_{0}^{*} & \boldsymbol{K}_{f g}
+   \end{array}\right]\right)
+   \end{align*}
+
+を用いると，以下のように観測データで条件付けして推定を行えば良い．
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   &\hat{f}\left(\boldsymbol{x}^{*}\right):=\mu_{f}\left(\boldsymbol{x}^{*}\right)=\boldsymbol{k}_{f}^{\top} \boldsymbol{K}_{f g}^{-1}\left(\boldsymbol{y}-\boldsymbol{U}_{0} \boldsymbol{b}_{\boldsymbol{\mu}}\right)\\
+   &\hat{g}\left(\boldsymbol{x}^{*}\right):=\mu_{g}\left(\boldsymbol{x}^{*}\right)=b_{\mu}+u_{0}^{*} \boldsymbol{k}_{g}^{\top} \boldsymbol{U}_{0} \boldsymbol{K}_{f g}^{-1}\left(\boldsymbol{y}-\boldsymbol{U}_{0} \boldsymbol{b}_{\boldsymbol{\mu}}\right)
+   \end{align*}
+
+Convergence Analysis for Feedback Linearizing Control
+======================================================================
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}      
+   &\dot{x}_{1}=x_{2}\\
+   &\dot{x}_{2}=\underbrace{1-\sin \left(x_{1}\right)+s\left(x_{2}\right)}_{=f(x)}+\underbrace{\left(1+\frac{1}{2} \sin \left(x_{2} / 2\right)\right)}_{=g(x)} u
+   \end{align*}
+   

@@ -5,9 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta content="Soblin's Technote - Control" name="description" />
-<meta content="control, robotics, mathematics, 制御, ロボティクス, 数学" name="keywords" />
-<script type="text/javascript">
+  <script type="text/javascript">
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-138456127-3']);
@@ -19,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <meta property="og:description" content="この章では制御理論に関する論文の読書ノートをまとめている.">
+    <meta property="og:description" content="Jonas Umlauft, Thomas Beckers, Melanie Kimmel, Sandra Hirche 2017 link 2017 IEEE 56th Anual Conference on Decision and Control (CDC)">
     
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -58,8 +56,9 @@
               href="../genindex.html"/>
         <link rel="search" title="検索" href="../search.html"/>
     <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
-        <link rel="next" title="Feedback Linearization using Gaussian Process" href="feedback_linearization_using_gp.html"/>
-        <link rel="prev" title="Riemannian Motion Policies" href="../motion_planning/riemannian_motion_policy.html"/> 
+        <link rel="up" title="Control" href="index.html"/>
+        <link rel="next" title="Books" href="../books/index.html"/>
+        <link rel="prev" title="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems" href="murray_flatness.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -114,10 +113,13 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../motion_planning/index.html">Motion Planning</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Control</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Control</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="feedback_linearization_using_gp.html">Feedback Linearization using Gaussian Process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="murray_flatness.html">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="neural_lyapnov_control.html">Neural Lyapnov Control</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Neural Lyapnov Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -167,7 +169,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Control</li>
+          <li><a href="index.html">Control</a> &raquo;</li>
+        
+      <li>Neural Lyapnov Control</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,15 +188,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="control">
-<h1>Control<a class="headerlink" href="#control" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>この章では制御理論に関する論文の読書ノートをまとめている.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="feedback_linearization_using_gp.html">Feedback Linearization using Gaussian Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="murray_flatness.html">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="neural_lyapnov_control.html">Neural Lyapnov Control</a></li>
-</ul>
+  <div class="section" id="neural-lyapnov-control">
+<h1>Neural Lyapnov Control<a class="headerlink" href="#neural-lyapnov-control" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jonas Umlauft, Thomas Beckers, Melanie Kimmel, Sandra Hirche</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2017</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://mediatum.ub.tum.de/doc/1374761/335188.pdf">link</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">2017 IEEE 56th Anual Conference on Decision and Control (CDC)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
 </div>
 </div>
 
@@ -206,10 +219,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="feedback_linearization_using_gp.html" class="btn btn-neutral float-right" title="Feedback Linearization using Gaussian Process" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../books/index.html" class="btn btn-neutral float-right" title="Books" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../motion_planning/riemannian_motion_policy.html" class="btn btn-neutral" title="Riemannian Motion Policies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="murray_flatness.html" class="btn btn-neutral" title="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

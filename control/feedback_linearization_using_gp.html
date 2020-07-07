@@ -17,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <meta property="og:description" content="Jonas Umlauft, Thomas Beckers, Melanie Kimmel, Sandra Hirche 2017 http://mediatum.ub.tum.de/doc/1374761/335188.pdf 2017 IEEE 56th Anual Conference on Decision and Control (CDC)">
+    <meta property="og:description" content="Jonas Umlauft, Thomas Beckers, Melanie Kimmel, Sandra Hirche 2017 link 2017 IEEE 56th Anual Conference on Decision and Control (CDC) Feedback Linearization using Gaussian Process Abstract Introduct...">
     
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -116,9 +116,18 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Control</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Feedback Linearization using Gaussian Process</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#probem-formlation">Probem Formlation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identification-of-control-affine-systems-using-gaussian-processes">Identification of Control Affine Systems Using Gaussian Processes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gaussian-process-basics">Gaussian Process Basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gp-identification-for-control-affine-systems">GP Identification for Control Affine Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#convergence-analysis-for-feedback-linearizing-control">Convergence Analysis for Feedback Linearizing Control</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="murray_flatness.html">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_lyapnov_control.html">Neural Lyapnov Control</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +197,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="feedback-linearization-using-gaussian-process">
-<h1>Feedback Linearization using Gaussian Process<a class="headerlink" href="#feedback-linearization-using-gaussian-process" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<h1><a class="toc-backref" href="#id2">Feedback Linearization using Gaussian Process</a><a class="headerlink" href="#feedback-linearization-using-gaussian-process" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -197,15 +206,194 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2017</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://mediatum.ub.tum.de/doc/1374761/335188.pdf">http://mediatum.ub.tum.de/doc/1374761/335188.pdf</a></td>
+<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://mediatum.ub.tum.de/doc/1374761/335188.pdf">link</a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">2017 IEEE 56th Anual Conference on Decision and Control (CDC)</td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="abstract">
-<h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#feedback-linearization-using-gaussian-process" id="id2">Feedback Linearization using Gaussian Process</a><ul>
+<li><a class="reference internal" href="#abstract" id="id3">Abstract</a></li>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a></li>
+<li><a class="reference internal" href="#probem-formlation" id="id5">Probem Formlation</a></li>
+<li><a class="reference internal" href="#identification-of-control-affine-systems-using-gaussian-processes" id="id6">Identification of Control Affine Systems Using Gaussian Processes</a></li>
+<li><a class="reference internal" href="#convergence-analysis-for-feedback-linearizing-control" id="id7">Convergence Analysis for Feedback Linearizing Control</a></li>
+</ul>
+</li>
+</ul>
 </div>
+<div class="section" id="abstract">
+<h2><a class="toc-backref" href="#id3">Abstract</a><a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>モデルの構造についての情報が限られているシステムの同定において，機械学習のデータ駆動アプローチは大変有用である．この論文ではノンパラメトリックベイズの手法であるガウス過程を，フィードバック線形化のためのモデル学習に用いる．適切なカーネル関数を用いることで，既存のコントローラーを用いながらシステム同定のためのデータを収集できる．同定されたモデルを用いて，フィードバック線形化に基づいた制御器を提案する．それによる(閉ループの)システムは大域的に有界である(globally uniformly ultimately bounded)ことが示される．また訓練集合と，システムが収束するboundの大きさとの関係を導く．</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>非線形系に対してフィードバック線形化を用いることで，線形制御におけるよく知られている手法を適用することが可能になる．しかしフィードバック線形化により非線形システムの非線形性を完全にキャンセルするためには，詳細なモデルが必要である．そのためフィードバック線形化を適用するためには非線形システムの詳細なシステム同定が不可欠である．しかし第一原理だけでは導出できないような複雑なダイナミクスに従うシステムに対しても制御を行うようになるにつれ，このアプローチは困難を伴う．古典的なシステム同定は観測値を用いることで，システムのパラメトリックモデルを選択しさらにチューニングを行う．そのためそもそもシステムの構造に関する情報が手に入らない場合，失敗する運命にある．データ駆動のアプローチは，少数の事前情報を用いて訓練集合以外に対しても汎化性能を示すため，gain popularityしてきた．数学的には難関であるがノンパラメトリックベイズを用いることで，ベイズの枠組みで事前知識をデータと融合し，ノンパラメトリックな柔軟性を両立することができる．</p>
+<p>この論文では著者らはガウス過程(GP)に焦点を当てている．GPはすでにシステム同定にはsuccessfulに用いられている．しかし制御の観点からのformal analysisは欠落している．ガウス過程システムモデルの収束性の解析は[6][7]を参照．GPは各状態空間の領域において，推定された関数とそのモデルの信頼性を評価できるという性質があるため，安定性の解析に有用である．[9]に示されているように，GPは訓練データへの距離を測ることで真の関数値と関数の推定値の誤差の上界を与える．The knowledge of its own ignorance represents a benefit over many other representation approaches.</p>
+<p>フィードバック線形化を適用するにあたって，モデルに関する情報が欠けていることに対処するため，[10]では入力が状態に与える影響は既知であるという仮定のもとでロバストな設計に着目している．[11]ではオリジナルのモデルが与えられたうえでその不確かさを考慮しているが，そもそもオリジナルのモデルをどのように得るのか言及していない．</p>
+<p>main contributionは，GPを用いたシステム同定と提案するフィードバック線形化を用いる手法がglobally uniformly ultimately boundedであることを示すことにある．システム同定にはシステムのcontrol-affineな性質をカーネル関数に変換する．これによりシステムを閉ループで同定することができる．更なる解析を行うことで，情報(訓練データ)が増えるについてultimate boundがどのように減少するかが示され，訓練データ集合のサイズとシステムが収束するサイズとの間の関係を導出する．</p>
+</div>
+<div class="section" id="probem-formlation">
+<h2><a class="toc-backref" href="#id5">Probem Formlation</a><a class="headerlink" href="#probem-formlation" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以下に示される可制御標準形の，状態フィードバックにより線形化可能なシステムを考える．</p>
+<div class="math">
+\begin{align*}
+\dot{x}_1 &amp;= x_2 \\ \dot{x}_2 &amp;= x_3 \\ \cdots \\ \dot{x}_n &amp;= f(\boldsymbol{x}) + g(\boldsymbol{x})u \\ \boldsymbol{x}(0) &amp;= \boldsymbol{x}_0
+\end{align*}</div><p>ここで状態ベクトル <span class="math">\(\boldsymbol{x} = [x_1 \cdots x_n]^{\text{T}} \in \mathcal{X} \subset \mathbb{R}^n\)</span> のすべての値が測定可能であるとする．下のようにいくつかの仮定をおく．</p>
+<ol class="arabic simple">
+<li>未知関数 <span class="math">\(f: \mathcal{X} \rightarrow \mathbb{R}\)</span> ， <span class="math">\(g: \mathcal{X} \rightarrow \mathbb{R}\)</span> は有界かつ無限回微分可能とする</li>
+<li>システムの相対次数は <span class="math">\(\boldsymbol{x} \in \mathcal{X}\)</span> においてシステムの次元nに等しい</li>
+<li>少なくとも一つの <span class="math">\(\boldsymbol{x} \in \mathcal{X}\)</span> において <span class="math">\(g(\boldsymbol{x})\)</span> の符号が既知である</li>
+</ol>
+<p>3つ目の仮定は相対次数が不良設定とならないためのものである( <span class="math">\(g(\boldsymbol{x}) == 0\)</span> だと相対次数が定義されない)．そのためgの符号は一定である．</p>
+<p>第一には未知関数 <span class="math">\(f, g\)</span> をデータから <span class="math">\(\hat{f}, \hat{g}\)</span> で近似し，次に以下のようにフィードバック線形化</p>
+<div class="math">
+\begin{align*}
+u_f = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsymbol{x}) + \nu \right)
+\end{align*}</div><p>を行う．また <span class="math">\(y = \dot{x}_n + \epsilon\)</span> が観測として得られるとする( <span class="math">\(\epsilon \sim \mathcal{N}(0, \sigma_{n}^2)\)</span> )．そして訓練集合を</p>
+<div class="math">
+\begin{align*}
+\mathcal{D} = \left\{ \boldsymbol{x}^{(i)}, y^{(i)}\right\}_{i=1}^{N}
+\end{align*}</div><p>とする．</p>
+</div>
+<div class="section" id="identification-of-control-affine-systems-using-gaussian-processes">
+<h2><a class="toc-backref" href="#id6">Identification of Control Affine Systems Using Gaussian Processes</a><a class="headerlink" href="#identification-of-control-affine-systems-using-gaussian-processes" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="gaussian-process-basics">
+<h3>Gaussian Process Basics<a class="headerlink" href="#gaussian-process-basics" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ガウス過程では関数が平均関数の周辺に関数が分布するイメージである．</p>
+<div class="math">
+\begin{align*}
+f_{GP} \sim GP(m(\boldsymbol{x}), k(\boldsymbol{x}, \boldsymbol{x}^{\prime}))
+\end{align*}</div><p>このパラメーター <span class="math">\(\boldsymbol{\phi} = \{m, k\}\)</span> は推定されるべき変数であり，以下のような最適化により求められる．</p>
+<blockquote>
+<div><span class="math">\(\boldsymbol{\phi^{*}} = \mathrm{argmax} \log p(\boldsymbol{y}_f \mid \boldsymbol{X}, \boldsymbol{\phi})\)</span></div></blockquote>
+<p>ここで</p>
+<div class="math">
+\begin{align*}
+\log p(\boldsymbol{y}_f \mid \boldsymbol{X}, \boldsymbol{\phi}) = \dfrac{1}{2}(\boldsymbol{y}_f^{\text{T}}K\boldsymbol{y}_f - \log \det K - N \log (2\pi))
+\end{align*}</div><p>where</p>
+<div class="math">
+\begin{align*}
+X &amp;= [\boldsymbol{x}^{{1}} \cdots \boldsymbol{x}^{(N)}] \\ \boldsymbol{y}_f &amp;= [y_{f}^{(1)} \cdots y_{f}^{(N)}]
+\end{align*}</div><p>である．また行列Kはデータの各組み合わせについてカーネル値を求めた</p>
+<div class="math">
+\begin{align*}
+K = \begin{bmatrix} k(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(1)}) &amp; \cdots &amp; k(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(N)}) \\ \vdots &amp; \ddots &amp; \vdots \\ k(\boldsymbol{x}^{(N)}, \boldsymbol{x}^{(1)}) &amp; \cdots &amp; k(\boldsymbol{x}^{(N)}, \boldsymbol{x}^{(N)}) \end{bmatrix}
+\end{align*}</div><p>なる行列である． <span class="math">\(\phi\)</span> に関する最適化は非凸ではあるが，勾配法などで解ける．ガウス過程による回帰では以下の結合分布を用いる．</p>
+<div class="math">
+\begin{align*}
+\left[\begin{array}{c} f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \\ \boldsymbol{y}_{f} \end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{c} m\left(\boldsymbol{x}^{*}\right) \\ \boldsymbol{m}_{\boldsymbol{X}} \end{array}\right],\left[\begin{array}{cc} k^{*} &amp; \boldsymbol{k}^{\top} \\ \boldsymbol{k} &amp; \boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N} \end{array}\right]\right)
+\end{align*}</div><p>ここで <span class="math">\(\boldsymbol{m}_{\boldsymbol{X}} = [m(\boldsymbol{x}^{(1)}) \cdots m(\boldsymbol{x}^{(N)})]^{\text{T}}\)</span> である．条件付き分布を求めることで</p>
+<div class="math">
+\begin{align*}
+\mu\left(\boldsymbol{x}^{*}\right): &amp;=\mathbb{E}\left[f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \mid \mathcal{D}\right] \\
+&amp;=m\left(\boldsymbol{x}^{*}\right)+\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1}\left(\boldsymbol{y}_{f}-\boldsymbol{m}_{\boldsymbol{X}}\right) \\
+\sigma\left(\boldsymbol{x}^{*}\right) &amp;:=\mathbb{V}\left[f_{\mathcal{G} \mathcal{P}}\left(\boldsymbol{x}^{*}\right) \mid \mathcal{D}\right]=k^{*}-\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1} \boldsymbol{k}
+\end{align*}</div><p>が得られる．ただし</p>
+<div class="math">
+\begin{align*}
+k^{*} &amp;=k\left(\boldsymbol{x}^{*}, \boldsymbol{x}^{*}\right) \\
+\boldsymbol{k} &amp;=\left[k\left(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{*}\right) \cdots k\left(\boldsymbol{x}^{(N)}, \boldsymbol{x}^{*}\right)\right]^{\top} \in \mathbb{R}^{N}
+\end{align*}</div><p>である．</p>
+<div class="section" id="expressing-structure-in-kernels">
+<h4>Expressing Structure in Kernels<a class="headerlink" href="#expressing-structure-in-kernels" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>ここで述べられているのはGPを用いてどのようにfとgを分離して推定するかについてである．</p>
+<div class="math">
+\begin{align*}
+y_{\operatorname{sum}}^{(i)}=f_{\operatorname{sum}}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}=f_{a}\left(\boldsymbol{x}^{(i)}\right)+f_{b}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}
+\end{align*}</div><p>となっている場合，推定したい関数それぞれのカーネル <span class="math">\(k_a, k_b\)</span> を適当に初期化して以下の結合分布を利用する．</p>
+<div class="math">
+\begin{align*}
+\left[\begin{array}{c}
+f_{a}\left(\boldsymbol{x}^{*}\right) \\
+f_{b}\left(\boldsymbol{x}^{*}\right) \\
+\boldsymbol{y}_{\mathrm{sum}}
+\end{array}\right] \sim \mathcal{N}\left(\mathbf{0},\left[\begin{array}{ccc}
+k_{a}^{*} &amp; \mathbf{0} &amp; \boldsymbol{k}_{a}^{\top} \\
+\mathbf{0} &amp; k_{b}^{*} &amp; \boldsymbol{k}_{b}^{\top} \\
+\boldsymbol{k}_{a} &amp; \boldsymbol{k}_{b} &amp; \boldsymbol{K}_{a}+\boldsymbol{K}_{b}+\sigma_{n}^{2} \boldsymbol{I}_{N}
+\end{array}\right]\right)
+\end{align*}</div><p>ここで <span class="math">\(k_{a}^{*}, k_{b}^{*}, \boldsymbol{k}_{a}, \boldsymbol{k}_{b}, \boldsymbol{K}_{a}, \boldsymbol{K}_{b}\)</span> は <span class="math">\(k^{*}, \boldsymbol{k}\)</span> と同様に定めるとする．すると観測値 <span class="math">\(\boldsymbol{y}_{\mathrm{sum}}\)</span> で条件付けして以下の推定式を得ることができる．</p>
+<div class="math">
+\begin{align*}
+\begin{array}{l}
+f_{a}\left(\boldsymbol{x}^{*}\right) \mid \boldsymbol{y}_{\mathrm{sum}} \sim \mathcal{N}\left(\boldsymbol{k}_{a}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{y}_{\mathrm{sum}}, k_{a}^{*}-\boldsymbol{k}_{a}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{k}_{a}\right) \\
+f_{b}\left(\boldsymbol{x}^{*}\right) \mid \boldsymbol{y}_{\mathrm{sum}} \sim \mathcal{N}\left(\boldsymbol{k}_{b}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{y}_{\mathrm{sum}}, k_{b}^{*}-\boldsymbol{k}_{b}^{\top} \boldsymbol{K}_{\mathrm{sum}}^{-1} \boldsymbol{k}_{b}\right)
+\end{array}
+\end{align*}</div><p>よって新しい観測値が得られるたびにこのアップデートを行うことができる．</p>
+</div>
+<div class="section" id="product-with-known-functions">
+<h4>Product with known functions<a class="headerlink" href="#product-with-known-functions" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>未知の関数 <span class="math">\(f_h(\boldsymbol{x})\)</span> が既知の関数 <span class="math">\(h(\boldsymbol{x})\)</span> だけかけられて以下のように観測されるとする．</p>
+<div class="math">
+\begin{align*}
+y_{\mathrm{prod}}^{(i)}=f_{\mathrm{prod}}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}=f_{h}\left(\boldsymbol{x}^{(i)}\right) h\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}
+\end{align*}</div><p>すると以下のような結合分布が得られる．</p>
+<div class="math">
+\begin{align*}
+\left[\begin{array}{c}
+f_{h}\left(\boldsymbol{x}^{*}\right) \\
+\boldsymbol{y}_{\mathrm{prod}}
+\end{array}\right] \sim \mathcal{N}\left(\mathbf{0},\left[\begin{array}{cc}
+h^{*} k_{h}^{*} h^{*} &amp; h^{*} \boldsymbol{k}_{h}^{\top} \boldsymbol{H}^{\top} \\
+\boldsymbol{H} \boldsymbol{k}_{h} h^{*} &amp; \boldsymbol{H}^{\top} \boldsymbol{K}_{h} \boldsymbol{H}+\sigma_{n}^{2} \boldsymbol{I}_{N}
+\end{array}\right]\right)
+\end{align*}</div><p>すると <span class="math">\(\boldsymbol{K}_{\mathrm{prod}} = \boldsymbol{H}^{\top}\boldsymbol{K}_h \boldsymbol{H}\)</span> として，観測値で条件付けして以下のような推定式が得られる．</p>
+<div class="math">
+\begin{align*}
+f_{h}\left(\boldsymbol{x}^{*}\right) \mid \boldsymbol{y}_{\mathrm{prod}} \sim \mathcal{N}\left(h^{*} \boldsymbol{k}_{h}^{\top} \boldsymbol{H}^{\top} \boldsymbol{K}_{\mathrm{prod}}^{-1} \boldsymbol{y}_{\mathrm{prod}}, h^{*} k_{h}^{*} h^{*} - h^{*} \boldsymbol{k}_{h}^{\top} \boldsymbol{H}^{\top} \boldsymbol{K}_{\mathrm{prod}}^{-1} \boldsymbol{H} \boldsymbol{k}_{h} h^{*}\right)
+\end{align*}</div></div>
+</div>
+<div class="section" id="gp-identification-for-control-affine-systems">
+<h3>GP Identification for Control Affine Systems<a class="headerlink" href="#gp-identification-for-control-affine-systems" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここで実際に題意のシステムにおいて関数fgの推定を行う．それぞれの初期値(初期関数)の平均を</p>
+<div class="math">
+\begin{align*}
+m_f(\boldsymbol{x}) &amp;= 0 \\ m_g(\boldsymbol{x}) &amp;= b_{\mu}
+\end{align*}</div><p>カーネルを</p>
+<div class="math">
+\begin{align*}
+\begin{array}{l}
+k_{f}\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)=\sigma_{f}^{2} \exp \left(\sum_{j=1}^{n} \dfrac{\left(x_{j}-x_{j}^{\prime}\right)^{2}}{-2 l_{j, f}^{2}}\right) \\
+k_{g}\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)=\sigma_{g}^{2} \exp \left(\sum_{j=1}^{n} \dfrac{\left(x_{j}-x_{j}^{\prime}\right)^{2}}{-2 l_{j, g}^{2}}\right)
+\end{array}
+\end{align*}</div><p>とする．そして(オフラインで？)</p>
+<div class="math">
+\begin{align*}
+\boldsymbol{\phi} = \begin{bmatrix}l_{1, f} &amp; l_{1, g} &amp; \cdots &amp; l_{n, f} &amp; l_{n, g} &amp; \sigma_{f}^2 &amp; \sigma_{g}^2 &amp; \sigma_{n}^2\end{bmatrix}^{\top}
+\end{align*}</div><p>を最適化しておく． <span class="math">\(\boldsymbol{U}_{0}=\operatorname{diag}\left(u_{0}\left(\boldsymbol{x}^{(1)}\right), \ldots, u_{0}\left(\boldsymbol{x}^{(N)}\right)\right)\)</span> ， <span class="math">\(u_{0}^{*} = u_{0}(\boldsymbol{x}^{*})\)</span> ， <span class="math">\(\boldsymbol{b}_{\mu} = [b_{\mu} \cdots b_{\mu}]^{\top} \in \mathbb{R}^N\)</span> として以下の結合分布</p>
+<div class="math">
+\begin{align*}
+\left[\begin{array}{c}
+f\left(\boldsymbol{x}^{*}\right) \\
+g\left(\boldsymbol{x}^{*}\right) \\
+\boldsymbol{y}
+\end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{c}
+0 \\
+b_{\mu} \\
+\boldsymbol{U}_{0} \boldsymbol{b}_{\boldsymbol{\mu}}
+\end{array}\right],\left[\begin{array}{ccc}
+k_{f}^{*} &amp; 0 &amp; \boldsymbol{k}_{f}^{\top} \\
+0 &amp; k_{g}^{*} &amp; \boldsymbol{k}_{g}^{\top} \boldsymbol{U}_{0}^{\top} u_{0}^{*} \\
+\boldsymbol{k}_{f} &amp; \boldsymbol{U}_{0} \boldsymbol{k}_{g} u_{0}^{*} &amp; \boldsymbol{K}_{f g}
+\end{array}\right]\right)
+\end{align*}</div><p>を用いると，以下のように観測データで条件付けして推定を行えば良い．</p>
+<div class="math">
+\begin{align*}
+&amp;\hat{f}\left(\boldsymbol{x}^{*}\right):=\mu_{f}\left(\boldsymbol{x}^{*}\right)=\boldsymbol{k}_{f}^{\top} \boldsymbol{K}_{f g}^{-1}\left(\boldsymbol{y}-\boldsymbol{U}_{0} \boldsymbol{b}_{\boldsymbol{\mu}}\right)\\
+&amp;\hat{g}\left(\boldsymbol{x}^{*}\right):=\mu_{g}\left(\boldsymbol{x}^{*}\right)=b_{\mu}+u_{0}^{*} \boldsymbol{k}_{g}^{\top} \boldsymbol{U}_{0} \boldsymbol{K}_{f g}^{-1}\left(\boldsymbol{y}-\boldsymbol{U}_{0} \boldsymbol{b}_{\boldsymbol{\mu}}\right)
+\end{align*}</div></div>
+</div>
+<div class="section" id="convergence-analysis-for-feedback-linearizing-control">
+<h2><a class="toc-backref" href="#id7">Convergence Analysis for Feedback Linearizing Control</a><a class="headerlink" href="#convergence-analysis-for-feedback-linearizing-control" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="math">
+\begin{align*}
+&amp;\dot{x}_{1}=x_{2}\\
+&amp;\dot{x}_{2}=\underbrace{1-\sin \left(x_{1}\right)+s\left(x_{2}\right)}_{=f(x)}+\underbrace{\left(1+\frac{1}{2} \sin \left(x_{2} / 2\right)\right)}_{=g(x)} u
+\end{align*}</div></div>
 </div>
 
 

@@ -1,0 +1,63 @@
+======================================================================
+第9章 ポアソン括弧
+======================================================================
+
+9.1 ポアソン括弧
+======================================================================
+以降いちいちq-pと書くのは面倒くさいので， :math:`x^a = (q_1, \cdots, q_n, p^1, \cdots, p^n)` と表記する．そして以下のような行列
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   J^{ab} = \begin{pmatrix} 0_n & 1_n \\ -1_n & 0_n \end{pmatrix}
+   \end{align*}
+
+を定義するとポアソン括弧は
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \{f, g\} = \sum_{a, b=1}^{2n} J^{ab} (\partial_a f)(\partial_b g)
+   \end{align*}
+
+
+と表される．
+
+9.2 ポアソン構造
+======================================================================
+物理量fとgのポアソン括弧 :math:`\{f, g\}` は **どの正準座標でもいいので** (これはq-pでもQ-Pでもよいのでという意味)で，ある正準座標のもとで計算しなければならない．しかしもしq-pからの座標変換(正準座標ではないかもしれない) :math:`x^a = x^a(y^1, \cdots y^{2n})` によりfの関数形 :math:`f(x^a)` を引き戻すと，
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \bar{f}(y^1, y^2, \cdots, y^{2n}) = f(x^1(\{y\}), x^2(\{y\}), \cdots x^{2n}(\{y\}))
+   \end{align*}
+
+と関数の形が変わる．この座標系のもとでのポアソン括弧は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \{f, g\} &= \sum_{a, b} J^{ab} \dfrac{\partial f}{\partial x^a}\dfrac{\partial g}{\partial x^b} \\ &= \sum_{c, d} J^{ab} \sum_c \dfrac{\partial y^c}{\partial x^a} \dfrac{\partial \bar{f}}{\partial y^c} \sum_d \dfrac{\partial y^d}{\partial x^b}\dfrac{\partial \bar{g}}{\partial y^d} \\ &= \sum_{c, d} \pi^{cd} \dfrac{\partial \bar{f}}{\partial y^c}\dfrac{\partial \bar{g}}{\partial y^d}
+   \end{align*}
+
+と表される．ここで
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \pi^{cd} = \sum_{a, b}J^{ab} \dfrac{\partial y^c}{\partial x^a} \dfrac{\partial y^d}{\partial x^b}
+   \end{align*}
+
+である．この :math:`\pi^{ab}` は正準座標 :math:`x^a` の代わりに用いようとする座標系による．これは正準座標ではない座標系でポアソン括弧を定める量であり，ポアソン構造と呼ばれている **幾何学的な量** である．
+
+今までの話の流れで言うならば，ハミルトン形式はもともとラグランジアンを求めるに使った正準変数 :math:`(q_i, p^i)` で記述されており，その座標系でポアソン括弧の計算がなされる．
+
+逆に2n次元の相空間Mとポアソン構造 :math:`\pi^{ab}` があり，たまたま :math:`\pi^{ab} = J^{ab}` となっている座標系が正準座標系であるとも言える．先に :math:`x^a` ではなく :math:`\pi^{ab}` があるという考え方．
