@@ -293,14 +293,14 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Search Algirthm A*:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Search Algorithm A*:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
 <ol class="arabic simple" start="0">
-<li>sを <em>open list</em> に入れて  <span class="math">\(\hat{f}(s)\)</span> を求める</li>
-<li><em>open list</em> の中で最も  <span class="math">\(\hat{f}(n)\)</span> の値が小さいnを求める</li>
+<li>sを <em>open list</em> に入れて <span class="math">\(\hat{f}(s)\)</span> を求める</li>
+<li><em>open list</em> の中で最も <span class="math">\(\hat{f}(n)\)</span> の値が小さいnを求める</li>
 <li>nを <em>closed list</em> に入れる. そしてnからsuccessor  <span class="math">\(\Gamma\)</span> を適用する(エッジを辿る). そしてその中でまだ <em>closed list</em> に入っていないものを <em>open list</em> に入れる. つまり <em>open list</em> に入っているノードは子を持たない <strong>葉</strong> であるか(まだ探索されていなかった)あるいはまだ探索の余地がある(更新される際にコストが下がった), そして <em>closed list</em> に入っているノードは <strong>枝</strong> になっている(基本的には探索の対象とはしない. 枝刈りの対象). そして各々の <span class="math">\(\hat{f}(n)\)</span> を更新する.</li>
 <li>一方 <em>closed list</em> に入っていたノードの中で,  <span class="math">\(\hat{f}(n)\)</span> が下がったものは, 再び <em>open list</em> に入れる. つまり上の手順で枝刈りされたけど(<em>closed list</em> に入れられたけど)再び探索対象に入れる.</li>
 <li>手順1に戻る</li>
@@ -366,7 +366,7 @@ f(n) = g(n) + h(n)
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, soblin.
+        &copy; Copyright 2020, soblin.
 
     </p>
   </div>

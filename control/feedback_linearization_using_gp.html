@@ -123,7 +123,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#gp-identification-for-control-affine-systems">GP Identification for Control Affine Systems</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#convergence-analysis-for-feedback-linearizing-control">Convergence Analysis for Feedback Linearizing Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convergence-analysis-for-feedback-linearizing-control">Convergence Analysis for Feedback Linearizing Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#control-law">Control Law</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convergence-analysis">Convergence Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tighter-bound-with-training-data">Tighter Bound with Training Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-illustration">Numerical Illustration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="murray_flatness.html">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a></li>
@@ -221,6 +227,7 @@
 <li><a class="reference internal" href="#probem-formlation" id="id5">Probem Formlation</a></li>
 <li><a class="reference internal" href="#identification-of-control-affine-systems-using-gaussian-processes" id="id6">Identification of Control Affine Systems Using Gaussian Processes</a></li>
 <li><a class="reference internal" href="#convergence-analysis-for-feedback-linearizing-control" id="id7">Convergence Analysis for Feedback Linearizing Control</a></li>
+<li><a class="reference internal" href="#numerical-illustration" id="id8">Numerical Illustration</a></li>
 </ul>
 </li>
 </ul>
@@ -287,7 +294,7 @@ K = \begin{bmatrix} k(\boldsymbol{x}^{(1)}, \boldsymbol{x}^{(1)}) &amp; \cdots &
 \begin{align*}
 \left[\begin{array}{c} f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \\ \boldsymbol{y}_{f} \end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{c} m\left(\boldsymbol{x}^{*}\right) \\ \boldsymbol{m}_{\boldsymbol{X}} \end{array}\right],\left[\begin{array}{cc} k^{*} &amp; \boldsymbol{k}^{\top} \\ \boldsymbol{k} &amp; \boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N} \end{array}\right]\right)
 \end{align*}</div><p>ここで <span class="math">\(\boldsymbol{m}_{\boldsymbol{X}} = [m(\boldsymbol{x}^{(1)}) \cdots m(\boldsymbol{x}^{(N)})]^{\text{T}}\)</span> である．条件付き分布を求めることで</p>
-<div class="math">
+<div class="math" id="equation-eq78">
 \begin{align*}
 \mu\left(\boldsymbol{x}^{*}\right): &amp;=\mathbb{E}\left[f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \mid \mathcal{D}\right] \\
 &amp;=m\left(\boldsymbol{x}^{*}\right)+\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1}\left(\boldsymbol{y}_{f}-\boldsymbol{m}_{\boldsymbol{X}}\right) \\
@@ -389,6 +396,55 @@ k_{f}^{*} &amp; 0 &amp; \boldsymbol{k}_{f}^{\top} \\
 </div>
 <div class="section" id="convergence-analysis-for-feedback-linearizing-control">
 <h2><a class="toc-backref" href="#id7">Convergence Analysis for Feedback Linearizing Control</a><a class="headerlink" href="#convergence-analysis-for-feedback-linearizing-control" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここでは制御器の収束性について議論している．</p>
+<div class="section" id="control-law">
+<h3>Control Law<a class="headerlink" href="#control-law" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>天下り的ではあるが，</p>
+<div class="math">
+\begin{align*}
+r = [\boldsymbol{\lambda}^{\top} 1] \boldsymbol{x}
+\end{align*}</div><p>なるスカラーを考える．ここで <span class="math">\(s^{n-1} + \lambda_{n-1}s^{n-2} + \cdots + \lambda_1\)</span> は実部が負の根しか持たない(Hurwitz)．すると</p>
+<div class="math">
+\begin{align*}
+\dot{r} = f(\boldsymbol{x}) + g(\boldsymbol{x})u_f (\boldsymbol{x}) + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
+\end{align*}</div><p>であるから，この式において入力 <span class="math">\(u_f\)</span> を別の変数 <span class="math">\(\nu = -k_c r - \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}\)</span> を用いて</p>
+<div class="math">
+\begin{align*}
+u_f(\boldsymbol{x}) = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsymbol{x}) - k_c r - \boldsymbol{\lambda}^{\top} \boldsymbol{x}_{2:n} \right)
+\end{align*}</div><p>と表すと <span class="math">\(\dot{r} = -k_c r\)</span> より <span class="math">\(r \to 0\)</span> となる．</p>
+</div>
+<div class="section" id="convergence-analysis">
+<h3>Convergence Analysis<a class="headerlink" href="#convergence-analysis" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Lyapnov関数として <span class="math">\(V(\boldsymbol{x}) = r^2 / 2\)</span> を用いる．まず <span class="math">\(\dot{V} = r \dot{r}\)</span> と</p>
+<div class="math">
+\begin{align*}
+\dot{r} &amp;= \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{1:n-1} + \dot{x}_n \\ &amp;= f(\boldsymbol{x}) + g(\boldsymbol{x})u + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
+\end{align*}</div><p>となっている． <span class="math">\(\bar{g} = g / \hat{g}\)</span> とすると <span class="math">\(u = \bar{g}(-\hat{f}(\boldsymbol{x}) + \nu)\)</span> であるから，</p>
+<div class="math">
+\begin{align*}
+\dot{r} &amp;= f + \bar{g}(-\hat{f} -k_{c}r - \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}) + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n} \\ r \dot{r} &amp;= r(f - \bar{g}\hat{f}) - \bar{g}k_{c}r^2 + (1 -g)r\boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
+\end{align*}</div><p>と表せる．関数 <span class="math">\(f, \hat{f}, g\)</span> は有界であるから，</p>
+<div class="math">
+\begin{align*}
+\boldsymbol{b}^{\top} \boldsymbol{x} &amp; \geq r(f-\bar{g} \hat{f}), &amp; \boldsymbol{x}^{\top} \boldsymbol{A} \boldsymbol{x} &amp; \leq \bar{g} r^{2} \\
+\boldsymbol{x}^{\top} \boldsymbol{B} \boldsymbol{x} &amp; \geq(1-\bar{g}) r \boldsymbol{\lambda}^{\top} \boldsymbol{x}_{2: n}, &amp; &amp; \forall \boldsymbol{x} \in \mathcal{X}
+\end{align*}</div><p>なる行列とベクトル <span class="math">\(\boldsymbol{b}, \boldsymbol{A}, \boldsymbol{B}\)</span> が存在する．これらを用いると</p>
+<div class="math">
+\begin{align*}
+\dot{V}(\boldsymbol{x}) \leq\|\boldsymbol{b}\|\|\boldsymbol{x}\|-k_{c} \sigma_{\min }(\boldsymbol{A})\|\boldsymbol{x}\|^{2}+\sigma_{\max }(\boldsymbol{B})\|\boldsymbol{x}\|^{2}
+\end{align*}</div><p>のようにして上から抑えることができて， <span class="math">\(\sigma_{\max}(B) - k_{c}^{*}\sigma_{\min}(A) &lt; 0\)</span> が成立するように <span class="math">\(k_c &gt; k_{c}^{*}\)</span> をとれれば</p>
+<div class="math">
+\begin{align*}
+\mathcal{B}_{1}=\left\{x \in \mathcal{X} \mid\|\boldsymbol{x}\| \leq \frac{\|\boldsymbol{b}\|}{k_{c} \sigma_{\min }(\boldsymbol{A})-\sigma_{\max }(\boldsymbol{B})}\right\}
+\end{align*}</div><p>以外の領域においてVは減少してくれる．</p>
+</div>
+<div class="section" id="tighter-bound-with-training-data">
+<h3>Tighter Bound with Training Data<a class="headerlink" href="#tighter-bound-with-training-data" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここでは推定したカーネル関数が徐々にゼロへと減少することを示す． <a class="reference internal" href="#equation-eq78">(1)</a> より</p>
+</div>
+</div>
+<div class="section" id="numerical-illustration">
+<h2><a class="toc-backref" href="#id8">Numerical Illustration</a><a class="headerlink" href="#numerical-illustration" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="math">
 \begin{align*}
 &amp;\dot{x}_{1}=x_{2}\\
@@ -418,7 +474,7 @@ k_{f}^{*} &amp; 0 &amp; \boldsymbol{k}_{f}^{\top} \\
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, soblin.
+        &copy; Copyright 2020, soblin.
 
     </p>
   </div>

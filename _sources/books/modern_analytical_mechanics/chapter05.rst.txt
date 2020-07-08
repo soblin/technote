@@ -10,17 +10,15 @@
 配位座標 :math:`\{ q^i \}` を :math:`q^i = Q^i + \epsilon f^i (\{ Q \}, t)` と無限小変換してみる．すると
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    \dot{q}^i = \dot{Q}^i + \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
    \end{align*}
 
-である．この座標変換によりラグランジアンを :math:`L(\{q\}, \{\dot{q}\}, t) \rightarrow L^{\prime}(\{Q\}, \{\dot{Q}\}, t)` と引き戻しを行う．
+である．この座標変換によりラグランジアンを :math:`L(\{q\}, \{\dot{q}\}, t) \rightarrow L^{\prime}(\{Q\}, \{\dot{Q}\}, t)` のようにして引き戻す．
 
 
 .. math::
-   :nowrap:
 
    \begin{align*}
     L^{\prime}(\{Q\}, \{\dot{Q}\}, t) &= L(\{q\}, \{\dot{q}\}, t) \\ q^i &= Q^i + \epsilon f^i (\{ Q \}, t) \\ \dot{q}^i &= \dot{Q}^i + \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
@@ -30,7 +28,6 @@
 
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    &= L(\{Q\}, \{\dot{Q}\}, t) \\ &+ \sum_{i=1}^{n} \dfrac{\partial L}{\partial Q^i} \cdot \epsilon f^i(\{Q\}, t) \\ &+ \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{Q}^i} \cdot \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
@@ -40,16 +37,14 @@
 
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    \sum_{i=1}^{n} \dfrac{\partial L}{\partial Q^i} \cdot f^i(\{Q\}, t) + \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{Q}^i} \cdot \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right) = 0
    \end{align*}
 
-これはLの関数系に関する条件であるから，変数をQからqに変更する．
+これはLの関数形に関する条件であるから，変数をQからqに変更する．
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    \sum_{i=1}^{n} \dfrac{\partial L}{\partial q^i} \cdot f^i(\{q\}, t) + \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{q}^i} \cdot \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial q^j}\dot{q}^j + \dfrac{\partial f^i}{\partial t} \right) = 0
@@ -59,7 +54,6 @@
 
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    \sum_{i=1}^{n} \left( \dfrac{\partial L}{\partial q^i}f^i + p_i \dot{f}^i\right) = 0
@@ -68,7 +62,6 @@
 と書ける． :math:`q^i` がオイラーラグランジュ方程式の解であるならば， :math:`\partial L / \partial ^i = \dot{p}^i` であるから，さらに
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    \sum_{i=1}^{n} \dot{p}^i f^i + p_i \dot{f}^i = \dfrac{d}{dt}\sum_{i=1}^{n} p_i f^i = 0
@@ -78,10 +71,9 @@
 
 
 .. math::
-   :nowrap:
 
    \begin{align*}
    \sum_{i=1}^{n} p_i f^i = \mathrm{const}
    \end{align*}
 
-が導かれる．これがネーターの定理なんだけど，与えられたラグランジアンの代数的な形からこういう変数変換を見つけるのが難しい．
+が導かれる．これがネーターの定理なんだけど，与えられたラグランジアンの代数的な形からこういう変数変換を見つけるのが難しい(からあらゆる系について全ての保存量を一発で見つけられるsilver bulletではない)．

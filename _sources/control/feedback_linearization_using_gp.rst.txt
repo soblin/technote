@@ -126,6 +126,7 @@ where
 
 .. math::
    :nowrap:
+   :label: eq78
    
    \begin{align*}
    \mu\left(\boldsymbol{x}^{*}\right): &=\mathbb{E}\left[f_{\mathcal{G P}}\left(\boldsymbol{x}^{*}\right) \mid \mathcal{D}\right] \\
@@ -287,6 +288,97 @@ GP Identification for Control Affine Systems
    \end{align*}
 
 Convergence Analysis for Feedback Linearizing Control
+======================================================================
+ここでは制御器の収束性について議論している．
+
+Control Law
+----------------------------------------------------------------------
+天下り的ではあるが，
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   r = [\boldsymbol{\lambda}^{\top} 1] \boldsymbol{x}
+   \end{align*}
+
+なるスカラーを考える．ここで :math:`s^{n-1} + \lambda_{n-1}s^{n-2} + \cdots + \lambda_1` は実部が負の根しか持たない(Hurwitz)．すると
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{r} = f(\boldsymbol{x}) + g(\boldsymbol{x})u_f (\boldsymbol{x}) + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
+   \end{align*}
+
+であるから，この式において入力 :math:`u_f` を別の変数 :math:`\nu = -k_c r - \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}` を用いて
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   u_f(\boldsymbol{x}) = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsymbol{x}) - k_c r - \boldsymbol{\lambda}^{\top} \boldsymbol{x}_{2:n} \right)
+   \end{align*}
+
+と表すと :math:`\dot{r} = -k_c r` より :math:`r \to 0` となる．
+
+Convergence Analysis
+----------------------------------------------------------------------
+Lyapnov関数として :math:`V(\boldsymbol{x}) = r^2 / 2` を用いる．まず :math:`\dot{V} = r \dot{r}` と
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{r} &= \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{1:n-1} + \dot{x}_n \\ &= f(\boldsymbol{x}) + g(\boldsymbol{x})u + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
+   \end{align*}
+
+となっている． :math:`\bar{g} = g / \hat{g}` とすると :math:`u = \bar{g}(-\hat{f}(\boldsymbol{x}) + \nu)` であるから，
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{r} &= f + \bar{g}(-\hat{f} -k_{c}r - \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}) + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n} \\ r \dot{r} &= r(f - \bar{g}\hat{f}) - \bar{g}k_{c}r^2 + (1 -g)r\boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
+   \end{align*}
+
+と表せる．関数 :math:`f, \hat{f}, g` は有界であるから，
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \boldsymbol{b}^{\top} \boldsymbol{x} & \geq r(f-\bar{g} \hat{f}), & \boldsymbol{x}^{\top} \boldsymbol{A} \boldsymbol{x} & \leq \bar{g} r^{2} \\
+   \boldsymbol{x}^{\top} \boldsymbol{B} \boldsymbol{x} & \geq(1-\bar{g}) r \boldsymbol{\lambda}^{\top} \boldsymbol{x}_{2: n}, & & \forall \boldsymbol{x} \in \mathcal{X}
+   \end{align*}
+
+なる行列とベクトル :math:`\boldsymbol{b}, \boldsymbol{A}, \boldsymbol{B}` が存在する．これらを用いると
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \dot{V}(\boldsymbol{x}) \leq\|\boldsymbol{b}\|\|\boldsymbol{x}\|-k_{c} \sigma_{\min }(\boldsymbol{A})\|\boldsymbol{x}\|^{2}+\sigma_{\max }(\boldsymbol{B})\|\boldsymbol{x}\|^{2}
+   \end{align*}
+   
+のようにして上から抑えることができて， :math:`\sigma_{\max}(B) - k_{c}^{*}\sigma_{\min}(A) < 0` が成立するように :math:`k_c > k_{c}^{*}` をとれれば
+
+.. math::
+   :nowrap:
+   
+   \begin{align*}
+   \mathcal{B}_{1}=\left\{x \in \mathcal{X} \mid\|\boldsymbol{x}\| \leq \frac{\|\boldsymbol{b}\|}{k_{c} \sigma_{\min }(\boldsymbol{A})-\sigma_{\max }(\boldsymbol{B})}\right\}
+   \end{align*}
+   
+以外の領域においてVは減少してくれる．
+
+Tighter Bound with Training Data
+----------------------------------------------------------------------
+ここでは推定したカーネル関数が徐々にゼロへと減少することを示す． :eq:`eq78` より
+
+Numerical Illustration
 ======================================================================
 
 .. math::

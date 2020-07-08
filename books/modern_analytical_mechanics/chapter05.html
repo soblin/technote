@@ -17,7 +17,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <meta property="og:description" content="システムに対称性があるとは，ある無限小点変換に対してラグランジアンが不変(関数としての代数的な形も変化しない)であるということ． 配位座標  を  と無限小変換してみる．すると である．この座標変換によりラグランジアンを  と引き戻しを行う． テイラー展開することにより  以上の項を無視すると よってラグランジアンの代数的な形が変化しないためには  の項がゼロであることが必要． これはLの関...">
+    <meta property="og:description" content="システムに対称性があるとは，ある無限小点変換に対してラグランジアンが不変(関数としての代数的な形も変化しない)であるということ． 配位座標  を  と無限小変換してみる．すると である．この座標変換によりラグランジアンを  のようにして引き戻す． テイラー展開することにより  以上の項を無視すると よってラグランジアンの代数的な形が変化しないためには  の項がゼロであることが必要． これはL...">
     
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -131,6 +131,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="chapter07.html">第7章 ハミルトニアン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter09.html">第9章 ポアソン括弧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter13.html">第13章 特異系</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
@@ -209,37 +211,45 @@
 <p>システムに対称性があるとは，ある無限小点変換に対してラグランジアンが不変(関数としての代数的な形も変化しない)であるということ．</p>
 <p>配位座標 <span class="math">\(\{ q^i \}\)</span> を <span class="math">\(q^i = Q^i + \epsilon f^i (\{ Q \}, t)\)</span> と無限小変換してみる．すると</p>
 <div class="math">
-\begin{align*}
+\[\begin{align*}
 \dot{q}^i = \dot{Q}^i + \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
-\end{align*}</div><p>である．この座標変換によりラグランジアンを <span class="math">\(L(\{q\}, \{\dot{q}\}, t) \rightarrow L^{\prime}(\{Q\}, \{\dot{Q}\}, t)\)</span> と引き戻しを行う．</p>
+\end{align*}\]</div>
+<p>である．この座標変換によりラグランジアンを <span class="math">\(L(\{q\}, \{\dot{q}\}, t) \rightarrow L^{\prime}(\{Q\}, \{\dot{Q}\}, t)\)</span> のようにして引き戻す．</p>
 <div class="math">
-\begin{align*}
+\[\begin{split}\begin{align*}
  L^{\prime}(\{Q\}, \{\dot{Q}\}, t) &amp;= L(\{q\}, \{\dot{q}\}, t) \\ q^i &amp;= Q^i + \epsilon f^i (\{ Q \}, t) \\ \dot{q}^i &amp;= \dot{Q}^i + \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
-\end{align*}</div><p>テイラー展開することにより <span class="math">\(\epsilon^2\)</span> 以上の項を無視すると</p>
+\end{align*}\end{split}\]</div>
+<p>テイラー展開することにより <span class="math">\(\epsilon^2\)</span> 以上の項を無視すると</p>
 <div class="math">
-\begin{align*}
+\[\begin{split}\begin{align*}
 &amp;= L(\{Q\}, \{\dot{Q}\}, t) \\ &amp;+ \sum_{i=1}^{n} \dfrac{\partial L}{\partial Q^i} \cdot \epsilon f^i(\{Q\}, t) \\ &amp;+ \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{Q}^i} \cdot \epsilon \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right)
-\end{align*}</div><p>よってラグランジアンの代数的な形が変化しないためには <span class="math">\(\epsilon\)</span> の項がゼロであることが必要．</p>
+\end{align*}\end{split}\]</div>
+<p>よってラグランジアンの代数的な形が変化しないためには <span class="math">\(\epsilon\)</span> の項がゼロであることが必要．</p>
 <div class="math">
-\begin{align*}
+\[\begin{align*}
 \sum_{i=1}^{n} \dfrac{\partial L}{\partial Q^i} \cdot f^i(\{Q\}, t) + \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{Q}^i} \cdot \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial Q^j}\dot{Q}^j + \dfrac{\partial f^i}{\partial t} \right) = 0
-\end{align*}</div><p>これはLの関数系に関する条件であるから，変数をQからqに変更する．</p>
+\end{align*}\]</div>
+<p>これはLの関数形に関する条件であるから，変数をQからqに変更する．</p>
 <div class="math">
-\begin{align*}
+\[\begin{align*}
 \sum_{i=1}^{n} \dfrac{\partial L}{\partial q^i} \cdot f^i(\{q\}, t) + \sum_{i=1}^{n} \dfrac{\partial L}{\partial \dot{q}^i} \cdot \left( \sum_{j=1}^{n} \dfrac{\partial f^i}{\partial q^j}\dot{q}^j + \dfrac{\partial f^i}{\partial t} \right) = 0
-\end{align*}</div><p>これは単純に</p>
+\end{align*}\]</div>
+<p>これは単純に</p>
 <div class="math">
-\begin{align*}
+\[\begin{align*}
 \sum_{i=1}^{n} \left( \dfrac{\partial L}{\partial q^i}f^i + p_i \dot{f}^i\right) = 0
-\end{align*}</div><p>と書ける． <span class="math">\(q^i\)</span> がオイラーラグランジュ方程式の解であるならば， <span class="math">\(\partial L / \partial ^i = \dot{p}^i\)</span> であるから，さらに</p>
+\end{align*}\]</div>
+<p>と書ける． <span class="math">\(q^i\)</span> がオイラーラグランジュ方程式の解であるならば， <span class="math">\(\partial L / \partial ^i = \dot{p}^i\)</span> であるから，さらに</p>
 <div class="math">
-\begin{align*}
+\[\begin{align*}
 \sum_{i=1}^{n} \dot{p}^i f^i + p_i \dot{f}^i = \dfrac{d}{dt}\sum_{i=1}^{n} p_i f^i = 0
-\end{align*}</div><p>が得られ，保存則</p>
+\end{align*}\]</div>
+<p>が得られ，保存則</p>
 <div class="math">
-\begin{align*}
+\[\begin{align*}
 \sum_{i=1}^{n} p_i f^i = \mathrm{const}
-\end{align*}</div><p>が導かれる．これがネーターの定理なんだけど，与えられたラグランジアンの代数的な形からこういう変数変換を見つけるのが難しい．</p>
+\end{align*}\]</div>
+<p>が導かれる．これがネーターの定理なんだけど，与えられたラグランジアンの代数的な形からこういう変数変換を見つけるのが難しい(からあらゆる系について全ての保存量を一発で見つけられるsilver bulletではない)．</p>
 </div>
 </div>
 
@@ -265,7 +275,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, soblin.
+        &copy; Copyright 2020, soblin.
 
     </p>
   </div>

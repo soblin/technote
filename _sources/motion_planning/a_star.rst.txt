@@ -58,9 +58,10 @@ Description of the algorithm
 
 評価関数として :math:`\hat{f}(n)` を各ノードについて評価することができるとする. そしてその時点で :math:`\hat{f}(n)` の値が最も小さいノードを次に `expand` するノードとして用いる. 
 
-:Search Algirthm A\*:
-0. sを *open list* に入れて  :math:`\hat{f}(s)` を求める
-1. *open list* の中で最も  :math:`\hat{f}(n)` の値が小さいnを求める
+:Search Algorithm A\*:
+
+0. sを *open list* に入れて :math:`\hat{f}(s)` を求める
+1. *open list* の中で最も :math:`\hat{f}(n)` の値が小さいnを求める
 2. nを *closed list* に入れる. そしてnからsuccessor  :math:`\Gamma` を適用する(エッジを辿る). そしてその中でまだ *closed list* に入っていないものを *open list* に入れる. つまり *open list* に入っているノードは子を持たない **葉** であるか(まだ探索されていなかった)あるいはまだ探索の余地がある(更新される際にコストが下がった), そして *closed list* に入っているノードは **枝** になっている(基本的には探索の対象とはしない. 枝刈りの対象). そして各々の :math:`\hat{f}(n)` を更新する.
 3. 一方 *closed list* に入っていたノードの中で,  :math:`\hat{f}(n)` が下がったものは, 再び *open list* に入れる. つまり上の手順で枝刈りされたけど(*closed list* に入れられたけど)再び探索対象に入れる.
 4. 手順1に戻る
