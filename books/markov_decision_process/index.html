@@ -5,20 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-138456127-3']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-    <meta property="og:description" content="POMDPを勉強したいがその前に普通のマルコフ決定過程を学ぶ．">
-    
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
 <meta name="twitter:card" content="summary" />
@@ -57,6 +44,7 @@
         <link rel="search" title="検索" href="../../search.html"/>
     <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
         <link rel="up" title="Books" href="../index.html"/>
+        <link rel="next" title="第2章 マルコフ連鎖と再生過程" href="chapter02.html"/>
         <link rel="prev" title="第13章 特異系" href="../modern_analytical_mechanics/chapter13.html"/> 
 
   
@@ -126,7 +114,10 @@
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">マルコフ決定過程 -理論とアルゴリズム-</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">マルコフ決定過程 -理論とアルゴリズム-</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">第2章 マルコフ連鎖と再生過程</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -195,6 +186,31 @@
   <div class="section" id="id1">
 <h1>マルコフ決定過程 -理論とアルゴリズム-<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>POMDPを勉強したいがその前に普通のマルコフ決定過程を学ぶ．</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">出版元リンク:</th><td class="field-body"><a class="reference external" href="https://www.coronasha.co.jp/np/isbn/9784339028348/">リンク</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">著者:</th><td class="field-body">中出康一</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">出版社:</th><td class="field-body">コロナ社</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-339-02834-8</td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter02.html">第2章 マルコフ連鎖と再生過程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id2">2.1 離散型確率変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id4">2.2 連続型確率変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id6">2.3 離散時間マルコフ連鎖</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id9">2.4 周期</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 
 
@@ -206,6 +222,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter02.html" class="btn btn-neutral float-right" title="第2章 マルコフ連鎖と再生過程" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../modern_analytical_mechanics/chapter13.html" class="btn btn-neutral" title="第13章 特異系" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

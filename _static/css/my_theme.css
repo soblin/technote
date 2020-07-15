@@ -16,3 +16,12 @@ span.MJXc-display {
 p {
     line-height: 2.0;
 }
+
+dl.glossary.docutils {
+    padding: 8px 19px;
+    margin: 2em 0;
+    background: #fff8e8;
+    border-top: solid 5px #ffc06e;
+    border-bottom: solid 5px #ffc06e;
+    line-height: 2.0;
+}

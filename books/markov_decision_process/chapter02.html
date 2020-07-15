@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="検索" href="../../search.html"/>
+    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
+        <link rel="up" title="マルコフ決定過程 -理論とアルゴリズム-" href="index.html"/>
+        <link rel="prev" title="マルコフ決定過程 -理論とアルゴリズム-" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">マルコフ決定過程 -理論とアルゴリズム-</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">第2章 マルコフ連鎖と再生過程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">2.1 離散型確率変数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.2 連続型確率変数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.3 離散時間マルコフ連鎖</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">2.4 周期</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">マルコフ決定過程 -理論とアルゴリズム-</a> &raquo;</li>
+        
+      <li>第2章 マルコフ連鎖と再生過程</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>第2章 マルコフ連鎖と再生過程<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>2.1 離散型確率変数<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h3>2.1.4 離散型確率変数の例<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ポアソン分布は <span class="math">\(\lambda &gt; 0\)</span> を用いて</p>
+<div class="math">
+\begin{align*}
+p_i = \dfrac{\lambda^i}{i!}e^{-\lambda}
+\end{align*}</div><p>と表される．二項分布 <span class="math">\(\mathrm{Bin}(n, p)\)</span> において平均 <span class="math">\(\lambda = np\)</span> を一定にして <span class="math">\(n \to \infty\)</span> としたときに近づく分布である．</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>2.2 連続型確率変数<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h3>2.2.3 指数分布の性質<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>指数分布は連続時間マルコフ連鎖，連続時間マルコフ決定過程において重要な分布である．</p>
+<div class="math">
+\begin{align*}
+f(x) = \lambda e^{-\lambda x}, \quad x &gt; 0
+\end{align*}</div><p>期待値は <span class="math">\(1 / \lambda\)</span> ，分散は <span class="math">\(1 / \lambda^2\)</span> である(別に期待値において密度関数が最大値を取るわけでないよ)．</p>
+<p>無記憶性の証明には次の累積密度関数を用いる．</p>
+<div class="math">
+\begin{align*}
+F(x) = \begin{cases} 0 &amp; x \leq 0 \\ 1 - e^{-\lambda x} &amp; x &gt; 0 \end{cases}
+\end{align*}</div><p>つまり <span class="math">\(X &gt; x\)</span> 以上となる確率が <span class="math">\(\exp (-\lambda x)\)</span> である．</p>
+<dl class="glossary docutils">
+<dt id="term">無記憶性</dt>
+<dd>確率変数 <span class="math">\(X\)</span> が <span class="math">\(X \sim \mathrm{Exp}(1 / \lambda)\)</span> に従うとする．このとき <span class="math">\(X &gt; t_0\)</span> という条件のもとで， <span class="math">\(X^{\prime} = X - t_0\)</span> は <span class="math">\(X\)</span> と同じ分布に従う．</dd>
+</dl>
+<p>この定理の意味するところは</p>
+<blockquote>
+<div>確率変数 <span class="math">\(X\)</span> が( <span class="math">\(X &gt; 0\)</span> の下で) <span class="math">\(X &gt; t\)</span> となる確率が， <span class="math">\(X &gt; t_0\)</span> のもとで <span class="math">\(X &gt; t + t_0\)</span> となる条件付き確率と等しい</div></blockquote>
+<p>ということである．</p>
+<div class="math">
+\begin{align*}
+P\left(X^{\prime}&gt;t \mid X&gt;t_{0}\right) &amp;=\frac{P\left(X^{\prime}&gt;t, X&gt;t_{0}\right)}{P\left(X&gt;t_{0}\right)} \\
+&amp;=\frac{P\left(X-t_{0}&gt;t, X&gt;t_{0}\right)}{P\left(X&gt;t_{0}\right)}=\frac{P\left(X&gt;t_{0}+t\right)}{P\left(X&gt;t_{0}\right)} \\
+&amp;=\frac{e^{-\lambda\left(t_{0}+t\right)}}{e^{-\lambda t_{0}}}=e^{-\lambda t}=P(X&gt;t)
+\end{align*}</div></div>
+</div>
+<div class="section" id="id6">
+<h2>2.3 離散時間マルコフ連鎖<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>状態 <span class="math">\(x_i\)</span> から状態 <span class="math">\(x_j\)</span> へと推移する確率を並べた隣接行列を推移行列 <span class="math">\(P\)</span> と呼ぶ．</p>
+<div class="math">
+\begin{align*}
+P = \begin{pmatrix} P_{00} &amp; P_{01} &amp; \cdots \\ P_{10} &amp; P_{11} &amp; \cdots \\ \vdots &amp; \vdots &amp; \ddots \end{pmatrix}
+\end{align*}</div><p>グラフにおける確率ベクトルが <span class="math">\(\boldsymbol{\pi}\)</span> のように分布しているとき，この推移行列により推移した確率ベクトルは</p>
+<div class="math">
+\begin{align*}
+\boldsymbol{\pi}^{\prime} = \boldsymbol{\pi}P
+\end{align*}</div><p>と表される．</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p><strong>なぜ左から横ベクトルをかけるのか</strong></p>
+<p class="last">これは推移行列 <span class="math">\(P_{ij}\)</span> を <span class="math">\(i\)</span> から <span class="math">\(j\)</span> へ推移する確率として定義したからである． <span class="math">\(\boldsymbol{\pi}\)</span> から <span class="math">\(\boldsymbol{\pi}^{\prime}\)</span> を求めるには，  <span class="math">\(j\)</span> (dst)を固定して  <span class="math">\(j\)</span> <strong>に至る各ノード</strong> <span class="math">\(i\)</span> (src) <strong>についての和をとる</strong> 必要がある．つまり左からかけなければならない．推移行列 <span class="math">\(P_{ji}\)</span> を <span class="math">\(i\)</span> から <span class="math">\(j\)</span> へ推移する確率として定義していれば <span class="math">\(\boldsymbol{\pi}\)</span> を縦ベクトルとして， <span class="math">\(\boldsymbol{\pi}^{\prime} = P\boldsymbol{\pi}\)</span> というふうに求められるのだが．</p>
+</div>
+<p><span class="math">\(n\)</span> 回推移した後の確率分布は</p>
+<div class="math">
+\begin{align*}
+\boldsymbol{\pi}^{(n)} = \boldsymbol{\pi}^{(0)}P^{n}
+\end{align*}</div><p>である．</p>
+<div class="section" id="id7">
+<h3>2.2.3 状態の分類<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><span class="math">\(i\)</span> から <span class="math">\(j\)</span> へと到達可能性であることを <span class="math">\(i \rightarrow j\)</span> と表記する．お互いに到達可能であるならば <span class="math">\(i \leftrightarrow j\)</span> と表記する．</p>
+<p>ノード <span class="math">\(i\)</span> と互いに到達可能なノードの集合 <span class="math">\(C(i)\)</span> はノードの集合を互いに素に分割するため，以下のように <span class="math">\(\leftrightarrow\)</span> に関する同値類を形成する．</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><span class="math">\(j, k \in C(i) \Leftrightarrow j \leftrightarrow k\)</span></li>
+<li><span class="math">\(i \leftrightarrow j \Leftrightarrow C(i) = C(j)\)</span></li>
+<li><span class="math">\(C(i) \neq C(j) \Rightarrow C(i) \cap C(j) = \phi\)</span></li>
+</ol>
+</div></blockquote>
+<p>クラス <span class="math">\(C\)</span> の中から外に出られない場合，つまり</p>
+<div class="math">
+\begin{align*}
+\forall i \in C(i),\, \forall j \notin C(i) \Rightarrow \lnot\, [i \rightarrow j]
+\end{align*}</div><p>が成立するとき， <span class="math">\(C(i)\)</span> は閉じているという．これは <span class="math">\(C(i)\)</span> の <strong>中からはどのようにしても外に出られないという意味で，閉集合に近い</strong> ．また <span class="math">\(C(i)\)</span> と <span class="math">\(C(j)\)</span> が共通部分を持つのならば，その共通部分を通じて二つは相互に到達可能となるため，互いに素である．よって状態空間はこの同値類によって分割される(群論における部分群による分割みたい)．</p>
+<dl class="glossary docutils">
+<dt id="term-1">既約</dt>
+<dd>クラス <span class="math">\(S\)</span> 内のすべてのノード <span class="math">\(i, j\)</span> について <span class="math">\(i \leftrightarrow j\)</span> が成立するとき， <span class="math">\(S\)</span> は既約であるという．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-2">初到達時間</dt>
+<dd>状態 <span class="math">\(i\)</span> から <span class="math">\(n\)</span> 期後初めて <span class="math">\(j\)</span> に到達する確率を <span class="math">\(f^{(n)}_{ij}\)</span> とする．このときの <span class="math">\(n\)</span> を初到達時間という．</dd>
+</dl>
+<p><span class="math">\(i\)</span> から <span class="math">\(j\)</span> への到達確率を <span class="math">\(f^{*}_{ij} = \sum_{n=1}^{\infty} f_{ij}^{(n)}\)</span> とする．これは <span class="math">\(i\)</span> にいる状態からいずれ <span class="math">\(j\)</span> に到達する確率である(iからのすべての遷移(無限) / jに至るすべての遷移(無限))．</p>
+<p><span class="math">\(f^{*}_{ij} = 1\)</span> のとき <span class="math">\(\mu_{ij} = \sum_{n=1}^{\infty} n f^{(n)}_{ij}\)</span> が定義できる．これを平均初到達時間という．さらに <span class="math">\(\mu_{ii}\)</span> を平均再帰時間という．</p>
+<dl class="glossary docutils">
+<dt id="term-3"><strong>平均再帰時間</strong> <span class="math">\(\mu_{ii}\)</span> の意味</dt>
+<dd>これは一度 <span class="math">\(i\)</span> を訪れてから平均して <span class="math">\(\mu_{ii}\)</span> 回に一回，再度 <span class="math">\(i\)</span> に戻ってくるということである．</dd>
+</dl>
+<p>下のように</p>
+<dl class="glossary docutils">
+<dt id="term-4">再帰的</dt>
+<dd>ノード <span class="math">\(i\)</span> に必ず戻ってくる，つまり <span class="math">\(f_{ii}^{*} = 1\)</span></dd>
+<dt id="term-5">正再帰的</dt>
+<dd>再帰的かつ，特に <span class="math">\(\mu_{ii} &lt; \infty\)</span> である(平均して <span class="math">\(\mu_{ii}\)</span> 回に一回戻ってくる)</dd>
+<dt id="term-6">零再帰的</dt>
+<dd>再帰的だけど， <span class="math">\(\mu_{ii} = \infty\)</span> となっている．よく分からない．</dd>
+<dt id="term-7">一時的</dt>
+<dd>そもそも <span class="math">\(f_{ii}^{*} &lt; 1\)</span> であるから， <span class="math">\(i\)</span> にとどまり続けるか(一時的なノードのクラスの中に居座り続ける)，そこから出ていくかという二択．</dd>
+</dl>
+<p>と分類される．</p>
+</div>
+<div class="section" id="id8">
+<h3>到達確率に関する公式<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ol class="arabic simple">
+<li>既約で正再帰的なクラス <span class="math">\(C\)</span> においては <span class="math">\(\forall i, j \in C\)</span> について <span class="math">\(f^{*}_{ij} = 1\)</span> である．</li>
+<li><span class="math">\(C\)</span> が閉じている(中では既約)とする． <span class="math">\(C\)</span> の外のノード <span class="math">\(i\)</span> から <span class="math">\(C\)</span> の中のノード <span class="math">\(j, k\)</span> への到達確率は <span class="math">\(f_{ij}^{*} = f_{ik}^{*}\)</span> となって等しい．</li>
+<li>全確率の公式より <span class="math">\(f_{ij}^{*} = P_{ij} + \sum_{k\neq j} P_{ik}f_{kj}^{*}\)</span> が成立する．</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>2.4 周期<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="マルコフ決定過程 -理論とアルゴリズム-" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, soblin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -3,3 +3,11 @@
 ======================================================================
 
 POMDPを勉強したいがその前に普通のマルコフ決定過程を学ぶ．
+
+.. include:: /_include/ref/markov_decision_process.txt
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+   
+   chapter02.rst

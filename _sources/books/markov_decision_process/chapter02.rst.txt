@@ -1,0 +1,187 @@
+======================================================================
+第2章 マルコフ連鎖と再生過程
+======================================================================
+
+2.1 離散型確率変数
+======================================================================
+
+2.1.4 離散型確率変数の例
+----------------------------------------------------------------------
+
+ポアソン分布は :math:`\lambda > 0` を用いて
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   p_i = \dfrac{\lambda^i}{i!}e^{-\lambda}
+   \end{align*}
+
+と表される．二項分布 :math:`\mathrm{Bin}(n, p)` において平均 :math:`\lambda = np` を一定にして :math:`n \to \infty` としたときに近づく分布である．
+
+2.2 連続型確率変数
+======================================================================
+
+2.2.3 指数分布の性質
+----------------------------------------------------------------------
+
+指数分布は連続時間マルコフ連鎖，連続時間マルコフ決定過程において重要な分布である．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   f(x) = \lambda e^{-\lambda x}, \quad x > 0
+   \end{align*}
+   
+期待値は :math:`1 / \lambda` ，分散は :math:`1 / \lambda^2` である(別に期待値において密度関数が最大値を取るわけでないよ)．
+
+無記憶性の証明には次の累積密度関数を用いる．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   F(x) = \begin{cases} 0 & x \leq 0 \\ 1 - e^{-\lambda x} & x > 0 \end{cases}
+   \end{align*}
+
+つまり :math:`X > x` 以上となる確率が :math:`\exp (-\lambda x)` である．
+
+.. glossary::
+   無記憶性
+      確率変数 :math:`X` が :math:`X \sim \mathrm{Exp}(1 / \lambda)` に従うとする．このとき :math:`X > t_0` という条件のもとで， :math:`X^{\prime} = X - t_0` は :math:`X` と同じ分布に従う．
+
+
+この定理の意味するところは
+
+	確率変数 :math:`X` が( :math:`X > 0` の下で) :math:`X > t` となる確率が， :math:`X > t_0` のもとで :math:`X > t + t_0` となる条件付き確率と等しい
+
+ということである．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P\left(X^{\prime}>t \mid X>t_{0}\right) &=\frac{P\left(X^{\prime}>t, X>t_{0}\right)}{P\left(X>t_{0}\right)} \\
+   &=\frac{P\left(X-t_{0}>t, X>t_{0}\right)}{P\left(X>t_{0}\right)}=\frac{P\left(X>t_{0}+t\right)}{P\left(X>t_{0}\right)} \\
+   &=\frac{e^{-\lambda\left(t_{0}+t\right)}}{e^{-\lambda t_{0}}}=e^{-\lambda t}=P(X>t)
+   \end{align*}
+
+
+2.3 離散時間マルコフ連鎖
+======================================================================
+
+状態 :math:`x_i` から状態 :math:`x_j` へと推移する確率を並べた隣接行列を推移行列 :math:`P` と呼ぶ．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P = \begin{pmatrix} P_{00} & P_{01} & \cdots \\ P_{10} & P_{11} & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix}
+   \end{align*}
+
+グラフにおける確率ベクトルが :math:`\boldsymbol{\pi}` のように分布しているとき，この推移行列により推移した確率ベクトルは
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \boldsymbol{\pi}^{\prime} = \boldsymbol{\pi}P
+   \end{align*}
+
+と表される．
+
+.. note:: **なぜ左から横ベクトルをかけるのか**
+   
+   これは推移行列 :math:`P_{ij}` を :math:`i` から :math:`j` へ推移する確率として定義したからである． :math:`\boldsymbol{\pi}` から :math:`\boldsymbol{\pi}^{\prime}` を求めるには，  :math:`j` (dst)を固定して  :math:`j` **に至る各ノード** :math:`i` (src) **についての和をとる** 必要がある．つまり左からかけなければならない．推移行列 :math:`P_{ji}` を :math:`i` から :math:`j` へ推移する確率として定義していれば :math:`\boldsymbol{\pi}` を縦ベクトルとして， :math:`\boldsymbol{\pi}^{\prime} = P\boldsymbol{\pi}` というふうに求められるのだが．
+
+:math:`n` 回推移した後の確率分布は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \boldsymbol{\pi}^{(n)} = \boldsymbol{\pi}^{(0)}P^{n}
+   \end{align*}
+
+である．
+
+2.2.3 状態の分類
+----------------------------------------------------------------------
+:math:`i` から :math:`j` へと到達可能性であることを :math:`i \rightarrow j` と表記する．お互いに到達可能であるならば :math:`i \leftrightarrow j` と表記する．
+
+ノード :math:`i` と互いに到達可能なノードの集合 :math:`C(i)` はノードの集合を互いに素に分割するため，以下のように :math:`\leftrightarrow` に関する同値類を形成する．
+ 
+ #. :math:`j, k \in C(i) \Leftrightarrow j \leftrightarrow k`
+ #. :math:`i \leftrightarrow j \Leftrightarrow C(i) = C(j)`
+ #. :math:`C(i) \neq C(j) \Rightarrow C(i) \cap C(j) = \phi`
+ 
+クラス :math:`C` の中から外に出られない場合，つまり
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \forall i \in C(i),\, \forall j \notin C(i) \Rightarrow \lnot\, [i \rightarrow j]
+   \end{align*}
+
+が成立するとき， :math:`C(i)` は閉じているという．これは :math:`C(i)` の **中からはどのようにしても外に出られないという意味で，閉集合に近い** ．また :math:`C(i)` と :math:`C(j)` が共通部分を持つのならば，その共通部分を通じて二つは相互に到達可能となるため，互いに素である．よって状態空間はこの同値類によって分割される(群論における部分群による分割みたい)．
+
+.. glossary::
+   
+   既約
+      クラス :math:`S` 内のすべてのノード :math:`i, j` について :math:`i \leftrightarrow j` が成立するとき， :math:`S` は既約であるという．
+
+
+.. glossary::
+   
+   初到達時間
+      状態 :math:`i` から :math:`n` 期後初めて :math:`j` に到達する確率を :math:`f^{(n)}_{ij}` とする．このときの :math:`n` を初到達時間という．
+
+
+:math:`i` から :math:`j` への到達確率を :math:`f^{*}_{ij} = \sum_{n=1}^{\infty} f_{ij}^{(n)}` とする．これは :math:`i` にいる状態からいずれ :math:`j` に到達する確率である(iからのすべての遷移(無限) / jに至るすべての遷移(無限))．
+ 
+:math:`f^{*}_{ij} = 1` のとき :math:`\mu_{ij} = \sum_{n=1}^{\infty} n f^{(n)}_{ij}` が定義できる．これを平均初到達時間という．さらに :math:`\mu_{ii}` を平均再帰時間という．
+
+.. glossary::
+   
+   **平均再帰時間** :math:`\mu_{ii}` の意味
+      これは一度 :math:`i` を訪れてから平均して :math:`\mu_{ii}` 回に一回，再度 :math:`i` に戻ってくるということである．
+
+
+下のように
+
+.. glossary::
+   
+   再帰的
+      ノード :math:`i` に必ず戻ってくる，つまり :math:`f_{ii}^{*} = 1`
+   
+   正再帰的
+      再帰的かつ，特に :math:`\mu_{ii} < \infty` である(平均して :math:`\mu_{ii}` 回に一回戻ってくる)
+   
+   零再帰的
+      再帰的だけど， :math:`\mu_{ii} = \infty` となっている．よく分からない．
+   
+   一時的
+      そもそも :math:`f_{ii}^{*} < 1` であるから， :math:`i` にとどまり続けるか(一時的なノードのクラスの中に居座り続ける)，そこから出ていくかという二択．
+
+
+と分類される．
+
+到達確率に関する公式
+----------------------------------------------------------------------
+
+#. 既約で正再帰的なクラス :math:`C` においては :math:`\forall i, j \in C` について :math:`f^{*}_{ij} = 1` である．
+#. :math:`C` が閉じている(中では既約)とする． :math:`C` の外のノード :math:`i` から :math:`C` の中のノード :math:`j, k` への到達確率は :math:`f_{ij}^{*} = f_{ik}^{*}` となって等しい．
+#. 全確率の公式より :math:`f_{ij}^{*} = P_{ij} + \sum_{k\neq j} P_{ik}f_{kj}^{*}` が成立する．
+
+2.4 周期
+======================================================================

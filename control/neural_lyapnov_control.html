@@ -5,20 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-138456127-3']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-    <meta property="og:description" content="Jonas Umlauft, Thomas Beckers, Melanie Kimmel, Sandra Hirche 2017 link 2017 IEEE 56th Anual Conference on Decision and Control (CDC)">
-    
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
 <meta name="twitter:card" content="summary" />
@@ -118,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="murray_flatness.html">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Neural Lyapnov Control</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
 </ul>
 </li>
 </ul>
@@ -194,18 +182,22 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jonas Umlauft, Thomas Beckers, Melanie Kimmel, Sandra Hirche</td>
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Ya-Chien Chang, Nima Roohi, Sicun Gao</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2017</td>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2019</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://mediatum.ub.tum.de/doc/1374761/335188.pdf">link</a></td>
+<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="https://papers.nips.cc/paper/8587-neural-lyapunov-control">link</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">2017 IEEE 56th Anual Conference on Decision and Control (CDC)</td>
+<tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">33rd Conference on Neural Information Processing Systems (NeurIPS 2019)</td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="abstract">
 <h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この論文では非線形系に対する安定性が保証された制御方策とLyapnov関数を学習するための新たな手法を提案している．提案手法はLyapnov関数を見つけようとするlearner(学習者)とlearnerが解へと誘導されるよう反例を見つけようとするfalsifier(偽造者)からなる．最終的にfalsifierが反例を見つけられなくなるとアルゴリズムは停止する．提案手法によりLyapnov関数の設計がより簡単になり，従来のLQR/SOS/SDPより大きいregion of attractionが得られる．</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
 </div>
 </div>
 
