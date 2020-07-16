@@ -115,10 +115,11 @@
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/go-introduction.git">入門Goプログラミング</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">マルコフ決定過程 -理論とアルゴリズム-</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">第2章 マルコフ連鎖と再生過程</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">2.1 離散型確率変数</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">2.2 連続型確率変数</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">2.3 離散時間マルコフ連鎖</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">2.4 周期</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.1 離散型確率変数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2 連続型確率変数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">2.3 離散時間マルコフ連鎖</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">2.4 周期</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">2.5 定常確率と極限確率</a></li>
 </ul>
 </li>
 </ul>
@@ -191,11 +192,24 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>第2章 マルコフ連鎖と再生過程<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="id2">
-<h2>2.1 離散型確率変数<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h1><a class="toc-backref" href="#id12">第2章 マルコフ連鎖と再生過程</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id12">第2章 マルコフ連鎖と再生過程</a><ul>
+<li><a class="reference internal" href="#id3" id="id13">2.1 離散型確率変数</a></li>
+<li><a class="reference internal" href="#id5" id="id14">2.2 連続型確率変数</a></li>
+<li><a class="reference internal" href="#id7" id="id15">2.3 離散時間マルコフ連鎖</a></li>
+<li><a class="reference internal" href="#id10" id="id16">2.4 周期</a></li>
+<li><a class="reference internal" href="#id11" id="id17">2.5 定常確率と極限確率</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="id3">
-<h3>2.1.4 離散型確率変数の例<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2><a class="toc-backref" href="#id13">2.1 離散型確率変数</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h3>2.1.4 離散型確率変数の例<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ポアソン分布は <span class="math">\(\lambda &gt; 0\)</span> を用いて</p>
 <div class="math">
 \begin{align*}
@@ -203,10 +217,10 @@ p_i = \dfrac{\lambda^i}{i!}e^{-\lambda}
 \end{align*}</div><p>と表される．二項分布 <span class="math">\(\mathrm{Bin}(n, p)\)</span> において平均 <span class="math">\(\lambda = np\)</span> を一定にして <span class="math">\(n \to \infty\)</span> としたときに近づく分布である．</p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>2.2 連続型確率変数<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="id5">
-<h3>2.2.3 指数分布の性質<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2><a class="toc-backref" href="#id14">2.2 連続型確率変数</a><a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h3>2.2.3 指数分布の性質<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>指数分布は連続時間マルコフ連鎖，連続時間マルコフ決定過程において重要な分布である．</p>
 <div class="math">
 \begin{align*}
@@ -216,9 +230,9 @@ f(x) = \lambda e^{-\lambda x}, \quad x &gt; 0
 <div class="math">
 \begin{align*}
 F(x) = \begin{cases} 0 &amp; x \leq 0 \\ 1 - e^{-\lambda x} &amp; x &gt; 0 \end{cases}
-\end{align*}</div><p>つまり <span class="math">\(X &gt; x\)</span> 以上となる確率が <span class="math">\(\exp (-\lambda x)\)</span> である．</p>
+\end{align*}</div><p>つまり <span class="math">\(X &gt; x\)</span> となる確率が <span class="math">\(\exp (-\lambda x)\)</span> である．</p>
 <dl class="glossary docutils">
-<dt id="term">無記憶性</dt>
+<dt id="term-2-1">定理2.1<dt id="term">無記憶性</dt>
 <dd>確率変数 <span class="math">\(X\)</span> が <span class="math">\(X \sim \mathrm{Exp}(1 / \lambda)\)</span> に従うとする．このとき <span class="math">\(X &gt; t_0\)</span> という条件のもとで， <span class="math">\(X^{\prime} = X - t_0\)</span> は <span class="math">\(X\)</span> と同じ分布に従う．</dd>
 </dl>
 <p>この定理の意味するところは</p>
@@ -232,8 +246,8 @@ P\left(X^{\prime}&gt;t \mid X&gt;t_{0}\right) &amp;=\frac{P\left(X^{\prime}&gt;t
 &amp;=\frac{e^{-\lambda\left(t_{0}+t\right)}}{e^{-\lambda t_{0}}}=e^{-\lambda t}=P(X&gt;t)
 \end{align*}</div></div>
 </div>
-<div class="section" id="id6">
-<h2>2.3 離散時間マルコフ連鎖<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id15">2.3 離散時間マルコフ連鎖</a><a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>状態 <span class="math">\(x_i\)</span> から状態 <span class="math">\(x_j\)</span> へと推移する確率を並べた隣接行列を推移行列 <span class="math">\(P\)</span> と呼ぶ．</p>
 <div class="math">
 \begin{align*}
@@ -253,10 +267,10 @@ P = \begin{pmatrix} P_{00} &amp; P_{01} &amp; \cdots \\ P_{10} &amp; P_{11} &amp
 \begin{align*}
 \boldsymbol{\pi}^{(n)} = \boldsymbol{\pi}^{(0)}P^{n}
 \end{align*}</div><p>である．</p>
-<div class="section" id="id7">
-<h3>2.2.3 状態の分類<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id8">
+<h3>2.2.3 状態の分類<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><span class="math">\(i\)</span> から <span class="math">\(j\)</span> へと到達可能性であることを <span class="math">\(i \rightarrow j\)</span> と表記する．お互いに到達可能であるならば <span class="math">\(i \leftrightarrow j\)</span> と表記する．</p>
-<p>ノード <span class="math">\(i\)</span> と互いに到達可能なノードの集合 <span class="math">\(C(i)\)</span> はノードの集合を互いに素に分割するため，以下のように <span class="math">\(\leftrightarrow\)</span> に関する同値類を形成する．</p>
+<p>ノード <span class="math">\(i\)</span> と互いに到達可能なノードの集合 <span class="math">\(C(i)\)</span> はノードの集合を互いに素に分割するため，以下のように <span class="math">\(\leftrightarrow\)</span> に関する同値類を形成する．これは有向グラフの強連結成分ということである．</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><span class="math">\(j, k \in C(i) \Leftrightarrow j \leftrightarrow k\)</span></li>
@@ -268,45 +282,165 @@ P = \begin{pmatrix} P_{00} &amp; P_{01} &amp; \cdots \\ P_{10} &amp; P_{11} &amp
 <div class="math">
 \begin{align*}
 \forall i \in C(i),\, \forall j \notin C(i) \Rightarrow \lnot\, [i \rightarrow j]
-\end{align*}</div><p>が成立するとき， <span class="math">\(C(i)\)</span> は閉じているという．これは <span class="math">\(C(i)\)</span> の <strong>中からはどのようにしても外に出られないという意味で，閉集合に近い</strong> ．また <span class="math">\(C(i)\)</span> と <span class="math">\(C(j)\)</span> が共通部分を持つのならば，その共通部分を通じて二つは相互に到達可能となるため，互いに素である．よって状態空間はこの同値類によって分割される(群論における部分群による分割みたい)．</p>
+\end{align*}</div><p>が成立するとき， <span class="math">\(C(i)\)</span> は閉じているという．これは <span class="math">\(C(i)\)</span> の <strong>中からはどのようにしても外に出られないという意味で，閉集合に近い</strong> ．また <span class="math">\(C(i)\)</span> と <span class="math">\(C(j)\)</span> が共通部分を持つのならば，その共通部分を通じて二つは相互に到達可能となるため，合併される．よって状態空間はこの同値類によって分割される(群論における部分群による分割みたい)．</p>
 <dl class="glossary docutils">
-<dt id="term-1">既約</dt>
+<dt id="term-2-5">定義2.5<dt id="term-3">既約</dt>
 <dd>クラス <span class="math">\(S\)</span> 内のすべてのノード <span class="math">\(i, j\)</span> について <span class="math">\(i \leftrightarrow j\)</span> が成立するとき， <span class="math">\(S\)</span> は既約であるという．</dd>
 </dl>
 <dl class="glossary docutils">
-<dt id="term-2">初到達時間</dt>
+<dt id="term-2-6">定義2.6<dt id="term-5">初到達時間</dt>
 <dd>状態 <span class="math">\(i\)</span> から <span class="math">\(n\)</span> 期後初めて <span class="math">\(j\)</span> に到達する確率を <span class="math">\(f^{(n)}_{ij}\)</span> とする．このときの <span class="math">\(n\)</span> を初到達時間という．</dd>
 </dl>
-<p><span class="math">\(i\)</span> から <span class="math">\(j\)</span> への到達確率を <span class="math">\(f^{*}_{ij} = \sum_{n=1}^{\infty} f_{ij}^{(n)}\)</span> とする．これは <span class="math">\(i\)</span> にいる状態からいずれ <span class="math">\(j\)</span> に到達する確率である(iからのすべての遷移(無限) / jに至るすべての遷移(無限))．</p>
+<p><span class="math">\(i\)</span> から <span class="math">\(j\)</span> への到達確率を <span class="math">\(f^{*}_{ij} = \sum_{n=1}^{\infty} f_{ij}^{(n)}\)</span> とする．これは <span class="math">\(i\)</span> にいる状態からいずれ <span class="math">\(j\)</span> に到達する確率である( <span class="math">\(j\)</span> に至るすべての遷移(無限) / iからのすべての遷移(無限))．</p>
 <p><span class="math">\(f^{*}_{ij} = 1\)</span> のとき <span class="math">\(\mu_{ij} = \sum_{n=1}^{\infty} n f^{(n)}_{ij}\)</span> が定義できる．これを平均初到達時間という．さらに <span class="math">\(\mu_{ii}\)</span> を平均再帰時間という．</p>
 <dl class="glossary docutils">
-<dt id="term-3"><strong>平均再帰時間</strong> <span class="math">\(\mu_{ii}\)</span> の意味</dt>
+<dt id="term-6"><strong>平均再帰時間</strong> <span class="math">\(\mu_{ii}\)</span> の意味</dt>
 <dd>これは一度 <span class="math">\(i\)</span> を訪れてから平均して <span class="math">\(\mu_{ii}\)</span> 回に一回，再度 <span class="math">\(i\)</span> に戻ってくるということである．</dd>
 </dl>
 <p>下のように</p>
 <dl class="glossary docutils">
-<dt id="term-4">再帰的</dt>
+<dt id="term-2-7">定義2.7<dt id="term-8">再帰的</dt>
 <dd>ノード <span class="math">\(i\)</span> に必ず戻ってくる，つまり <span class="math">\(f_{ii}^{*} = 1\)</span></dd>
-<dt id="term-5">正再帰的</dt>
-<dd>再帰的かつ，特に <span class="math">\(\mu_{ii} &lt; \infty\)</span> である(平均して <span class="math">\(\mu_{ii}\)</span> 回に一回戻ってくる)</dd>
-<dt id="term-6">零再帰的</dt>
-<dd>再帰的だけど， <span class="math">\(\mu_{ii} = \infty\)</span> となっている．よく分からない．</dd>
-<dt id="term-7">一時的</dt>
+<dt id="term-9">正再帰的</dt>
+<dd>再帰的かつ <span class="math">\(\mu_{ii} &lt; \infty\)</span> である(平均して <span class="math">\(\mu_{ii}\)</span> 回に一回戻ってくる)</dd>
+<dt id="term-10">零再帰的</dt>
+<dd>再帰的だけど， <span class="math">\(\mu_{ii} = \infty\)</span> となっている．よく分からない(後々述べるが，有限マルコフ連鎖では存在しない)．</dd>
+<dt id="term-11">一時的</dt>
 <dd>そもそも <span class="math">\(f_{ii}^{*} &lt; 1\)</span> であるから， <span class="math">\(i\)</span> にとどまり続けるか(一時的なノードのクラスの中に居座り続ける)，そこから出ていくかという二択．</dd>
 </dl>
 <p>と分類される．</p>
 </div>
-<div class="section" id="id8">
-<h3>到達確率に関する公式<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id9">
+<h3>到達確率に関する公式<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ol class="arabic simple">
 <li>既約で正再帰的なクラス <span class="math">\(C\)</span> においては <span class="math">\(\forall i, j \in C\)</span> について <span class="math">\(f^{*}_{ij} = 1\)</span> である．</li>
 <li><span class="math">\(C\)</span> が閉じている(中では既約)とする． <span class="math">\(C\)</span> の外のノード <span class="math">\(i\)</span> から <span class="math">\(C\)</span> の中のノード <span class="math">\(j, k\)</span> への到達確率は <span class="math">\(f_{ij}^{*} = f_{ik}^{*}\)</span> となって等しい．</li>
 <li>全確率の公式より <span class="math">\(f_{ij}^{*} = P_{ij} + \sum_{k\neq j} P_{ik}f_{kj}^{*}\)</span> が成立する．</li>
 </ol>
+<p>既約で正再帰的な(つまり <span class="math">\(\mu_{ii} &lt; \infty\)</span> が全てのノードで成立している)有限状態のマルコフ連鎖においては，</p>
+<div class="math">
+\begin{align*}
+\mu_{ij} = P_{ij} + \sum_{k \neq j} P_{ik} (1 + \mu_{kj})
+\end{align*}</div><p>が成立する．つまり次の連立方程式を解けばよい．</p>
+<div class="math">
+\begin{align*}
+\mu_{ij} = 1 + \sum_{k \neq j}P_{ik} \mu_{kj}
+\end{align*}</div><p>同じクラスにある(強連結成分である)状態は，再帰性が等しい．</p>
+<dl class="glossary docutils">
+<dt id="term-2-4">定理2.4<dt id="term-13"><span class="math">\(i \leftrightarrow j\)</span> であるならば</dt>
+<dd><p class="first"><span class="math">\(i\)</span> が正再帰的  <span class="math">\(\equiv\)</span>  <span class="math">\(j\)</span> が正再帰的</p>
+<p><span class="math">\(i\)</span> が零再帰的  <span class="math">\(\equiv\)</span>  <span class="math">\(j\)</span> が零再帰的</p>
+<p class="last"><span class="math">\(i\)</span> が一時的  <span class="math">\(\equiv\)</span>  <span class="math">\(j\)</span> が一時的</p>
+</dd>
+</dl>
+<p>性質が細かく分かれていて非常にややこしい．(i)強連結成分であるか，(ii)既約であるか，(iii)周期的であるか，の3つの軸があるからだろう．</p>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>2.4 周期<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id16">2.4 周期</a><a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>マルコフ連鎖の周期を求めるには，各ノードについて以下のように隣接行列のn乗の対角成分 <span class="math">\(P_{ii}^{(n)}\)</span> が初めて0でなくなるnの値を求め，それらの最大公約数を求めればよい．</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">P1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;================ i = </span><span class="si">%d</span><span class="s2"> ==================&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">P1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">mat</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>以下のようになる．</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>================ i = 1 ==================
+[ 0.  0.  0.  0.  0.  0.]
+================ i = 2 ==================
+[ 0.  0.  0.  0.  0.  0.]
+================ i = 3 ==================
+[ 0.6  0.6  0.6  0.   0.   0. ]
+================ i = 4 ==================
+[ 0.  0.  0.  0.  0.  0.]
+================ i = 5 ==================
+[ 0.  0.  0.  0.  0.  0.]
+================ i = 6 ==================
+[ 0.76  0.76  0.76  0.4   0.4   0.4 ]
+</pre></div>
+</div>
+<p>この場合 <span class="math">\(\{1, 2, 3\}\)</span> では3乗， <span class="math">\(\{4, 5, 6\}\)</span> では6乗すると <span class="math">\(P_{ii}^{(n)} &gt; 0\)</span> となるので，周期は3である．</p>
+<dl class="glossary docutils">
+<dt id="term-14">定理2.5</dt>
+<dd>状態 <span class="math">\(i, j \in S\)</span> が強連結成分であるならば(同じクラスであるならば)同じ周期をもつ．</dd>
+</dl>
+<p>推移行列の側面でいうと， <span class="math">\(i\)</span> が周期的ならば <span class="math">\(P_{ii}^{(n)}\)</span> は時刻が周期倍ではないときに，ゼロになっているということである．</p>
+<dl class="glossary docutils">
+<dt id="term-15">定理2.6<dt id="term-a">(a) <span class="math">\(j\)</span> が非周期かつ正再帰的であるならば任意の状態 <span class="math">\(i\)</span> に対して</dt>
+<dd><p class="first"><span class="math">\(\lim_{n \to \infty} P_{ij}^{(n)} = \dfrac{f_{ij}^{*}}{\mu_{jj}}\)</span></p>
+<p class="last"><span class="math">\(i\)</span> から <span class="math">\(j\)</span> への移動確率は <span class="math">\(f_{ij}^{*}\)</span> であり，その後は平均して <span class="math">\(\mu_{jj}\)</span> 回に一回訪れる．よって平均して <span class="math">\(f_{ij}^{*} / \mu_{jj}\)</span> 回に一回訪れるという意味．</p>
+</dd>
+<dt id="term-b">(b) <span class="math">\(i \leftrightarrow j\)</span> ( <span class="math">\(i = j\)</span> も含む)のとき<dt id="term-18"><span class="math">\(j\)</span> が非周期かつ正再帰的ならば</dt>
+<dd><p class="first">(a)の特別な場合として <span class="math">\(i\)</span> も再帰的であるから <span class="math">\(f_{ij}^{*} = 1\)</span> となっており</p>
+<p class="last"><span class="math">\(\lim_{n \to \infty} P_{ij}^{(n)} = \dfrac{1}{\mu_{jj}} &gt; 0\)</span></p>
+</dd>
+<dt id="term-19"><span class="math">\(j\)</span> が非周期かつ零再帰的ならば</dt>
+<dd><p class="first"><span class="math">\(\mu_{jj} = \infty\)</span> より</p>
+<p class="last"><span class="math">\(\lim_{n \to \infty} P_{ij}^{(n)} = 0 \left( = \dfrac{1}{\mu_{jj}} \right)\)</span></p>
+</dd>
+<dt id="term-20"><span class="math">\(j\)</span> が非周期かつ一時的ならば</dt>
+<dd><span class="math">\(\lim_{n \to \infty} P_{ij}^{(n)} = 0\)</span></dd>
+<dt id="term-21"><span class="math">\(j\)</span> が周期 <span class="math">\(q(j)\)</span> を持ちかつ正再帰的であるならば</dt>
+<dd><span class="math">\(\lim_{n \to \infty} P_{ij}^{(nq(j))} = \dfrac{q(j)}{\mu_{jj}}\)</span></dd>
+</dl>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id17">2.5 定常確率と極限確率</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>極限確率は推移行列 <span class="math">\(P\)</span> の無限乗で表されるため，もしそれが一意に収束するなら</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="17%" />
+<col width="31%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&#160;</td>
+<td colspan="3">極限分布</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td colspan="2">定常分布</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>均衡分布</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>既約かつ再帰的？</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>非周期的？</td>
+<td>非周期的</td>
+<td>周期的</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>一意？</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>公式</td>
+<td><span class="math">\(\pi_j = \dfrac{1}{M_j}\)</span></td>
+<td><span class="math">\(\lim_{n \to \infty} p_{ij}^{(n)} = \dfrac{1}{M_j}\)</span></td>
+<td><dl class="first last docutils">
+<dt>非周期的なら</dt>
+<dd><span class="math">\(\lim_{n \to \infty} p_{ij}^{(n)} = \dfrac{f_{ij}}{M_j}\)</span></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
