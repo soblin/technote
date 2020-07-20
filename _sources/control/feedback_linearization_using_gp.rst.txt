@@ -38,9 +38,23 @@ Probem Formlation
 
 ここで状態ベクトル :math:`\boldsymbol{x} = [x_1 \cdots x_n]^{\text{T}} \in \mathcal{X} \subset \mathbb{R}^n` のすべての値が測定可能であるとする．下のようにいくつかの仮定をおく．
 
-#. 未知関数 :math:`f: \mathcal{X} \rightarrow \mathbb{R}` ， :math:`g: \mathcal{X} \rightarrow \mathbb{R}` は有界かつ無限回微分可能とする
-#. システムの相対次数は :math:`\boldsymbol{x} \in \mathcal{X}` においてシステムの次元nに等しい
-#. 少なくとも一つの :math:`\boldsymbol{x} \in \mathcal{X}` において :math:`g(\boldsymbol{x})` の符号が既知である
+.. glossary::
+          
+   仮定1
+      未知関数 :math:`f: \mathcal{X} \rightarrow \mathbb{R}` ， :math:`g: \mathcal{X} \rightarrow \mathbb{R}` は有界かつ無限回微分可能とする
+
+
+.. glossary::
+
+   仮定2
+      システムの相対次数は :math:`\boldsymbol{x} \in \mathcal{X}` においてシステムの次元nに等しい
+
+
+.. glossary::
+
+   仮定3
+      少なくとも一つの :math:`\boldsymbol{x} \in \mathcal{X}` において :math:`g(\boldsymbol{x})` の符号が既知である
+
 
 3つ目の仮定は相対次数が不良設定とならないためのものである( :math:`g(\boldsymbol{x}) == 0` だと相対次数が定義されない)．そのためgの符号は一定である．
 
@@ -317,16 +331,30 @@ Control Law
 
 .. math::
    :nowrap:
-
+   :label: eq13
+   
    \begin{align*}
    u_f(\boldsymbol{x}) = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsymbol{x}) - k_c r - \boldsymbol{\lambda}^{\top} \boldsymbol{x}_{2:n} \right)
    \end{align*}
 
 と表すと :math:`\dot{r} = -k_c r` より :math:`r \to 0` となる．
 
+.. _proposition1:
+
 Convergence Analysis
 ----------------------------------------------------------------------
-Lyapnov関数として :math:`V(\boldsymbol{x}) = r^2 / 2` を用いる．まず :math:`\dot{V} = r \dot{r}` と
+Lyapnov関数として以下の関数を用いる．
+
+.. math::
+   :nowrap:
+   :label: eq14
+
+   \begin{align*}
+   V(\boldsymbol{x}) = r^2 / 2
+   \end{align*}
+
+
+まず :math:`\dot{V} = r \dot{r}` と
 
 .. math::
    :nowrap:
@@ -363,7 +391,19 @@ Lyapnov関数として :math:`V(\boldsymbol{x}) = r^2 / 2` を用いる．まず
    \dot{V}(\boldsymbol{x}) \leq\|\boldsymbol{b}\|\|\boldsymbol{x}\|-k_{c} \sigma_{\min }(\boldsymbol{A})\|\boldsymbol{x}\|^{2}+\sigma_{\max }(\boldsymbol{B})\|\boldsymbol{x}\|^{2}
    \end{align*}
    
-のようにして上から抑えることができて， :math:`\sigma_{\max}(B) - k_{c}^{*}\sigma_{\min}(A) < 0` が成立するように :math:`k_c > k_{c}^{*}` をとれれば
+のようにして上から抑えることができて，
+
+
+.. math::
+   :nowrap:
+   :label: eq16
+   
+   \begin{align*}
+   \sigma_{\max}(B) - k_{c}^{*}\sigma_{\min}(A) < 0`
+   \end{align*}
+
+
+が成立するように :math:`k_c > k_{c}^{*}` をとれれば
 
 .. math::
    :nowrap:
@@ -376,7 +416,155 @@ Lyapnov関数として :math:`V(\boldsymbol{x}) = r^2 / 2` を用いる．まず
 
 Tighter Bound with Training Data
 ----------------------------------------------------------------------
-ここでは推定したカーネル関数が徐々にゼロへと減少することを示す． :eq:`eq78` より
+ここでは推定した関数の分散(カーネル関数)が訓練集合が増えるにつれて徐々に減少することを示す．
+証明を簡単にするため，以下の仮定を追加する．
+
+.. glossary::
+   
+   仮定4
+      関数 :math:`g` は既知であり，以下の :math:`f` の観測値が得られるとする．
+      
+      .. math::
+         :nowrap:
+         
+         \begin{align*}
+         y_{f}^{(i)}=f\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}=\dot{x}_{n}^{(i)}-g\left(\boldsymbol{x}^{(i)}\right) u_{0}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}
+         \end{align*}
+
+
+すると :eq:`eq78` より未知関数 :math:`\hat{f}` は以下のように推定される．
+
+.. math::
+   :nowrap:
+   :label: eq17
+   
+   \begin{align*}
+   \hat{f}(\boldsymbol{x}):=\mu(\boldsymbol{x})=\boldsymbol{k}_{f}^{\top}\left(\boldsymbol{K}_{f}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1} \boldsymbol{y}_{f}
+   \end{align*}
+
+
+.. glossary::
+
+   系1
+      :term:`仮定1`  :term:`仮定2`  :term:`仮定3`  :term:`仮定4` の下で :eq:`eq13`  :eq:`eq17` を用いると，任意の :math:`k_c > 0` について系は大域的一様終局的有界(globally uniformly ultimately bounded)である．
+
+これは :eq:`eq16` において，さらに :math:`1 - \bar{g} = 0` が成立することから示される．
+
+以降では :eq:`eq78` における分散の上界を与える．これはモデルの信頼性(fidelity)や訓練集合への距離を表している．
+
+.. glossary::
+
+   定理2
+      :eq:`eq78` で定義されるガウス過程の推定値の分散は以下のようにある定数により上から抑えられる．
+      :math:`0 < \sigma( \boldsymbol{x}) < \sigma_{f}^2`
+
+これは著者らの先行研究を参照していた．GPにおいては真の関数値 :math:`f(\boldsymbol{x})` と推定における平均 :math:`\mu (\boldsymbol{x})` との距離を以下の仮定の下で評価することができる．
+
+.. glossary::
+
+   仮定5
+      有界な連続微分可能なカーネル関数 :math:`k` を用いた場合の， :math:`f(\boldsymbol{x})` の再生核ヒルベルト空間におけるノルムが， :math:`\|f(\boldsymbol{x}) \|_{k}^2 < B_f` より抑えられている．
+
+.. glossary::
+
+   定理3
+      :term:`仮定5` の下で
+      
+      .. math::
+         :nowrap:
+         
+         \begin{align*}
+         \operatorname{Pr}\left\{\forall \boldsymbol{x} \in \tilde{\mathcal{X}},\left|\mu_{N}(\boldsymbol{x})-f(\boldsymbol{x})\right| \leq \beta_{N+1} \sigma_{N}(\boldsymbol{x})\right\} \geq 1-\delta
+         \end{align*}
+      
+      がコンパクト集合 :math:`\bar{\mathcal{X}} \in \mathbb{R}^n` 上で成立する．ここで :math:`\delta \in [0, 1]`
+      
+      .. math::
+         :nowrap:
+         
+         \begin{align*}
+         \beta_{N+1}=\sqrt{2 B_{f}+300 \gamma_{N+1} \log ^{3}((N+1) / \delta)}
+         \end{align*}
+      
+      である．また :math:`\gamma_{N+1}` は :math:`\boldsymbol{x}_1, \ldots \boldsymbol{x}_N` の相互情報量である．
+
+
+.. glossary::
+
+   命題2
+      :term:`仮定1`  :term:`仮定2` :term:`仮定3`  :term:`仮定4`  :term:`仮定5` と式 :eq:`eq17` による :math:`f(\boldsymbol{x})` の推定値，式 :eq:`eq13` による制御入力を用いると，任意の :math:`k_c > 0` について閉ループシステム系は確率 :math:`1 - \delta` で以下の集合において大域的に一様に終局的に有界である． 
+      
+      .. math::
+         :nowrap:
+         
+         \begin{align*}
+         \mathcal{B}_{2}=\left\{\boldsymbol{x} \in \mathcal{X} \mid\|\boldsymbol{x}\| \leq \frac{\beta_{N+1} \bar{\sigma}}{k_{c}\left\|\left[\boldsymbol{\lambda}^{\top} 1\right]\right\|}\right\}
+         \end{align*}
+      
+      ここで :math:`\bar{\sigma} > \sigma(\boldsymbol{x})` が :math:`\forall \boldsymbol{x} \in \mathcal{B}_1` において成立するような上界が :math:`\bar{\sigma}` である．
+   
+   証明2
+      :ref:`proposition1` により :math:`\mathcal{B}_1 = \bar{\mathcal{X}}` への収束は保証されている．よって :term:`定理3` が適用できて， :math:`\mathcal{B}_1` 上での議論に限ればよい． :eq:`eq14` のリャプノフ関数を用いてみると :math:`g - \hat{g} = 0` である( :term:`仮定4` )よりその時間変化は
+      
+      .. math::
+         :nowrap:
+         :label: eq18
+         
+         \begin{align*}
+         \dot{V}(\boldsymbol{x}) = r(f - \hat{f}) - k_c r^2
+         \end{align*}
+         
+      で与えられる． :term:`定理3` より
+      
+      .. math::
+         :nowrap:
+         
+         \begin{align*}
+         |f-\hat{f}| \leq \beta_{N+1} \bar{\sigma} \quad \Rightarrow \quad \dot{V}(\boldsymbol{x})<0 \quad \forall \boldsymbol{x} \in \mathcal{X} \backslash \mathcal{B}_{2}
+         \end{align*}
+         
+
+      が確率 :math:`1 - \delta` で成立する．よって半径 :math:`\beta_{N+1} \bar{\sigma} / k_c` 以内への収束，すなわち :math:`\mathcal{B}_2` への収束が示される．
+
+最後に訓練集合にデータが追加されるほど分散が減少することを示す．
+
+.. glossary::
+   
+   定理4
+   (1)
+      訓練集合のサイズが :math:`N, N+1` のときの分散を :math:`\sigma_{N}(\boldsymbol{x}), \sigma_{N+1}(\boldsymbol{x})` とすると，
+      :math:`\sigma_{N}(\boldsymbol{x})>\sigma_{N+1}(\boldsymbol{x}), \quad \forall \boldsymbol{x} \in \mathcal{X}`
+      が成立する．
+   
+   (2)
+      既存の訓練集合 :math:`\boldsymbol{x}^{(i)} (i = 1,,,N_0)` に対してテスト集合 :math:`\boldsymbol{x}^{*} = \boldsymbol{x}^{(i)} (i = N_0,,,N)` が加えられると
+      
+      .. math::
+         :nowrap:
+         :label:
+         
+         \begin{align*}
+         \lim _{N \rightarrow \infty} \sigma_{N}\left(\boldsymbol{x}^{*}\right)=0 \quad \text { with } \quad \sigma_{N}=\mathcal{O}(1 / N)
+         \end{align*}
+      
+      が成立する．
+   
+   証明(1)
+      式 :eq:`eq78` において :math:`\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1} \boldsymbol{k}` はデータが追加されるについて単調に増加するので証明完了．
+   
+   証明(2)
+      詳細は省くが以下の式
+      
+      .. math::
+         :nowrap:
+         :label:
+         
+
+         \begin{align*}
+         \lim _{N \rightarrow \infty} \sigma_{N}\left(\boldsymbol{x}^{*}\right) \leq \lim _{N \rightarrow \infty} \sigma_{f}^{2}\left(1-\frac{k_{0}+N}{N+\sigma_{n}^{2} / \sigma_{f}^{2}}\right)=0
+         \end{align*}
+      
+      が成立するので証明完了．
 
 Numerical Illustration
 ======================================================================

@@ -237,11 +237,18 @@
 \begin{align*}
 \dot{x}_1 &amp;= x_2 \\ \dot{x}_2 &amp;= x_3 \\ \cdots \\ \dot{x}_n &amp;= f(\boldsymbol{x}) + g(\boldsymbol{x})u \\ \boldsymbol{x}(0) &amp;= \boldsymbol{x}_0
 \end{align*}</div><p>ここで状態ベクトル <span class="math">\(\boldsymbol{x} = [x_1 \cdots x_n]^{\text{T}} \in \mathcal{X} \subset \mathbb{R}^n\)</span> のすべての値が測定可能であるとする．下のようにいくつかの仮定をおく．</p>
-<ol class="arabic simple">
-<li>未知関数 <span class="math">\(f: \mathcal{X} \rightarrow \mathbb{R}\)</span> ， <span class="math">\(g: \mathcal{X} \rightarrow \mathbb{R}\)</span> は有界かつ無限回微分可能とする</li>
-<li>システムの相対次数は <span class="math">\(\boldsymbol{x} \in \mathcal{X}\)</span> においてシステムの次元nに等しい</li>
-<li>少なくとも一つの <span class="math">\(\boldsymbol{x} \in \mathcal{X}\)</span> において <span class="math">\(g(\boldsymbol{x})\)</span> の符号が既知である</li>
-</ol>
+<dl class="glossary docutils">
+<dt id="term-1">仮定1</dt>
+<dd>未知関数 <span class="math">\(f: \mathcal{X} \rightarrow \mathbb{R}\)</span> ， <span class="math">\(g: \mathcal{X} \rightarrow \mathbb{R}\)</span> は有界かつ無限回微分可能とする</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-2">仮定2</dt>
+<dd>システムの相対次数は <span class="math">\(\boldsymbol{x} \in \mathcal{X}\)</span> においてシステムの次元nに等しい</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-3">仮定3</dt>
+<dd>少なくとも一つの <span class="math">\(\boldsymbol{x} \in \mathcal{X}\)</span> において <span class="math">\(g(\boldsymbol{x})\)</span> の符号が既知である</dd>
+</dl>
 <p>3つ目の仮定は相対次数が不良設定とならないためのものである( <span class="math">\(g(\boldsymbol{x}) == 0\)</span> だと相対次数が定義されない)．そのためgの符号は一定である．</p>
 <p>第一には未知関数 <span class="math">\(f, g\)</span> をデータから <span class="math">\(\hat{f}, \hat{g}\)</span> で近似し，次に以下のようにフィードバック線形化</p>
 <div class="math">
@@ -395,14 +402,18 @@ r = [\boldsymbol{\lambda}^{\top} 1] \boldsymbol{x}
 \begin{align*}
 \dot{r} = f(\boldsymbol{x}) + g(\boldsymbol{x})u_f (\boldsymbol{x}) + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
 \end{align*}</div><p>であるから，この式において入力 <span class="math">\(u_f\)</span> を別の変数 <span class="math">\(\nu = -k_c r - \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}\)</span> を用いて</p>
-<div class="math">
+<div class="math" id="equation-eq13">
 \begin{align*}
 u_f(\boldsymbol{x}) = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsymbol{x}) - k_c r - \boldsymbol{\lambda}^{\top} \boldsymbol{x}_{2:n} \right)
 \end{align*}</div><p>と表すと <span class="math">\(\dot{r} = -k_c r\)</span> より <span class="math">\(r \to 0\)</span> となる．</p>
 </div>
 <div class="section" id="convergence-analysis">
-<h3>Convergence Analysis<a class="headerlink" href="#convergence-analysis" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Lyapnov関数として <span class="math">\(V(\boldsymbol{x}) = r^2 / 2\)</span> を用いる．まず <span class="math">\(\dot{V} = r \dot{r}\)</span> と</p>
+<span id="proposition1"></span><h3>Convergence Analysis<a class="headerlink" href="#convergence-analysis" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Lyapnov関数として以下の関数を用いる．</p>
+<div class="math" id="equation-eq14">
+\begin{align*}
+V(\boldsymbol{x}) = r^2 / 2
+\end{align*}</div><p>まず <span class="math">\(\dot{V} = r \dot{r}\)</span> と</p>
 <div class="math">
 \begin{align*}
 \dot{r} &amp;= \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{1:n-1} + \dot{x}_n \\ &amp;= f(\boldsymbol{x}) + g(\boldsymbol{x})u + \boldsymbol{\lambda}^{\top}\boldsymbol{x}_{2:n}
@@ -419,7 +430,11 @@ u_f(\boldsymbol{x}) = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsy
 <div class="math">
 \begin{align*}
 \dot{V}(\boldsymbol{x}) \leq\|\boldsymbol{b}\|\|\boldsymbol{x}\|-k_{c} \sigma_{\min }(\boldsymbol{A})\|\boldsymbol{x}\|^{2}+\sigma_{\max }(\boldsymbol{B})\|\boldsymbol{x}\|^{2}
-\end{align*}</div><p>のようにして上から抑えることができて， <span class="math">\(\sigma_{\max}(B) - k_{c}^{*}\sigma_{\min}(A) &lt; 0\)</span> が成立するように <span class="math">\(k_c &gt; k_{c}^{*}\)</span> をとれれば</p>
+\end{align*}</div><p>のようにして上から抑えることができて，</p>
+<div class="math" id="equation-eq16">
+\begin{align*}
+\sigma_{\max}(B) - k_{c}^{*}\sigma_{\min}(A) &lt; 0`
+\end{align*}</div><p>が成立するように <span class="math">\(k_c &gt; k_{c}^{*}\)</span> をとれれば</p>
 <div class="math">
 \begin{align*}
 \mathcal{B}_{1}=\left\{x \in \mathcal{X} \mid\|\boldsymbol{x}\| \leq \frac{\|\boldsymbol{b}\|}{k_{c} \sigma_{\min }(\boldsymbol{A})-\sigma_{\max }(\boldsymbol{B})}\right\}
@@ -427,7 +442,92 @@ u_f(\boldsymbol{x}) = \dfrac{1}{\hat{g}(\boldsymbol{x})} \left( -\hat{f}(\boldsy
 </div>
 <div class="section" id="tighter-bound-with-training-data">
 <h3>Tighter Bound with Training Data<a class="headerlink" href="#tighter-bound-with-training-data" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>ここでは推定したカーネル関数が徐々にゼロへと減少することを示す． <a class="reference internal" href="#equation-eq78">(1)</a> より</p>
+<p>ここでは推定した関数の分散(カーネル関数)が訓練集合が増えるにつれて徐々に減少することを示す．
+証明を簡単にするため，以下の仮定を追加する．</p>
+<dl class="glossary docutils">
+<dt id="term-4">仮定4</dt>
+<dd><p class="first">関数 <span class="math">\(g\)</span> は既知であり，以下の <span class="math">\(f\)</span> の観測値が得られるとする．</p>
+<div class="last math">
+\begin{align*}
+y_{f}^{(i)}=f\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}=\dot{x}_{n}^{(i)}-g\left(\boldsymbol{x}^{(i)}\right) u_{0}\left(\boldsymbol{x}^{(i)}\right)+\epsilon^{(i)}
+\end{align*}</div></dd>
+</dl>
+<p>すると <a class="reference internal" href="#equation-eq78">(1)</a> より未知関数 <span class="math">\(\hat{f}\)</span> は以下のように推定される．</p>
+<div class="math" id="equation-eq17">
+\begin{align*}
+\hat{f}(\boldsymbol{x}):=\mu(\boldsymbol{x})=\boldsymbol{k}_{f}^{\top}\left(\boldsymbol{K}_{f}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1} \boldsymbol{y}_{f}
+\end{align*}</div><dl class="glossary docutils">
+<dt id="term-4">系1</dt>
+<dd><a class="reference internal" href="#term-1"><span class="xref std std-term">仮定1</span></a>  <a class="reference internal" href="#term-2"><span class="xref std std-term">仮定2</span></a>  <a class="reference internal" href="#term-3"><span class="xref std std-term">仮定3</span></a>  <a class="reference internal" href="#term-4"><span class="xref std std-term">仮定4</span></a> の下で <a class="reference internal" href="#equation-eq13">(2)</a>  <a class="reference internal" href="#equation-eq17">(5)</a> を用いると，任意の <span class="math">\(k_c &gt; 0\)</span> について系は大域的一様終局的有界(globally uniformly ultimately bounded)である．</dd>
+</dl>
+<p>これは <a class="reference internal" href="#equation-eq16">(4)</a> において，さらに <span class="math">\(1 - \bar{g} = 0\)</span> が成立することから示される．</p>
+<p>以降では <a class="reference internal" href="#equation-eq78">(1)</a> における分散の上界を与える．これはモデルの信頼性(fidelity)や訓練集合への距離を表している．</p>
+<dl class="glossary docutils">
+<dt id="term-4">定理2</dt>
+<dd><a class="reference internal" href="#equation-eq78">(1)</a> で定義されるガウス過程の推定値の分散は以下のようにある定数により上から抑えられる．
+<span class="math">\(0 &lt; \sigma( \boldsymbol{x}) &lt; \sigma_{f}^2\)</span></dd>
+</dl>
+<p>これは著者らの先行研究を参照していた．GPにおいては真の関数値 <span class="math">\(f(\boldsymbol{x})\)</span> と推定における平均 <span class="math">\(\mu (\boldsymbol{x})\)</span> との距離を以下の仮定の下で評価することができる．</p>
+<dl class="glossary docutils">
+<dt id="term-5">仮定5</dt>
+<dd>有界な連続微分可能なカーネル関数 <span class="math">\(k\)</span> を用いた場合の， <span class="math">\(f(\boldsymbol{x})\)</span> の再生核ヒルベルト空間におけるノルムが， <span class="math">\(\|f(\boldsymbol{x}) \|_{k}^2 &lt; B_f\)</span> より抑えられている．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-5">定理3</dt>
+<dd><p class="first"><a class="reference internal" href="#term-5"><span class="xref std std-term">仮定5</span></a> の下で</p>
+<div class="math">
+\begin{align*}
+\operatorname{Pr}\left\{\forall \boldsymbol{x} \in \tilde{\mathcal{X}},\left|\mu_{N}(\boldsymbol{x})-f(\boldsymbol{x})\right| \leq \beta_{N+1} \sigma_{N}(\boldsymbol{x})\right\} \geq 1-\delta
+\end{align*}</div><p>がコンパクト集合 <span class="math">\(\bar{\mathcal{X}} \in \mathbb{R}^n\)</span> 上で成立する．ここで <span class="math">\(\delta \in [0, 1]\)</span></p>
+<div class="math">
+\begin{align*}
+\beta_{N+1}=\sqrt{2 B_{f}+300 \gamma_{N+1} \log ^{3}((N+1) / \delta)}
+\end{align*}</div><p class="last">である．また <span class="math">\(\gamma_{N+1}\)</span> は <span class="math">\(\boldsymbol{x}_1, \ldots \boldsymbol{x}_N\)</span> の相互情報量である．</p>
+</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-5">命題2</dt>
+<dd><p class="first"><a class="reference internal" href="#term-1"><span class="xref std std-term">仮定1</span></a>  <a class="reference internal" href="#term-2"><span class="xref std std-term">仮定2</span></a> <a class="reference internal" href="#term-3"><span class="xref std std-term">仮定3</span></a>  <a class="reference internal" href="#term-4"><span class="xref std std-term">仮定4</span></a>  <a class="reference internal" href="#term-5"><span class="xref std std-term">仮定5</span></a> と式 <a class="reference internal" href="#equation-eq17">(5)</a> による <span class="math">\(f(\boldsymbol{x})\)</span> の推定値，式 <a class="reference internal" href="#equation-eq13">(2)</a> による制御入力を用いると，任意の <span class="math">\(k_c &gt; 0\)</span> について閉ループシステム系は確率 <span class="math">\(1 - \delta\)</span> で以下の集合において大域的に一様に終局的に有界である．</p>
+<div class="math">
+\begin{align*}
+\mathcal{B}_{2}=\left\{\boldsymbol{x} \in \mathcal{X} \mid\|\boldsymbol{x}\| \leq \frac{\beta_{N+1} \bar{\sigma}}{k_{c}\left\|\left[\boldsymbol{\lambda}^{\top} 1\right]\right\|}\right\}
+\end{align*}</div><p class="last">ここで <span class="math">\(\bar{\sigma} &gt; \sigma(\boldsymbol{x})\)</span> が <span class="math">\(\forall \boldsymbol{x} \in \mathcal{B}_1\)</span> において成立するような上界が <span class="math">\(\bar{\sigma}\)</span> である．</p>
+</dd>
+<dt id="term-5">証明2</dt>
+<dd><p class="first"><a class="reference internal" href="#proposition1"><span class="std std-ref">Convergence Analysis</span></a> により <span class="math">\(\mathcal{B}_1 = \bar{\mathcal{X}}\)</span> への収束は保証されている．よって <a class="reference internal" href="#term-5"><span class="xref std std-term">定理3</span></a> が適用できて， <span class="math">\(\mathcal{B}_1\)</span> 上での議論に限ればよい． <a class="reference internal" href="#equation-eq14">(3)</a> のリャプノフ関数を用いてみると <span class="math">\(g - \hat{g} = 0\)</span> である( <a class="reference internal" href="#term-4"><span class="xref std std-term">仮定4</span></a> )よりその時間変化は</p>
+<div class="math" id="equation-eq18">
+\begin{align*}
+\dot{V}(\boldsymbol{x}) = r(f - \hat{f}) - k_c r^2
+\end{align*}</div><p>で与えられる． <a class="reference internal" href="#term-5"><span class="xref std std-term">定理3</span></a> より</p>
+<div class="math">
+\begin{align*}
+|f-\hat{f}| \leq \beta_{N+1} \bar{\sigma} \quad \Rightarrow \quad \dot{V}(\boldsymbol{x})&lt;0 \quad \forall \boldsymbol{x} \in \mathcal{X} \backslash \mathcal{B}_{2}
+\end{align*}</div><p class="last">が確率 <span class="math">\(1 - \delta\)</span> で成立する．よって半径 <span class="math">\(\beta_{N+1} \bar{\sigma} / k_c\)</span> 以内への収束，すなわち <span class="math">\(\mathcal{B}_2\)</span> への収束が示される．</p>
+</dd>
+</dl>
+<p>最後に訓練集合にデータが追加されるほど分散が減少することを示す．</p>
+<dl class="glossary docutils">
+<dt id="term-5">定理4<dt id="term-5">(1)</dt>
+<dd>訓練集合のサイズが <span class="math">\(N, N+1\)</span> のときの分散を <span class="math">\(\sigma_{N}(\boldsymbol{x}), \sigma_{N+1}(\boldsymbol{x})\)</span> とすると，
+<span class="math">\(\sigma_{N}(\boldsymbol{x})&gt;\sigma_{N+1}(\boldsymbol{x}), \quad \forall \boldsymbol{x} \in \mathcal{X}\)</span>
+が成立する．</dd>
+<dt id="term-5">(2)</dt>
+<dd><p class="first">既存の訓練集合 <span class="math">\(\boldsymbol{x}^{(i)} (i = 1,,,N_0)\)</span> に対してテスト集合 <span class="math">\(\boldsymbol{x}^{*} = \boldsymbol{x}^{(i)} (i = N_0,,,N)\)</span> が加えられると</p>
+<div class="math" id="equation-control-feedback-linearization-using-gp-0">
+\begin{align*}
+\lim _{N \rightarrow \infty} \sigma_{N}\left(\boldsymbol{x}^{*}\right)=0 \quad \text { with } \quad \sigma_{N}=\mathcal{O}(1 / N)
+\end{align*}</div><p class="last">が成立する．</p>
+</dd>
+<dt id="term-5">証明(1)</dt>
+<dd>式 <a class="reference internal" href="#equation-eq78">(1)</a> において <span class="math">\(\boldsymbol{k}^{\top}\left(\boldsymbol{K}+\sigma_{n}^{2} \boldsymbol{I}_{N}\right)^{-1} \boldsymbol{k}\)</span> はデータが追加されるについて単調に増加するので証明完了．</dd>
+<dt id="term-5">証明(2)</dt>
+<dd><p class="first">詳細は省くが以下の式</p>
+<div class="math" id="equation-control-feedback-linearization-using-gp-1">
+\begin{align*}
+\lim _{N \rightarrow \infty} \sigma_{N}\left(\boldsymbol{x}^{*}\right) \leq \lim _{N \rightarrow \infty} \sigma_{f}^{2}\left(1-\frac{k_{0}+N}{N+\sigma_{n}^{2} / \sigma_{f}^{2}}\right)=0
+\end{align*}</div><p class="last">が成立するので証明完了．</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="numerical-illustration">
