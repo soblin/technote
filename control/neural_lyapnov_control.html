@@ -1,12 +1,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="ja" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@eeic_sovereign" />
@@ -17,50 +16,60 @@
 
 
   
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../_static/icon.ico"/>
   
+
   
   
 
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'ja',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="索引"
-              href="../genindex.html"/>
-        <link rel="search" title="検索" href="../search.html"/>
-    <link rel="top" title="TechNote of soblin  ドキュメント" href="../index.html"/>
-        <link rel="up" title="Control" href="index.html"/>
-        <link rel="next" title="Books" href="../books/index.html"/>
-        <link rel="prev" title="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems" href="murray_flatness.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="Books" href="../books/index.html" />
+    <link rel="prev" title="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems" href="murray_flatness.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -91,6 +100,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -106,6 +116,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Neural Lyapnov Control</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
 </ul>
 </li>
 </ul>
@@ -118,13 +129,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">TechNote of soblin</a>
@@ -132,10 +144,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -155,7 +170,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Control</a> &raquo;</li>
         
@@ -164,7 +179,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -198,39 +213,43 @@
 </div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>近年の学習ベースの制御手法としては，不確実な環境との相互作用を通してニューラルネットワークを利用して制御方策を学習する深層強化学習が盛んに研究されている．しかしサンプリングの複雑性や解釈の困難さ，安全性などの問題で即座に利用することは妨げられている．本研究では異なる方向性を掲げている．「学習ベースの手法は古典的な非線形制御系設計においても有効であるのか？」という点である．安定性が保証された非線形系のフィードバック制御系を設計するという問題に焦点を当てている．ニューラルネットワークと深層学習は系の非線形性を十分に扱うことができ，線形と(代数的な)近似に基づいた従来の手法(LQR, SOS, SDP)の性能を上回ることを示す．</p>
+<p>非線形系を安定化する手法として広く用いられているのは平衡点周りでの線形化を行いLQRにより平衡点からの偏移を最小化することである．LQRでは線形近似が妥当な近傍においては安定性が保証されている．しかし線形化に頼ることにより保守的な制御になってしまう．そのためagile locomotionが困難だったりする．線形近似できない領域ではLyapunov関数を用いる必要がある．エネルギーが減少するならばシステムが安定化するというアイデアから，システムを安定化させるようなスカラー場を構成するのがLyapunov法である．このスカラー場は高度に非線形であるため，関数近似の必要性が認識されている[13]．多項式近似を行うという方向で多くの研究がなされているが，システムの形に制限をかけてしまう．提案手法ではニューラルネットワークの表現力を利用することにより従来の手法により実現されるものよりも大きいregion of attractionを実現できることを示す．</p>
+<p>提案手法はlearnerとfalsifierからなる．learnerは <em>Lyapnov risk</em> と呼ばれるLyapunov関数としての要件からのviolationを測る関数を最小化することで制御方策とLyapunov関数のパラメータ(NNの重み)を確率的勾配法により求める．falsifierは更新された制御方策とLyapunov関数を受け取りLyapunov条件を破る状態ベクトルを反例として返す．この反例は訓練集合に加えられ，より効率的な学習のcurriculumとして用いられる．反例を見つけるのには&quot;delta-complete constraint solver&quot;というものが用いられている(Satisfiability Modulo Theoryにおけるsolverのようだ)．これにより禁則状態がないかを調べる．このフレームワークではコスト関数に&quot;regulator term&quot;を追加することでregion of attractionを拡大することができることを示す．</p>
+</div>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="このヘッドラインへのパーマリンク">¶</a></h2>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../books/index.html" class="btn btn-neutral float-right" title="Books" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="murray_flatness.html" class="btn btn-neutral" title="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../books/index.html" class="btn btn-neutral float-right" title="Books" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="murray_flatness.html" class="btn btn-neutral float-left" title="Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, soblin.
+        &#169; Copyright 2020, soblin.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -239,40 +258,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

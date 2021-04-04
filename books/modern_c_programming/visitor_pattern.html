@@ -1,13 +1,12 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="ja" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta content="visitor pattern，ビジターパターン" name="keywords" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@eeic_sovereign" />
@@ -18,50 +17,60 @@
 
 
   
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../../_static/icon.ico"/>
   
+
   
   
 
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'ja',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="索引"
-              href="../../genindex.html"/>
-        <link rel="search" title="検索" href="../../search.html"/>
-    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
-        <link rel="up" title="モダンC言語プログラミング" href="index.html"/>
-        <link rel="next" title="オブザーバーパターン" href="observer_pattern.html"/>
-        <link rel="prev" title="テンプレートメソッドパターン" href="template_pattern.html"/> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="オブザーバーパターン" href="observer_pattern.html" />
+    <link rel="prev" title="テンプレートメソッドパターン" href="template_pattern.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -92,6 +101,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -134,13 +144,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">TechNote of soblin</a>
@@ -148,10 +159,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -171,7 +185,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
@@ -182,7 +196,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -197,7 +211,7 @@
   <div class="section" id="id1">
 <h1><a class="toc-backref" href="#id3">ビジターパターン</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="contents topic" id="id2">
-<p class="topic-title first">目次</p>
+<p class="topic-title">目次</p>
 <ul class="simple">
 <li><a class="reference internal" href="#id1" id="id3">ビジターパターン</a><ul>
 <li><a class="reference internal" href="#type-id" id="id4">オブジェクトにtype idを持たせたくなったら黄色信号</a></li>
@@ -206,9 +220,9 @@
 </ul>
 </div>
 <p>バリデータの設定を表示できるようにしたいとする．例えば <code class="docutils literal"><span class="pre">RangeValidator</span></code> ならば <code class="docutils literal"><span class="pre">&quot;Range(0-9)&quot;</span></code> のように．一番簡単なのはバリデータ自身にこういった表示用の関数を追加することである．</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Validator</span><span class="p">{</span>
- <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">validate</span><span class="p">)(</span><span class="k">struct</span> <span class="n">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">validate_data</span><span class="p">);</span>
- <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">view</span><span class="p">)(</span><span class="k">struct</span> <span class="n">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pBuf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">Validator</span><span class="p">{</span>
+ <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">validate</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">validate_data</span><span class="p">);</span>
+ <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">view</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pBuf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="p">}</span> <span class="n">Validator</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span><span class="p">{</span>
@@ -243,10 +257,10 @@
  <span class="n">Previous</span>
 <span class="p">}</span> <span class="n">ValidatorType</span><span class="p">;</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">Validator</span><span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">Validator</span><span class="p">{</span>
  <span class="k">const</span> <span class="kt">int</span> <span class="n">type_id</span><span class="p">;</span>
- <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">validate</span><span class="p">)(</span><span class="k">struct</span> <span class="n">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">);</span>
- <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">view</span><span class="p">)(</span><span class="k">struct</span> <span class="n">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pBuf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+ <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">validate</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">);</span>
+ <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="n">view</span><span class="p">)(</span><span class="k">struct</span> <span class="nc">Validator</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pBuf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="p">}</span> <span class="n">Validator</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="nf">printValidator</span><span class="p">(</span><span class="n">Validator</span> <span class="o">*</span><span class="n">object</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pBuf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">){</span>
@@ -274,34 +288,32 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="observer_pattern.html" class="btn btn-neutral float-right" title="オブザーバーパターン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="template_pattern.html" class="btn btn-neutral" title="テンプレートメソッドパターン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="observer_pattern.html" class="btn btn-neutral float-right" title="オブザーバーパターン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="template_pattern.html" class="btn btn-neutral float-left" title="テンプレートメソッドパターン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, soblin.
+        &#169; Copyright 2020, soblin.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -310,40 +322,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

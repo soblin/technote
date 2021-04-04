@@ -21,6 +21,5 @@ Books
    C++で学ぶディープラーニング <https://github.com/soblin/DeepLearning>
    LinuxとPthreadsによるマルチスレッドプログラミング入門 <https://github.com/soblin/pthread-practice>
    modern_analytical_mechanics/index.rst
-   入門Goプログラミング <https://github.com/soblin/go-introduction.git>
    markov_decision_process/index.rst
-   
+   詳解確率ロボティクス <https://github.com/soblin/JuliaProbo>

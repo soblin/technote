@@ -1,12 +1,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html4" lang="ja" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@eeic_sovereign" />
@@ -17,50 +16,60 @@
 
 
   
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../../_static/icon.ico"/>
   
+
   
   
 
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'ja',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="索引"
-              href="../../genindex.html"/>
-        <link rel="search" title="検索" href="../../search.html"/>
-    <link rel="top" title="TechNote of soblin  ドキュメント" href="../../index.html"/>
-        <link rel="up" title="モダンC言語プログラミング" href="index.html"/>
-        <link rel="next" title="チェインオブレスポンシビリティパターン" href="chain_of_responsibility.html"/>
-        <link rel="prev" title="ビジターパターン" href="visitor_pattern.html"/> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="チェインオブレスポンシビリティパターン" href="chain_of_responsibility.html" />
+    <link rel="prev" title="ビジターパターン" href="visitor_pattern.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -91,6 +100,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -130,13 +140,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">TechNote of soblin</a>
@@ -144,10 +155,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -167,7 +181,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
@@ -178,7 +192,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -193,17 +207,17 @@
   <div class="section" id="id1">
 <h1><a class="toc-backref" href="#id3">オブザーバーパターン</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="contents topic" id="id2">
-<p class="topic-title first">目次</p>
+<p class="topic-title">目次</p>
 <ul class="simple">
 <li><a class="reference internal" href="#id1" id="id3">オブザーバーパターン</a></li>
 </ul>
 </div>
 <p>前節のコードで存在しないファイルを指定するとエラーメッセージが２回表示される．それは次のようにして <code class="docutils literal"><span class="pre">file_error</span></code> が２回呼ばれるためである．</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">reader</span><span class="p">(</span><span class="n">FileContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="n">reader</span><span class="p">(</span><span class="n">FileContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
  <span class="n">MyFileContext</span> <span class="o">*</span><span class="n">pFileCtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">MyFilecontext</span> <span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
  <span class="n">MyBufferContext</span> <span class="o">*</span><span class="n">pBufCtx</span> <span class="o">=</span> <span class="n">pFileCtx</span><span class="o">-&gt;</span><span class="n">pBufCtx</span><span class="p">;</span>
  <span class="kt">long</span> <span class="n">size</span> <span class="o">=</span> <span class="n">file_size</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// ここで-1が返ってくる</span>
- <span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">-1</span><span class="p">){</span>
      <span class="n">file_error</span><span class="p">(</span><span class="n">pBufCtx</span><span class="o">-&gt;</span><span class="n">pAppCtx</span><span class="p">);</span>
      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
  <span class="p">}</span>
@@ -211,7 +225,7 @@
 </pre></div>
 </div>
 <p>ここで１回目のエラーが表示される．次にfalseが返った後 <code class="docutils literal"><span class="pre">do_with_buffer</span></code> 内において再度</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">do_with_buffer</span><span class="p">(</span><span class="n">BufferContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="n">do_with_buffer</span><span class="p">(</span><span class="n">BufferContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
  <span class="n">MyBufferContext</span> <span class="o">*</span><span class="n">pBufCtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">MyBufferContext</span> <span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
  <span class="n">MyFileContext</span> <span class="n">readFileCtx</span> <span class="o">=</span>
      <span class="p">{{</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">pBufCtx</span><span class="o">-&gt;</span><span class="n">pAppCtx</span><span class="o">-&gt;</span><span class="n">pFname</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">,</span> <span class="n">reader</span><span class="p">},</span> <span class="n">pBufCtx</span><span class="p">};</span>
@@ -249,34 +263,32 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="chain_of_responsibility.html" class="btn btn-neutral float-right" title="チェインオブレスポンシビリティパターン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="visitor_pattern.html" class="btn btn-neutral" title="ビジターパターン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="chain_of_responsibility.html" class="btn btn-neutral float-right" title="チェインオブレスポンシビリティパターン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="visitor_pattern.html" class="btn btn-neutral float-left" title="ビジターパターン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, soblin.
+        &#169; Copyright 2020, soblin.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -285,40 +297,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/translations.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

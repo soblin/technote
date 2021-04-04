@@ -8,7 +8,7 @@ Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Sy
 =========================================================================================
 
 .. contents:: 構成
-   :depth: 3
+   :depth: 2
 
 
 Abstract
