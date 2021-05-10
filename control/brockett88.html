@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/icon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'ja',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/mathjaxconf.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="Books" href="../books/index.html" />
+    <link rel="prev" title="Neural Lyapnov Control" href="neural_lyapnov_control.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Control</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="feedback_linearization_using_gp.html">Feedback Linearization using Gaussian Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="murray_flatness.html">Differential Flatness of Mechanical Control Systems: A Catalogue of Prototype Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_lyapnov_control.html">Neural Lyapnov Control</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dynamical Systems That Sort Lists, Diagonalize Matrices And Solve Linear Programming Problems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-gridient-flow-on-orthogonal-matricies">A Gridient Flow on Orthogonal Matricies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#the-symmetric-eigenvalue-problem">The Symmetric Eigenvalue Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linear-programming">Linear Programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-sorter">The Sorter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../books/index.html">Books</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Control</a> &raquo;</li>
+        
+      <li>Dynamical Systems That Sort Lists, Diagonalize Matrices And Solve Linear Programming Problems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dynamical-systems-that-sort-lists-diagonalize-matrices-and-solve-linear-programming-problems">
+<h1>Dynamical Systems That Sort Lists, Diagonalize Matrices And Solve Linear Programming Problems<a class="headerlink" href="#dynamical-systems-that-sort-lists-diagonalize-matrices-and-solve-linear-programming-problems" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Rodger Brockett</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">1988</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://hrl.harvard.edu/publications/brockett88dynamical.pdf">link</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Accepted:</th><td class="field-body">27th IEEE Conference on Decision and Control</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>対称行列 <span class="math">\(H, N\)</span> を用いて <span class="math">\(\dot{H} = [H, [H, N]]\)</span> で表されるシステムの性質が述べられる．特にその中で重要なのはこの方程式が直交行列の空間におけるgraidient flowを表しているということである．例えば線形計画法の問題を適当な初期値 <span class="math">\(H(0)\)</span> と対称行列 <span class="math">\(N\)</span> に対応させ，元の問題の解に <span class="math">\(\dot{H} = [H, [H, N]]\)</span> が収束するようにすることができる．このシステムは対称行列を対角化する問題も解くことができる．</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ある最適化問題を特定のクラスの微分方程式 <span class="math">\(\dot{x} = f(x)\)</span> とその初期値 <span class="math">\(x(0)\)</span> に関連付けて，その極限値 <span class="math">\(x(\infty)\)</span> がもともとの問題の解になるようにする．</p>
+<p>この論文の結論としては，初期値 <span class="math">\(H(0)\)</span> と行列 <span class="math">\(N\)</span> を適当に選ぶことで <span class="math">\(\dot{H} = [H, [H, N]]\)</span> の極限値が応用数学におけるいくつかの標準的な問題を解くことができるということである．数学的には <span class="math">\(\trace (Q \Theta N \Theta{\text{T}})\)</span> の形の関数の勾配である．</p>
+<div class="section" id="a-gridient-flow-on-orthogonal-matricies">
+<h3>A Gridient Flow on Orthogonal Matricies<a class="headerlink" href="#a-gridient-flow-on-orthogonal-matricies" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><span class="math">\(SO(n)\)</span> を直交行列の集合(というよりこれはリー群)， <span class="math">\(so(n)\)</span> を歪対称行列の集合(これはリー代数)と表記する． <span class="math">\(Q, N\)</span> をn-by-nの対称行列とすると <span class="math">\(f = (\Theta) = \trace (Q \Theta N \Theta^{\text{T}})\)</span> は <span class="math">\(SO(n)\)</span> 上の連続関数である．この関数の全微分を求めるために，歪対称行列 <span class="math">\(\Omega\)</span> を方向とした方向微分を行ってみる． <span class="math">\(SO(n)\)</span> 上の点 <span class="math">\(\Theta\)</span> からの <span class="math">\(\Omega\)</span> 方向の積分曲線は</p>
+<div class="math">
+\begin{align*}
+\Theta(I + \Omega t + \Omega^2 t^2 / 2 + \cdots)
+\end{align*}</div><p>である．この積分曲線沿いにfは</p>
+<div class="math">
+\begin{align*}
+&amp; Q\Theta(I + \Omega t)N(I + \Omega^{\text{T}})\Theta^{\text{T}} \\ &amp;= Q\Theta(I + \Omega t)N(I - \Omega)\Theta^{\text{T}} \\ &amp;= \trace(Q\Theta N \Theta^{\text{T}}) + \trace(Q \Theta \Omega N \Theta^{\text{T}}) - \trace(Q \Theta N\ \Omega \Theta^{\text{T}})
+\end{align*}</div><p>と表される．これは</p>
+<div class="math">
+\begin{align*}
+&amp; \trace(Q\Theta(I + \Omega t)N(I + \Omega^{\text{T}})\Theta^{\text{T}}) - \trace(Q\Theta N \Theta^{\text{T}}) \\ &amp;= \trace \{(N\Theta^{\text{T}} Q \Theta - \Theta^{\text{T}}Q\Theta N)\Omega \}
+\end{align*}</div><p>と表されるから，最後の式より方向 <span class="math">\(\Omega\)</span> に対するfの&quot;gradient&quot;(勾配)は <span class="math">\((N\Theta^{\text{T}} Q \Theta - \Theta^{\text{T}}Q\Theta N)\)</span> である．  <span class="math">\(\dot{\Theta} = \Theta \Omega\)</span> より</p>
+<div class="math">
+\begin{align*}
+\Theta^{\text{T}} \dot{\Theta} = N\Theta^{\text{T}} Q \Theta - \Theta^{\text{T}}Q\Theta N
+\end{align*}</div><p>となる(ここ分からない)．よって&quot;gradiet flow&quot;は</p>
+<div class="math">
+\begin{align*}
+\dot{\Theta} = \Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N
+\end{align*}</div><p>で与えられる．</p>
+<dl class="glossary docutils">
+<dt id="term-theorem-1">Theorem 1</dt>
+<dd><p class="first">行列 <span class="math">\(Q, N\)</span> を <span class="math">\(Q = \Psi^{\text{T}} D_Q \Psi, N = \Xi^{\text{T}}D_N \Xi\)</span> と対角化したとする．ここで <span class="math">\(D_Q = \mathrm{diag}(\lambda_1, \cdots, \lambda_n)\)</span> ， <span class="math">\(D_N = \mathrm{diag}(\mu_1, \cdots, \mu_n)\)</span> において <span class="math">\(\lambda_1 &gt; \cdots &gt; \lambda_n\)</span> 及び <span class="math">\(\mu_1 &gt; \cdots &gt; \mu_n\)</span> であるとする． <span class="math">\(\Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N\)</span> がゼロになるのは行列</p>
+<div class="math">
+\begin{align*}
+\tilde{\Theta} = \Psi \Theta \Xi^{\text{T}}
+\end{align*}</div><p class="last">が置換行列 <span class="math">\(\Pi\)</span> と <span class="math">\(D = \mathrm{diag}(\pm 1, \cdots, \pm 1)\)</span> の積で表されるときである．</p>
+</dd>
+<dt id="term">証明</dt>
+<dd><p class="first"><span class="math">\(Q, N\)</span> が対角行列であるとしても一般性を失わない． <span class="math">\(P = \Theta^{\text{T}}Q\Theta\)</span> として <span class="math">\(NP - PN\)</span> の第ij成分は <span class="math">\((n_{ii} - n_{jj})p_{ij}\)</span> であるから， <span class="math">\(NP - PN\)</span> がゼロになるのは <span class="math">\(p_{ij} = 0\)</span> すなわちPが対角行列であるときである．よって <span class="math">\(\Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N\)</span> がゼロになるのは <span class="math">\(\Theta^{\text{T}}Q\Theta = D\)</span> のように対角行列となるのときである． <span class="math">\(Q\)</span> が対角行列であるので，  <span class="math">\(Q, D\)</span> は同じ固有値を持つ．よってある置換 <span class="math">\(\pi\)</span> が存在して <span class="math">\(Q \Theta = \Theta D\)</span> より</p>
+<div class="math">
+\begin{align*}
+[Q \Theta]_{ij} &amp;= \sum_k q_{ik}\theta_{kj} = \lambda_i \theta_{ij} \\
+[\Theta D]_{ij} &amp;= \sum_k \theta_{ik} d_{kj} = d_{j} \theta_{ij} = \lambda_{\pi(j)j} \theta_{ij} \\
+\lambda_i \theta_{ij} &amp;= \lambda_{\pi(j)} \theta_{ij}
+\end{align*}</div><p class="last">成立する．よってiを固定したとき， <span class="math">\(i = \pi(j)\)</span> となっているj以外については <span class="math">\(\theta_{ij} = 0\)</span> となっている． <span class="math">\(\Theta\)</span> は直行行列であるから，各列 <span class="math">\(\boldsymbol{\theta}\)</span> は単位ベクトルである，従って <span class="math">\(i = \pi(j)\)</span> となっているjについてのみ <span class="math">\(\theta_{ij} = \pm 1\)</span> となっている必要がある．</p>
+</dd>
+</dl>
+<p>よって上の <span class="math">\(\Theta\)</span> に関する微分方程式は直交行列の空間上で発展する．ここで <span class="math">\(H = \Theta^{\text{T}}Q\Theta\)</span> と変数変換するとリー括弧 <span class="math">\([A, B] = AB - BA\)</span> を用いて</p>
+<div class="math">
+\begin{align*}
+\dot{H} = HNH - H^2N + HNH - NH^2 = [H, [N, H]]
+\end{align*}</div><p>と表される．</p>
+<dl class="glossary docutils">
+<dt id="term-theorem-2">Theorem 2</dt>
+<dd><span class="math">\(N\)</span> を重複しない固有値を持つ対称行列とする． <span class="math">\(H(0)\)</span> が対称行列であり <span class="math">\(\dot{H} = [H, [H, N]]\)</span> であるとき， <span class="math">\(\lim_{t \to \infty} = H(\infty)\)</span> は収束する．</dd>
+<dt id="term-3">証明</dt>
+<dd><p class="first"><span class="math">\(\trace(HN)\)</span> について</p>
+<blockquote class="last">
+<div><div class="math">
+\begin{align*}
+\dfrac{d}{dt}\trace(HN) &amp;= \trace([H, [H, N]]) \\ &amp;= -\trace(HN - NH)^2 \\ &amp;= \trace(HN - NH)(HN - NH)^{\text{T}}
+\end{align*}</div></div></blockquote>
+</dd>
+</dl>
+<p>より <span class="math">\(\trace(HN)\)</span> 単調増加する． <span class="math">\(H = \Theta^{\text{T}}Q\Theta\)</span> より <span class="math">\(\trace(HN)\)</span> はboundedであるから(?)， <span class="math">\(H\)</span> は収束し， <span class="math">\(\dot{H}\)</span> はゼロに収束する．そのとき <span class="math">\(\trace(HN - NH)\)</span> がゼロになっているので <span class="math">\(H\)</span> と <span class="math">\(N\)</span> が可換である． <span class="math">\(N\)</span> が異なる固有値を持つので <span class="math">\(H\)</span> も対角行列である．よって一定値の対角行列に収束する．</p>
+<p>ここで注意しておきたいのはThem2では <span class="math">\(H(0)\)</span> が重複した固有値を持ちうるということであり， <span class="math">\(\dot{H} = [H, [H, N]]\)</span> は複数の平衡点のうちの一つに収束するということが述べられているだけである．以下の定理は <span class="math">\(N, H\)</span> がそれぞれにおいて重複しない場合に成立する．</p>
+<dl class="glossary docutils">
+<dt id="term-theorem-3">Theorem 3</dt>
+<dd><p class="first"><span class="math">\(\dot{\Theta} = \Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N\)</span> の解はある置換行列 <span class="math">\(\Pi\)</span> と <span class="math">\(D = \mathrm{diag}(\pm 1, \cdots, \pm 1)\)</span> の積 <span class="math">\(\Pi D\)</span> に収束し，</p>
+<div class="math">
+\begin{align*}
+\eta = \sum_i q_{\pi(i) \pi(i)} n_{ii}
+\end{align*}</div><p class="last">を最小化する．</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="the-symmetric-eigenvalue-problem">
+<h2>The Symmetric Eigenvalue Problem<a class="headerlink" href="#the-symmetric-eigenvalue-problem" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>省略</p>
+</div>
+<div class="section" id="linear-programming">
+<h2>Linear Programming<a class="headerlink" href="#linear-programming" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>省略</p>
+</div>
+<div class="section" id="the-sorter">
+<h2>The Sorter<a class="headerlink" href="#the-sorter" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Nを行列 <span class="math">\(N = \mathrm{diag}(1, 2, \cdots, n)\)</span> として <span class="math">\(\dot{H} = [H, [H, N]]\)</span> を初期値 <span class="math">\(H_0 = \mathrm{diag}(\lambda_1, \cdots, \lambda_n)\)</span> とすると，最終値は</p>
+<div class="math">
+\begin{align*}
+H(\infty) = \mathrm{diag}(\lambda_{\pi(1)}, \cdots, \lambda_{\pi(n)})
+\end{align*}</div><p>となる．以下が数値計算例である．</p>
+<script src="https://gist.github.com/soblin/738c257e6bdfd09f22e02dbfb593c92b.js">&nbsp;</script></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../books/index.html" class="btn btn-neutral float-right" title="Books" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="neural_lyapnov_control.html" class="btn btn-neutral float-left" title="Neural Lyapnov Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, soblin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

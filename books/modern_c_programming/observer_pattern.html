@@ -213,7 +213,7 @@
 </ul>
 </div>
 <p>前節のコードで存在しないファイルを指定するとエラーメッセージが２回表示される．それは次のようにして <code class="docutils literal"><span class="pre">file_error</span></code> が２回呼ばれるためである．</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="n">reader</span><span class="p">(</span><span class="n">FileContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">reader</span><span class="p">(</span><span class="n">FileContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
  <span class="n">MyFileContext</span> <span class="o">*</span><span class="n">pFileCtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">MyFilecontext</span> <span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
  <span class="n">MyBufferContext</span> <span class="o">*</span><span class="n">pBufCtx</span> <span class="o">=</span> <span class="n">pFileCtx</span><span class="o">-&gt;</span><span class="n">pBufCtx</span><span class="p">;</span>
  <span class="kt">long</span> <span class="n">size</span> <span class="o">=</span> <span class="n">file_size</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// ここで-1が返ってくる</span>
@@ -225,7 +225,7 @@
 </pre></div>
 </div>
 <p>ここで１回目のエラーが表示される．次にfalseが返った後 <code class="docutils literal"><span class="pre">do_with_buffer</span></code> 内において再度</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="n">do_with_buffer</span><span class="p">(</span><span class="n">BufferContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">do_with_buffer</span><span class="p">(</span><span class="n">BufferContext</span> <span class="o">*</span><span class="n">p</span><span class="p">){</span>
  <span class="n">MyBufferContext</span> <span class="o">*</span><span class="n">pBufCtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">MyBufferContext</span> <span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
  <span class="n">MyFileContext</span> <span class="n">readFileCtx</span> <span class="o">=</span>
      <span class="p">{{</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">pBufCtx</span><span class="o">-&gt;</span><span class="n">pAppCtx</span><span class="o">-&gt;</span><span class="n">pFname</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">,</span> <span class="n">reader</span><span class="p">},</span> <span class="n">pBufCtx</span><span class="p">};</span>

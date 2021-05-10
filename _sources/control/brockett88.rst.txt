@@ -1,0 +1,168 @@
+================================================================================================
+Dynamical Systems That Sort Lists, Diagonalize Matrices And Solve Linear Programming Problems
+================================================================================================
+
+.. include:: /_include/ref/brockett88.txt
+
+Abstract
+======================================================================
+対称行列 :math:`H, N` を用いて :math:`\dot{H} = [H, [H, N]]` で表されるシステムの性質が述べられる．特にその中で重要なのはこの方程式が直交行列の空間におけるgraidient flowを表しているということである．例えば線形計画法の問題を適当な初期値 :math:`H(0)` と対称行列 :math:`N` に対応させ，元の問題の解に :math:`\dot{H} = [H, [H, N]]` が収束するようにすることができる．このシステムは対称行列を対角化する問題も解くことができる．
+
+Introduction
+======================================================================
+ある最適化問題を特定のクラスの微分方程式 :math:`\dot{x} = f(x)` とその初期値 :math:`x(0)` に関連付けて，その極限値 :math:`x(\infty)` がもともとの問題の解になるようにする．
+
+この論文の結論としては，初期値 :math:`H(0)` と行列 :math:`N` を適当に選ぶことで :math:`\dot{H} = [H, [H, N]]` の極限値が応用数学におけるいくつかの標準的な問題を解くことができるということである．数学的には :math:`\trace (Q \Theta N \Theta{\text{T}})` の形の関数の勾配である．
+
+
+A Gridient Flow on Orthogonal Matricies
+----------------------------------------------------------------------
+:math:`SO(n)` を直交行列の集合(というよりこれはリー群)， :math:`so(n)` を歪対称行列の集合(これはリー代数)と表記する． :math:`Q, N` をn-by-nの対称行列とすると :math:`f = (\Theta) = \trace (Q \Theta N \Theta^{\text{T}})` は :math:`SO(n)` 上の連続関数である．この関数の全微分を求めるために，歪対称行列 :math:`\Omega` を方向とした方向微分を行ってみる． :math:`SO(n)` 上の点 :math:`\Theta` からの :math:`\Omega` 方向の積分曲線は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \Theta(I + \Omega t + \Omega^2 t^2 / 2 + \cdots)
+   \end{align*}
+
+である．この積分曲線沿いにfは
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & Q\Theta(I + \Omega t)N(I + \Omega^{\text{T}})\Theta^{\text{T}} \\ &= Q\Theta(I + \Omega t)N(I - \Omega)\Theta^{\text{T}} \\ &= \trace(Q\Theta N \Theta^{\text{T}}) + \trace(Q \Theta \Omega N \Theta^{\text{T}}) - \trace(Q \Theta N\ \Omega \Theta^{\text{T}})
+   \end{align*}
+
+と表される．これは
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \trace(Q\Theta(I + \Omega t)N(I + \Omega^{\text{T}})\Theta^{\text{T}}) - \trace(Q\Theta N \Theta^{\text{T}}) \\ &= \trace \{(N\Theta^{\text{T}} Q \Theta - \Theta^{\text{T}}Q\Theta N)\Omega \}
+   \end{align*}
+
+と表されるから，最後の式より方向 :math:`\Omega` に対するfの"gradient"(勾配)は :math:`(N\Theta^{\text{T}} Q \Theta - \Theta^{\text{T}}Q\Theta N)` である．  :math:`\dot{\Theta} = \Theta \Omega` より
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \Theta^{\text{T}} \dot{\Theta} = N\Theta^{\text{T}} Q \Theta - \Theta^{\text{T}}Q\Theta N
+   \end{align*}
+
+となる(ここ分からない)．よって"gradiet flow"は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{\Theta} = \Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N
+   \end{align*}
+
+で与えられる．
+
+.. glossary::
+
+   Theorem 1
+      行列 :math:`Q, N` を :math:`Q = \Psi^{\text{T}} D_Q \Psi, N = \Xi^{\text{T}}D_N \Xi` と対角化したとする．ここで :math:`D_Q = \mathrm{diag}(\lambda_1, \cdots, \lambda_n)` ， :math:`D_N = \mathrm{diag}(\mu_1, \cdots, \mu_n)` において :math:`\lambda_1 > \cdots > \lambda_n` 及び :math:`\mu_1 > \cdots > \mu_n` であるとする． :math:`\Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N` がゼロになるのは行列
+      
+      .. math::
+         :nowrap:
+
+         \begin{align*}
+         \tilde{\Theta} = \Psi \Theta \Xi^{\text{T}}
+         \end{align*}
+
+      が置換行列 :math:`\Pi` と :math:`D = \mathrm{diag}(\pm 1, \cdots, \pm 1)` の積で表されるときである．
+
+   証明
+      :math:`Q, N` が対角行列であるとしても一般性を失わない． :math:`P = \Theta^{\text{T}}Q\Theta` として :math:`NP - PN` の第ij成分は :math:`(n_{ii} - n_{jj})p_{ij}` であるから， :math:`NP - PN` がゼロになるのは :math:`p_{ij} = 0` すなわちPが対角行列であるときである．よって :math:`\Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N` がゼロになるのは :math:`\Theta^{\text{T}}Q\Theta = D` のように対角行列となるのときである． :math:`Q` が対角行列であるので，  :math:`Q, D` は同じ固有値を持つ．よってある置換 :math:`\pi` が存在して :math:`Q \Theta = \Theta D` より
+      
+      .. math::
+         :nowrap:
+
+         \begin{align*}
+         [Q \Theta]_{ij} &= \sum_k q_{ik}\theta_{kj} = \lambda_i \theta_{ij} \\
+         [\Theta D]_{ij} &= \sum_k \theta_{ik} d_{kj} = d_{j} \theta_{ij} = \lambda_{\pi(j)j} \theta_{ij} \\
+         \lambda_i \theta_{ij} &= \lambda_{\pi(j)} \theta_{ij}
+         \end{align*}
+      
+     が成立する．よってiを固定したとき， :math:`i = \pi(j)` となっているj以外については :math:`\theta_{ij} = 0` となっている． :math:`\Theta` は直行行列であるから，各列 :math:`\boldsymbol{\theta}` は単位ベクトルである，従って :math:`i = \pi(j)` となっているjについてのみ :math:`\theta_{ij} = \pm 1` となっている必要がある．
+
+よって上の :math:`\Theta` に関する微分方程式は直交行列の空間上で発展する．ここで :math:`H = \Theta^{\text{T}}Q\Theta` と変数変換するとリー括弧 :math:`[A, B] = AB - BA` を用いて
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \dot{H} = HNH - H^2N + HNH - NH^2 = [H, [N, H]]
+   \end{align*}
+
+と表される．
+
+
+.. glossary::
+
+   Theorem 2
+      :math:`N` を重複しない固有値を持つ対称行列とする． :math:`H(0)` が対称行列であり :math:`\dot{H} = [H, [H, N]]` であるとき， :math:`\lim_{t \to \infty} = H(\infty)` は収束する．
+   
+   証明
+      :math:`\trace(HN)` について
+         
+         .. math::
+            :nowrap:
+
+            \begin{align*}
+            \dfrac{d}{dt}\trace(HN) &= \trace([H, [H, N]]) \\ &= -\trace(HN - NH)^2 \\ &= \trace(HN - NH)(HN - NH)^{\text{T}}
+            \end{align*}
+   
+
+より :math:`\trace(HN)` 単調増加する． :math:`H = \Theta^{\text{T}}Q\Theta` より :math:`\trace(HN)` はboundedであるから(?)， :math:`H` は収束し， :math:`\dot{H}` はゼロに収束する．そのとき :math:`\trace(HN - NH)` がゼロになっているので :math:`H` と :math:`N` が可換である． :math:`N` が異なる固有値を持つので :math:`H` も対角行列である．よって一定値の対角行列に収束する．
+
+ここで注意しておきたいのはThem2では :math:`H(0)` が重複した固有値を持ちうるということであり， :math:`\dot{H} = [H, [H, N]]` は複数の平衡点のうちの一つに収束するということが述べられているだけである．以下の定理は :math:`N, H` がそれぞれにおいて重複しない場合に成立する．
+
+.. glossary::
+
+   Theorem 3
+      :math:`\dot{\Theta} = \Theta N\Theta^{\text{T}} Q \Theta - Q\Theta N` の解はある置換行列 :math:`\Pi` と :math:`D = \mathrm{diag}(\pm 1, \cdots, \pm 1)` の積 :math:`\Pi D` に収束し， 
+      
+      .. math::
+         :nowrap:
+         
+         \begin{align*}
+         \eta = \sum_i q_{\pi(i) \pi(i)} n_{ii}
+         \end{align*}
+         
+      を最小化する．
+
+The Symmetric Eigenvalue Problem
+======================================================================
+省略
+
+Linear Programming
+======================================================================
+省略
+
+The Sorter
+======================================================================
+Nを行列 :math:`N = \mathrm{diag}(1, 2, \cdots, n)` として :math:`\dot{H} = [H, [H, N]]` を初期値 :math:`H_0 = \mathrm{diag}(\lambda_1, \cdots, \lambda_n)` とすると，最終値は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   H(\infty) = \mathrm{diag}(\lambda_{\pi(1)}, \cdots, \lambda_{\pi(n)})
+   \end{align*}
+
+となる．以下が数値計算例である．
+
+.. gist:: https://gist.github.com/soblin/738c257e6bdfd09f22e02dbfb593c92b

@@ -16,3 +16,4 @@ Control
    feedback_linearization_using_gp.rst
    murray_flatness.rst
    neural_lyapnov_control.rst
+   brockett88.rst
