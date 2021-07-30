@@ -12,6 +12,7 @@ Books
 .. toctree::
    :maxdepth: 1
 
+   example/index.rst
    nonlinear_optimal_control/index.rst
    easy_analytical_mechanics/index.rst
    modern_c_programming/index.rst

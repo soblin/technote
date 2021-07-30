@@ -58,8 +58,7 @@
     
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="確率になぜ測度論が必要なのか" href="chapter00.html" />
-    <link rel="prev" title="第2章 マルコフ連鎖と再生過程" href="../markov_decision_process/chapter02.html" /> 
+    <link rel="prev" title="確率になぜ測度論が必要なのか" href="chapter00.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -114,7 +113,6 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../example/index.html">Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
@@ -127,9 +125,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/JuliaProbo">詳解　確率ロボティクス</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">測度・確率・ルベーグ積分</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">測度・確率・ルベーグ積分</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapter01.html">確率と測度</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">確率と測度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">測度としての確率と確率空間</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -184,7 +185,9 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>測度・確率・ルベーグ積分</li>
+          <li><a href="index.html">測度・確率・ルベーグ積分</a> &raquo;</li>
+        
+      <li>確率と測度</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,33 +205,41 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>測度・確率・ルベーグ積分<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>情報系の人に向けて書かれた測度論的確率論の入門書．筆者の直感的な理解が随所に書かれており理解しやすかった．</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">原 啓介</td>
-</tr>
-<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">講談社</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2017</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-06-156571-5</td>
-</tr>
-</tbody>
-</table>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter00.html#pillow-problems">0.1 &quot;Pillow Problems&quot;より</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="chapter01.html">確率と測度</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id2">測度としての確率と確率空間</a></li>
-</ul>
-</li>
-</ul>
+<h1>確率と測度<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>測度としての確率と確率空間<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h3>集合とその記号<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>実数全体 <span class="math">\(\mathbb{R}\)</span> は非可算集合である．もし <span class="math">\([0, 1]\)</span> の実数がが可算集合であるとする．それぞれは2進数で表すと <span class="math">\(0.10000 \cdots\)</span> のように表せる(有限桁で終わるなら0で埋める)．この2進数で表した実数を1番目から並べて，各n番目の実数のn桁目を反転することで作った(2進数で無限桁の)新しい実数を作ることができるが，この実数は表の中に存在できない(もしこの実数が表の中にあるとしたら，どの他の実数と比べてもある桁が異なっているため)．よって <span class="math">\(\mathbb{R}\)</span> は非可算である．</p>
+</div>
+<div class="section" id="algebra">
+<h3>σ-algebraと測度<a class="headerlink" href="#algebra" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ある空でない集合 <span class="math">\(S\)</span> に対してその部分集合の集合族 <span class="math">\(\mathcal{M}\)</span> が以下の性質を満たすとき， <span class="math">\(\mathcal{M}\)</span> はσ-algebraであるという．</p>
+<ol class="arabic simple">
+<li><span class="math">\(\emptyset \in \mathcal{M}\)</span></li>
+<li><span class="math">\(A \in \mathcal{M}\)</span> ならば <span class="math">\(A^{c} \in \mathcal{M}\)</span></li>
+<li><span class="math">\(n = 1, 2, \cdots\)</span> に対し <span class="math">\(A_n \in \mathcal{M}\)</span> ならば <span class="math">\(\cup_{n=1}^{\infty} A_n \in \mathcal{M}\)</span> である</li>
+</ol>
+<p>Sの部分集合でσ-加法族 <span class="math">\(\mathcal{M}\)</span> に属するものを <span class="math">\(\mathcal{M}\)</span> -可測集合であるという．3つ目の条件は可算無限個の集合を対象にしているが，実際は他の通常必要な演算を包含している．例えばある部分以降を <span class="math">\(\emptyset\)</span> にすれば有限個の集合の和</p>
+<div class="math">
+\begin{align*}
+A_1 \cup A_2 \cdots \cup A_n
+\end{align*}</div><p>になるし，これにより有限個の積集合などの操作により得られる</p>
+<div class="math">
+\begin{align*}
+&amp; \bigcap_{n=1}^{\infty} A_{n}=\left(\bigcup_{n=1}^{\infty} A_{n}^{c}\right)^{c} \\
+&amp; A \cap B=\left(A^{c} \cup B^{c}\right)^{c} \\
+&amp; A \backslash B=A \cap B^{c}
+\end{align*}</div><p>も <span class="math">\(\mathcal{M}\)</span> に含まれる(簡潔には3つ目の条件だけで十分)．</p>
+<dl class="glossary docutils">
+<dt id="term-1-8">定義1.8 部分σ-加法族<dt id="term-2">同じ集合の上で定義された2つのσ-加法族について，一方が他方を部分集合として含むとき，後者を前者の部分σ-加法族という．</dt>
+<dd>例えばサイコロの目の標本 <span class="math">\(\Omega = \{1,2, \cdots, 6\}\)</span> の冪集合を <span class="math">\(\mathcal{F}\)</span> とすると， <span class="math">\(B=\{2,4,6\}\)</span> として <span class="math">\(\mathcal{G}=\{ \emptyset, B, B^{c}, \Omega \}\)</span> なるσ-加法族は， <span class="math">\(\mathcal{F}\)</span> の部分σ-加法族である．これは <span class="math">\(\mathcal{F}\)</span> よりも「粗い」ということである．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-1-9">定義1.9 測度，測度空間<dt id="term">可測空間 <span class="math">\((S, \mathcal{M})\)</span> に対し，集合関数 <span class="math">\(\mu: \mathcal{M} \rightarrow \mathbb{R}\)</span> が以下の性質を満たすとき， <span class="math">\(\mu\)</span> を測度という．<dt id="term-1">1. 任意の <span class="math">\(A \in \mathcal{M}\)</span> に対し， <span class="math">\(0 \leq \mu (A) \leq \infty\)</span> ，かつ <span class="math">\(\mu (\emptyset) = 0\)</span><dt id="term-5">2. 互いに排他的な <span class="math">\(A_1, A_2, \cdots \in \mathcal{M}\)</span> について</dt>
+<dd><span class="math">\(\mu \left( \bigcup_{n=1}^{\infty}A_n \right) = \sum_{n=1}^{\infty}\mu (A_n)\)</span></dd>
+</dl>
+</div>
 </div>
 </div>
 
@@ -238,8 +249,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="chapter00.html" class="btn btn-neutral float-right" title="確率になぜ測度論が必要なのか" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../markov_decision_process/chapter02.html" class="btn btn-neutral float-left" title="第2章 マルコフ連鎖と再生過程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="chapter00.html" class="btn btn-neutral float-left" title="確率になぜ測度論が必要なのか" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

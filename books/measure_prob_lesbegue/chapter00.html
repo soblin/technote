@@ -58,8 +58,7 @@
     
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="確率になぜ測度論が必要なのか" href="chapter00.html" />
-    <link rel="prev" title="第2章 マルコフ連鎖と再生過程" href="../markov_decision_process/chapter02.html" /> 
+    <link rel="prev" title="測度・確率・ルベーグ積分" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -114,7 +113,6 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../example/index.html">Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
@@ -127,9 +125,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/JuliaProbo">詳解　確率ロボティクス</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">測度・確率・ルベーグ積分</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapter01.html">確率と測度</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">測度・確率・ルベーグ積分</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">確率になぜ測度論が必要なのか</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pillow-problems">0.1 &quot;Pillow Problems&quot;より</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -184,7 +184,9 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>測度・確率・ルベーグ積分</li>
+          <li><a href="index.html">測度・確率・ルベーグ積分</a> &raquo;</li>
+        
+      <li>確率になぜ測度論が必要なのか</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,33 +204,27 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>測度・確率・ルベーグ積分<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>情報系の人に向けて書かれた測度論的確率論の入門書．筆者の直感的な理解が随所に書かれており理解しやすかった．</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">原 啓介</td>
-</tr>
-<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">講談社</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2017</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-06-156571-5</td>
-</tr>
-</tbody>
-</table>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter00.html#pillow-problems">0.1 &quot;Pillow Problems&quot;より</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="chapter01.html">確率と測度</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id2">測度としての確率と確率空間</a></li>
+<h1><a class="toc-backref" href="#id3">確率になぜ測度論が必要なのか</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id3">確率になぜ測度論が必要なのか</a><ul>
+<li><a class="reference internal" href="#pillow-problems" id="id4">0.1 &quot;Pillow Problems&quot;より</a></li>
 </ul>
 </li>
 </ul>
+</div>
+<div class="section" id="pillow-problems">
+<h2><a class="toc-backref" href="#id4">0.1 &quot;Pillow Problems&quot;より</a><a class="headerlink" href="#pillow-problems" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ルイス・キャロルが考えた数学の問題には確率に関するものも含まれており，以下のような問題は奇妙な解答が示されている．</p>
+<dl class="glossary docutils">
+<dt id="term-0-1">問題0.1</dt>
+<dd>無限個の棒を折ったときに少なくとも１本が真ん中で折れている確率は？</dd>
+</dl>
+<p>この問題に対するキャロルの答えは <span class="math">\(1 - 1/e\)</span> であり，以下のように求めている．</p>
+<blockquote>
+<div>棒それぞれはそのn分点のみで折れて(nは奇数)折れやすさはどこでも等しいとする．ある棒が真ん中以外で折れる確率は(1-1/n)だから，n本の棒全てが真ん中以外で折れる確率は(1-1/n)^nである．よってnの極限をとると，少なくとも1本が真ん中で折れている確率は1-1/eとなる．</div></blockquote>
+<p>この論法の問題は，棒の本数を <span class="math">\(kn\)</span> 本として極限をとることで，kを調節することで収束値を任意に決められてしまうことにある．有限の世界での確率を無限に持っていく時に，それが極限の世界で正しい意味を持つのかは自明ではない．</p>
 </div>
 </div>
 
@@ -238,8 +234,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="chapter00.html" class="btn btn-neutral float-right" title="確率になぜ測度論が必要なのか" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../markov_decision_process/chapter02.html" class="btn btn-neutral float-left" title="第2章 マルコフ連鎖と再生過程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="測度・確率・ルベーグ積分" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
