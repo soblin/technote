@@ -23,3 +23,5 @@ Books
    modern_analytical_mechanics/index.rst
    markov_decision_process/index.rst
    詳解　確率ロボティクス <https://github.com/soblin/JuliaProbo>
+   C++テンプレートテクニック <https://github.com/soblin/cpp-template-ex>
+   measure_prob_lesbegue/index.rst

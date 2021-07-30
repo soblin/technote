@@ -4,9 +4,7 @@
 <html class="writer-html4" lang="ja" >
 <head>
   <meta charset="utf-8" />
-  <meta content="ロボットの動作計画について包括的に述べられている, S.M.Lavalle のPlanning Algorithmsの読書ノート." name="description" />
-<meta content="動作計画, 経路計画, 最適制御, モーションプランニング" name="keywords" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 <meta name="twitter:card" content="summary" />
@@ -60,8 +58,7 @@
     
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="Planning Under Differenital Constraints" href="chapter04/index.html" />
-    <link rel="prev" title="ラグランジュ形式の力学" href="../analytical_mechanics/chapter02.html" /> 
+    <link rel="prev" title="第2章 マルコフ連鎖と再生過程" href="../markov_decision_process/chapter02.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -120,10 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Planning Algorithms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapter04/index.html">Planning Under Differenital Constraints</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
@@ -131,7 +125,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/JuliaProbo">詳解　確率ロボティクス</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../measure_prob_lesbegue/index.html">測度・確率・ルベーグ積分</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">測度・確率・ルベーグ積分</a></li>
 </ul>
 </li>
 </ul>
@@ -184,7 +178,7 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>Planning Algorithms</li>
+      <li>測度・確率・ルベーグ積分</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -201,31 +195,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="planning-algorithms">
-<h1>Planning Algorithms<a class="headerlink" href="#planning-algorithms" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ロボットの動作計画について包括的に述べられている, S.M.Lavalle のPlanning Algorithmsの読書ノート.</p>
+  <div class="section" id="id1">
+<h1>測度・確率・ルベーグ積分<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>情報系の人に向けて書かれた測度論的確率論の入門書．筆者の直感的な理解が随所に書かれており理解しやすかった．</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Steven M. Lavalle</td>
+<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">原 啓介</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2006</td>
+<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">講談社</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Publisher:</th><td class="field-body">Cambridge University Press</td>
+<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2017</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Link:</th><td class="field-body"><a class="reference external" href="http://planning.cs.uiuc.edu/">http://planning.cs.uiuc.edu/</a></td>
+<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-06-156571-5</td>
 </tr>
 </tbody>
 </table>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter04/index.html">Planning Under Differenital Constraints</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter04/index.html#overview-of-partiv">Overview of PartIV</a></li>
-</ul>
-</li>
-</ul>
-</div>
 </div>
 
 
@@ -234,8 +220,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="chapter04/index.html" class="btn btn-neutral float-right" title="Planning Under Differenital Constraints" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../analytical_mechanics/chapter02.html" class="btn btn-neutral float-left" title="ラグランジュ形式の力学" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../markov_decision_process/chapter02.html" class="btn btn-neutral float-left" title="第2章 マルコフ連鎖と再生過程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
