@@ -123,3 +123,173 @@ Sの部分集合でσ-加法族 :math:`\mathcal{M}` に属するものを :math:
    
    Hopfの拡張定理
       S上の有限加法族 :math:`\mathcal{A}` 上で定義された集合関数 :math:`\nu` が :math:`\mathcal{A}` 上でσ-加法的である(可算無限個の互いに素な集合の和についても成り立つ)ならば， :math:`\mathcal{A}` から生成されたσ-加法族 :math:`\sigma [\mathcal{A}]` 上の測度 :math:`\mu` に拡張できる．
+
+
+拡張定理の例
+----------------------------------------------------------------------
+無限回のコイン投げの例．要素を"H"と"T"の無限長の文字列として標本空間を構成する．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \Omega = \{ \omega_1 \omega_2 \cdots \omega_n \cdots \mid \omega_n \in \{H, T\} \}
+   \end{align*}
+
+ここで「2回連続して表が出る確率」などを求められるようにσ-加法族と確率測度を構成したい．
+
+ :math:`\Omega` の部分集合として，ある自然数 :math:`k` と :math:`n_1 < \cdots < n_k` と :math:`\varepsilon_1, \cdots, \varepsilon_n \in \{H, T\}` について
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   A(n_{1}, \ldots, n_{k} ; \varepsilon_{1}, \ldots, \varepsilon_{k})=\{(\omega_{n})_{n \in \mathbb{N}} \in \Omega: \omega_{n_{1}}=\varepsilon_{1}, \ldots, \omega_{n_{k}}=\varepsilon_{k}\}
+   \end{align*}
+
+なる部分集合を考える．これは無限列において有限個の場所とそこでの値を指定して「ひとまとめにくくった」集合族である．この形の集合は有限加法族をなす．例えば
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & A(1,3,5 \mid H,T,H) \\
+   & B(1,2,3 \mid T,T,T)
+   \end{align*}
+
+とすると，
+
+- 1回目はTでもHでも良い
+- 2回目はT
+- 3回目はT
+- 5回目はH
+
+であるから, :math:`C(2,3,5 \mid T,T,H)` なる別の「特定の回数目での値を指定された集合」になる．これらのなす有限加法族 :math:`\mathcal{A}` 上の集合関数 :math:`P` を「表の出る確率」 :math:`p` について
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P (A(n_{1}, \ldots, n_{k} ; \varepsilon_{1}, \ldots, \varepsilon_{k}) )=p^{m}(1-p)^{k-m}
+   \end{align*}
+
+で定める．ここで :math:`m` は表の回数である．このPが :math:`\mathcal{A}` 上でσ-加法的であることを示せれば，集合関数Pが :math:`\sigma [\mathcal{A}]` 上での測度であることが示せる．
+
+ルベーグ測度
+----------------------------------------------------------------------
+
+.. glossary::
+   
+   定義1.16 ボレル集合族
+      :math:`\mathcal{R}` のすべての開区間のなす集合族 :math:`\mathcal{O}` から生成される集合族を :math:`\mathcal{B}(\mathbb{R})` という．
+
+可算無限個の加法により
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   [a, b]=\bigcap_{n=1}^{\infty} (a-\frac{1}{n}, b+\frac{1}{n})
+   \end{align*}
+
+となるから，このボレル集合族には閉区間[a, b]や(a, b]や[a, b)も含まれる．
+
+.. glossary::
+   
+   定理1.5 ボレル集合族上のルベーグ測度
+      :math:`(\mathbb{R}, \mathcal{B}(\mathbb{R}))` 上の測度 :math:`l` で，任意の :math:`a, b \in \mathbb{R}` について :math:`l((a, b]) = b -a` なるものが一意に存在する．
+
+.. glossary::
+   
+   定義1.17 測度空間の完備性
+      測度空間 :math:`(S, \mathcal{M}, \mu)` の零集合の部分集合が常に可測であるとき，この測度空間は完備であるという．
+
+      完備でない測度だと，例えば零集合の部分集合がルベーグ非可測になっているせいで「バナッハ・タルスキーのパラドックス」のような不自然が起こりうる(`例 <https://math.stackexchange.com/questions/166199/give-an-example-of-a-measure-which-is-not-complete/>`_)．
+
+.. glossary::
+   
+   定理1.6 測度空間の完備化
+      (完備でない)測度空間 :math:`(S, \mathcal{M}, \mu)` に対し， :math:`\mu` -零集合 :math:`N` の任意の部分集合を全て追加したσ-加法族 :math:`\bar{\mathcal{M}}` と :math:`\bar{\mu}(B \cup Z)=\mu(B)` を定義すると，測度空間 :math:`(S, \bar{\mathcal{M}}, \bar{\mu})` は完備である．
+
+ルベーグ可測でない集合の例(Vitali set)
+----------------------------------------------------------------------
+有限集合についてはその冪集合に対して組み合わせ的に確率を割り当てられるので測度論を使う必要はない．一方有限でない集合についてはその冪集合の上で常に測度を導入することはできないという事実がある．以下で具体例を構成する．
+
+区間[0, 1]においてある実数 :math:`\alpha` との差が有理数である実数を全て集めて集合 :math:`B_{\alpha}` を作る．このような :math:`\alpha` を代表元の集合 :math:`\Lambda` で集めると集合族 :math:`\{ B_{\alpha} \mid \alpha \in \Lambda \}` によって[0, 1]を直和に分解することができる(らしい)．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   [0,1]=\bigcup_{\alpha \in \Lambda} B_{\alpha}
+   \end{align*}
+
+この :math:`B_{\alpha}` において各 :math:`\alpha` について要素を1つずつ選んで集合 :math:`E` を作ると，これはルベーグ可測ではない．
+
+[-1, 1]に含まれる有理数は可算であるので，それを数列 :math:`\{ q_n \}` でリストする． :math:`E` を各 :math:`q_n` で平行移動して :math:`E_n` を作る．もし :math:`E` がルベーグ可測ならば :math:`E_n` もルベーグ可測である．
+
+そして各 :math:`E_n` はmutually exclusiveである．もし :math:`z \in E_n \cap E_m` が存在したならば
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   z = x + q_n = x^{\prime} + q_m
+   \end{align*}
+
+なる :math:`x, x^{\prime} \in E` が存在するはずであるが
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   x - x^{\prime} = q_m - q_n \in \mathbb{Q}
+   \end{align*}
+
+より :math:`x = x^{\prime}` であり，よって :math:`q_n = q_m` が結論されるためである．さらに
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   [0,1] \subset \bigcup_{n=1}^{\infty} E_{n} \subset[-1,2]
+   \end{align*}
+
+である．まず任意の :math:`r \in [0, 1]` はいずれかの :math:`B_{\alpha}` に属している．よってそこから :math:`E` に選ばれた要素を :math:`e` とすると， :math:`\{e + q \mid q \in [-1, 1] \}` のいずれかが :math:`r` と等しい．よって
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   [0,1] \subset \bigcup_{n=1}^{\infty} E_{n}
+   \end{align*}
+
+また :math:`E \subset [0, 1]` に[-1, 1]の有理数を足すと当然
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \bigcup_{n=1}^{\infty} E_{n} \subset[-1,2]
+   \end{align*}
+
+である．
+
+もし :math:`E` がルベーグ可測であるならば :math:`E_n` もルベーグ可測であり，その値は :math:`E` と同じである．よって測度の完全加法性と，集合の包含関係の条件から
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   1 = l([0,1]) \leq l(\bigcup_{n=1}^{\infty} E_{n}) = \sum_{n=1}^{\infty} l(E_{n}\) = \sum_{n=1}^{\infty} l(E) \leq l([-1,2]) = 3
+   \end{align*}
+
+が成立することになるが， :math:`\sum_{n=1}^{\infty}l(E)` は :math:`0` か :math:`\infty` であることが必要であるが，いずれも不等式の左辺と右辺に矛盾する．
+
+このルベーグ非可測な集合の構成には集合族から要素を1つずつ選んで新たな集合を作るという「選択公理」を用いている．この選択公理がないと現代数学でできることは限られるが，同時に `「バナッハ・タルスキーのパラドックス」 <https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox>`_ のような非自明な結果（このパラドックスではルベーグ非可測な断片を球から作り出していることが原因で）も引き出せてしまう．
