@@ -113,6 +113,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../example/index.html">Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
@@ -128,7 +129,8 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">測度・確率・ルベーグ積分</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">確率と測度</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">測度としての確率と確率空間</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">測度としての確率と確率空間</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">確率測度の構成</a></li>
 </ul>
 </li>
 </ul>
@@ -205,11 +207,21 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>確率と測度<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="id2">
-<h2>測度としての確率と確率空間<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h1><a class="toc-backref" href="#id8">確率と測度</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="contents topic" id="id2">
+<p class="topic-title">目次</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id8">確率と測度</a><ul>
+<li><a class="reference internal" href="#id3" id="id9">測度としての確率と確率空間</a></li>
+<li><a class="reference internal" href="#id6" id="id10">確率測度の構成</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="id3">
-<h3>集合とその記号<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2><a class="toc-backref" href="#id9">測度としての確率と確率空間</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h3>集合とその記号<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>実数全体 <span class="math">\(\mathbb{R}\)</span> は非可算集合である．もし <span class="math">\([0, 1]\)</span> の実数がが可算集合であるとする．それぞれは2進数で表すと <span class="math">\(0.10000 \cdots\)</span> のように表せる(有限桁で終わるなら0で埋める)．この2進数で表した実数を1番目から並べて，各n番目の実数のn桁目を反転することで作った(2進数で無限桁の)新しい実数を作ることができるが，この実数は表の中に存在できない(もしこの実数が表の中にあるとしたら，どの他の実数と比べてもある桁が異なっているため)．よって <span class="math">\(\mathbb{R}\)</span> は非可算である．</p>
 </div>
 <div class="section" id="algebra">
@@ -232,12 +244,78 @@ A_1 \cup A_2 \cdots \cup A_n
 &amp; A \backslash B=A \cap B^{c}
 \end{align*}</div><p>も <span class="math">\(\mathcal{M}\)</span> に含まれる(簡潔には3つ目の条件だけで十分)．</p>
 <dl class="glossary docutils">
-<dt id="term-1-8">定義1.8 部分σ-加法族<dt id="term-2">同じ集合の上で定義された2つのσ-加法族について，一方が他方を部分集合として含むとき，後者を前者の部分σ-加法族という．</dt>
-<dd>例えばサイコロの目の標本 <span class="math">\(\Omega = \{1,2, \cdots, 6\}\)</span> の冪集合を <span class="math">\(\mathcal{F}\)</span> とすると， <span class="math">\(B=\{2,4,6\}\)</span> として <span class="math">\(\mathcal{G}=\{ \emptyset, B, B^{c}, \Omega \}\)</span> なるσ-加法族は， <span class="math">\(\mathcal{F}\)</span> の部分σ-加法族である．これは <span class="math">\(\mathcal{F}\)</span> よりも「粗い」ということである．</dd>
+<dt id="term-1-8">定義1.8 部分σ-加法族</dt>
+<dd><p class="first">同じ集合の上で定義された2つのσ-加法族について，一方が他方を部分集合として含むとき，後者を前者の部分σ-加法族という．</p>
+<p class="last">例えばサイコロの目の標本 <span class="math">\(\Omega = \{1,2, \cdots, 6\}\)</span> の冪集合を <span class="math">\(\mathcal{F}\)</span> とすると， <span class="math">\(B=\{2,4,6\}\)</span> として <span class="math">\(\mathcal{G}=\{ \emptyset, B, B^{c}, \Omega \}\)</span> なるσ-加法族は， <span class="math">\(\mathcal{F}\)</span> の部分σ-加法族である．これは <span class="math">\(\mathcal{F}\)</span> よりも「粗い」ということである．</p>
+</dd>
 </dl>
 <dl class="glossary docutils">
-<dt id="term-1-9">定義1.9 測度，測度空間<dt id="term">可測空間 <span class="math">\((S, \mathcal{M})\)</span> に対し，集合関数 <span class="math">\(\mu: \mathcal{M} \rightarrow \mathbb{R}\)</span> が以下の性質を満たすとき， <span class="math">\(\mu\)</span> を測度という．<dt id="term-1">1. 任意の <span class="math">\(A \in \mathcal{M}\)</span> に対し， <span class="math">\(0 \leq \mu (A) \leq \infty\)</span> ，かつ <span class="math">\(\mu (\emptyset) = 0\)</span><dt id="term-5">2. 互いに排他的な <span class="math">\(A_1, A_2, \cdots \in \mathcal{M}\)</span> について</dt>
-<dd><span class="math">\(\mu \left( \bigcup_{n=1}^{\infty}A_n \right) = \sum_{n=1}^{\infty}\mu (A_n)\)</span></dd>
+<dt id="term-1-9">定義1.9 測度，測度空間</dt>
+<dd><p class="first">可測空間 <span class="math">\((S, \mathcal{M})\)</span> に対し，集合関数 <span class="math">\(\mu: \mathcal{M} \rightarrow \mathbb{R}\)</span> が以下の性質を満たすとき， <span class="math">\(\mu\)</span> を測度という．</p>
+<ol class="arabic">
+<li><p class="first">任意の <span class="math">\(A \in \mathcal{M}\)</span> に対し， <span class="math">\(0 \leq \mu (A) \leq \infty\)</span> ，かつ <span class="math">\(\mu (\emptyset) = 0\)</span></p>
+</li>
+<li><p class="first">互いに排他的な <span class="math">\(A_1, A_2, \cdots \in \mathcal{M}\)</span> について</p>
+<p><span class="math">\(\mu \left( \bigcup_{n=1}^{\infty}A_n \right) = \sum_{n=1}^{\infty}\mu (A_n)\)</span></p>
+</li>
+</ol>
+<p class="last">またこの組 <span class="math">\((S, \mathcal{M}, \mu)\)</span> を測度空間という．</p>
+</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-1-10">定義1.10 有限測度</dt>
+<dd>測度空間 <span class="math">\((S, \mathcal{M}, \mu)\)</span> において <span class="math">\(\mu(S) &lt; \infty\)</span> を満たすとき， <span class="math">\(\mu\)</span> は有限測度であるという．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-1-11">定義1.11 零集合</dt>
+<dd>測度空間 <span class="math">\((S, \mathcal{M}, \mu)\)</span> において <span class="math">\(\mu(N)\)</span> であるような <span class="math">\(N \in \mathcal{M}\)</span> を零集合という．またある命題が <span class="math">\(S \backslash N\)</span> において成立しているとき，この命題は「ほとんどいたるところ」で成立するという．</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h3>確率空間<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>確率とは積分値が1になるような有限測度である．</p>
+<dl class="glossary docutils">
+<dt id="term-1-12">定義1.12 確率空間</dt>
+<dd>測度空間 <span class="math">\((\Omega, \mathcal{F}, P)\)</span> で <span class="math">\(P(\Omega) = 1\)</span> であるものを確率空間という．</dd>
+</dl>
+<p>「標本」と「事象」の違いは重要である．「事象」とは <span class="math">\(\mathcal{F}\)</span> に含まれる <span class="math">\(\Omega\)</span> の部分集合であるが， <span class="math">\(\mathcal{F}\)</span> に含まれない部分集合は「事象」ではないため起こり得ず，確率はundefである．</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id10">確率測度の構成</a><a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h3>拡張定理<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>有限回の試行や標本の場合は話が単純で済むので測度論はほとんど必要ない．試行回数の極限をとったり，標本空間が非可算である場合に測度論が必要になる．その場合，有限回で用いている測度を無限回に「拡張」することが考えられる．Hopfの拡張定理は有限の状況からスタートする．</p>
+<p>以下の有限加法族は「測度」が有限ということではなく有限回の和について閉じているという意味なので注意．</p>
+<dl class="glossary docutils">
+<dt id="term-1-13">定義1.13 有限加法族</dt>
+<dd><p class="first">S上の部分集合族 <span class="math">\(\mathcal{A}\)</span> が以下を満たすとき有限加法族という．</p>
+<ol class="last arabic simple">
+<li><span class="math">\(\emptyset \in \mathcal{A}\)</span></li>
+<li><span class="math">\(A \in \mathcal{A}\)</span> ならば <span class="math">\(A^{c} \in \mathcal{A}\)</span></li>
+<li><span class="math">\(A, B \in \mathcal{A}\)</span> ならば <span class="math">\(A \cup B \in \mathcal{A}\)</span></li>
+</ol>
+</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term">有限加法的集合関数</dt>
+<dd><p class="first">S上の有限加法族 <span class="math">\(\mathcal{A}\)</span> 上で定義された <span class="math">\(\nu\)</span> が以下の性質を満たすとき，有限加法的な集合関数であるという．</p>
+<ol class="last arabic">
+<li><p class="first"><span class="math">\(\forall A \in \mathcal{A} \quad 0 \leq \nu (A) \leq \infty\)</span> であり，特に <span class="math">\(\nu (\emptyset) = 0\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(A, B \in \mathcal{A}\)</span> かつ <span class="math">\(A \cup B = \emptyset\)</span> ならば</p>
+<p><span class="math">\(\nu (A \cap B) = \nu (A) + \nu (B)\)</span></p>
+</li>
+</ol>
+</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-1-15">定理1.15 生成されたσ-加法族</dt>
+<dd>Sの部分集合からなる集合族 <span class="math">\(\mathcal{M}_0\)</span> (何でも良い，{{1, 3}, {5, 6}}とか)に対し，この <span class="math">\(\mathcal{M}_0\)</span> を含むような最小のσ-加法族が存在し，これを <span class="math">\(\sigma [\mathcal{M}_0]\)</span> とかく．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-hopf">Hopfの拡張定理</dt>
+<dd>S上の有限加法族 <span class="math">\(\mathcal{A}\)</span> 上で定義された集合関数 <span class="math">\(\nu\)</span> が <span class="math">\(\mathcal{A}\)</span> 上でσ-加法的である(可算無限個の互いに素な集合の和についても成り立つ)ならば， <span class="math">\(\mathcal{A}\)</span> から生成されたσ-加法族 <span class="math">\(\sigma [\mathcal{A}]\)</span> 上の測度 <span class="math">\(\mu\)</span> に拡張できる．</dd>
 </dl>
 </div>
 </div>

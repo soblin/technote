@@ -2,6 +2,9 @@
 確率と測度
 ======================================================================
 
+.. contents:: 目次
+   :depth: 2
+
 測度としての確率と確率空間
 ======================================================================
 
@@ -44,7 +47,7 @@ Sの部分集合でσ-加法族 :math:`\mathcal{M}` に属するものを :math:
 .. glossary::
    
    定義1.8 部分σ-加法族
-   同じ集合の上で定義された2つのσ-加法族について，一方が他方を部分集合として含むとき，後者を前者の部分σ-加法族という．
+      同じ集合の上で定義された2つのσ-加法族について，一方が他方を部分集合として含むとき，後者を前者の部分σ-加法族という．
    
       例えばサイコロの目の標本 :math:`\Omega = \{1,2, \cdots, 6\}` の冪集合を :math:`\mathcal{F}` とすると， :math:`B=\{2,4,6\}` として :math:`\mathcal{G}=\{ \emptyset, B, B^{c}, \Omega \}` なるσ-加法族は， :math:`\mathcal{F}` の部分σ-加法族である．これは :math:`\mathcal{F}` よりも「粗い」ということである．
 
@@ -52,8 +55,71 @@ Sの部分集合でσ-加法族 :math:`\mathcal{M}` に属するものを :math:
 .. glossary::
    
    定義1.9 測度，測度空間
-   可測空間 :math:`(S, \mathcal{M})` に対し，集合関数 :math:`\mu: \mathcal{M} \rightarrow \mathbb{R}` が以下の性質を満たすとき， :math:`\mu` を測度という．
-   1. 任意の :math:`A \in \mathcal{M}` に対し， :math:`0 \leq \mu (A) \leq \infty` ，かつ :math:`\mu (\emptyset) = 0` 
-   2. 互いに排他的な :math:`A_1, A_2, \cdots \in \mathcal{M}` について
+      可測空間 :math:`(S, \mathcal{M})` に対し，集合関数 :math:`\mu: \mathcal{M} \rightarrow \mathbb{R}` が以下の性質を満たすとき， :math:`\mu` を測度という．
       
-      :math:`\mu \left( \bigcup_{n=1}^{\infty}A_n \right) = \sum_{n=1}^{\infty}\mu (A_n)`
+      1. 任意の :math:`A \in \mathcal{M}` に対し， :math:`0 \leq \mu (A) \leq \infty` ，かつ :math:`\mu (\emptyset) = 0`
+      
+      2. 互いに排他的な :math:`A_1, A_2, \cdots \in \mathcal{M}` について
+      
+         :math:`\mu \left( \bigcup_{n=1}^{\infty}A_n \right) = \sum_{n=1}^{\infty}\mu (A_n)`
+      
+      またこの組 :math:`(S, \mathcal{M}, \mu)` を測度空間という．
+
+.. glossary::
+   
+   定義1.10 有限測度
+      測度空間 :math:`(S, \mathcal{M}, \mu)` において :math:`\mu(S) < \infty` を満たすとき， :math:`\mu` は有限測度であるという．
+
+.. glossary::
+   
+   定義1.11 零集合
+      測度空間 :math:`(S, \mathcal{M}, \mu)` において :math:`\mu(N)` であるような :math:`N \in \mathcal{M}` を零集合という．またある命題が :math:`S \backslash N` において成立しているとき，この命題は「ほとんどいたるところ」で成立するという．
+
+確率空間
+----------------------------------------------------------------------
+確率とは積分値が1になるような有限測度である．
+
+.. glossary::
+   
+   定義1.12 確率空間
+      測度空間 :math:`(\Omega, \mathcal{F}, P)` で :math:`P(\Omega) = 1` であるものを確率空間という．
+
+「標本」と「事象」の違いは重要である．「事象」とは :math:`\mathcal{F}` に含まれる :math:`\Omega` の部分集合であるが， :math:`\mathcal{F}` に含まれない部分集合は「事象」ではないため起こり得ず，確率はundefである．
+
+確率測度の構成
+======================================================================
+
+拡張定理
+----------------------------------------------------------------------
+有限回の試行や標本の場合は話が単純で済むので測度論はほとんど必要ない．試行回数の極限をとったり，標本空間が非可算である場合に測度論が必要になる．その場合，有限回で用いている測度を無限回に「拡張」することが考えられる．Hopfの拡張定理は有限の状況からスタートする．
+
+以下の有限加法族は「測度」が有限ということではなく有限回の和について閉じているという意味なので注意．
+
+.. glossary::
+   
+   定義1.13 有限加法族
+      S上の部分集合族 :math:`\mathcal{A}` が以下を満たすとき有限加法族という．
+      
+      1. :math:`\emptyset \in \mathcal{A}` 
+      2. :math:`A \in \mathcal{A}` ならば :math:`A^{c} \in \mathcal{A}`
+      3. :math:`A, B \in \mathcal{A}` ならば :math:`A \cup B \in \mathcal{A}`
+
+.. glossary::
+   
+   有限加法的集合関数
+      S上の有限加法族 :math:`\mathcal{A}` 上で定義された :math:`\nu` が以下の性質を満たすとき，有限加法的な集合関数であるという．
+      
+      1. :math:`\forall A \in \mathcal{A} \quad 0 \leq \nu (A) \leq \infty` であり，特に :math:`\nu (\emptyset) = 0`
+      2. :math:`A, B \in \mathcal{A}` かつ :math:`A \cup B = \emptyset` ならば
+      
+         :math:`\nu (A \cap B) = \nu (A) + \nu (B)`
+
+.. glossary::
+   
+   定理1.15 生成されたσ-加法族
+      Sの部分集合からなる集合族 :math:`\mathcal{M}_0` (何でも良い，{{1, 3}, {5, 6}}とか)に対し，この :math:`\mathcal{M}_0` を含むような最小のσ-加法族が存在し，これを :math:`\sigma [\mathcal{M}_0]` とかく．
+
+.. glossary::
+   
+   Hopfの拡張定理
+      S上の有限加法族 :math:`\mathcal{A}` 上で定義された集合関数 :math:`\nu` が :math:`\mathcal{A}` 上でσ-加法的である(可算無限個の互いに素な集合の和についても成り立つ)ならば， :math:`\mathcal{A}` から生成されたσ-加法族 :math:`\sigma [\mathcal{A}]` 上の測度 :math:`\mu` に拡張できる．
