@@ -12,3 +12,5 @@
    
    chapter00.rst
    chapter01.rst
+   chapter02.rst
+

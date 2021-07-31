@@ -17,13 +17,11 @@ Level 1
 ======================================================================
 Level 1
 
-Below,
-
 .. code-block:: text
    
    .. _reference_to_level2:
 
-is embedded.
+is embedded below this line for the demo in :ref:`ref_inner_reference`.
 
 .. _reference_to_level2:
 
@@ -125,6 +123,8 @@ gives
    for i in range(1, 10):
        print("Hello World")
 
+
+.. _ref_inner_reference:
 
 inner reference
 ======================================================================

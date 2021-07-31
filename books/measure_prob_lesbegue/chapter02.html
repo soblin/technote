@@ -58,8 +58,7 @@
     
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="確率になぜ測度論が必要なのか" href="chapter00.html" />
-    <link rel="prev" title="第2章 マルコフ連鎖と再生過程" href="../markov_decision_process/chapter02.html" /> 
+    <link rel="prev" title="確率と測度" href="chapter01.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -129,10 +128,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/JuliaProbo">詳解　確率ロボティクス</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">測度・確率・ルベーグ積分</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">測度・確率・ルベーグ積分</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a></li>
 <li class="toctree-l3"><a class="reference internal" href="chapter01.html">確率と測度</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapter02.html">積分と期待値</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">積分と期待値</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">確率変数の意味</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -187,7 +189,9 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>測度・確率・ルベーグ積分</li>
+          <li><a href="index.html">測度・確率・ルベーグ積分</a> &raquo;</li>
+        
+      <li>積分と期待値</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -205,38 +209,38 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>測度・確率・ルベーグ積分<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>情報系の人に向けて書かれた測度論的確率論の入門書．筆者の直感的な理解が随所に書かれており理解しやすかった．</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">原 啓介</td>
-</tr>
-<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">講談社</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2017</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">978-4-06-156571-5</td>
-</tr>
-</tbody>
-</table>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter00.html#pillow-problems">0.1 &quot;Pillow Problems&quot;より</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="chapter01.html">確率と測度</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id3">測度としての確率と確率空間</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id6">確率測度の構成</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="chapter02.html">積分と期待値</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id2">確率変数の意味</a></li>
-</ul>
-</li>
-</ul>
+<h1>積分と期待値<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-2-1">定義2.1 可測関数</dt>
+<dd>可測関数 <span class="math">\((S, \mathcal{F})\)</span> と <span class="math">\((E, \mathcal{G})\)</span> に対し，関数 <span class="math">\(f: S \rightarrow E\)</span> について
+<span class="math">\(f^{-1}(B)=\{x \in S: f(x) \in B\} \in \mathcal{F}\)</span>
+が任意の <span class="math">\(B \in \mathcal{G}\)</span> が成立するとき <span class="math">\(\mathcal{F}\)</span> -可測であるという．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-2-2">定義2.2 確率変数</dt>
+<dd>確率空間 <span class="math">\((\Omega, \mathcal{F}, P)\)</span> と可測空間 <span class="math">\((E, \mathcal{G})\)</span> に対し <span class="math">\(\Omega\)</span> 上で定義された関数 <span class="math">\(X: \Omega \rightarrow E\)</span> が <span class="math">\(\mathcal{F}\)</span> -可測であるときXを確率変数という．</dd>
+</dl>
+<p>特に断らない限り可測空間としては <span class="math">\((\mathbb{R}, \mathcal{R}(\mathbb{R}))\)</span> を用いる．</p>
+<dl class="glossary docutils">
+<dt id="term-2-3">定義2.3 可測関数</dt>
+<dd>可測空間 <span class="math">\((S, \mathcal{M})\)</span> に対し，S上で定義された関数 <span class="math">\(f: S \rightarrow \mathbb{R}\)</span> が <span class="math">\(\mathcal{M}\)</span> -可測であるとは，任意の <span class="math">\(\lambda \in \mathbb{R}\)</span> に対し
+<span class="math">\(\{x \in S: f(x) \leq \lambda\} \in \mathcal{M}\)</span>
+となることである．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-2-4">定義2.4 確率変数から生成された集合族</dt>
+<dd>確率空間 <span class="math">\((\Omega, \mathcal{F}, P)\)</span> 上で定義された可測空間 <span class="math">\((E, \mathcal{G})\)</span> に値をとる確率変数 <span class="math">\(X: \Omega \rightarrow E\)</span> に対し集合族
+<span class="math">\(\{X^{-1}(G): G \in \mathcal{G}\}=\{\{\omega \in \Omega: X(\omega) \in G\}: G \in \mathcal{G}\}\)</span>
+をXから生成された集合族という．</dd>
+</dl>
+<p>確率変数の <span class="math">\(\mathcal{F}\)</span> -可測性より，Xから生成された集合族は <span class="math">\(\mathcal{F}\)</span> の部分集合である．</p>
+<p>Xで記述される事象のみを扱うのであれば， <span class="math">\(\mathcal{F}\)</span> ではなく <span class="math">\(\sigma [X]\)</span> で十分であると言える．</p>
+<div class="section" id="id2">
+<h2>確率変数の意味<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>1回サイコロを振る試行では標本空間として <span class="math">\(\Omega = \{\omega_1, \cdots, \omega_6\}\)</span> ，σ-加法族としてその冪集合をとる．この方法では，標本空間に <strong>確率変数に期待される性質</strong> を仮定している(個数が6個である)．これは初めからXの値に対する逆像を使って標本空間を定義している．</p>
+<p>もう一つの立場では，標本空間 <span class="math">\(\Omega\)</span> を十分大きくとり(例えば要素数を可算無限個)，それぞれの <span class="math">\(\omega in \Omega\)</span> 対して <span class="math">\(X(\omega)\)</span> は1から6のいずれかの値を取るとする．そして <span class="math">\(\sigma [X]\)</span> の上で確率測度を決める．</p>
+<p>第二の立場では標本空間を6つの集合に分けただけであり，考える <strong>個別の問題とは無関係に標本空間はアプリオリに存在しており，ランダムネスだけを提供する</strong> ．標本空間の点を1つ定めることで確定的な世界が1つ決まる．そして確率変数を定めることでその世界の何に着目するかが決まる．</p>
+<p>つまり <span class="math">\(\Omega\)</span> は考えている個別の問題とは関係なくあらゆる確率的な問題の背後にあるランダムネスの源泉としての，あらゆる可能性を表現する集合である．</p>
 </div>
 </div>
 
@@ -246,8 +250,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="chapter00.html" class="btn btn-neutral float-right" title="確率になぜ測度論が必要なのか" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../markov_decision_process/chapter02.html" class="btn btn-neutral float-left" title="第2章 マルコフ連鎖と再生過程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="chapter01.html" class="btn btn-neutral float-left" title="確率と測度" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

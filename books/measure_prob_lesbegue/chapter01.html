@@ -224,7 +224,7 @@
 <h2><a class="toc-backref" href="#id13">測度としての確率と確率空間</a><a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="id4">
 <h3>集合とその記号<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>実数全体 <span class="math">\(\mathbb{R}\)</span> は非可算集合である．もし <span class="math">\([0, 1]\)</span> の実数がが可算集合であるとする．それぞれは2進数で表すと <span class="math">\(0.10000 \cdots\)</span> のように表せる(有限桁で終わるなら0で埋める)．この2進数で表した実数を1番目から並べて，各n番目の実数のn桁目を反転することで作った(2進数で無限桁の)新しい実数を作ることができるが，この実数は表の中に存在できない(もしこの実数が表の中にあるとしたら，どの他の実数と比べてもある桁が異なっているため)．よって <span class="math">\(\mathbb{R}\)</span> は非可算である．</p>
+<p>実数全体 <span class="math">\(\mathbb{R}\)</span> は非可算集合である．もし <span class="math">\([0, 1]\)</span> の実数が可算集合であるとする．それぞれは2進数で表すと <span class="math">\(0.10110 \cdots\)</span> のように表せる(有限桁で終わるなら0で埋める)．この2進数で表した実数を1番目から並べて，各n番目の実数のn桁目を反転することで(2進数で無限桁の)新しい実数を作ることができるが，この実数は表の中に存在できない．もしこの実数が表の中にあるとしたら，どの他の実数と比べてもある桁が異なっているためである．よって <span class="math">\(\mathbb{R}\)</span> は非可算である．</p>
 </div>
 <div class="section" id="algebra">
 <h3>σ-algebraと測度<a class="headerlink" href="#algebra" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -244,7 +244,7 @@ A_1 \cup A_2 \cdots \cup A_n
 &amp; \bigcap_{n=1}^{\infty} A_{n}=\left(\bigcup_{n=1}^{\infty} A_{n}^{c}\right)^{c} \\
 &amp; A \cap B=\left(A^{c} \cup B^{c}\right)^{c} \\
 &amp; A \backslash B=A \cap B^{c}
-\end{align*}</div><p>も <span class="math">\(\mathcal{M}\)</span> に含まれる(簡潔には3つ目の条件だけで十分)．</p>
+\end{align*}</div><p>も <span class="math">\(\mathcal{M}\)</span> に含まれる(定義としては簡潔に3つ目の条件だけで十分)．</p>
 <dl class="glossary docutils">
 <dt id="term-1-8">定義1.8 部分σ-加法族</dt>
 <dd><p class="first">同じ集合の上で定義された2つのσ-加法族について，一方が他方を部分集合として含むとき，後者を前者の部分σ-加法族という．</p>
@@ -327,8 +327,7 @@ A_1 \cup A_2 \cdots \cup A_n
 \begin{align*}
 \Omega = \{ \omega_1 \omega_2 \cdots \omega_n \cdots \mid \omega_n \in \{H, T\} \}
 \end{align*}</div><p>ここで「2回連続して表が出る確率」などを求められるようにσ-加法族と確率測度を構成したい．</p>
-<blockquote>
-<div><span class="math">\(\Omega\)</span> の部分集合として，ある自然数 <span class="math">\(k\)</span> と <span class="math">\(n_1 &lt; \cdots &lt; n_k\)</span> と <span class="math">\(\varepsilon_1, \cdots, \varepsilon_n \in \{H, T\}\)</span> について</div></blockquote>
+<p><span class="math">\(\Omega\)</span> の部分集合として，ある自然数 <span class="math">\(k\)</span> と <span class="math">\(n_1 &lt; \cdots &lt; n_k\)</span> と <span class="math">\(\varepsilon_1, \cdots, \varepsilon_n \in \{H, T\}\)</span> について</p>
 <div class="math">
 \begin{align*}
 A(n_{1}, \ldots, n_{k} ; \varepsilon_{1}, \ldots, \varepsilon_{k})=\{(\omega_{n})_{n \in \mathbb{N}} \in \Omega: \omega_{n_{1}}=\varepsilon_{1}, \ldots, \omega_{n_{k}}=\varepsilon_{k}\}
@@ -383,8 +382,12 @@ P (A(n_{1}, \ldots, n_{k} ; \varepsilon_{1}, \ldots, \varepsilon_{k}) )=p^{m}(1-
 <div class="math">
 \begin{align*}
 [0,1]=\bigcup_{\alpha \in \Lambda} B_{\alpha}
-\end{align*}</div><p>この <span class="math">\(B_{\alpha}\)</span> において各 <span class="math">\(\alpha\)</span> について要素を1つずつ選んで集合 <span class="math">\(E\)</span> を作ると，これはルベーグ可測ではない．</p>
-<p>[-1, 1]に含まれる有理数は可算であるので，それを数列 <span class="math">\(\{ q_n \}\)</span> でリストする． <span class="math">\(E\)</span> を各 <span class="math">\(q_n\)</span> で平行移動して <span class="math">\(E_n\)</span> を作る．もし <span class="math">\(E\)</span> がルベーグ可測ならば <span class="math">\(E_n\)</span> もルベーグ可測である．</p>
+\end{align*}</div><p>この <span class="math">\(B_{\alpha}\)</span> において各 <span class="math">\(\alpha\)</span> について要素を1つずつ選んで集合 <span class="math">\(E\)</span> を作ると，これはルベーグ可測ではない．以下証明．</p>
+<p>[-1, 1]に含まれる有理数は可算であるので，それを数列 <span class="math">\(\{ q_n \}\)</span> でリストする． <span class="math">\(E\)</span> を各 <span class="math">\(q_n\)</span> で平行移動して <span class="math">\(E_n\)</span> を作る．</p>
+<div class="math">
+\begin{align*}
+E_n = \{ e + q_n \mid e \in E \}
+\end{align*}</div><p>もし <span class="math">\(E\)</span> がルベーグ可測ならば <span class="math">\(E_n\)</span> もルベーグ可測である．</p>
 <p>そして各 <span class="math">\(E_n\)</span> はmutually exclusiveである．もし <span class="math">\(z \in E_n \cap E_m\)</span> が存在したならば</p>
 <div class="math">
 \begin{align*}
@@ -409,7 +412,7 @@ x - x^{\prime} = q_m - q_n \in \mathbb{Q}
 <p>もし <span class="math">\(E\)</span> がルベーグ可測であるならば <span class="math">\(E_n\)</span> もルベーグ可測であり，その値は <span class="math">\(E\)</span> と同じである．よって測度の完全加法性と，集合の包含関係の条件から</p>
 <div class="math">
 \begin{align*}
-1 = l([0,1]) \leq l(\bigcup_{n=1}^{\infty} E_{n}) = \sum_{n=1}^{\infty} l(E_{n}\) = \sum_{n=1}^{\infty} l(E) \leq l([-1,2]) = 3
+1 = l([0,1]) \leq l(\bigcup_{n=1}^{\infty} E_{n}) = \sum_{n=1}^{\infty} l(E_{n}) = \sum_{n=1}^{\infty} l(E) \leq l([-1,2]) = 3
 \end{align*}</div><p>が成立することになるが， <span class="math">\(\sum_{n=1}^{\infty}l(E)\)</span> は <span class="math">\(0\)</span> か <span class="math">\(\infty\)</span> であることが必要であるが，いずれも不等式の左辺と右辺に矛盾する．</p>
 <p>このルベーグ非可測な集合の構成には集合族から要素を1つずつ選んで新たな集合を作るという「選択公理」を用いている．この選択公理がないと現代数学でできることは限られるが，同時に <a class="reference external" href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">「バナッハ・タルスキーのパラドックス」</a> のような非自明な結果（このパラドックスではルベーグ非可測な断片を球から作り出していることが原因で）も引き出せてしまう．</p>
 </div>
