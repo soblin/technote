@@ -1,0 +1,152 @@
+======================================================================
+ラドンニコディムの定理と条件付き期待値
+======================================================================
+
+条件付き期待値とその意味
+======================================================================
+
+.. glossary::
+   
+   定義5.2 古典的な条件付き期待値
+      確率空間 :math:`(\Omega, \mathcal{F}, P)` と事象 :math:`B \in \mathcal{F}` に対し，条件付き確率 :math:`P(\cdot \mid B)` による確率変数 :math:`X` の期待値を :math:`E[X \mid B]` とかく．
+
+条件付き期待値では :math:`\omega \notin B` に対しては :math:`P(\omega) = 0` としているので，依然として :math:`B` に含まれない事象を含めた標本空間全体で積分をしても積分値は1である．
+
+例えばサイコロを1回投げる試行において，
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   & \Omega = \{1,2,3,4,5,6\} = \bigcup A_i \\
+   & X(A_i) = i \\
+   & P(A_i) = 1/6
+   \end{align*}
+
+
+とする．
+ここで偶数が出るという事象Bによって条件付けると確率測度は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P(A_{i} \mid B) = \begin{cases} 0 & i \in\{1,3,5\} \\ 1 / 3, & i \in\{2,4,6\} \end{cases}
+   \end{align*}
+
+となる．これは依然として :math:`B^{c}` の確率が0となっただけで，全体の積分値は1である．期待値は今までと同様確率変数と確率をかけて足すことで
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   E[X \mid B]=1 \cdot 0+2 \cdot \frac{1}{3}+\cdots+5 \cdot 0+6 \cdot \frac{1}{3}=\frac{12}{3}=4
+   \end{align*}
+
+と求める．
+
+σ-加法族による条件付き期待値
+----------------------------------------------------------------------
+条件を満たさない方の標本空間の分割についても期待値を計算する感じ．
+
+「偶数の目が出るとしたら」という条件ではなく「偶数か奇数か知ることができるなら」というふうに，与えられた「 **情報** 」によって標本空間に分割線を引くことで **ユーザー側(主観者)** は条件付き期待値の **定義域を細かく** 刻んでいく．
+
+先程の例では :math:`E[X \mid B] = 4` だったが，同様に :math:`E[X \mid B^{c}] = 3` である．これは確率変数 :math:`\mathcal{X}` は初めは可測集合が :math:`\Omega` だけであり，その上で平均値7/2をとるが，偶奇が分かるという情報の下では可測集合が :math:`B, B^{c}` に分割され，各定義域で以下のように値が期待される
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   E[X \mid \mathcal{G}](\omega) = \begin{cases} 3 & (\omega in B^{c}) \\ 4 & (\omega in B) \end{cases}
+   \end{align*}
+
+と考える．さらに細かい情報 :math:`\mathcal{F}` による条件付き確率は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   E[X \mid \mathcal{F}](\omega) = \begin{cases} 1 & (\omega in A_1) \\ \cdots \\ 6 & (\omega in A_6 ) \end{cases}
+   \end{align*}
+
+であり，これは確率変数 :math:`X` そのものである．
+
+現代確率論では期待値は「粗い定義域でもとの確率変数を平均化」した関数として公理的に定義する(条件付き確率のことは知らない前提)．
+
+.. glossary::
+   
+   定義5.3 条件付き期待値
+      確率空間 :math:`(\Omega, \mathcal{F}, P)` 上の可積分な確率変数 :math:`X` と，その部分σ-加法族 :math:`\mathcal{G}` に対し，任意の :math:`G \in \mathcal{G}` について
+      :math:`\int_{G} Y(\omega) P(d \omega)=\int_{G} X(\omega) P(d \omega)`
+      が成立する :math:`\mathcal{G}` -可測(つまりXより定義域が粗い)な確率変数Yのことを条件付き期待値と呼び :math:`Y = E[X \mid \mathcal{G}]` と書く．
+
+.. glossary::
+   
+   定義5.4 条件付き確率
+      確率空間 :math:`(\Omega, \mathcal{F}, P)` と部分σ-加法族 :math:`\mathcal{G} \in \mathcal{F}` に対し，事象 :math:`A \in \mathcal{F}` の :math:`\mathcal{G}` に関する条件付き確率は
+      :math:`P(A \mid \mathcal{G})(\omega)=E[1_{A} \mid \mathcal{G}](\omega)`
+      で定義される確率変数 :math:`P(A \mid \mathcal{G})(\omega)` である
+
+
+例として以下のグリッドで表される :math:`(\mathcal{\Omega}, \mathcal{F})` における事象 :math:`A` と，より粗いグリッド :math:`(\Omega, \mathcal{G})` が与えられたときの条件付き確率を求める．
+
+
+.. figure:: /_images/measure_lebegue_prob_ch05_0.svg
+   :align: center
+   :width: 100%
+   :alt: 
+
+条件付き確率 :math:`P(A \mid \mathcal{G})(\omega)` は :math:`\omega \in G_1, G_2, G_3, G_4` の4つの場合で場合分けする．
+
+まず :math:`G_1` では定義より
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \int_{G_1} P(A \mid \mathcal{G})(\omega) P(d\omega) = \int_{G_1} 1_{A} P(d\omega)
+   \end{align*}
+
+が成立する．ここで右辺は :math:`\mathcal{F}` -可測な関数 :math:`1_{A}` を積分するので， **図の左側のグリッド** 上で積分する． :math:`\mathcal{F}` は48個のマス目からなるから1つのメス目の確率は1/48であり， :math:`A \cup G_1` は2つのマス目からなるから，右辺の積分値は2/48である．
+
+左辺の :math:`P(A \mid \mathcal{G})` の :math:`G_1` 上での値は :math:`G_1` **全体で一定値** であるから，右辺の積分値は
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   9/48 \times  P(A \mid G_1)
+   \end{align*}
+
+よって
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P(A \mid G_1) = 2/9
+   \end{align*}
+
+である．同様にすることで
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   P(A \mid \mathcal{G}) = \begin{cases} 2/9 & \omega \in G_1 \\ 2/15 & \omega \in G_2 \\ 4/15 & \omega \in G_3 \\ 4/9 & \omega \in G_4 \end{cases}
+   \end{align*}
+
+それぞれ :math:`G_i` である場合の :math:`A` の条件付き確率である．
+
+これを積分すると :math:`P(A) = 12/48` となることも確認できる．
+
+このように積分値が一致する， **もとの関数より可測性を粗くした** 関数が存在することを前提としているが，この関数の存在と一意性を主張するのがラドンニコディムの定理である．
+

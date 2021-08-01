@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@eeic_sovereign" />
+<meta property="og:site_name" content="TechNote of soblin">
+<meta property="og:title" content="Technote of Soblin">
+<meta property='og:url' content="https://soblin.github.io/technote/index.html">
+<meta property='og:image' content="https://soblin.github.io/technote/_static/icon.png"/>
+
+
+  
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.ico"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'ja',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/mathjaxconf.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="prev" title="積分と期待値" href="chapter02.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> TechNote of soblin
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                stable
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../example/index.html">Example</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../motion_planning/index.html">Motion Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../control/index.html">Control</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Books</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/pthread-practice">LinuxとPthreadsによるマルチスレッドプログラミング入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modern_analytical_mechanics/index.html">現代解析力学入門</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../markov_decision_process/index.html">マルコフ決定過程 -理論とアルゴリズム-</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/JuliaProbo">詳解　確率ロボティクス</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">測度・確率・ルベーグ積分</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="chapter00.html">確率になぜ測度論が必要なのか</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter01.html">確率と測度</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapter02.html">積分と期待値</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ラドンニコディムの定理と条件付き期待値</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">条件付き期待値とその意味</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TechNote of soblin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Books</a> &raquo;</li>
+        
+          <li><a href="index.html">測度・確率・ルベーグ積分</a> &raquo;</li>
+        
+      <li>ラドンニコディムの定理と条件付き期待値</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>ラドンニコディムの定理と条件付き期待値<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>条件付き期待値とその意味<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-5-2">定義5.2 古典的な条件付き期待値</dt>
+<dd>確率空間 <span class="math">\((\Omega, \mathcal{F}, P)\)</span> と事象 <span class="math">\(B \in \mathcal{F}\)</span> に対し，条件付き確率 <span class="math">\(P(\cdot \mid B)\)</span> による確率変数 <span class="math">\(X\)</span> の期待値を <span class="math">\(E[X \mid B]\)</span> とかく．</dd>
+</dl>
+<p>条件付き期待値では <span class="math">\(\omega \notin B\)</span> に対しては <span class="math">\(P(\omega) = 0\)</span> としているので，依然として <span class="math">\(B\)</span> に含まれない事象を含めた標本空間全体で積分をしても積分値は1である．</p>
+<p>例えばサイコロを1回投げる試行において，</p>
+<div class="math">
+\begin{align*}
+&amp; \Omega = \{1,2,3,4,5,6\} = \bigcup A_i \\
+&amp; X(A_i) = i \\
+&amp; P(A_i) = 1/6
+\end{align*}</div><p>とする．
+ここで偶数が出るという事象Bによって条件付けると確率測度は</p>
+<div class="math">
+\begin{align*}
+P(A_{i} \mid B) = \begin{cases} 0 &amp; i \in\{1,3,5\} \\ 1 / 3, &amp; i \in\{2,4,6\} \end{cases}
+\end{align*}</div><p>となる．これは依然として <span class="math">\(B^{c}\)</span> の確率が0となっただけで，全体の積分値は1である．期待値は今までと同様確率変数と確率をかけて足すことで</p>
+<div class="math">
+\begin{align*}
+E[X \mid B]=1 \cdot 0+2 \cdot \frac{1}{3}+\cdots+5 \cdot 0+6 \cdot \frac{1}{3}=\frac{12}{3}=4
+\end{align*}</div><p>と求める．</p>
+<div class="section" id="id3">
+<h3>σ-加法族による条件付き期待値<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>条件を満たさない方の標本空間の分割についても期待値を計算する感じ．</p>
+<p>「偶数の目が出るとしたら」という条件ではなく「偶数か奇数か知ることができるなら」というふうに，与えられた「 <strong>情報</strong> 」によって標本空間に分割線を引くことで <strong>ユーザー側(主観者)</strong> は条件付き期待値の <strong>定義域を細かく</strong> 刻んでいく．</p>
+<p>先程の例では <span class="math">\(E[X \mid B] = 4\)</span> だったが，同様に <span class="math">\(E[X \mid B^{c}] = 3\)</span> である．これは確率変数 <span class="math">\(\mathcal{X}\)</span> は初めは可測集合が <span class="math">\(\Omega\)</span> だけであり，その上で平均値7/2をとるが，偶奇が分かるという情報の下では可測集合が <span class="math">\(B, B^{c}\)</span> に分割され，各定義域で以下のように値が期待される</p>
+<div class="math">
+\begin{align*}
+E[X \mid \mathcal{G}](\omega) = \begin{cases} 3 &amp; (\omega in B^{c}) \\ 4 &amp; (\omega in B) \end{cases}
+\end{align*}</div><p>と考える．さらに細かい情報 <span class="math">\(\mathcal{F}\)</span> による条件付き確率は</p>
+<div class="math">
+\begin{align*}
+E[X \mid \mathcal{F}](\omega) = \begin{cases} 1 &amp; (\omega in A_1) \\ \cdots \\ 6 &amp; (\omega in A_6 ) \end{cases}
+\end{align*}</div><p>であり，これは確率変数 <span class="math">\(X\)</span> そのものである．</p>
+<p>現代確率論では期待値は「粗い定義域でもとの確率変数を平均化」した関数として公理的に定義する(条件付き確率のことは知らない前提)．</p>
+<dl class="glossary docutils">
+<dt id="term-5-3">定義5.3 条件付き期待値</dt>
+<dd>確率空間 <span class="math">\((\Omega, \mathcal{F}, P)\)</span> 上の可積分な確率変数 <span class="math">\(X\)</span> と，その部分σ-加法族 <span class="math">\(\mathcal{G}\)</span> に対し，任意の <span class="math">\(G \in \mathcal{G}\)</span> について
+<span class="math">\(\int_{G} Y(\omega) P(d \omega)=\int_{G} X(\omega) P(d \omega)\)</span>
+が成立する <span class="math">\(\mathcal{G}\)</span> -可測(つまりXより定義域が粗い)な確率変数Yのことを条件付き期待値と呼び <span class="math">\(Y = E[X \mid \mathcal{G}]\)</span> と書く．</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-5-4">定義5.4 条件付き確率</dt>
+<dd>確率空間 <span class="math">\((\Omega, \mathcal{F}, P)\)</span> と部分σ-加法族 <span class="math">\(\mathcal{G} \in \mathcal{F}\)</span> に対し，事象 <span class="math">\(A \in \mathcal{F}\)</span> の <span class="math">\(\mathcal{G}\)</span> に関する条件付き確率は
+<span class="math">\(P(A \mid \mathcal{G})(\omega)=E[1_{A} \mid \mathcal{G}](\omega)\)</span>
+で定義される確率変数 <span class="math">\(P(A \mid \mathcal{G})(\omega)\)</span> である</dd>
+</dl>
+<p>例として以下のグリッドで表される <span class="math">\((\mathcal{\Omega}, \mathcal{F})\)</span> における事象 <span class="math">\(A\)</span> と，より粗いグリッド <span class="math">\((\Omega, \mathcal{G})\)</span> が与えられたときの条件付き確率を求める．</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../_images/measure_lebegue_prob_ch05_0.svg"><img alt="" src="../../_images/measure_lebegue_prob_ch05_0.svg" width="100%" /></a>
+</div>
+<p>条件付き確率 <span class="math">\(P(A \mid \mathcal{G})(\omega)\)</span> は <span class="math">\(\omega \in G_1, G_2, G_3, G_4\)</span> の4つの場合で場合分けする．</p>
+<p>まず <span class="math">\(G_1\)</span> では定義より</p>
+<div class="math">
+\begin{align*}
+\int_{G_1} P(A \mid \mathcal{G})(\omega) P(d\omega) = \int_{G_1} 1_{A} P(d\omega)
+\end{align*}</div><p>が成立する．ここで右辺は <span class="math">\(\mathcal{F}\)</span> -可測な関数 <span class="math">\(1_{A}\)</span> を積分するので， <strong>図の左側のグリッド</strong> 上で積分する． <span class="math">\(\mathcal{F}\)</span> は48個のマス目からなるから1つのメス目の確率は1/48であり， <span class="math">\(A \cup G_1\)</span> は2つのマス目からなるから，右辺の積分値は2/48である．</p>
+<p>左辺の <span class="math">\(P(A \mid \mathcal{G})\)</span> の <span class="math">\(G_1\)</span> 上での値は <span class="math">\(G_1\)</span> <strong>全体で一定値</strong> であるから，右辺の積分値は</p>
+<div class="math">
+\begin{align*}
+9/48 \times  P(A \mid G_1)
+\end{align*}</div><p>よって</p>
+<div class="math">
+\begin{align*}
+P(A \mid G_1) = 2/9
+\end{align*}</div><p>である．同様にすることで</p>
+<div class="math">
+\begin{align*}
+P(A \mid \mathcal{G}) = \begin{cases} 2/9 &amp; \omega \in G_1 \\ 2/15 &amp; \omega \in G_2 \\ 4/15 &amp; \omega \in G_3 \\ 4/9 &amp; \omega \in G_4 \end{cases}
+\end{align*}</div><p>それぞれ <span class="math">\(G_i\)</span> である場合の <span class="math">\(A\)</span> の条件付き確率である．</p>
+<p>これを積分すると <span class="math">\(P(A) = 12/48\)</span> となることも確認できる．</p>
+<p>このように積分値が一致する， <strong>もとの関数より可測性を粗くした</strong> 関数が存在することを前提としているが，この関数の存在と一意性を主張するのがラドンニコディムの定理である．</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="chapter02.html" class="btn btn-neutral float-left" title="積分と期待値" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, soblin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
