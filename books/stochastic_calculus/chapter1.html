@@ -4,9 +4,7 @@
 <html class="writer-html4" lang="ja" >
 <head>
   <meta charset="utf-8" />
-  <meta content="ついにこの本にチャレンジする．1章から多様体と微分幾何，微分形式の説明に始まり，以降のラグランジュ形式，ハミルトン形式の解析力学を全て微分形式で展開している．さらに理論的な展開の深さだけでなく具体例の計算の「具体さ」が半端ない．余す所なく徹底的に計算していく姿勢があり，なぜこの本の著者が予備校の講師に甘んじているのか理解できないほどである．" name="description" />
-<meta content="解析力学, 微分幾何" name="keywords" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 <meta name="twitter:card" content="summary" />
@@ -60,8 +58,7 @@
     
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="序章 数学的準備" href="chapter01.html" />
-    <link rel="prev" title="チェインオブレスポンシビリティパターン" href="../modern_c_programming/chain_of_responsibility.html" /> 
+    <link rel="prev" title="Stochastic Calculus, Filtering, and Stochastic Control" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -122,11 +119,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../nonlinear_optimal_control/index.html">非線形最適制御入門</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../easy_analytical_mechanics/index.html">よく分かる解析力学</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modern_c_programming/index.html">モダンC言語プログラミング</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">解析力学 I，II</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="chapter01.html">序章 数学的準備</a></li>
-<li class="toctree-l3"><a class="reference internal" href="chapter02.html">ラグランジュ形式の力学</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../analytical_mechanics/index.html">解析力学 I，II</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../planning_algorithms/index.html">Planning Algorithms</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/slam">SLAM入門 ロボットの自己位置推定と地図構築の技術</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/DeepLearning">C++で学ぶディープラーニング</a></li>
@@ -136,7 +129,10 @@
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/JuliaProbo">詳解　確率ロボティクス</a></li>
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../measure_prob_lesbegue/index.html">測度・確率・ルベーグ積分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../stochastic_calculus/index.html">Stochastic Calculus, Filtering, and Stochastic Control</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Stochastic Calculus, Filtering, and Stochastic Control</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Review of Probability Theory</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -189,7 +185,9 @@
         
           <li><a href="../index.html">Books</a> &raquo;</li>
         
-      <li>解析力学 I，II</li>
+          <li><a href="index.html">Stochastic Calculus, Filtering, and Stochastic Control</a> &raquo;</li>
+        
+      <li>Review of Probability Theory</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -206,43 +204,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="i-ii">
-<h1>解析力学 I，II<a class="headerlink" href="#i-ii" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ついにこの本にチャレンジする．1章から多様体と微分幾何，微分形式の説明に始まり，以降のラグランジュ形式，ハミルトン形式の解析力学を全て微分形式で展開している．さらに理論的な展開の深さだけでなく具体例の計算の「具体さ」が半端ない．余す所なく徹底的に計算していく姿勢があり，なぜこの本の著者が予備校の講師に甘んじているのか理解できないほどである．</p>
-<p>『よく分かる解析力学』を読み終えて初級者を脱したので，これを読んで上級者になりたい．この本を第1巻だけでも理解しきれば，相当な実力が付くのではないかと期待している．</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">著者:</th><td class="field-body">山本義隆 中村孔一</td>
-</tr>
-<tr class="field-even field"><th class="field-name">出版社:</th><td class="field-body">朝倉書店</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">発行年:</th><td class="field-body">2018</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ISBN:</th><td class="field-body">4-254-13672-2</td>
-</tr>
-</tbody>
-</table>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="chapter01.html">序章 数学的準備</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id3">運動方程式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id6">曲面上の拘束運動</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id11">曲面上のテンソルと共変微分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id15">多様体とベクトル場</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id28">双対空間と共変テンソル</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter01.html#id33">余接バンドルと微分形式</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="chapter02.html">ラグランジュ形式の力学</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id3">ラグランジュ方程式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id9">対称性と保存則</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter02.html#id14">ラグランジュ方程式の幾何学的表現</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <div class="section" id="review-of-probability-theory">
+<h1>Review of Probability Theory<a class="headerlink" href="#review-of-probability-theory" title="このヘッドラインへのパーマリンク">¶</a></h1>
 </div>
 
 
@@ -251,8 +214,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="chapter01.html" class="btn btn-neutral float-right" title="序章 数学的準備" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../modern_c_programming/chain_of_responsibility.html" class="btn btn-neutral float-left" title="チェインオブレスポンシビリティパターン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Stochastic Calculus, Filtering, and Stochastic Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -58,6 +58,7 @@
     
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="Stochastic Calculus, Filtering, and Stochastic Control" href="../stochastic_calculus/index.html" />
     <link rel="prev" title="積分と期待値" href="chapter02.html" /> 
 </head>
 
@@ -139,6 +140,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../stochastic_calculus/index.html">Stochastic Calculus, Filtering, and Stochastic Control</a></li>
 </ul>
 </li>
 </ul>
@@ -316,7 +318,7 @@ P(A \mid \mathcal{G}) = \begin{cases} 2/9 &amp; \omega \in G_1 \\ 2/15 &amp; \om
 <p>2. 細かく条件付き期待値をとってから粗く期待値をとるのは，初めから粗く期待値をとるのと同じ
 <span class="math">\(E[E[X \mid \mathcal{H}] \mid \mathcal{G}]=E[X \mid \mathcal{G}]\)</span></p>
 <ol class="last arabic simple" start="3">
-<li><span class="math">\(X\)</span> が <span class="math">\(\mathcal{G}\)</span> -可測である，すなわち <span class="math">\(X\)</span> の定義域が <span class="math">\(\mathcal{G}\)</span> より粗いなら期待値をとっても変わらない(「より大雑把な情報を与えても」定義域は変わらないので確率変数も変化しない)． <span class="math">\(E[X \mid \mathcal{G}] = X\)</span></li>
+<li><span class="math">\(X\)</span> が <span class="math">\(\mathcal{G}\)</span> -可測である，すなわち <span class="math">\(X\)</span> の定義域が <span class="math">\(\mathcal{G}\)</span> より粗いか同じならば期待値をとっても変わらない(「より大雑把な情報を与えても」定義域は変わらないので確率変数も変化しない)． <span class="math">\(E[X \mid \mathcal{G}] = X\)</span></li>
 </ol>
 </dd>
 </dl>
@@ -324,8 +326,13 @@ P(A \mid \mathcal{G}) = \begin{cases} 2/9 &amp; \omega \in G_1 \\ 2/15 &amp; \om
 <div class="math">
 \begin{align*}
 &amp; \mathcal{F} = \{ \emptyset, \Omega \} \\
-&amp; X(\omega) = 3.5, \quad \omega = \{1, \cdots, 6\} \\
-\end{align*}</div><p>と定義する．ここで偶数が出る事象 <span class="math">\(B=\{2,4,6\}\)</span> によりσ-加法族 <span class="math">\(\mathcal{G} = \{ \emptyset, B, B^{c}, \Omega \}\)</span> を与えたときの条件付き期待値を考えるとしよう．Xは <span class="math">\(\mathcal{G}\)</span> -可測である．よって <span class="math">\(\{2,4,6\}\)</span> のいずれかが出たときそれが <span class="math">\(\{1, \cdots, 6\}\)</span> のいずれかであることは決まっているので期待値は3.5であるし， <span class="math">\(\{1,3,5\}\)</span> が出たときそれが <span class="math">\(\{1, \cdots, 6\}\)</span> のいずれかであることが決まっているので期待値は3.5である．</p>
+&amp; X(\omega_i) = i, \quad \omega_i = \{1, \cdots, 6\} \\
+\end{align*}</div><p>と定義する．ここで偶数が出る事象 <span class="math">\(B=\{2,4,6\}\)</span> によりσ-加法族 <span class="math">\(\mathcal{G} = \{ \emptyset, B, B^{c}, \Omega \}\)</span> を与えたときの条件付き期待値を考えるとしよう．Xは <span class="math">\(\mathcal{G}\)</span> -可測である．よって <span class="math">\(\{2,4,6\}\)</span> のいずれかが出たとき依然として「 <span class="math">\(\{1, \cdots, 6\}\)</span> のいずれかが出た」という情報しか得られていないので期待値は3.5であるし， <span class="math">\(\{1,3,5\}\)</span> が出たときも依然として「 <span class="math">\(\{1, \cdots, 6\}\)</span> のいずれかが出た」という情報しか得られていないので期待値は3.5である．</p>
+<p>この性質はマルチンゲールの定義にも使われている．</p>
+<dl class="glossary docutils">
+<dt id="term">定義 マルチンゲール</dt>
+<dd>確率変数 <span class="math">\(X_n\)</span> が <span class="math">\(\mathcal{F}_n\)</span> 可測であり， <span class="math">\(m \leq n\)</span> ならば <span class="math">\(E[ X_n \mid \mathcal{F}_m] = X_n\)</span> が成立するとき <span class="math">\(X_n\)</span> は <span class="math">\(\mathcal{F}_n\)</span> -マルチンゲールであるという．</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -336,6 +343,7 @@ P(A \mid \mathcal{G}) = \begin{cases} 2/9 &amp; \omega \in G_1 \\ 2/15 &amp; \om
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../stochastic_calculus/index.html" class="btn btn-neutral float-right" title="Stochastic Calculus, Filtering, and Stochastic Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="chapter02.html" class="btn btn-neutral float-left" title="積分と期待値" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

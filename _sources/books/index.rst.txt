@@ -25,3 +25,5 @@ Books
    詳解　確率ロボティクス <https://github.com/soblin/JuliaProbo>
    C++テンプレートテクニック <https://github.com/soblin/cpp-template-ex>
    measure_prob_lesbegue/index.rst
+   stochastic_calculus/index.rst
+

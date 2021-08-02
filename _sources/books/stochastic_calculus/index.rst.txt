@@ -1,0 +1,13 @@
+======================================================================
+Stochastic Calculus, Filtering, and Stochastic Control
+======================================================================
+
+連続時間での確率制御などを応用にした講義ノート．抽象的過ぎず，可視化や「解釈」が具体的でエンジニア向けにもわかりやすい．
+
+.. include:: /_include/ref/stochastic_calculus.txt
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+   
+   chapter1.rst
