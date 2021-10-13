@@ -130,7 +130,13 @@
 <li class="toctree-l2"><a class="reference external" href="https://github.com/soblin/cpp-template-ex">C++テンプレートテクニック</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../measure_prob_lesbegue/index.html">測度・確率・ルベーグ積分</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Stochastic Calculus, Filtering, and Stochastic Control</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Review of Probability Theory</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Review of Probability Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#probability-spaces-and-events">Probability spaces and events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#some-elementary-properties">Some elementary properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#properties-of-the-expectation-and-inequalities">Properties of the expectation and inequalities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#limits-of-random-variables">Limits of random variables</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -206,6 +212,48 @@
             
   <div class="section" id="review-of-probability-theory">
 <h1>Review of Probability Theory<a class="headerlink" href="#review-of-probability-theory" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="probability-spaces-and-events">
+<h2>Probability spaces and events<a class="headerlink" href="#probability-spaces-and-events" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>確率モデルを立てるには以下の3つが必要となる．</p>
+<ul class="simple">
+<li>起こりうる物事全て</li>
+<li>どのような質問だと，この物事について&quot;yes-no&quot;で答えられるか</li>
+<li>そのような質問について，それが&quot;yes&quot;である確率</li>
+</ul>
+<p>1つ目の点については，そのモデルにおいて起りうる全ての&quot;運命&quot;を集めた集合 <span class="math">\(\omega \in \Omega\)</span> を作ればよい．</p>
+<p>標本空間 <span class="math">\(\Omega\)</span> を定めると，&quot;yes-no&quot;の質問で答えられる事象は <span class="math">\(\Omega\)</span> の部分集合であり，この事象を集めたのが <span class="math">\(\mathcal{F}\)</span> である． <span class="math">\(A, B \in \Omega\)</span>  であれば&quot;is A or B?&quot;とか&quot;is A and B?&quot;とか&quot;is not A?&quot;のような質問もできるから， <span class="math">\(A^{c}, A \cup B, A \cap B \in \Omega\)</span> である．</p>
+<dl class="glossary docutils">
+<dt id="term-remark-1-1-17">Remark 1.1.17</dt>
+<dd>もし <span class="math">\(\Omega = \mathbb{R}\)</span> に対して <span class="math">\(\mathcal{F}\)</span> を <span class="math">\(\mathbb{R}\)</span> のベキ集合とした場合，実は任意の <span class="math">\(x \in \mathbb{R}\)</span> に対して <span class="math">\(P(\{ x\}) = 0\)</span> となる確率測度は存在しない</dd>
+</dl>
+</div>
+<div class="section" id="some-elementary-properties">
+<h2>Some elementary properties<a class="headerlink" href="#some-elementary-properties" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>事象の列 <span class="math">\(A_n \in \mathcal{F}\)</span> に対して&quot;infinitely often&quot;な標本，つまりnを大きくしていくにつれて，その標本が含まれる <span class="math">\(A_n\)</span> の数も無限大に増えるような標本を以下のように定義する．</p>
+<div class="math">
+\begin{align*}
+\omega \in A_n \quad \text{i.o.} \equiv \omega \in \bigcap_{n \leq 1} \bigcup_{k \leq n} A_k = \lim \sup A_n
+\end{align*}</div><p>例えば， <span class="math">\(A_n \in \mathcal{F}\)</span> において</p>
+<ul class="simple">
+<li>「n=1,2」以外の全てにおいて含まれている，とか</li>
+<li>n=奇数の全てにおいて含まれている，</li>
+</ul>
+<p>といった要素のことである．</p>
+</div>
+<div class="section" id="properties-of-the-expectation-and-inequalities">
+<h2>Properties of the expectation and inequalities<a class="headerlink" href="#properties-of-the-expectation-and-inequalities" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-proposition1-4-2">Proposition1.4.2<dt id="term-chebyshev-s-inequaltiy">Chebyshev's inequaltiy</dt>
+<dd>任意の <span class="math">\(\alpha &gt; 0\)</span> について <span class="math">\(P(|X| &gt; \alpha) \leq \dfrac{E(|X)}{\alpha}\)</span></dd>
+<dt id="term-jensen-s-inequality">Jensen's inequality</dt>
+<dd><span class="math">\(g(x)\)</span> を実数値の凸関数とすると <span class="math">\(E(g(X)) \geq g(E(X))\)</span></dd>
+</dl>
+<p>Jensenの不等式で <span class="math">\(g(x) = x^2\)</span> とすると <span class="math">\(\mathrm{var}(X) = E(X^2) - E(X)^2 \geq 0\)</span> が得られる．</p>
+</div>
+<div class="section" id="limits-of-random-variables">
+<h2>Limits of random variables<a class="headerlink" href="#limits-of-random-variables" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>確率変数の列 <span class="math">\(X_n\)</span> について，各 <span class="math">\(\omega \in \Omega\)</span> について <span class="math">\(X_n(\omega) \rightarrow X(\omega)\)</span> なる収束が考えられるが，他にもバリエーションがある．後々「意味のある」確率積分を定義するためには適切な収束を選ぶ必要が出てくる．</p>
+</div>
 </div>
 
 

@@ -1,3 +1,60 @@
 ======================================================================
 Review of Probability Theory
 ======================================================================
+
+Probability spaces and events
+======================================================================
+
+確率モデルを立てるには以下の3つが必要となる．
+
+- 起こりうる物事全て
+- どのような質問だと，この物事について"yes-no"で答えられるか
+- そのような質問について，それが"yes"である確率
+
+1つ目の点については，そのモデルにおいて起りうる全ての"運命"を集めた集合 :math:`\omega \in \Omega` を作ればよい．
+
+標本空間 :math:`\Omega` を定めると，"yes-no"の質問で答えられる事象は :math:`\Omega` の部分集合であり，この事象を集めたのが :math:`\mathcal{F}` である． :math:`A, B \in \Omega`  であれば"is A or B?"とか"is A and B?"とか"is not A?"のような質問もできるから， :math:`A^{c}, A \cup B, A \cap B \in \Omega` である．
+
+.. glossary::
+   
+   Remark 1.1.17
+      もし :math:`\Omega = \mathbb{R}` に対して :math:`\mathcal{F}` を :math:`\mathbb{R}` のベキ集合とした場合，実は任意の :math:`x \in \mathbb{R}` に対して :math:`P(\{ x\}) = 0` となる確率測度は存在しない
+
+Some elementary properties
+======================================================================
+
+事象の列 :math:`A_n \in \mathcal{F}` に対して"infinitely often"な標本，つまりnを大きくしていくにつれて，その標本が含まれる :math:`A_n` の数も無限大に増えるような標本を以下のように定義する．
+
+
+.. math::
+   :nowrap:
+
+   \begin{align*}
+   \omega \in A_n \quad \text{i.o.} \equiv \omega \in \bigcap_{n \leq 1} \bigcup_{k \leq n} A_k = \lim \sup A_n
+   \end{align*}
+
+
+例えば， :math:`A_n \in \mathcal{F}` において
+
+- 「n=1,2」以外の全てにおいて含まれている，とか
+- n=奇数の全てにおいて含まれている，
+
+といった要素のことである．
+
+Properties of the expectation and inequalities
+======================================================================
+
+.. glossary::
+
+   Proposition1.4.2
+   Chebyshev's inequaltiy
+       任意の :math:`\alpha > 0` について :math:`P(|X| > \alpha) \leq \dfrac{E(|X)}{\alpha}`
+   
+   Jensen's inequality
+       :math:`g(x)` を実数値の凸関数とすると :math:`E(g(X)) \geq g(E(X))`
+
+Jensenの不等式で :math:`g(x) = x^2` とすると :math:`\mathrm{var}(X) = E(X^2) - E(X)^2 \geq 0` が得られる．
+
+Limits of random variables
+======================================================================
+確率変数の列 :math:`X_n` について，各 :math:`\omega \in \Omega` について :math:`X_n(\omega) \rightarrow X(\omega)` なる収束が考えられるが，他にもバリエーションがある．後々「意味のある」確率積分を定義するためには適切な収束を選ぶ必要が出てくる．
