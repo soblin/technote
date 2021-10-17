@@ -4,9 +4,7 @@
 <html class="writer-html4" lang="ja" >
 <head>
   <meta charset="utf-8" />
-  <meta content="Soblin's Technote - ロボットの動作計画に関する論文の感想" name="description" />
-<meta content="control, robotics, mathematics, motion planning, 制御, ロボティクス, 数学, 動作計画" name="keywords" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 <meta name="twitter:card" content="summary" />
@@ -59,9 +57,7 @@
 
     
     <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="Randomized Kinodynamic Planning" href="randomized_kinodynamic_planning.html" />
-    <link rel="prev" title="Example" href="../example/index.html" /> 
+    <link rel="search" title="検索" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -113,18 +109,8 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../example/index.html">Example</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Motion Planning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="randomized_kinodynamic_planning.html">Randomized Kinodynamic Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="informed_rrt_star.html">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lqg_mp.html">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rrt_connect.html">RRT-Connect</a></li>
-<li class="toctree-l2"><a class="reference internal" href="a_star.html">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lqr_tree.html">LQR-Trees: Feedback Motion Planning on Sparse Randomized Trees</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Motion Planning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../control/index.html">Control</a></li>
 </ul>
 <ul>
@@ -177,7 +163,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Motion Planning</li>
+      <li>LQR-Trees: Feedback Motion Planning on Sparse Randomized Trees</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -194,20 +180,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="motion-planning">
-<h1>Motion Planning<a class="headerlink" href="#motion-planning" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>この章ではロボットの動作計画や経路計画に関する論文の読書ノートをまとめている．</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="randomized_kinodynamic_planning.html">Randomized Kinodynamic Planning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rrt_star_original.html">Incremental Sampling-based Algorithms for Optimal Motion Planning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="informed_rrt_star.html">Informed RRT*: Optimal Sampling-based Path Planning via Direct Sampling of an Admissible Ellipsoidal Heuristic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lqg_mp.html">LQG-MP: Optimized Path Planning for Robots with Motion Uncertainty and Imperfect State Information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rrt_connect.html">RRT-Connect</a></li>
-<li class="toctree-l1"><a class="reference internal" href="a_star.html">A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a></li>
-<li class="toctree-l1"><a class="reference internal" href="riemannian_motion_policy.html">Riemannian Motion Policies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lqr_tree.html">LQR-Trees: Feedback Motion Planning on Sparse Randomized Trees</a></li>
+  <div class="section" id="lqr-trees-feedback-motion-planning-on-sparse-randomized-trees">
+<h1><a class="toc-backref" href="#id2">LQR-Trees: Feedback Motion Planning on Sparse Randomized Trees</a><a class="headerlink" href="#lqr-trees-feedback-motion-planning-on-sparse-randomized-trees" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Jonathan D. Gammell, Siddhartha S. Srinivasa, and Timothy D. Barfoot</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Year:</th><td class="field-body">2014</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Accepted:</th><td class="field-body">arXiv:</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Detail:</th><td class="field-body">arXiv:1404.2334v3 [cs.RO] 28 Nov</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#lqr-trees-feedback-motion-planning-on-sparse-randomized-trees" id="id2">LQR-Trees: Feedback Motion Planning on Sparse Randomized Trees</a><ul>
+<li><a class="reference internal" href="#id1" id="id3">概要</a></li>
 </ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id3">概要</a><a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>非線形系を動作点近傍で線形化するというのはよく行われているが，その際にどれくらいの大きさの近傍でその線形化を行ってよいかというのをfunnelで近似する，ということを行っている．具体的には軌道上の各点において(特定の形の)リアプノフ関数が安定になる近傍を求めていくことで軌道沿いのfunnel volumeを求めることができる．</p>
 </div>
 </div>
 
@@ -216,10 +216,6 @@
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="randomized_kinodynamic_planning.html" class="btn btn-neutral float-right" title="Randomized Kinodynamic Planning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../example/index.html" class="btn btn-neutral float-left" title="Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

@@ -20,4 +20,4 @@ Motion Planning
    rrt_connect.rst
    a_star.rst
    riemannian_motion_policy.rst
-
+   lqr_tree.rst

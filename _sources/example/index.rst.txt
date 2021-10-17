@@ -129,3 +129,19 @@ gives
 inner reference
 ======================================================================
 Add link to :ref:`reference_to_level2` (which is labeled ``.. _reference_to_level2`` above) with ``:ref:`reference_to_level2```.
+
+figure
+======================================================================
+Figurer is insreted as follows.
+
+.. code-block:: text
+   
+   .. figure:: /_images/example.png
+      :align: center
+      :width: 100%
+      :alt: example.png
+
+.. figure:: /_images/example.png
+   :align: center
+   :width: 50%
+   :alt: example.png
